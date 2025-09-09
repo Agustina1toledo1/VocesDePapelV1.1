@@ -16,5 +16,10 @@ namespace VocesDePapelV1._1.Views
         {
             InitializeComponent();
         }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
