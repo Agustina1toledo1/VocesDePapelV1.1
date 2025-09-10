@@ -73,9 +73,19 @@ namespace VocesDePapelV1._1.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap libro {
+        internal static System.Drawing.Bitmap lupa {
             get {
-                object obj = ResourceManager.GetObject("libro", resourceCulture);
+                object obj = ResourceManager.GetObject("lupa", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap respaldo {
+            get {
+                object obj = ResourceManager.GetObject("respaldo", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -86,16 +96,6 @@ namespace VocesDePapelV1._1.Properties {
         internal static System.Drawing.Bitmap usuario {
             get {
                 object obj = ResourceManager.GetObject("usuario", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap verificar {
-            get {
-                object obj = ResourceManager.GetObject("verificar", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

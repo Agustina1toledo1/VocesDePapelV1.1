@@ -28,12 +28,94 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "Form1";
+            menu = new MenuStrip();
+            usuarioItemMenu = new ToolStripMenuItem();
+            backupItemMenu = new ToolStripMenuItem();
+            toolStripMenuItem3 = new ToolStripMenuItem();
+            toolStripMenuItem4 = new ToolStripMenuItem();
+            menu.SuspendLayout();
+            SuspendLayout();
+            // 
+            // menu
+            // 
+            menu.AutoSize = false;
+            menu.BackColor = Color.FromArgb(255, 192, 128);
+            menu.ImageScalingSize = new Size(20, 20);
+            menu.Items.AddRange(new ToolStripItem[] { usuarioItemMenu, backupItemMenu, toolStripMenuItem3, toolStripMenuItem4 });
+            menu.Location = new Point(0, 0);
+            menu.Name = "menu";
+            menu.Size = new Size(1349, 90);
+            menu.TabIndex = 0;
+            menu.Text = "menuStrip1";
+            // 
+            // usuarioItemMenu
+            // 
+            usuarioItemMenu.AutoSize = false;
+            usuarioItemMenu.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            usuarioItemMenu.Image = Properties.Resources.usuario;
+            usuarioItemMenu.ImageAlign = ContentAlignment.BottomCenter;
+            usuarioItemMenu.ImageScaling = ToolStripItemImageScaling.None;
+            usuarioItemMenu.Name = "usuarioItemMenu";
+            usuarioItemMenu.Size = new Size(130, 110);
+            usuarioItemMenu.Text = "Usuario";
+            usuarioItemMenu.TextImageRelation = TextImageRelation.ImageAboveText;
+            // 
+            // backupItemMenu
+            // 
+            backupItemMenu.AutoSize = false;
+            backupItemMenu.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            backupItemMenu.Image = Properties.Resources.respaldo;
+            backupItemMenu.ImageAlign = ContentAlignment.BottomCenter;
+            backupItemMenu.ImageScaling = ToolStripItemImageScaling.None;
+            backupItemMenu.Name = "backupItemMenu";
+            backupItemMenu.Size = new Size(130, 110);
+            backupItemMenu.Text = "Backup";
+            backupItemMenu.TextImageRelation = TextImageRelation.ImageAboveText;
+            // 
+            // toolStripMenuItem3
+            // 
+            toolStripMenuItem3.AutoSize = false;
+            toolStripMenuItem3.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            toolStripMenuItem3.Image = Properties.Resources.aumentar;
+            toolStripMenuItem3.ImageAlign = ContentAlignment.BottomCenter;
+            toolStripMenuItem3.ImageScaling = ToolStripItemImageScaling.None;
+            toolStripMenuItem3.Name = "toolStripMenuItem3";
+            toolStripMenuItem3.Size = new Size(150, 110);
+            toolStripMenuItem3.Text = "Reporte Venta";
+            toolStripMenuItem3.TextImageRelation = TextImageRelation.ImageAboveText;
+            // 
+            // toolStripMenuItem4
+            // 
+            toolStripMenuItem4.AutoSize = false;
+            toolStripMenuItem4.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            toolStripMenuItem4.Image = Properties.Resources.aumentar;
+            toolStripMenuItem4.ImageAlign = ContentAlignment.BottomCenter;
+            toolStripMenuItem4.ImageScaling = ToolStripItemImageScaling.None;
+            toolStripMenuItem4.Name = "toolStripMenuItem4";
+            toolStripMenuItem4.Size = new Size(150, 110);
+            toolStripMenuItem4.Text = "Reporte Libro";
+            toolStripMenuItem4.TextImageRelation = TextImageRelation.ImageAboveText;
+            // 
+            // GerenteView
+            // 
+            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(1349, 525);
+            Controls.Add(menu);
+            MainMenuStrip = menu;
+            Name = "GerenteView";
+            Text = "Form1";
+            menu.ResumeLayout(false);
+            menu.PerformLayout();
+            ResumeLayout(false);
         }
 
         #endregion
+
+        private MenuStrip menu;
+        private ToolStripMenuItem usuarioItemMenu;
+        private ToolStripMenuItem backupItemMenu;
+        private ToolStripMenuItem toolStripMenuItem3;
+        private ToolStripMenuItem toolStripMenuItem4;
     }
 }
