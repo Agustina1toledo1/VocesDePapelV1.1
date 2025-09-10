@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             l_detalle_producto = new Label();
             btn_eliminar_usuario = new Button();
             btn_modificar_usuario = new Button();
@@ -53,17 +53,15 @@
             l_buscar_producto = new Label();
             l_lista_productos = new Label();
             dataGridView1 = new DataGridView();
-            btn_seleccionar = new DataGridViewButtonColumn();
-            id_usuario = new DataGridViewTextBoxColumn();
-            nombre = new DataGridViewTextBoxColumn();
-            apellido = new DataGridViewTextBoxColumn();
-            Contraseña = new DataGridViewTextBoxColumn();
-            cuit = new DataGridViewTextBoxColumn();
-            id_rol = new DataGridViewTextBoxColumn();
-            rol = new DataGridViewTextBoxColumn();
-            Estado = new DataGridViewTextBoxColumn();
-            estado_valor = new DataGridViewTextBoxColumn();
             btn_agregar_autor = new Button();
+            btn_seleccionar = new DataGridViewButtonColumn();
+            titulo = new DataGridViewTextBoxColumn();
+            editorial = new DataGridViewTextBoxColumn();
+            id_libro = new DataGridViewTextBoxColumn();
+            precio = new DataGridViewTextBoxColumn();
+            stock = new DataGridViewTextBoxColumn();
+            estado = new DataGridViewTextBoxColumn();
+            categoria = new DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -292,111 +290,27 @@
             // dataGridView1
             // 
             dataGridView1.AllowUserToAddRows = false;
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = SystemColors.Control;
-            dataGridViewCellStyle3.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle3.Padding = new Padding(2);
-            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
-            dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.Padding = new Padding(2);
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { btn_seleccionar, id_usuario, nombre, apellido, Contraseña, cuit, id_rol, rol, Estado, estado_valor });
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { btn_seleccionar, titulo, editorial, id_libro, precio, stock, estado, categoria });
             dataGridView1.Location = new Point(415, 142);
             dataGridView1.MultiSelect = false;
             dataGridView1.Name = "dataGridView1";
             dataGridView1.ReadOnly = true;
             dataGridView1.RowHeadersWidth = 51;
-            dataGridViewCellStyle4.SelectionBackColor = Color.White;
-            dataGridViewCellStyle4.SelectionForeColor = Color.Black;
-            dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.SelectionBackColor = Color.White;
+            dataGridViewCellStyle2.SelectionForeColor = Color.Black;
+            dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle2;
             dataGridView1.Size = new Size(903, 564);
             dataGridView1.TabIndex = 38;
-            // 
-            // btn_seleccionar
-            // 
-            btn_seleccionar.HeaderText = "";
-            btn_seleccionar.MinimumWidth = 6;
-            btn_seleccionar.Name = "btn_seleccionar";
-            btn_seleccionar.ReadOnly = true;
-            btn_seleccionar.Width = 30;
-            // 
-            // id_usuario
-            // 
-            id_usuario.HeaderText = "id_usuario";
-            id_usuario.MinimumWidth = 6;
-            id_usuario.Name = "id_usuario";
-            id_usuario.ReadOnly = true;
-            id_usuario.Visible = false;
-            id_usuario.Width = 125;
-            // 
-            // nombre
-            // 
-            nombre.HeaderText = "Nombre";
-            nombre.MinimumWidth = 6;
-            nombre.Name = "nombre";
-            nombre.ReadOnly = true;
-            nombre.Width = 150;
-            // 
-            // apellido
-            // 
-            apellido.HeaderText = "Apellido";
-            apellido.MinimumWidth = 6;
-            apellido.Name = "apellido";
-            apellido.ReadOnly = true;
-            apellido.Width = 150;
-            // 
-            // Contraseña
-            // 
-            Contraseña.HeaderText = "Contraseña";
-            Contraseña.MinimumWidth = 6;
-            Contraseña.Name = "Contraseña";
-            Contraseña.ReadOnly = true;
-            Contraseña.Visible = false;
-            Contraseña.Width = 125;
-            // 
-            // cuit
-            // 
-            cuit.HeaderText = "CUIT";
-            cuit.MinimumWidth = 6;
-            cuit.Name = "cuit";
-            cuit.ReadOnly = true;
-            cuit.Width = 125;
-            // 
-            // id_rol
-            // 
-            id_rol.HeaderText = "id_rol";
-            id_rol.MinimumWidth = 6;
-            id_rol.Name = "id_rol";
-            id_rol.ReadOnly = true;
-            id_rol.Visible = false;
-            id_rol.Width = 125;
-            // 
-            // rol
-            // 
-            rol.HeaderText = "Rol";
-            rol.MinimumWidth = 6;
-            rol.Name = "rol";
-            rol.ReadOnly = true;
-            rol.Width = 125;
-            // 
-            // Estado
-            // 
-            Estado.HeaderText = "Estado";
-            Estado.MinimumWidth = 6;
-            Estado.Name = "Estado";
-            Estado.ReadOnly = true;
-            Estado.Width = 125;
-            // 
-            // estado_valor
-            // 
-            estado_valor.HeaderText = "Estado valor";
-            estado_valor.MinimumWidth = 6;
-            estado_valor.Name = "estado_valor";
-            estado_valor.ReadOnly = true;
-            estado_valor.Visible = false;
-            estado_valor.Width = 125;
             // 
             // btn_agregar_autor
             // 
@@ -408,6 +322,71 @@
             btn_agregar_autor.TabIndex = 44;
             btn_agregar_autor.Text = "Agregar autor";
             btn_agregar_autor.UseVisualStyleBackColor = false;
+            // 
+            // btn_seleccionar
+            // 
+            btn_seleccionar.HeaderText = "";
+            btn_seleccionar.MinimumWidth = 6;
+            btn_seleccionar.Name = "btn_seleccionar";
+            btn_seleccionar.ReadOnly = true;
+            btn_seleccionar.Width = 30;
+            // 
+            // titulo
+            // 
+            titulo.HeaderText = "Título";
+            titulo.MinimumWidth = 6;
+            titulo.Name = "titulo";
+            titulo.ReadOnly = true;
+            titulo.Width = 125;
+            // 
+            // editorial
+            // 
+            editorial.HeaderText = "Editorial";
+            editorial.MinimumWidth = 6;
+            editorial.Name = "editorial";
+            editorial.ReadOnly = true;
+            editorial.Width = 125;
+            // 
+            // id_libro
+            // 
+            id_libro.HeaderText = "id_libro";
+            id_libro.MinimumWidth = 6;
+            id_libro.Name = "id_libro";
+            id_libro.ReadOnly = true;
+            id_libro.Visible = false;
+            id_libro.Width = 125;
+            // 
+            // precio
+            // 
+            precio.HeaderText = "Precio";
+            precio.MinimumWidth = 6;
+            precio.Name = "precio";
+            precio.ReadOnly = true;
+            precio.Width = 125;
+            // 
+            // stock
+            // 
+            stock.HeaderText = "Stock";
+            stock.MinimumWidth = 6;
+            stock.Name = "stock";
+            stock.ReadOnly = true;
+            stock.Width = 125;
+            // 
+            // estado
+            // 
+            estado.HeaderText = "Estado";
+            estado.MinimumWidth = 6;
+            estado.Name = "estado";
+            estado.ReadOnly = true;
+            estado.Width = 125;
+            // 
+            // categoria
+            // 
+            categoria.HeaderText = "Categoria";
+            categoria.MinimumWidth = 6;
+            categoria.Name = "categoria";
+            categoria.ReadOnly = true;
+            categoria.Width = 125;
             // 
             // AdministradorViewProducto
             // 
@@ -473,16 +452,14 @@
         private Label l_buscar_producto;
         private Label l_lista_productos;
         private DataGridView dataGridView1;
-        private DataGridViewButtonColumn btn_seleccionar;
-        private DataGridViewTextBoxColumn id_usuario;
-        private DataGridViewTextBoxColumn nombre;
-        private DataGridViewTextBoxColumn apellido;
-        private DataGridViewTextBoxColumn Contraseña;
-        private DataGridViewTextBoxColumn cuit;
-        private DataGridViewTextBoxColumn id_rol;
-        private DataGridViewTextBoxColumn rol;
-        private DataGridViewTextBoxColumn Estado;
-        private DataGridViewTextBoxColumn estado_valor;
         private Button btn_agregar_autor;
+        private DataGridViewButtonColumn btn_seleccionar;
+        private DataGridViewTextBoxColumn titulo;
+        private DataGridViewTextBoxColumn editorial;
+        private DataGridViewTextBoxColumn id_libro;
+        private DataGridViewTextBoxColumn precio;
+        private DataGridViewTextBoxColumn stock;
+        private DataGridViewTextBoxColumn estado;
+        private DataGridViewTextBoxColumn categoria;
     }
 }
