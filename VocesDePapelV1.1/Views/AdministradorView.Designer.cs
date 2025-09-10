@@ -33,7 +33,7 @@
             reporte_venta_item_menu_admin = new ToolStripMenuItem();
             reporte_libro_item_menu_admin = new ToolStripMenuItem();
             autor_item_menu_admin = new ToolStripMenuItem();
-            toolStripMenuItem1 = new ToolStripMenuItem();
+            categorias_menu_item_admin = new ToolStripMenuItem();
             menu.SuspendLayout();
             SuspendLayout();
             // 
@@ -42,7 +42,7 @@
             menu.AutoSize = false;
             menu.BackColor = Color.FromArgb(255, 192, 128);
             menu.ImageScalingSize = new Size(20, 20);
-            menu.Items.AddRange(new ToolStripItem[] { producto_item_menu_admin, reporte_venta_item_menu_admin, reporte_libro_item_menu_admin, autor_item_menu_admin, toolStripMenuItem1 });
+            menu.Items.AddRange(new ToolStripItem[] { producto_item_menu_admin, reporte_venta_item_menu_admin, reporte_libro_item_menu_admin, autor_item_menu_admin, categorias_menu_item_admin });
             menu.Location = new Point(0, 0);
             menu.Name = "menu";
             menu.Size = new Size(1256, 90);
@@ -57,7 +57,7 @@
             producto_item_menu_admin.ImageScaling = ToolStripItemImageScaling.None;
             producto_item_menu_admin.Name = "producto_item_menu_admin";
             producto_item_menu_admin.Size = new Size(130, 110);
-            producto_item_menu_admin.Text = "Producto";
+            producto_item_menu_admin.Text = "Productos";
             producto_item_menu_admin.TextImageRelation = TextImageRelation.ImageAboveText;
             // 
             // reporte_venta_item_menu_admin
@@ -89,20 +89,20 @@
             autor_item_menu_admin.ImageAlign = ContentAlignment.BottomCenter;
             autor_item_menu_admin.ImageScaling = ToolStripItemImageScaling.None;
             autor_item_menu_admin.Name = "autor_item_menu_admin";
-            autor_item_menu_admin.Size = new Size(180, 110);
-            autor_item_menu_admin.Text = "Agregar Autor";
+            autor_item_menu_admin.Size = new Size(130, 110);
+            autor_item_menu_admin.Text = "Autores";
             autor_item_menu_admin.TextImageRelation = TextImageRelation.ImageAboveText;
             // 
-            // toolStripMenuItem1
+            // categorias_menu_item_admin
             // 
-            toolStripMenuItem1.AutoSize = false;
-            toolStripMenuItem1.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            toolStripMenuItem1.ImageAlign = ContentAlignment.BottomCenter;
-            toolStripMenuItem1.ImageScaling = ToolStripItemImageScaling.None;
-            toolStripMenuItem1.Name = "toolStripMenuItem1";
-            toolStripMenuItem1.Size = new Size(200, 110);
-            toolStripMenuItem1.Text = "Agregar Categoria";
-            toolStripMenuItem1.TextImageRelation = TextImageRelation.ImageAboveText;
+            categorias_menu_item_admin.AutoSize = false;
+            categorias_menu_item_admin.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            categorias_menu_item_admin.ImageAlign = ContentAlignment.BottomCenter;
+            categorias_menu_item_admin.ImageScaling = ToolStripItemImageScaling.None;
+            categorias_menu_item_admin.Name = "categorias_menu_item_admin";
+            categorias_menu_item_admin.Size = new Size(130, 110);
+            categorias_menu_item_admin.Text = "Categorias";
+            categorias_menu_item_admin.TextImageRelation = TextImageRelation.ImageAboveText;
             // 
             // AdministradorView
             // 
@@ -124,6 +124,6 @@
         private ToolStripMenuItem reporte_venta_item_menu_admin;
         private ToolStripMenuItem reporte_libro_item_menu_admin;
         private ToolStripMenuItem autor_item_menu_admin;
-        private ToolStripMenuItem toolStripMenuItem1;
+        private ToolStripMenuItem categorias_menu_item_admin;
     }
 }
