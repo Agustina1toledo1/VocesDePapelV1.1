@@ -32,6 +32,8 @@
             producto_item_menu_admin = new ToolStripMenuItem();
             reporte_venta_item_menu_admin = new ToolStripMenuItem();
             reporte_libro_item_menu_admin = new ToolStripMenuItem();
+            autor_item_menu_admin = new ToolStripMenuItem();
+            toolStripMenuItem1 = new ToolStripMenuItem();
             menu.SuspendLayout();
             SuspendLayout();
             // 
@@ -40,7 +42,7 @@
             menu.AutoSize = false;
             menu.BackColor = Color.FromArgb(255, 192, 128);
             menu.ImageScalingSize = new Size(20, 20);
-            menu.Items.AddRange(new ToolStripItem[] { producto_item_menu_admin, reporte_venta_item_menu_admin, reporte_libro_item_menu_admin });
+            menu.Items.AddRange(new ToolStripItem[] { producto_item_menu_admin, reporte_venta_item_menu_admin, reporte_libro_item_menu_admin, autor_item_menu_admin, toolStripMenuItem1 });
             menu.Location = new Point(0, 0);
             menu.Name = "menu";
             menu.Size = new Size(1256, 90);
@@ -80,6 +82,28 @@
             reporte_libro_item_menu_admin.Text = "Reporte Libro";
             reporte_libro_item_menu_admin.TextImageRelation = TextImageRelation.ImageAboveText;
             // 
+            // autor_item_menu_admin
+            // 
+            autor_item_menu_admin.AutoSize = false;
+            autor_item_menu_admin.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            autor_item_menu_admin.ImageAlign = ContentAlignment.BottomCenter;
+            autor_item_menu_admin.ImageScaling = ToolStripItemImageScaling.None;
+            autor_item_menu_admin.Name = "autor_item_menu_admin";
+            autor_item_menu_admin.Size = new Size(180, 110);
+            autor_item_menu_admin.Text = "Agregar Autor";
+            autor_item_menu_admin.TextImageRelation = TextImageRelation.ImageAboveText;
+            // 
+            // toolStripMenuItem1
+            // 
+            toolStripMenuItem1.AutoSize = false;
+            toolStripMenuItem1.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            toolStripMenuItem1.ImageAlign = ContentAlignment.BottomCenter;
+            toolStripMenuItem1.ImageScaling = ToolStripItemImageScaling.None;
+            toolStripMenuItem1.Name = "toolStripMenuItem1";
+            toolStripMenuItem1.Size = new Size(200, 110);
+            toolStripMenuItem1.Text = "Agregar Categoria";
+            toolStripMenuItem1.TextImageRelation = TextImageRelation.ImageAboveText;
+            // 
             // AdministradorView
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -99,5 +123,7 @@
         private ToolStripMenuItem producto_item_menu_admin;
         private ToolStripMenuItem reporte_venta_item_menu_admin;
         private ToolStripMenuItem reporte_libro_item_menu_admin;
+        private ToolStripMenuItem autor_item_menu_admin;
+        private ToolStripMenuItem toolStripMenuItem1;
     }
 }
