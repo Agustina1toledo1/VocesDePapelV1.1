@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace VocesDePapelV1._1.Views
 {
-    public partial class vendedor : Form
+    public partial class Vendedor : Form
     {
-        public vendedor()
+        public Vendedor()
         {
             InitializeComponent();
         }

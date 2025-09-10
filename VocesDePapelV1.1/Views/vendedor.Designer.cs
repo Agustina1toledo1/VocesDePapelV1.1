@@ -1,6 +1,6 @@
 ﻿namespace VocesDePapelV1._1.Views
 {
-    partial class vendedor
+    partial class Vendedor
     {
         /// <summary>
         /// Required designer variable.
