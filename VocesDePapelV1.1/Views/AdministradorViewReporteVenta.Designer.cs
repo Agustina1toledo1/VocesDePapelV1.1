@@ -40,14 +40,6 @@
             cmb_estado_categoria = new ComboBox();
             btn_guardar_usuario = new Button();
             dataGridView1 = new DataGridView();
-            btn_seleccionar = new DataGridViewButtonColumn();
-            titulo = new DataGridViewTextBoxColumn();
-            editorial = new DataGridViewTextBoxColumn();
-            id_libro = new DataGridViewTextBoxColumn();
-            precio = new DataGridViewTextBoxColumn();
-            stock = new DataGridViewTextBoxColumn();
-            estado = new DataGridViewTextBoxColumn();
-            categoria = new DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -154,7 +146,6 @@
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
             dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { btn_seleccionar, titulo, editorial, id_libro, precio, stock, estado, categoria });
             dataGridView1.Location = new Point(219, 124);
             dataGridView1.MultiSelect = false;
             dataGridView1.Name = "dataGridView1";
@@ -165,71 +156,6 @@
             dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle2;
             dataGridView1.Size = new Size(903, 564);
             dataGridView1.TabIndex = 62;
-            // 
-            // btn_seleccionar
-            // 
-            btn_seleccionar.HeaderText = "";
-            btn_seleccionar.MinimumWidth = 6;
-            btn_seleccionar.Name = "btn_seleccionar";
-            btn_seleccionar.ReadOnly = true;
-            btn_seleccionar.Width = 30;
-            // 
-            // titulo
-            // 
-            titulo.HeaderText = "Título";
-            titulo.MinimumWidth = 6;
-            titulo.Name = "titulo";
-            titulo.ReadOnly = true;
-            titulo.Width = 125;
-            // 
-            // editorial
-            // 
-            editorial.HeaderText = "Editorial";
-            editorial.MinimumWidth = 6;
-            editorial.Name = "editorial";
-            editorial.ReadOnly = true;
-            editorial.Width = 125;
-            // 
-            // id_libro
-            // 
-            id_libro.HeaderText = "id_libro";
-            id_libro.MinimumWidth = 6;
-            id_libro.Name = "id_libro";
-            id_libro.ReadOnly = true;
-            id_libro.Visible = false;
-            id_libro.Width = 125;
-            // 
-            // precio
-            // 
-            precio.HeaderText = "Precio";
-            precio.MinimumWidth = 6;
-            precio.Name = "precio";
-            precio.ReadOnly = true;
-            precio.Width = 125;
-            // 
-            // stock
-            // 
-            stock.HeaderText = "Stock";
-            stock.MinimumWidth = 6;
-            stock.Name = "stock";
-            stock.ReadOnly = true;
-            stock.Width = 125;
-            // 
-            // estado
-            // 
-            estado.HeaderText = "Estado";
-            estado.MinimumWidth = 6;
-            estado.Name = "estado";
-            estado.ReadOnly = true;
-            estado.Width = 125;
-            // 
-            // categoria
-            // 
-            categoria.HeaderText = "Categoria";
-            categoria.MinimumWidth = 6;
-            categoria.Name = "categoria";
-            categoria.ReadOnly = true;
-            categoria.Width = 125;
             // 
             // AdministradorViewReporteVenta
             // 
@@ -266,13 +192,5 @@
         private ComboBox cmb_estado_categoria;
         private Button btn_guardar_usuario;
         private DataGridView dataGridView1;
-        private DataGridViewButtonColumn btn_seleccionar;
-        private DataGridViewTextBoxColumn titulo;
-        private DataGridViewTextBoxColumn editorial;
-        private DataGridViewTextBoxColumn id_libro;
-        private DataGridViewTextBoxColumn precio;
-        private DataGridViewTextBoxColumn stock;
-        private DataGridViewTextBoxColumn estado;
-        private DataGridViewTextBoxColumn categoria;
     }
 }
