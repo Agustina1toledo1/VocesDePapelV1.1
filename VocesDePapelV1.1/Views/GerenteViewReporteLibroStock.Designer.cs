@@ -82,11 +82,11 @@
             label5.AutoSize = true;
             label5.BackColor = Color.White;
             label5.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label5.Location = new Point(543, 28);
+            label5.Location = new Point(466, 33);
             label5.Name = "label5";
-            label5.Size = new Size(107, 31);
+            label5.Size = new Size(175, 31);
             label5.TabIndex = 76;
-            label5.Text = "Cantidad";
+            label5.Text = "Menor o igual a";
             // 
             // text_cantidad_libro_reporte_gerente
             // 

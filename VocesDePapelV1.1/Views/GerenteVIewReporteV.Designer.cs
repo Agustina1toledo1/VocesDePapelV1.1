@@ -137,9 +137,9 @@
             label2.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label2.Location = new Point(26, 26);
             label2.Name = "label2";
-            label2.Size = new Size(216, 38);
+            label2.Size = new Size(256, 38);
             label2.TabIndex = 70;
-            label2.Text = "Reporte Ventas";
+            label2.Text = "Reporte de Ventas";
             // 
             // dataGridView1
             // 
