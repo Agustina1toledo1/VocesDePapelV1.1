@@ -34,6 +34,8 @@
             reporte_libro_item_menu_admin = new ToolStripMenuItem();
             autor_item_menu_admin = new ToolStripMenuItem();
             categorias_menu_item_admin = new ToolStripMenuItem();
+            stockToolStripMenuItem = new ToolStripMenuItem();
+            másVendidosToolStripMenuItem = new ToolStripMenuItem();
             menu.SuspendLayout();
             SuspendLayout();
             // 
@@ -76,6 +78,7 @@
             // reporte_libro_item_menu_admin
             // 
             reporte_libro_item_menu_admin.AutoSize = false;
+            reporte_libro_item_menu_admin.DropDownItems.AddRange(new ToolStripItem[] { stockToolStripMenuItem, másVendidosToolStripMenuItem });
             reporte_libro_item_menu_admin.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             reporte_libro_item_menu_admin.Image = Properties.Resources.aumentar;
             reporte_libro_item_menu_admin.ImageAlign = ContentAlignment.BottomCenter;
@@ -108,6 +111,18 @@
             categorias_menu_item_admin.Text = "Categorias";
             categorias_menu_item_admin.TextImageRelation = TextImageRelation.ImageAboveText;
             // 
+            // stockToolStripMenuItem
+            // 
+            stockToolStripMenuItem.Name = "stockToolStripMenuItem";
+            stockToolStripMenuItem.Size = new Size(244, 36);
+            stockToolStripMenuItem.Text = "Stock";
+            // 
+            // másVendidosToolStripMenuItem
+            // 
+            másVendidosToolStripMenuItem.Name = "másVendidosToolStripMenuItem";
+            másVendidosToolStripMenuItem.Size = new Size(244, 36);
+            másVendidosToolStripMenuItem.Text = "Más vendidos";
+            // 
             // AdministradorView
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -129,5 +144,7 @@
         private ToolStripMenuItem reporte_libro_item_menu_admin;
         private ToolStripMenuItem autor_item_menu_admin;
         private ToolStripMenuItem categorias_menu_item_admin;
+        private ToolStripMenuItem stockToolStripMenuItem;
+        private ToolStripMenuItem másVendidosToolStripMenuItem;
     }
 }

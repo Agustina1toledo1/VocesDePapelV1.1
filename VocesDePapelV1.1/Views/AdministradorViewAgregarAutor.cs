@@ -10,11 +10,16 @@ using System.Windows.Forms;
 
 namespace VocesDePapelV1._1.Views
 {
-    public partial class AdministradorViewReporteVenta : Form
+    public partial class AdministradorViewAgregarAutor : Form
     {
-        public AdministradorViewReporteVenta()
+        public AdministradorViewAgregarAutor()
         {
             InitializeComponent();
+        }
+
+        private void btn_buscar_producto_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
