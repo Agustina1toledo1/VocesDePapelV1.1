@@ -53,6 +53,7 @@
             // 
             producto_item_menu_admin.AutoSize = false;
             producto_item_menu_admin.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            producto_item_menu_admin.Image = Properties.Resources.libro;
             producto_item_menu_admin.ImageAlign = ContentAlignment.BottomCenter;
             producto_item_menu_admin.ImageScaling = ToolStripItemImageScaling.None;
             producto_item_menu_admin.Name = "producto_item_menu_admin";
