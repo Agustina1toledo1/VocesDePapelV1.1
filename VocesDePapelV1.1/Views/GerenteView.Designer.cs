@@ -33,6 +33,8 @@
             backupItemMenu = new ToolStripMenuItem();
             toolStripMenuItem3 = new ToolStripMenuItem();
             toolStripMenuItem4 = new ToolStripMenuItem();
+            pocoStockToolStripMenuItem = new ToolStripMenuItem();
+            másVendidosToolStripMenuItem = new ToolStripMenuItem();
             menu.SuspendLayout();
             SuspendLayout();
             // 
@@ -87,6 +89,7 @@
             // toolStripMenuItem4
             // 
             toolStripMenuItem4.AutoSize = false;
+            toolStripMenuItem4.DropDownItems.AddRange(new ToolStripItem[] { pocoStockToolStripMenuItem, másVendidosToolStripMenuItem });
             toolStripMenuItem4.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             toolStripMenuItem4.Image = Properties.Resources.aumentar;
             toolStripMenuItem4.ImageAlign = ContentAlignment.BottomCenter;
@@ -95,6 +98,18 @@
             toolStripMenuItem4.Size = new Size(150, 110);
             toolStripMenuItem4.Text = "Reporte Libro";
             toolStripMenuItem4.TextImageRelation = TextImageRelation.ImageAboveText;
+            // 
+            // pocoStockToolStripMenuItem
+            // 
+            pocoStockToolStripMenuItem.Name = "pocoStockToolStripMenuItem";
+            pocoStockToolStripMenuItem.Size = new Size(244, 36);
+            pocoStockToolStripMenuItem.Text = "Stock";
+            // 
+            // másVendidosToolStripMenuItem
+            // 
+            másVendidosToolStripMenuItem.Name = "másVendidosToolStripMenuItem";
+            másVendidosToolStripMenuItem.Size = new Size(244, 36);
+            másVendidosToolStripMenuItem.Text = "Más vendidos";
             // 
             // GerenteView
             // 
@@ -117,5 +132,7 @@
         private ToolStripMenuItem backupItemMenu;
         private ToolStripMenuItem toolStripMenuItem3;
         private ToolStripMenuItem toolStripMenuItem4;
+        private ToolStripMenuItem pocoStockToolStripMenuItem;
+        private ToolStripMenuItem másVendidosToolStripMenuItem;
     }
 }
