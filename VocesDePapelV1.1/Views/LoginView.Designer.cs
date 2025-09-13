@@ -92,22 +92,28 @@
             // 
             btn_cancelar_login.BackColor = Color.FromArgb(255, 128, 128);
             btn_cancelar_login.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btn_cancelar_login.Image = Properties.Resources.boton_eliminar;
             btn_cancelar_login.Location = new Point(58, 280);
             btn_cancelar_login.Name = "btn_cancelar_login";
             btn_cancelar_login.Size = new Size(316, 43);
             btn_cancelar_login.TabIndex = 38;
             btn_cancelar_login.Text = "Cancelar";
+            btn_cancelar_login.TextAlign = ContentAlignment.MiddleRight;
+            btn_cancelar_login.TextImageRelation = TextImageRelation.ImageBeforeText;
             btn_cancelar_login.UseVisualStyleBackColor = false;
             // 
             // btn_ingresar_login
             // 
             btn_ingresar_login.BackColor = SystemColors.GradientActiveCaption;
             btn_ingresar_login.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btn_ingresar_login.Image = Properties.Resources.salida;
+            btn_ingresar_login.ImageAlign = ContentAlignment.MiddleRight;
             btn_ingresar_login.Location = new Point(58, 218);
             btn_ingresar_login.Name = "btn_ingresar_login";
             btn_ingresar_login.Size = new Size(316, 43);
             btn_ingresar_login.TabIndex = 37;
             btn_ingresar_login.Text = "Ingresar";
+            btn_ingresar_login.TextImageRelation = TextImageRelation.ImageBeforeText;
             btn_ingresar_login.UseVisualStyleBackColor = false;
             // 
             // LoginView
