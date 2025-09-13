@@ -104,6 +104,7 @@
             // 
             categorias_menu_item_admin.AutoSize = false;
             categorias_menu_item_admin.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            categorias_menu_item_admin.Image = Properties.Resources.categoria;
             categorias_menu_item_admin.ImageAlign = ContentAlignment.BottomCenter;
             categorias_menu_item_admin.ImageScaling = ToolStripItemImageScaling.None;
             categorias_menu_item_admin.Name = "categorias_menu_item_admin";

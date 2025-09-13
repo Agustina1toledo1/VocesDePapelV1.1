@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             l_detalle_categoria = new Label();
             btn_eliminar_autor = new Button();
             btn_modificar_autor = new Button();
@@ -39,10 +39,10 @@
             label1 = new Label();
             cmb_agregar_autor = new ComboBox();
             l_autor_agregar_autor = new Label();
-            btn_buscar_producto = new Button();
-            text_buscar_producto = new TextBox();
-            cmb_buscar_por_producto = new ComboBox();
-            l_buscar_producto = new Label();
+            btn_buscar_producto_agregar_autor = new Button();
+            text_buscar_producto_agregar_autor = new TextBox();
+            cmb_buscar_por_producto_agregar_autor = new ComboBox();
+            l_buscar_producto_agregar_autor = new Label();
             l_lista_productos = new Label();
             dataGridView1 = new DataGridView();
             btn_seleccionar = new DataGridViewButtonColumn();
@@ -150,49 +150,49 @@
             l_autor_agregar_autor.TabIndex = 73;
             l_autor_agregar_autor.Text = "Estado";
             // 
-            // btn_buscar_producto
+            // btn_buscar_producto_agregar_autor
             // 
-            btn_buscar_producto.BackColor = SystemColors.GradientActiveCaption;
-            btn_buscar_producto.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btn_buscar_producto.Image = Properties.Resources.lupa;
-            btn_buscar_producto.Location = new Point(1260, 53);
-            btn_buscar_producto.Name = "btn_buscar_producto";
-            btn_buscar_producto.Size = new Size(66, 43);
-            btn_buscar_producto.TabIndex = 79;
-            btn_buscar_producto.UseVisualStyleBackColor = false;
-            btn_buscar_producto.Click += btn_buscar_producto_Click;
+            btn_buscar_producto_agregar_autor.BackColor = SystemColors.GradientActiveCaption;
+            btn_buscar_producto_agregar_autor.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btn_buscar_producto_agregar_autor.Image = Properties.Resources.lupa;
+            btn_buscar_producto_agregar_autor.Location = new Point(1260, 53);
+            btn_buscar_producto_agregar_autor.Name = "btn_buscar_producto_agregar_autor";
+            btn_buscar_producto_agregar_autor.Size = new Size(66, 43);
+            btn_buscar_producto_agregar_autor.TabIndex = 79;
+            btn_buscar_producto_agregar_autor.UseVisualStyleBackColor = false;
+            btn_buscar_producto_agregar_autor.Click += btn_buscar_producto_Click;
             // 
-            // text_buscar_producto
+            // text_buscar_producto_agregar_autor
             // 
-            text_buscar_producto.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            text_buscar_producto.Location = new Point(989, 57);
-            text_buscar_producto.Name = "text_buscar_producto";
-            text_buscar_producto.Size = new Size(269, 31);
-            text_buscar_producto.TabIndex = 78;
-            text_buscar_producto.TextChanged += this.text_buscar_producto_TextChanged;
+            text_buscar_producto_agregar_autor.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            text_buscar_producto_agregar_autor.Location = new Point(989, 57);
+            text_buscar_producto_agregar_autor.Name = "text_buscar_producto_agregar_autor";
+            text_buscar_producto_agregar_autor.Size = new Size(269, 31);
+            text_buscar_producto_agregar_autor.TabIndex = 78;
+            text_buscar_producto_agregar_autor.TextChanged += this.text_buscar_producto_TextChanged;
             // 
-            // cmb_buscar_por_producto
+            // cmb_buscar_por_producto_agregar_autor
             // 
-            cmb_buscar_por_producto.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmb_buscar_por_producto.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            cmb_buscar_por_producto.FormattingEnabled = true;
-            cmb_buscar_por_producto.Location = new Point(825, 55);
-            cmb_buscar_por_producto.Name = "cmb_buscar_por_producto";
-            cmb_buscar_por_producto.Size = new Size(158, 33);
-            cmb_buscar_por_producto.TabIndex = 77;
-            cmb_buscar_por_producto.SelectedIndexChanged += this.cmb_buscar_por_producto_SelectedIndexChanged;
+            cmb_buscar_por_producto_agregar_autor.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmb_buscar_por_producto_agregar_autor.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            cmb_buscar_por_producto_agregar_autor.FormattingEnabled = true;
+            cmb_buscar_por_producto_agregar_autor.Location = new Point(825, 55);
+            cmb_buscar_por_producto_agregar_autor.Name = "cmb_buscar_por_producto_agregar_autor";
+            cmb_buscar_por_producto_agregar_autor.Size = new Size(158, 33);
+            cmb_buscar_por_producto_agregar_autor.TabIndex = 77;
+            cmb_buscar_por_producto_agregar_autor.SelectedIndexChanged += this.cmb_buscar_por_producto_SelectedIndexChanged;
             // 
-            // l_buscar_producto
+            // l_buscar_producto_agregar_autor
             // 
-            l_buscar_producto.AutoSize = true;
-            l_buscar_producto.BackColor = Color.White;
-            l_buscar_producto.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            l_buscar_producto.Location = new Point(715, 61);
-            l_buscar_producto.Name = "l_buscar_producto";
-            l_buscar_producto.Size = new Size(96, 25);
-            l_buscar_producto.TabIndex = 76;
-            l_buscar_producto.Text = "Buscar por";
-            l_buscar_producto.Click += this.l_buscar_producto_Click;
+            l_buscar_producto_agregar_autor.AutoSize = true;
+            l_buscar_producto_agregar_autor.BackColor = Color.White;
+            l_buscar_producto_agregar_autor.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            l_buscar_producto_agregar_autor.Location = new Point(715, 61);
+            l_buscar_producto_agregar_autor.Name = "l_buscar_producto_agregar_autor";
+            l_buscar_producto_agregar_autor.Size = new Size(96, 25);
+            l_buscar_producto_agregar_autor.TabIndex = 76;
+            l_buscar_producto_agregar_autor.Text = "Buscar por";
+            l_buscar_producto_agregar_autor.Click += this.l_buscar_producto_Click;
             // 
             // l_lista_productos
             // 
@@ -209,15 +209,15 @@
             // dataGridView1
             // 
             dataGridView1.AllowUserToAddRows = false;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = SystemColors.Control;
-            dataGridViewCellStyle1.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle1.Padding = new Padding(2);
-            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = SystemColors.Control;
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle3.Padding = new Padding(2);
+            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Columns.AddRange(new DataGridViewColumn[] { btn_seleccionar, titulo, editorial, id_libro, precio, stock, estado, categoria });
             dataGridView1.Location = new Point(423, 124);
@@ -225,9 +225,9 @@
             dataGridView1.Name = "dataGridView1";
             dataGridView1.ReadOnly = true;
             dataGridView1.RowHeadersWidth = 51;
-            dataGridViewCellStyle2.SelectionBackColor = Color.White;
-            dataGridViewCellStyle2.SelectionForeColor = Color.Black;
-            dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.SelectionBackColor = Color.White;
+            dataGridViewCellStyle4.SelectionForeColor = Color.Black;
+            dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle4;
             dataGridView1.Size = new Size(903, 331);
             dataGridView1.TabIndex = 80;
             // 
@@ -302,10 +302,10 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1340, 485);
             Controls.Add(dataGridView1);
-            Controls.Add(btn_buscar_producto);
-            Controls.Add(text_buscar_producto);
-            Controls.Add(cmb_buscar_por_producto);
-            Controls.Add(l_buscar_producto);
+            Controls.Add(btn_buscar_producto_agregar_autor);
+            Controls.Add(text_buscar_producto_agregar_autor);
+            Controls.Add(cmb_buscar_por_producto_agregar_autor);
+            Controls.Add(l_buscar_producto_agregar_autor);
             Controls.Add(l_lista_productos);
             Controls.Add(cmb_agregar_autor);
             Controls.Add(l_autor_agregar_autor);
@@ -334,10 +334,10 @@
         private Label label1;
         private ComboBox cmb_agregar_autor;
         private Label l_autor_agregar_autor;
-        private Button btn_buscar_producto;
-        private TextBox text_buscar_producto;
-        private ComboBox cmb_buscar_por_producto;
-        private Label l_buscar_producto;
+        private Button btn_buscar_producto_agregar_autor;
+        private TextBox text_buscar_producto_agregar_autor;
+        private ComboBox cmb_buscar_por_producto_agregar_autor;
+        private Label l_buscar_producto_agregar_autor;
         private Label l_lista_productos;
         private DataGridView dataGridView1;
         private DataGridViewButtonColumn btn_seleccionar;
