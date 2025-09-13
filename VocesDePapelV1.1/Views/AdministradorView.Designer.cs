@@ -64,6 +64,7 @@
             // 
             reporte_venta_item_menu_admin.AutoSize = false;
             reporte_venta_item_menu_admin.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            reporte_venta_item_menu_admin.Image = Properties.Resources.aumentar;
             reporte_venta_item_menu_admin.ImageAlign = ContentAlignment.BottomCenter;
             reporte_venta_item_menu_admin.ImageScaling = ToolStripItemImageScaling.None;
             reporte_venta_item_menu_admin.Name = "reporte_venta_item_menu_admin";
@@ -75,6 +76,7 @@
             // 
             reporte_libro_item_menu_admin.AutoSize = false;
             reporte_libro_item_menu_admin.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            reporte_libro_item_menu_admin.Image = Properties.Resources.aumentar;
             reporte_libro_item_menu_admin.ImageAlign = ContentAlignment.BottomCenter;
             reporte_libro_item_menu_admin.ImageScaling = ToolStripItemImageScaling.None;
             reporte_libro_item_menu_admin.Name = "reporte_libro_item_menu_admin";
@@ -86,6 +88,7 @@
             // 
             autor_item_menu_admin.AutoSize = false;
             autor_item_menu_admin.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            autor_item_menu_admin.Image = Properties.Resources.usuario;
             autor_item_menu_admin.ImageAlign = ContentAlignment.BottomCenter;
             autor_item_menu_admin.ImageScaling = ToolStripItemImageScaling.None;
             autor_item_menu_admin.Name = "autor_item_menu_admin";

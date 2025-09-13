@@ -53,7 +53,6 @@
             l_buscar_producto = new Label();
             l_lista_productos = new Label();
             dataGridView1 = new DataGridView();
-            btn_agregar_autor = new Button();
             btn_seleccionar = new DataGridViewButtonColumn();
             titulo = new DataGridViewTextBoxColumn();
             editorial = new DataGridViewTextBoxColumn();
@@ -62,6 +61,7 @@
             stock = new DataGridViewTextBoxColumn();
             estado = new DataGridViewTextBoxColumn();
             categoria = new DataGridViewTextBoxColumn();
+            btn_agregar_autor = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -241,6 +241,7 @@
             // 
             btn_buscar_producto.BackColor = SystemColors.GradientActiveCaption;
             btn_buscar_producto.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btn_buscar_producto.Image = Properties.Resources.lupa;
             btn_buscar_producto.Location = new Point(1250, 61);
             btn_buscar_producto.Name = "btn_buscar_producto";
             btn_buscar_producto.Size = new Size(66, 43);
@@ -312,17 +313,6 @@
             dataGridView1.Size = new Size(903, 564);
             dataGridView1.TabIndex = 38;
             // 
-            // btn_agregar_autor
-            // 
-            btn_agregar_autor.BackColor = Color.FromArgb(128, 255, 128);
-            btn_agregar_autor.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btn_agregar_autor.Location = new Point(64, 602);
-            btn_agregar_autor.Name = "btn_agregar_autor";
-            btn_agregar_autor.Size = new Size(269, 43);
-            btn_agregar_autor.TabIndex = 44;
-            btn_agregar_autor.Text = "Agregar autor";
-            btn_agregar_autor.UseVisualStyleBackColor = false;
-            // 
             // btn_seleccionar
             // 
             btn_seleccionar.HeaderText = "";
@@ -387,6 +377,17 @@
             categoria.Name = "categoria";
             categoria.ReadOnly = true;
             categoria.Width = 125;
+            // 
+            // btn_agregar_autor
+            // 
+            btn_agregar_autor.BackColor = Color.FromArgb(128, 255, 128);
+            btn_agregar_autor.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btn_agregar_autor.Location = new Point(64, 602);
+            btn_agregar_autor.Name = "btn_agregar_autor";
+            btn_agregar_autor.Size = new Size(269, 43);
+            btn_agregar_autor.TabIndex = 44;
+            btn_agregar_autor.Text = "Agregar autor";
+            btn_agregar_autor.UseVisualStyleBackColor = false;
             // 
             // AdministradorViewProducto
             // 

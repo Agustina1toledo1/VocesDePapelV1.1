@@ -39,14 +39,14 @@
             l_estado_producto = new Label();
             l_nombre_autor = new Label();
             label1 = new Label();
-            this.btn_buscar_autor = new Button();
-            this.text_buscar_autor = new TextBox();
-            this.l_buscar_autor = new Label();
             l_lista_autores = new Label();
             dataGridView1 = new DataGridView();
             btn_seleccionar = new DataGridViewButtonColumn();
             nombre = new DataGridViewTextBoxColumn();
             estado = new DataGridViewTextBoxColumn();
+            btn_buscar_autor = new Button();
+            text_buscar_autor = new TextBox();
+            l_buscar_autor = new Label();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -144,35 +144,6 @@
             label1.Size = new Size(399, 464);
             label1.TabIndex = 38;
             // 
-            // btn_buscar_autor
-            // 
-            this.btn_buscar_autor.BackColor = SystemColors.GradientActiveCaption;
-            this.btn_buscar_autor.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            this.btn_buscar_autor.Location = new Point(1251, 25);
-            this.btn_buscar_autor.Name = "btn_buscar_autor";
-            this.btn_buscar_autor.Size = new Size(66, 43);
-            this.btn_buscar_autor.TabIndex = 60;
-            this.btn_buscar_autor.UseVisualStyleBackColor = false;
-            // 
-            // text_buscar_autor
-            // 
-            this.text_buscar_autor.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            this.text_buscar_autor.Location = new Point(889, 30);
-            this.text_buscar_autor.Name = "text_buscar_autor";
-            this.text_buscar_autor.Size = new Size(329, 31);
-            this.text_buscar_autor.TabIndex = 59;
-            // 
-            // l_buscar_autor
-            // 
-            this.l_buscar_autor.AutoSize = true;
-            this.l_buscar_autor.BackColor = Color.White;
-            this.l_buscar_autor.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            this.l_buscar_autor.Location = new Point(802, 33);
-            this.l_buscar_autor.Name = "l_buscar_autor";
-            this.l_buscar_autor.Size = new Size(63, 25);
-            this.l_buscar_autor.TabIndex = 57;
-            this.l_buscar_autor.Text = "Buscar";
-            // 
             // l_lista_autores
             // 
             l_lista_autores.BackColor = Color.White;
@@ -233,14 +204,44 @@
             estado.ReadOnly = true;
             estado.Width = 125;
             // 
+            // btn_buscar_autor
+            // 
+            btn_buscar_autor.BackColor = SystemColors.GradientActiveCaption;
+            btn_buscar_autor.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btn_buscar_autor.Image = Properties.Resources.lupa;
+            btn_buscar_autor.Location = new Point(1233, 27);
+            btn_buscar_autor.Name = "btn_buscar_autor";
+            btn_buscar_autor.Size = new Size(66, 43);
+            btn_buscar_autor.TabIndex = 71;
+            btn_buscar_autor.UseVisualStyleBackColor = false;
+            // 
+            // text_buscar_autor
+            // 
+            text_buscar_autor.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            text_buscar_autor.Location = new Point(871, 32);
+            text_buscar_autor.Name = "text_buscar_autor";
+            text_buscar_autor.Size = new Size(329, 31);
+            text_buscar_autor.TabIndex = 70;
+            // 
+            // l_buscar_autor
+            // 
+            l_buscar_autor.AutoSize = true;
+            l_buscar_autor.BackColor = Color.White;
+            l_buscar_autor.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            l_buscar_autor.Location = new Point(784, 35);
+            l_buscar_autor.Name = "l_buscar_autor";
+            l_buscar_autor.Size = new Size(63, 25);
+            l_buscar_autor.TabIndex = 69;
+            l_buscar_autor.Text = "Buscar";
+            // 
             // AdministradorViewAutores
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1340, 464);
-            Controls.Add(this.btn_buscar_autor);
-            Controls.Add(this.text_buscar_autor);
-            Controls.Add(this.l_buscar_autor);
+            Controls.Add(btn_buscar_autor);
+            Controls.Add(text_buscar_autor);
+            Controls.Add(l_buscar_autor);
             Controls.Add(l_lista_autores);
             Controls.Add(dataGridView1);
             Controls.Add(l_detalle_producto);
@@ -279,5 +280,8 @@
         private DataGridViewButtonColumn btn_seleccionar;
         private DataGridViewTextBoxColumn nombre;
         private DataGridViewTextBoxColumn estado;
+        private Button btn_buscar_autor;
+        private TextBox text_buscar_autor;
+        private Label l_buscar_autor;
     }
 }
