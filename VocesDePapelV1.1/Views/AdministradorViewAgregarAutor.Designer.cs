@@ -169,7 +169,7 @@
             text_buscar_producto_agregar_autor.Name = "text_buscar_producto_agregar_autor";
             text_buscar_producto_agregar_autor.Size = new Size(269, 31);
             text_buscar_producto_agregar_autor.TabIndex = 78;
-            text_buscar_producto_agregar_autor.TextChanged += this.text_buscar_producto_TextChanged;
+            
             // 
             // cmb_buscar_por_producto_agregar_autor
             // 
@@ -180,7 +180,7 @@
             cmb_buscar_por_producto_agregar_autor.Name = "cmb_buscar_por_producto_agregar_autor";
             cmb_buscar_por_producto_agregar_autor.Size = new Size(158, 33);
             cmb_buscar_por_producto_agregar_autor.TabIndex = 77;
-            cmb_buscar_por_producto_agregar_autor.SelectedIndexChanged += this.cmb_buscar_por_producto_SelectedIndexChanged;
+            
             // 
             // l_buscar_producto_agregar_autor
             // 
@@ -192,7 +192,7 @@
             l_buscar_producto_agregar_autor.Size = new Size(96, 25);
             l_buscar_producto_agregar_autor.TabIndex = 76;
             l_buscar_producto_agregar_autor.Text = "Buscar por";
-            l_buscar_producto_agregar_autor.Click += this.l_buscar_producto_Click;
+            
             // 
             // l_lista_productos
             // 
@@ -204,7 +204,7 @@
             l_lista_productos.TabIndex = 75;
             l_lista_productos.Text = "Lista de productos";
             l_lista_productos.TextAlign = ContentAlignment.MiddleLeft;
-            l_lista_productos.Click += this.l_lista_productos_Click;
+            
             // 
             // dataGridView1
             // 
