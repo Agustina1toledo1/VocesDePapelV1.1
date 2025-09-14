@@ -33,6 +33,7 @@
             librosToolStripMenuItem = new ToolStripMenuItem();
             usuariosToolStripMenuItem = new ToolStripMenuItem();
             reportesToolStripMenuItem = new ToolStripMenuItem();
+            toolStripMenuItem1 = new ToolStripMenuItem();
             menuVendedor.SuspendLayout();
             SuspendLayout();
             // 
@@ -41,7 +42,7 @@
             menuVendedor.AutoSize = false;
             menuVendedor.BackColor = Color.FromArgb(255, 192, 128);
             menuVendedor.ImageScalingSize = new Size(20, 20);
-            menuVendedor.Items.AddRange(new ToolStripItem[] { ventaToolStripMenuItem, librosToolStripMenuItem, usuariosToolStripMenuItem, reportesToolStripMenuItem });
+            menuVendedor.Items.AddRange(new ToolStripItem[] { ventaToolStripMenuItem, toolStripMenuItem1, librosToolStripMenuItem, usuariosToolStripMenuItem, reportesToolStripMenuItem });
             menuVendedor.Location = new Point(0, 0);
             menuVendedor.Name = "menuVendedor";
             menuVendedor.Size = new Size(800, 90);
@@ -50,12 +51,8 @@
             // 
             // ventaToolStripMenuItem
             // 
-            ventaToolStripMenuItem.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            ventaToolStripMenuItem.Image = Properties.Resources.verificar;
             ventaToolStripMenuItem.Name = "ventaToolStripMenuItem";
-            ventaToolStripMenuItem.Size = new Size(86, 86);
-            ventaToolStripMenuItem.Text = "Venta";
-            ventaToolStripMenuItem.TextImageRelation = TextImageRelation.ImageAboveText;
+            ventaToolStripMenuItem.Size = new Size(14, 86);
             // 
             // librosToolStripMenuItem
             // 
@@ -84,6 +81,15 @@
             reportesToolStripMenuItem.Text = "reportes";
             reportesToolStripMenuItem.TextImageRelation = TextImageRelation.ImageAboveText;
             // 
+            // toolStripMenuItem1
+            // 
+            toolStripMenuItem1.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            toolStripMenuItem1.Image = Properties.Resources.verificar;
+            toolStripMenuItem1.Name = "toolStripMenuItem1";
+            toolStripMenuItem1.Size = new Size(86, 86);
+            toolStripMenuItem1.Text = "Venta";
+            toolStripMenuItem1.TextImageRelation = TextImageRelation.ImageAboveText;
+            // 
             // VendedorView
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -105,5 +111,6 @@
         private ToolStripMenuItem librosToolStripMenuItem;
         private ToolStripMenuItem usuariosToolStripMenuItem;
         private ToolStripMenuItem reportesToolStripMenuItem;
+        private ToolStripMenuItem toolStripMenuItem1;
     }
 }
