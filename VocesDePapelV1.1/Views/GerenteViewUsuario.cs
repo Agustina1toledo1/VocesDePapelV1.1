@@ -19,6 +19,23 @@ namespace VocesDePapelV1._1.Views
         public GerenteViewUsuario()
         {
             InitializeComponent();
+            AssociateAndRaiseViewEvents(); //asociar y generar los eventos de vistas
+
+        }
+
+        private void AssociateAndRaiseViewEvents()
+        {
+            //Buscar usuario
+            btn_buscar_usuario.Click += delegate { SearchEvent?.Invoke(this, EventArgs.Empty); }; //al hacer clic (formulario, argumento de evento vacio)
+            //con la tecla enter
+            text_buscar_usuario.KeyDown += (s, e) =>
+            {
+                if (e.KeyCode == Keys.Enter)
+                {
+                    SearchEvent?.Invoke(this, EventArgs.Empty);
+                }
+            };
+            //otros
         }
 
         //propiedades
