@@ -40,34 +40,32 @@
             LTelefono = new Label();
             TBTelefono = new TextBox();
             PProducto = new Panel();
+            BAgregarP = new Button();
+            NUDCantidadProducto = new NumericUpDown();
+            LCantidad = new Label();
+            TBSTock = new TextBox();
+            LStock = new Label();
+            TBPrecio = new TextBox();
+            LPrecio = new Label();
+            BBuscarProducto = new Button();
+            TBNomProducto = new TextBox();
+            LNomProducto = new Label();
+            TBCodProducto = new TextBox();
+            LCodProducto = new Label();
             LProducto = new Label();
             PCliente = new Panel();
             BBuscarCliente = new Button();
             BAgregarCliente = new Button();
             PVendedor = new Panel();
-            LVendedor = new Label();
-            LCuitVendedor = new Label();
-            LNombeYApellidoV = new Label();
-            TBCuitVendedor = new TextBox();
             TBNombreApellidoVendedor = new TextBox();
+            TBCuitVendedor = new TextBox();
+            LNombeYApellidoV = new Label();
+            LCuitVendedor = new Label();
+            LVendedor = new Label();
             PFactura = new Panel();
-            LFactura = new Label();
-            label2 = new Label();
-            LNUmFACTura = new Label();
             TBNUmFactura = new TextBox();
-            comboBoxFactura = new ComboBox();
-            LCodProducto = new Label();
-            TBCodProducto = new TextBox();
-            LNomProducto = new Label();
-            TBNomProducto = new TextBox();
-            BBuscarProducto = new Button();
-            LPrecio = new Label();
-            TBPrecio = new TextBox();
-            LStock = new Label();
-            TBSTock = new TextBox();
-            LCantidad = new Label();
-            NUDCantidadProducto = new NumericUpDown();
-            BAgregarP = new Button();
+            LNUmFACTura = new Label();
+            LFactura = new Label();
             dataGridView1 = new DataGridView();
             idProducto = new DataGridViewTextBoxColumn();
             descripcion = new DataGridViewTextBoxColumn();
@@ -80,10 +78,10 @@
             BGuardar = new Button();
             BCancelar = new Button();
             PProducto.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)NUDCantidadProducto).BeginInit();
             PCliente.SuspendLayout();
             PVendedor.SuspendLayout();
             PFactura.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)NUDCantidadProducto).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -91,7 +89,7 @@
             // 
             LFecha.Font = new Font("Segoe UI", 10F);
             LFecha.ImageAlign = ContentAlignment.BottomCenter;
-            LFecha.Location = new Point(674, 7);
+            LFecha.Location = new Point(3, 73);
             LFecha.Name = "LFecha";
             LFecha.Size = new Size(72, 32);
             LFecha.TabIndex = 0;
@@ -102,7 +100,7 @@
             // 
             dateTimePicker1.CalendarFont = new Font("Segoe UI", 10F);
             dateTimePicker1.Format = DateTimePickerFormat.Custom;
-            dateTimePicker1.Location = new Point(752, 9);
+            dateTimePicker1.Location = new Point(51, 98);
             dateTimePicker1.Name = "dateTimePicker1";
             dateTimePicker1.Size = new Size(128, 27);
             dateTimePicker1.TabIndex = 1;
@@ -210,6 +208,117 @@
             PProducto.Size = new Size(911, 82);
             PProducto.TabIndex = 11;
             // 
+            // BAgregarP
+            // 
+            BAgregarP.BackColor = Color.FromArgb(192, 255, 192);
+            BAgregarP.Location = new Point(708, 20);
+            BAgregarP.Name = "BAgregarP";
+            BAgregarP.Size = new Size(141, 51);
+            BAgregarP.TabIndex = 15;
+            BAgregarP.Text = "Agregar";
+            BAgregarP.UseVisualStyleBackColor = false;
+            // 
+            // NUDCantidadProducto
+            // 
+            NUDCantidadProducto.Location = new Point(579, 43);
+            NUDCantidadProducto.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            NUDCantidadProducto.Name = "NUDCantidadProducto";
+            NUDCantidadProducto.Size = new Size(58, 27);
+            NUDCantidadProducto.TabIndex = 18;
+            NUDCantidadProducto.Value = new decimal(new int[] { 1, 0, 0, 0 });
+            // 
+            // LCantidad
+            // 
+            LCantidad.Font = new Font("Segoe UI", 9F);
+            LCantidad.ImageAlign = ContentAlignment.BottomCenter;
+            LCantidad.Location = new Point(575, 20);
+            LCantidad.Name = "LCantidad";
+            LCantidad.Size = new Size(76, 20);
+            LCantidad.TabIndex = 17;
+            LCantidad.Text = "Cantidad:";
+            LCantidad.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // TBSTock
+            // 
+            TBSTock.Location = new Point(492, 44);
+            TBSTock.Name = "TBSTock";
+            TBSTock.Size = new Size(63, 27);
+            TBSTock.TabIndex = 17;
+            // 
+            // LStock
+            // 
+            LStock.Font = new Font("Segoe UI", 9F);
+            LStock.ImageAlign = ContentAlignment.BottomCenter;
+            LStock.Location = new Point(492, 20);
+            LStock.Name = "LStock";
+            LStock.Size = new Size(63, 20);
+            LStock.TabIndex = 16;
+            LStock.Text = "Stock:";
+            LStock.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // TBPrecio
+            // 
+            TBPrecio.Location = new Point(398, 43);
+            TBPrecio.Name = "TBPrecio";
+            TBPrecio.Size = new Size(78, 27);
+            TBPrecio.TabIndex = 16;
+            // 
+            // LPrecio
+            // 
+            LPrecio.Font = new Font("Segoe UI", 9F);
+            LPrecio.ImageAlign = ContentAlignment.BottomCenter;
+            LPrecio.Location = new Point(398, 20);
+            LPrecio.Name = "LPrecio";
+            LPrecio.Size = new Size(63, 20);
+            LPrecio.TabIndex = 15;
+            LPrecio.Text = "Precio:";
+            LPrecio.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // BBuscarProducto
+            // 
+            BBuscarProducto.Image = Properties.Resources.lupa;
+            BBuscarProducto.Location = new Point(148, 29);
+            BBuscarProducto.Name = "BBuscarProducto";
+            BBuscarProducto.Size = new Size(59, 41);
+            BBuscarProducto.TabIndex = 10;
+            BBuscarProducto.UseVisualStyleBackColor = true;
+            // 
+            // TBNomProducto
+            // 
+            TBNomProducto.Location = new Point(224, 43);
+            TBNomProducto.Name = "TBNomProducto";
+            TBNomProducto.Size = new Size(151, 27);
+            TBNomProducto.TabIndex = 9;
+            // 
+            // LNomProducto
+            // 
+            LNomProducto.Font = new Font("Segoe UI", 9F);
+            LNomProducto.ImageAlign = ContentAlignment.BottomCenter;
+            LNomProducto.Location = new Point(213, 20);
+            LNomProducto.Name = "LNomProducto";
+            LNomProducto.Size = new Size(114, 20);
+            LNomProducto.TabIndex = 8;
+            LNomProducto.Text = "Producto:";
+            LNomProducto.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // TBCodProducto
+            // 
+            TBCodProducto.Location = new Point(17, 43);
+            TBCodProducto.Name = "TBCodProducto";
+            TBCodProducto.Size = new Size(125, 27);
+            TBCodProducto.TabIndex = 7;
+            // 
+            // LCodProducto
+            // 
+            LCodProducto.Font = new Font("Segoe UI", 9F);
+            LCodProducto.ImageAlign = ContentAlignment.BottomCenter;
+            LCodProducto.Location = new Point(16, 20);
+            LCodProducto.Name = "LCodProducto";
+            LCodProducto.Size = new Size(114, 20);
+            LCodProducto.TabIndex = 6;
+            LCodProducto.Text = "Cod. Producto:";
+            LCodProducto.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // LProducto
             // 
             LProducto.AutoSize = true;
@@ -267,31 +376,24 @@
             PVendedor.Controls.Add(LNombeYApellidoV);
             PVendedor.Controls.Add(LCuitVendedor);
             PVendedor.Controls.Add(LVendedor);
-            PVendedor.Location = new Point(674, 42);
+            PVendedor.Location = new Point(674, 7);
             PVendedor.Name = "PVendedor";
-            PVendedor.Size = new Size(249, 118);
+            PVendedor.Size = new Size(249, 153);
             PVendedor.TabIndex = 13;
             // 
-            // LVendedor
+            // TBNombreApellidoVendedor
             // 
-            LVendedor.AutoSize = true;
-            LVendedor.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            LVendedor.Location = new Point(12, 2);
-            LVendedor.Name = "LVendedor";
-            LVendedor.Size = new Size(81, 20);
-            LVendedor.TabIndex = 1;
-            LVendedor.Text = "Vendedor:";
+            TBNombreApellidoVendedor.Location = new Point(12, 80);
+            TBNombreApellidoVendedor.Name = "TBNombreApellidoVendedor";
+            TBNombreApellidoVendedor.Size = new Size(233, 27);
+            TBNombreApellidoVendedor.TabIndex = 9;
             // 
-            // LCuitVendedor
+            // TBCuitVendedor
             // 
-            LCuitVendedor.Font = new Font("Segoe UI", 10F);
-            LCuitVendedor.ImageAlign = ContentAlignment.BottomCenter;
-            LCuitVendedor.Location = new Point(12, 22);
-            LCuitVendedor.Name = "LCuitVendedor";
-            LCuitVendedor.Size = new Size(68, 20);
-            LCuitVendedor.TabIndex = 6;
-            LCuitVendedor.Text = "Cuit:";
-            LCuitVendedor.TextAlign = ContentAlignment.MiddleCenter;
+            TBCuitVendedor.Location = new Point(78, 19);
+            TBCuitVendedor.Name = "TBCuitVendedor";
+            TBCuitVendedor.Size = new Size(167, 27);
+            TBCuitVendedor.TabIndex = 8;
             // 
             // LNombeYApellidoV
             // 
@@ -304,52 +406,45 @@
             LNombeYApellidoV.Text = "Nombre y Apellido:";
             LNombeYApellidoV.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // TBCuitVendedor
+            // LCuitVendedor
             // 
-            TBCuitVendedor.Location = new Point(78, 19);
-            TBCuitVendedor.Name = "TBCuitVendedor";
-            TBCuitVendedor.Size = new Size(167, 27);
-            TBCuitVendedor.TabIndex = 8;
+            LCuitVendedor.Font = new Font("Segoe UI", 10F);
+            LCuitVendedor.ImageAlign = ContentAlignment.BottomCenter;
+            LCuitVendedor.Location = new Point(12, 22);
+            LCuitVendedor.Name = "LCuitVendedor";
+            LCuitVendedor.Size = new Size(68, 20);
+            LCuitVendedor.TabIndex = 6;
+            LCuitVendedor.Text = "Cuit:";
+            LCuitVendedor.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // TBNombreApellidoVendedor
+            // LVendedor
             // 
-            TBNombreApellidoVendedor.Location = new Point(12, 75);
-            TBNombreApellidoVendedor.Name = "TBNombreApellidoVendedor";
-            TBNombreApellidoVendedor.Size = new Size(203, 27);
-            TBNombreApellidoVendedor.TabIndex = 9;
+            LVendedor.AutoSize = true;
+            LVendedor.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            LVendedor.Location = new Point(12, 2);
+            LVendedor.Name = "LVendedor";
+            LVendedor.Size = new Size(81, 20);
+            LVendedor.TabIndex = 1;
+            LVendedor.Text = "Vendedor:";
             // 
             // PFactura
             // 
-            PFactura.Controls.Add(comboBoxFactura);
             PFactura.Controls.Add(TBNUmFactura);
             PFactura.Controls.Add(LNUmFACTura);
-            PFactura.Controls.Add(label2);
             PFactura.Controls.Add(LFactura);
+            PFactura.Controls.Add(LFecha);
+            PFactura.Controls.Add(dateTimePicker1);
             PFactura.Location = new Point(12, 23);
             PFactura.Name = "PFactura";
             PFactura.Size = new Size(182, 137);
             PFactura.TabIndex = 14;
             // 
-            // LFactura
+            // TBNUmFactura
             // 
-            LFactura.AutoSize = true;
-            LFactura.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            LFactura.Location = new Point(3, 0);
-            LFactura.Name = "LFactura";
-            LFactura.Size = new Size(65, 20);
-            LFactura.TabIndex = 1;
-            LFactura.Text = "Factura:";
-            // 
-            // label2
-            // 
-            label2.Font = new Font("Segoe UI", 10F);
-            label2.ImageAlign = ContentAlignment.BottomCenter;
-            label2.Location = new Point(3, 73);
-            label2.Name = "label2";
-            label2.Size = new Size(58, 20);
-            label2.TabIndex = 7;
-            label2.Text = "Tipo:";
-            label2.TextAlign = ContentAlignment.MiddleCenter;
+            TBNUmFactura.Location = new Point(16, 43);
+            TBNUmFactura.Name = "TBNUmFactura";
+            TBNUmFactura.Size = new Size(149, 27);
+            TBNUmFactura.TabIndex = 9;
             // 
             // LNUmFACTura
             // 
@@ -362,133 +457,15 @@
             LNUmFACTura.Text = "Numero:";
             LNUmFACTura.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // TBNUmFactura
+            // LFactura
             // 
-            TBNUmFactura.Location = new Point(16, 43);
-            TBNUmFactura.Name = "TBNUmFactura";
-            TBNUmFactura.Size = new Size(149, 27);
-            TBNUmFactura.TabIndex = 9;
-            // 
-            // comboBoxFactura
-            // 
-            comboBoxFactura.AutoCompleteMode = AutoCompleteMode.Suggest;
-            comboBoxFactura.FormattingEnabled = true;
-            comboBoxFactura.Items.AddRange(new object[] { "A", "B", "C" });
-            comboBoxFactura.Location = new Point(16, 96);
-            comboBoxFactura.Name = "comboBoxFactura";
-            comboBoxFactura.Size = new Size(151, 28);
-            comboBoxFactura.TabIndex = 10;
-            // 
-            // LCodProducto
-            // 
-            LCodProducto.Font = new Font("Segoe UI", 9F);
-            LCodProducto.ImageAlign = ContentAlignment.BottomCenter;
-            LCodProducto.Location = new Point(16, 20);
-            LCodProducto.Name = "LCodProducto";
-            LCodProducto.Size = new Size(114, 20);
-            LCodProducto.TabIndex = 6;
-            LCodProducto.Text = "Cod. Producto:";
-            LCodProducto.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // TBCodProducto
-            // 
-            TBCodProducto.Location = new Point(17, 43);
-            TBCodProducto.Name = "TBCodProducto";
-            TBCodProducto.Size = new Size(125, 27);
-            TBCodProducto.TabIndex = 7;
-            // 
-            // LNomProducto
-            // 
-            LNomProducto.Font = new Font("Segoe UI", 9F);
-            LNomProducto.ImageAlign = ContentAlignment.BottomCenter;
-            LNomProducto.Location = new Point(213, 20);
-            LNomProducto.Name = "LNomProducto";
-            LNomProducto.Size = new Size(114, 20);
-            LNomProducto.TabIndex = 8;
-            LNomProducto.Text = "Producto:";
-            LNomProducto.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // TBNomProducto
-            // 
-            TBNomProducto.Location = new Point(224, 43);
-            TBNomProducto.Name = "TBNomProducto";
-            TBNomProducto.Size = new Size(151, 27);
-            TBNomProducto.TabIndex = 9;
-            // 
-            // BBuscarProducto
-            // 
-            BBuscarProducto.Image = Properties.Resources.lupa;
-            BBuscarProducto.Location = new Point(148, 29);
-            BBuscarProducto.Name = "BBuscarProducto";
-            BBuscarProducto.Size = new Size(59, 41);
-            BBuscarProducto.TabIndex = 10;
-            BBuscarProducto.UseVisualStyleBackColor = true;
-            // 
-            // LPrecio
-            // 
-            LPrecio.Font = new Font("Segoe UI", 9F);
-            LPrecio.ImageAlign = ContentAlignment.BottomCenter;
-            LPrecio.Location = new Point(398, 20);
-            LPrecio.Name = "LPrecio";
-            LPrecio.Size = new Size(63, 20);
-            LPrecio.TabIndex = 15;
-            LPrecio.Text = "Precio:";
-            LPrecio.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // TBPrecio
-            // 
-            TBPrecio.Location = new Point(398, 43);
-            TBPrecio.Name = "TBPrecio";
-            TBPrecio.Size = new Size(78, 27);
-            TBPrecio.TabIndex = 16;
-            // 
-            // LStock
-            // 
-            LStock.Font = new Font("Segoe UI", 9F);
-            LStock.ImageAlign = ContentAlignment.BottomCenter;
-            LStock.Location = new Point(492, 20);
-            LStock.Name = "LStock";
-            LStock.Size = new Size(63, 20);
-            LStock.TabIndex = 16;
-            LStock.Text = "Stock:";
-            LStock.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // TBSTock
-            // 
-            TBSTock.Location = new Point(492, 44);
-            TBSTock.Name = "TBSTock";
-            TBSTock.Size = new Size(63, 27);
-            TBSTock.TabIndex = 17;
-            // 
-            // LCantidad
-            // 
-            LCantidad.Font = new Font("Segoe UI", 9F);
-            LCantidad.ImageAlign = ContentAlignment.BottomCenter;
-            LCantidad.Location = new Point(575, 20);
-            LCantidad.Name = "LCantidad";
-            LCantidad.Size = new Size(76, 20);
-            LCantidad.TabIndex = 17;
-            LCantidad.Text = "Cantidad:";
-            LCantidad.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // NUDCantidadProducto
-            // 
-            NUDCantidadProducto.Location = new Point(579, 43);
-            NUDCantidadProducto.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
-            NUDCantidadProducto.Name = "NUDCantidadProducto";
-            NUDCantidadProducto.Size = new Size(58, 27);
-            NUDCantidadProducto.TabIndex = 18;
-            NUDCantidadProducto.Value = new decimal(new int[] { 1, 0, 0, 0 });
-            // 
-            // BAgregarP
-            // 
-            BAgregarP.BackColor = Color.FromArgb(192, 255, 192);
-            BAgregarP.Location = new Point(708, 20);
-            BAgregarP.Name = "BAgregarP";
-            BAgregarP.Size = new Size(141, 51);
-            BAgregarP.TabIndex = 15;
-            BAgregarP.Text = "Agregar";
-            BAgregarP.UseVisualStyleBackColor = false;
+            LFactura.AutoSize = true;
+            LFactura.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            LFactura.Location = new Point(3, 0);
+            LFactura.Name = "LFactura";
+            LFactura.Size = new Size(65, 20);
+            LFactura.TabIndex = 1;
+            LFactura.Text = "Factura:";
             // 
             // dataGridView1
             // 
@@ -602,19 +579,17 @@
             Controls.Add(PVendedor);
             Controls.Add(PCliente);
             Controls.Add(PProducto);
-            Controls.Add(dateTimePicker1);
-            Controls.Add(LFecha);
             Name = "VentaView";
             Text = "Venta";
             PProducto.ResumeLayout(false);
             PProducto.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)NUDCantidadProducto).EndInit();
             PCliente.ResumeLayout(false);
             PCliente.PerformLayout();
             PVendedor.ResumeLayout(false);
             PVendedor.PerformLayout();
             PFactura.ResumeLayout(false);
             PFactura.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)NUDCantidadProducto).EndInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -646,10 +621,8 @@
         private TextBox TBCuitVendedor;
         private Panel PFactura;
         private Label LFactura;
-        private Label label2;
         private TextBox TBNUmFactura;
         private Label LNUmFACTura;
-        private ComboBox comboBoxFactura;
         private Label LCodProducto;
         private TextBox TBCodProducto;
         private Button BBuscarProducto;
