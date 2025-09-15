@@ -13,6 +13,6 @@ namespace VocesDePapelV1._1.Models
         void Modificar(UsuarioModel usuario);
         void Eliminar(UsuarioModel usuario);
         IEnumerable<UsuarioModel> GetAll(); //listar todos
-        IEnumerable<UsuarioModel> GetByValue(); //buscar por valor
+        IEnumerable<UsuarioModel> GetByValue(string value); //buscar por valor
     }
 }
