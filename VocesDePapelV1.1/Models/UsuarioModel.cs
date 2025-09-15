@@ -17,7 +17,7 @@ namespace VocesDePapelV1._1.Models
         private string apellido;
         private string clave;
         private long cuit_usuario;
-        private bool baja;
+        private short baja;
         private int id_rol;
 
         //accesors y mutators. Validaciones
@@ -61,7 +61,7 @@ namespace VocesDePapelV1._1.Models
         }
         [DisplayName("Estado del usuario")]
         [Required(ErrorMessage = "El estado del usuario es requerido")]
-        public bool Baja 
+        public short Baja 
         { 
             get { return baja; }
             set { baja = value; }

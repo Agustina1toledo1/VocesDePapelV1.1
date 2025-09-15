@@ -14,8 +14,13 @@ namespace VocesDePapelV1._1.Views
         string UsuarioApellido { get; set; }
         string Clave { get; set; }
         string CuitUsuario { get; set; }
-        bool Baja { get; set; }
+        string Baja { get; set; }
         string UsuarioIdRol { get; set; }
+
+        string SearchValue { get; set; }
+        bool IsEdit { get; set; }
+        bool IsSuccessful { get; set; }
+        string Message { get; set; }
 
         //Eventos
         event EventHandler SearchEvent;
