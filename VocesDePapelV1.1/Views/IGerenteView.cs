@@ -8,5 +8,11 @@ namespace VocesDePapelV1._1.Views
 {
     public class IGerenteView
     {
+        //muetra las opciones del gerente
+        event EventHandler ShowUsuarioView;
+        event EventHandler ShowBackupView;
+        event EventHandler ShowReporteVentaView;
+        event EventHandler ShowReporteLibroView;
+
     }
 }
