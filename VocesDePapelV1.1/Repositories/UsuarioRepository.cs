@@ -73,6 +73,8 @@ namespace VocesDePapelV1._1.Repositories
         {
             //lista de usuarios
             var usuarioList = new List<UsuarioModel>();
+            long usuario_cuit = long.TryParse(value, out _) ? Convert.ToInt64(value) : 0; //si es numerico lo convierte, sino 0
+            string usuario_nombre_apellido = value;
             //consultas sql
             using (var connection = new Microsoft.Data.SqlClient.SqlConnection(connectionString))
             using (var command = new Microsoft.Data.SqlClient.SqlCommand())
@@ -81,12 +83,14 @@ namespace VocesDePapelV1._1.Repositories
                 command.Connection = connection;
                 //command.CommandText = "SELECT * FROM Usuario ORDER BY id_usuario DESC"; video
                 command.CommandText = @"SELECT *FROM usuario
-                WHERE , nombre, apellido, clave, cuit_usuario, baja, id_rol FROM Usuario ORDER BY id_usuario DESC";
+                                    WHERE cuit = @ciut or nombre like @nombre_apellido+'%' or apellido like @nombre_apellido+'%'
+                                    ORDER BY id_usuario DESC";
+
+                command.Parameters.Add("@cuit", SqlDbType.BigInt).Value = usuario_cuit ;
+                command.Parameters.Add("@nombre_apellido", SqlDbType.NVarChar).Value = usuario_nombre_apellido;
+
                 using (var reader = command.ExecuteReader())
-                //using (var command = new SqlCommand("SELECT id_usuario, nombre, apellido, clave, cuit_usuario, baja, id_rol FROM Usuario", connection))
                 {
-                    //command.CommandType = CommandType.Text;
-                    //using (var reader = command.ExecuteReader())
 
                     while (reader.Read())
                     {
