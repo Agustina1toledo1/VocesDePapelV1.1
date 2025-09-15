@@ -8,21 +8,19 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace VocesDePapelV1._1.Views
+namespace VocesDePapelV1._1.Views { 
 
-    public partial class GerenteView : Form, IGerenteView // <-- ERROR: IGerenteView es una clase, no una interfaz
+    public partial class GerenteView : Form, IGerenteView
     {
         public GerenteView()
         {
             InitializeComponent();
         }
+
+        public event EventHandler ShowUsuarioView;
+        public event EventHandler ShowBackupView;
+        public event EventHandler ShowReporteVentaView;
+        public event EventHandler ShowReporteLibroView;
     }
-    // Cambia la clase a interfaz
-    public interface IGerenteView
-    {
-        event EventHandler ShowUsuarioView;
-        event EventHandler ShowBackupView;
-        event EventHandler ShowReporteVentaView;
-        event EventHandler ShowReporteLibroView;
-    }
+    
 }
