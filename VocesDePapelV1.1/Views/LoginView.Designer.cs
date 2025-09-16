@@ -86,7 +86,7 @@
             l_clave__login.Name = "l_clave__login";
             l_clave__login.Size = new Size(115, 28);
             l_clave__login.TabIndex = 3;
-            l_clave__login.Text = "Contraseña";
+            l_clave__login.Text = "clave";
             // 
             // btn_cancelar_login
             // 

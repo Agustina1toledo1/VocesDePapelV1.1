@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             label1 = new Label();
             l_nombre = new Label();
             l_apellido = new Label();
@@ -54,7 +54,6 @@
             id_usuario = new DataGridViewTextBoxColumn();
             nombre = new DataGridViewTextBoxColumn();
             apellido = new DataGridViewTextBoxColumn();
-            Contraseña = new DataGridViewTextBoxColumn();
             cuit = new DataGridViewTextBoxColumn();
             id_rol = new DataGridViewTextBoxColumn();
             rol = new DataGridViewTextBoxColumn();
@@ -107,9 +106,9 @@
             l_clave.Font = new Font("Segoe UI", 12F);
             l_clave.Location = new Point(62, 224);
             l_clave.Name = "l_clave";
-            l_clave.Size = new Size(110, 28);
+            l_clave.Size = new Size(59, 28);
             l_clave.TabIndex = 3;
-            l_clave.Text = "Contraseña";
+            l_clave.Text = "Clave";
             // 
             // l_verificar_clave
             // 
@@ -118,9 +117,9 @@
             l_verificar_clave.Font = new Font("Segoe UI", 12F);
             l_verificar_clave.Location = new Point(60, 298);
             l_verificar_clave.Name = "l_verificar_clave";
-            l_verificar_clave.Size = new Size(182, 28);
+            l_verificar_clave.Size = new Size(131, 28);
             l_verificar_clave.TabIndex = 4;
-            l_verificar_clave.Text = "Verificar contraseña";
+            l_verificar_clave.Text = "Verificar clave";
             // 
             // l_cuit
             // 
@@ -262,25 +261,25 @@
             // dataGridView1
             // 
             dataGridView1.AllowUserToAddRows = false;
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = SystemColors.Control;
-            dataGridViewCellStyle3.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle3.Padding = new Padding(2);
-            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
-            dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.Padding = new Padding(2);
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { btn_seleccionar, id_usuario, nombre, apellido, Contraseña, cuit, id_rol, rol, Estado, estado_valor });
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { btn_seleccionar, id_usuario, nombre, apellido, cuit, id_rol, rol, Estado, estado_valor });
             dataGridView1.Location = new Point(420, 124);
             dataGridView1.MultiSelect = false;
             dataGridView1.Name = "dataGridView1";
             dataGridView1.ReadOnly = true;
             dataGridView1.RowHeadersWidth = 51;
-            dataGridViewCellStyle4.SelectionBackColor = Color.White;
-            dataGridViewCellStyle4.SelectionForeColor = Color.Black;
-            dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.SelectionBackColor = Color.White;
+            dataGridViewCellStyle2.SelectionForeColor = Color.Black;
+            dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle2;
             dataGridView1.Size = new Size(903, 564);
             dataGridView1.TabIndex = 19;
             // 
@@ -316,15 +315,6 @@
             apellido.Name = "apellido";
             apellido.ReadOnly = true;
             apellido.Width = 150;
-            // 
-            // Contraseña
-            // 
-            Contraseña.HeaderText = "Contraseña";
-            Contraseña.MinimumWidth = 6;
-            Contraseña.Name = "Contraseña";
-            Contraseña.ReadOnly = true;
-            Contraseña.Visible = false;
-            Contraseña.Width = 125;
             // 
             // cuit
             // 
@@ -485,7 +475,6 @@
         private DataGridViewTextBoxColumn id_usuario;
         private DataGridViewTextBoxColumn nombre;
         private DataGridViewTextBoxColumn apellido;
-        private DataGridViewTextBoxColumn Contraseña;
         private DataGridViewTextBoxColumn cuit;
         private DataGridViewTextBoxColumn id_rol;
         private DataGridViewTextBoxColumn rol;

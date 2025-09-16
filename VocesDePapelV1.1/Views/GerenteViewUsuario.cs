@@ -51,7 +51,7 @@ namespace VocesDePapelV1._1.Views
             get { return text_apellido_usuario.Text; }
             set { text_apellido_usuario.Text = value; }
         }
-        public string Clave {
+        public string Contraseña {
             get { return text_clave_usuario.Text; }
             set { text_clave_usuario.Text = value; }
         }

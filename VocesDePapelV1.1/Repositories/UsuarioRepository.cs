@@ -42,7 +42,7 @@ namespace VocesDePapelV1._1.Repositories
                 connection.Open();
                 command.Connection = connection;
                 //command.CommandText = "SELECT * FROM Usuario ORDER BY id_usuario DESC"; video
-                command.CommandText = "SELECT id_usuario, nombre, apellido, clave, cuit_usuario, baja, id_rol FROM Usuario ORDER BY id_usuario DESC";
+                command.CommandText = "SELECT id_usuario, nombre, apellido, contraseña, cuit, baja, id_rol FROM Usuario ORDER BY id_usuario DESC";
                 using (var reader = command.ExecuteReader())
                 //using (var command = new SqlCommand("SELECT id_usuario, nombre, apellido, clave, cuit_usuario, baja, id_rol FROM Usuario", connection))
                 {
@@ -56,8 +56,8 @@ namespace VocesDePapelV1._1.Repositories
                                 Id_usuario = Convert.ToInt32(reader["id_usuario"]),
                                 Nombre = reader["nombre"].ToString(),
                                 Apellido = reader["apellido"].ToString(),
-                                Clave = reader["clave"].ToString(),
-                                Cuit_usuario = Convert.ToInt64(reader["cuit_usuario"]), //long
+                                Contraseña = reader["contraseña"].ToString(),
+                                Cuit_usuario = Convert.ToInt64(reader["cuit"]), //long
                                 Baja = Convert.ToInt16(reader["baja"]), //short
                                 Id_rol = Convert.ToInt32(reader["id_rol"])
                             };
@@ -99,8 +99,8 @@ namespace VocesDePapelV1._1.Repositories
                             Id_usuario = Convert.ToInt32(reader["id_usuario"]),
                             Nombre = reader["nombre"].ToString(),
                             Apellido = reader["apellido"].ToString(),
-                            Clave = reader["clave"].ToString(),
-                            Cuit_usuario = Convert.ToInt64(reader["cuit_usuario"]), //long
+                            Contraseña = reader["contraseña"].ToString(),
+                            Cuit_usuario = Convert.ToInt64(reader["cuit"]), //long
                             Baja = Convert.ToInt16(reader["baja"]), //short
                             Id_rol = Convert.ToInt32(reader["id_rol"])
                         };

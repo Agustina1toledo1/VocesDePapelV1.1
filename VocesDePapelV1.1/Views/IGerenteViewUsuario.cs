@@ -12,7 +12,7 @@ namespace VocesDePapelV1._1.Views
         string UsuarioId{ get; set; }
         string UsuarioNombre { get; set; }
         string UsuarioApellido { get; set; }
-        string Clave { get; set; }
+        string Contraseña { get; set; }
         string CuitUsuario { get; set; }
         string Baja { get; set; }
         string UsuarioIdRol { get; set; }

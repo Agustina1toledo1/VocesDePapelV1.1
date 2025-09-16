@@ -15,8 +15,8 @@ namespace VocesDePapelV1._1.Models
         private int id_usuario;
         private string nombre;
         private string apellido;
-        private string clave;
-        private long cuit_usuario;
+        private string contraseña;
+        private long cuit;
         private short baja;
         private int id_rol;
 
@@ -43,21 +43,21 @@ namespace VocesDePapelV1._1.Models
             get { return apellido; }            
             set { apellido = value; }             
         }
-        [DisplayName("Clave del usuario")]
+        [DisplayName("Contraseña del usuario")]
         [Required(ErrorMessage = "La clave del usuario es requerido")]
-        [StringLength( 8, ErrorMessage = "La contraseña debe contener al menos 8 caracteres")]
-        public string Clave 
+        [StringLength( 8, ErrorMessage = "La clave debe contener al menos 8 caracteres")]
+        public string Contraseña 
         { 
-            get { return clave; }  
-            set { clave = value; }
+            get { return contraseña; }  
+            set { contraseña = value; }
         }
         [DisplayName("Cuit del usuario")]
-        [Required(ErrorMessage = "El cuiy del usuario es requerido")]
+        [Required(ErrorMessage = "El cuit del usuario es requerido")]
         [StringLength(11, ErrorMessage = "El cuit no puede ser mayor a 11 caracteres")]
         [RegularExpression("(^[0-9]){11}$", ErrorMessage = "Solo se permiten números y debe contener 11 caracteres\"")] //^ indica inicio de la cadena, $ indica fin de la cadena, [0-9] indica que solo se permiten números, + indica que se permiten uno o más caracteres
         public long Cuit_usuario { 
-            get { return cuit_usuario; }             
-            set { cuit_usuario = value; }             
+            get { return cuit; }             
+            set { cuit = value; }             
         }
         [DisplayName("Estado del usuario")]
         [Required(ErrorMessage = "El estado del usuario es requerido")]
