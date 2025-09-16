@@ -17,11 +17,11 @@ namespace VocesDePapelV1._1
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
 
-            string connectionString = "Server=localhost;Database=VocesDePapel;User Id=sa;Password=yourStrong(!)Password;";
-            IGerenteView view = new Views.GerenteView();
-            new GerentePresenter(view, connectionString);
+            //string connectionString = ConfigurationManager.ConnectionStrings["SqlConnection2"].ConnectionString;
+            //IGerenteView view = new Views.GerenteView();
+            //new GerentePresenter(view, connectionString);
             //Application.Run(new Views.GerenteView());
-            Application.Run((Form)view);
+            //Application.Run((Form)view);
         }
     }
 }
