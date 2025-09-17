@@ -50,20 +50,10 @@
             btn_eliminar_usuario = new Button();
             label2 = new Label();
             dataGridView1 = new DataGridView();
-            btn_seleccionar = new DataGridViewButtonColumn();
-            id_usuario = new DataGridViewTextBoxColumn();
-            nombre = new DataGridViewTextBoxColumn();
-            apellido = new DataGridViewTextBoxColumn();
-            cuit = new DataGridViewTextBoxColumn();
-            id_rol = new DataGridViewTextBoxColumn();
-            rol = new DataGridViewTextBoxColumn();
-            Estado = new DataGridViewTextBoxColumn();
-            estado_valor = new DataGridViewTextBoxColumn();
             l_lista_usuarios = new Label();
-            l_buscar_usuario = new Label();
-            cmb_buscar_por = new ComboBox();
             text_buscar_usuario = new TextBox();
             btn_buscar_usuario = new Button();
+            btn_seleccionar = new DataGridViewButtonColumn();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -271,7 +261,7 @@
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
             dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { btn_seleccionar, id_usuario, nombre, apellido, cuit, id_rol, rol, Estado, estado_valor });
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { btn_seleccionar });
             dataGridView1.Location = new Point(420, 124);
             dataGridView1.MultiSelect = false;
             dataGridView1.Name = "dataGridView1";
@@ -282,81 +272,6 @@
             dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle2;
             dataGridView1.Size = new Size(903, 564);
             dataGridView1.TabIndex = 19;
-            // 
-            // btn_seleccionar
-            // 
-            btn_seleccionar.HeaderText = "";
-            btn_seleccionar.MinimumWidth = 6;
-            btn_seleccionar.Name = "btn_seleccionar";
-            btn_seleccionar.ReadOnly = true;
-            btn_seleccionar.Width = 30;
-            // 
-            // id_usuario
-            // 
-            id_usuario.HeaderText = "id_usuario";
-            id_usuario.MinimumWidth = 6;
-            id_usuario.Name = "id_usuario";
-            id_usuario.ReadOnly = true;
-            id_usuario.Visible = false;
-            id_usuario.Width = 125;
-            // 
-            // nombre
-            // 
-            nombre.HeaderText = "Nombre";
-            nombre.MinimumWidth = 6;
-            nombre.Name = "nombre";
-            nombre.ReadOnly = true;
-            nombre.Width = 150;
-            // 
-            // apellido
-            // 
-            apellido.HeaderText = "Apellido";
-            apellido.MinimumWidth = 6;
-            apellido.Name = "apellido";
-            apellido.ReadOnly = true;
-            apellido.Width = 150;
-            // 
-            // cuit
-            // 
-            cuit.HeaderText = "CUIT";
-            cuit.MinimumWidth = 6;
-            cuit.Name = "cuit";
-            cuit.ReadOnly = true;
-            cuit.Width = 125;
-            // 
-            // id_rol
-            // 
-            id_rol.HeaderText = "id_rol";
-            id_rol.MinimumWidth = 6;
-            id_rol.Name = "id_rol";
-            id_rol.ReadOnly = true;
-            id_rol.Visible = false;
-            id_rol.Width = 125;
-            // 
-            // rol
-            // 
-            rol.HeaderText = "Rol";
-            rol.MinimumWidth = 6;
-            rol.Name = "rol";
-            rol.ReadOnly = true;
-            rol.Width = 125;
-            // 
-            // Estado
-            // 
-            Estado.HeaderText = "Estado";
-            Estado.MinimumWidth = 6;
-            Estado.Name = "Estado";
-            Estado.ReadOnly = true;
-            Estado.Width = 125;
-            // 
-            // estado_valor
-            // 
-            estado_valor.HeaderText = "Estado valor";
-            estado_valor.MinimumWidth = 6;
-            estado_valor.Name = "estado_valor";
-            estado_valor.ReadOnly = true;
-            estado_valor.Visible = false;
-            estado_valor.Width = 125;
             // 
             // l_lista_usuarios
             // 
@@ -369,33 +284,12 @@
             l_lista_usuarios.Text = "Lista de usuarios";
             l_lista_usuarios.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // l_buscar_usuario
-            // 
-            l_buscar_usuario.AutoSize = true;
-            l_buscar_usuario.BackColor = Color.White;
-            l_buscar_usuario.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            l_buscar_usuario.Location = new Point(710, 51);
-            l_buscar_usuario.Name = "l_buscar_usuario";
-            l_buscar_usuario.Size = new Size(96, 25);
-            l_buscar_usuario.TabIndex = 21;
-            l_buscar_usuario.Text = "Buscar por";
-            // 
-            // cmb_buscar_por
-            // 
-            cmb_buscar_por.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmb_buscar_por.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            cmb_buscar_por.FormattingEnabled = true;
-            cmb_buscar_por.Location = new Point(820, 45);
-            cmb_buscar_por.Name = "cmb_buscar_por";
-            cmb_buscar_por.Size = new Size(158, 33);
-            cmb_buscar_por.TabIndex = 22;
-            // 
             // text_buscar_usuario
             // 
             text_buscar_usuario.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            text_buscar_usuario.Location = new Point(984, 47);
+            text_buscar_usuario.Location = new Point(690, 47);
             text_buscar_usuario.Name = "text_buscar_usuario";
-            text_buscar_usuario.Size = new Size(269, 31);
+            text_buscar_usuario.Size = new Size(529, 31);
             text_buscar_usuario.TabIndex = 23;
             // 
             // btn_buscar_usuario
@@ -403,11 +297,19 @@
             btn_buscar_usuario.BackColor = SystemColors.GradientActiveCaption;
             btn_buscar_usuario.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btn_buscar_usuario.Image = Properties.Resources.lupa;
-            btn_buscar_usuario.Location = new Point(1255, 43);
+            btn_buscar_usuario.Location = new Point(1231, 41);
             btn_buscar_usuario.Name = "btn_buscar_usuario";
             btn_buscar_usuario.Size = new Size(66, 43);
             btn_buscar_usuario.TabIndex = 24;
             btn_buscar_usuario.UseVisualStyleBackColor = false;
+            // 
+            // btn_seleccionar
+            // 
+            btn_seleccionar.HeaderText = "";
+            btn_seleccionar.MinimumWidth = 6;
+            btn_seleccionar.Name = "btn_seleccionar";
+            btn_seleccionar.ReadOnly = true;
+            btn_seleccionar.Width = 30;
             // 
             // GerenteViewUsuario
             // 
@@ -417,8 +319,6 @@
             ClientSize = new Size(1340, 781);
             Controls.Add(btn_buscar_usuario);
             Controls.Add(text_buscar_usuario);
-            Controls.Add(cmb_buscar_por);
-            Controls.Add(l_buscar_usuario);
             Controls.Add(l_lista_usuarios);
             Controls.Add(dataGridView1);
             Controls.Add(label2);
@@ -471,18 +371,8 @@
         private Label label2;
         private DataGridView dataGridView1;
         private Label l_lista_usuarios;
-        private DataGridViewButtonColumn btn_seleccionar;
-        private DataGridViewTextBoxColumn id_usuario;
-        private DataGridViewTextBoxColumn nombre;
-        private DataGridViewTextBoxColumn apellido;
-        private DataGridViewTextBoxColumn cuit;
-        private DataGridViewTextBoxColumn id_rol;
-        private DataGridViewTextBoxColumn rol;
-        private DataGridViewTextBoxColumn Estado;
-        private DataGridViewTextBoxColumn estado_valor;
-        private Label l_buscar_usuario;
-        private ComboBox cmb_buscar_por;
         private TextBox text_buscar_usuario;
         private Button btn_buscar_usuario;
+        private DataGridViewButtonColumn btn_seleccionar;
     }
 }
