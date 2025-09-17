@@ -16,8 +16,8 @@ namespace VocesDePapelV1._1.Models
         private string nombre;
         private string apellido;
         private string contraseña;
-        private long cuit;
-        private short baja;
+        private string cuit;
+        private int baja;
         private int id_rol;
 
         //accesors y mutators. Validaciones
@@ -27,7 +27,7 @@ namespace VocesDePapelV1._1.Models
             get { return id_usuario; }
             set { id_usuario = value; } 
         }
-        [DisplayName("Nombre del usuario")]
+        [DisplayName("Nombre")]
         [Required(ErrorMessage = "El nombre de usuario es requerido")]
         [RegularExpression(@"^[a-zA-Z]{3,50}$", ErrorMessage = "Solo se permiten letras y  debe tener entre 3 y 50 caracteres.")]
         public string Nombre 
@@ -35,7 +35,7 @@ namespace VocesDePapelV1._1.Models
             get { return nombre; }
             set { nombre = value; }            
         }
-        [DisplayName("Apellido del usuario")]
+        [DisplayName("Apellido")]
         [Required(ErrorMessage = "El apellido de usuario es requerido")]
         [RegularExpression(@"^[a-zA-Z]{3,50}$", ErrorMessage = "Solo se permiten letras y  debe tener entre 3 y 50 caracteres.")]
         public string Apellido 
@@ -43,7 +43,7 @@ namespace VocesDePapelV1._1.Models
             get { return apellido; }            
             set { apellido = value; }             
         }
-        [DisplayName("Contraseña del usuario")]
+        [DisplayName("Contraseña")]
         [Required(ErrorMessage = "La clave del usuario es requerido")]
         [StringLength( 8, ErrorMessage = "La clave debe contener al menos 8 caracteres")]
         public string Contraseña 
@@ -51,17 +51,17 @@ namespace VocesDePapelV1._1.Models
             get { return contraseña; }  
             set { contraseña = value; }
         }
-        [DisplayName("Cuit del usuario")]
+        [DisplayName("Cuit")]
         [Required(ErrorMessage = "El cuit del usuario es requerido")]
         [StringLength(11, ErrorMessage = "El cuit no puede ser mayor a 11 caracteres")]
         [RegularExpression("(^[0-9]){11}$", ErrorMessage = "Solo se permiten números y debe contener 11 caracteres\"")] //^ indica inicio de la cadena, $ indica fin de la cadena, [0-9] indica que solo se permiten números, + indica que se permiten uno o más caracteres
-        public long Cuit_usuario { 
+        public string Cuit_usuario { 
             get { return cuit; }             
             set { cuit = value; }             
         }
         [DisplayName("Estado del usuario")]
         [Required(ErrorMessage = "El estado del usuario es requerido")]
-        public short Baja 
+        public int Baja 
         { 
             get { return baja; }
             set { baja = value; }

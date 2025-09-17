@@ -18,13 +18,16 @@ namespace VocesDePapelV1._1
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
             string connectionString = ConfigurationManager.ConnectionStrings["SqlConnection"].ConnectionString;
-            //string connectionString = ConfigurationManager.ConnectionStrings["SqlConnection2"].ConnectionString;
+
             //probamos el presenter de usuario
-            IGerenteViewUsuario view = new GerenteViewUsuario();
-            IUsuarioRepository repository = new UsuarioRepository(connectionString);
-            new UsuarioPresenter(view, repository);
-            //new GerentePresenter(view, connectionString);
-            //Application.Run(new Views.GerenteView());
+            //IGerenteViewUsuario view = new GerenteViewUsuario();
+            //IUsuarioRepository repository = new UsuarioRepository(connectionString);
+            //new UsuarioPresenter(view, repository);
+            //Application.Run((Form)view);
+
+            //probamos el presenter de gerente
+            IGerenteView view = new GerenteView();
+            new GerentePresenter(view, connectionString);
             Application.Run((Form)view);
         }
     }

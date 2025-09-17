@@ -57,8 +57,8 @@ namespace VocesDePapelV1._1.Repositories
                                 Nombre = reader["nombre"].ToString(),
                                 Apellido = reader["apellido"].ToString(),
                                 Contraseña = reader["contraseña"].ToString(),
-                                Cuit_usuario = Convert.ToInt64(reader["cuit"]), //long
-                                Baja = Convert.ToInt16(reader["baja"]), //short
+                                Cuit_usuario = reader["cuit"].ToString(), //char(11)
+                                Baja = Convert.ToInt32(reader["baja"]), //int
                                 Id_rol = Convert.ToInt32(reader["id_rol"])
                             };
                             usuarioList.Add(usuario);
@@ -73,7 +73,8 @@ namespace VocesDePapelV1._1.Repositories
         {
             //lista de usuarios
             var usuarioList = new List<UsuarioModel>();
-            long usuario_cuit = long.TryParse(value, out _) ? Convert.ToInt64(value) : 0; //si es numerico lo convierte, sino 0
+            //long usuario_cuit = long.TryParse(value, out _) ? Convert.ToInt64(value) : 0; //si es numerico lo convierte, sino 0
+            string usuario_cuit = value;
             string usuario_nombre_apellido = value;
             //consultas sql
             using (var connection = new Microsoft.Data.SqlClient.SqlConnection(connectionString))
@@ -83,10 +84,10 @@ namespace VocesDePapelV1._1.Repositories
                 command.Connection = connection;
                 //command.CommandText = "SELECT * FROM Usuario ORDER BY id_usuario DESC"; video
                 command.CommandText = @"SELECT *FROM usuario
-                                    WHERE cuit = @ciut or nombre like @nombre_apellido+'%' or apellido like @nombre_apellido+'%'
+                                    WHERE cuit like @cuit+'%' or nombre like @nombre_apellido+'%' or apellido like @nombre_apellido+'%'
                                     ORDER BY id_usuario DESC";
 
-                command.Parameters.Add("@cuit", SqlDbType.BigInt).Value = usuario_cuit ;
+                command.Parameters.Add("@cuit", SqlDbType.NVarChar).Value = usuario_cuit ;
                 command.Parameters.Add("@nombre_apellido", SqlDbType.NVarChar).Value = usuario_nombre_apellido;
 
                 using (var reader = command.ExecuteReader())
@@ -100,7 +101,7 @@ namespace VocesDePapelV1._1.Repositories
                             Nombre = reader["nombre"].ToString(),
                             Apellido = reader["apellido"].ToString(),
                             Contraseña = reader["contraseña"].ToString(),
-                            Cuit_usuario = Convert.ToInt64(reader["cuit"]), //long
+                            Cuit_usuario = reader["cuit"].ToString(), //long
                             Baja = Convert.ToInt16(reader["baja"]), //short
                             Id_rol = Convert.ToInt32(reader["id_rol"])
                         };
