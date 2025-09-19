@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using VocesDePapelV1._1.Views;
 using VocesDePapelV1._1.Models;
 using VocesDePapelV1._1.Repositories;
+using System.Windows.Forms;
 
 namespace VocesDePapelV1._1.Presenters
 {
@@ -24,12 +25,11 @@ namespace VocesDePapelV1._1.Presenters
             this.view.ShowUsuarioView += ShowUsuariosView;
 
         }
-        //mostrar vista de usuario
         private void ShowUsuariosView(object? sender, EventArgs e)
         {
-            IGerenteViewUsuario view = GerenteViewUsuario.GetInstance(); //muetra solo una instancia de la vista de usuario
+            IGerenteViewUsuario usuarioView = GerenteViewUsuario.GetInstance((GerenteView)this.view); // muestra solo una instancia de la vista de usuario
             IUsuarioRepository repository = new UsuarioRepository(connectionString);
-            new UsuarioPresenter(view, repository);
+            new UsuarioPresenter(usuarioView, repository);
         }
     }
 }

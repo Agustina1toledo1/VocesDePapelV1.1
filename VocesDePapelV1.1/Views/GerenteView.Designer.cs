@@ -46,7 +46,7 @@
             menu.Items.AddRange(new ToolStripItem[] { usuarioItemMenu, backupItemMenu, toolStripMenuItem3, toolStripMenuItem4 });
             menu.Location = new Point(0, 0);
             menu.Name = "menu";
-            menu.Size = new Size(1349, 90);
+            menu.Size = new Size(1549, 90);
             menu.TabIndex = 0;
             menu.Text = "menuStrip1";
             // 
@@ -115,8 +115,9 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1349, 525);
+            ClientSize = new Size(1549, 875);
             Controls.Add(menu);
+            IsMdiContainer = true;
             MainMenuStrip = menu;
             Name = "GerenteView";
             Text = "Form1";

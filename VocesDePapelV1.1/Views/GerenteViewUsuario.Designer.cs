@@ -50,10 +50,10 @@
             btn_eliminar_usuario = new Button();
             label2 = new Label();
             dataGridView1 = new DataGridView();
+            btn_seleccionar = new DataGridViewButtonColumn();
             l_lista_usuarios = new Label();
             text_buscar_usuario = new TextBox();
             btn_buscar_usuario = new Button();
-            btn_seleccionar = new DataGridViewButtonColumn();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -69,6 +69,7 @@
             // 
             // l_nombre
             // 
+            l_nombre.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             l_nombre.AutoSize = true;
             l_nombre.BackColor = Color.White;
             l_nombre.Font = new Font("Segoe UI", 12F);
@@ -80,6 +81,7 @@
             // 
             // l_apellido
             // 
+            l_apellido.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             l_apellido.AutoSize = true;
             l_apellido.BackColor = Color.White;
             l_apellido.Font = new Font("Segoe UI", 12F);
@@ -91,6 +93,7 @@
             // 
             // l_clave
             // 
+            l_clave.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             l_clave.AutoSize = true;
             l_clave.BackColor = Color.White;
             l_clave.Font = new Font("Segoe UI", 12F);
@@ -102,6 +105,7 @@
             // 
             // l_verificar_clave
             // 
+            l_verificar_clave.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             l_verificar_clave.AutoSize = true;
             l_verificar_clave.BackColor = Color.White;
             l_verificar_clave.Font = new Font("Segoe UI", 12F);
@@ -113,6 +117,7 @@
             // 
             // l_cuit
             // 
+            l_cuit.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             l_cuit.AutoSize = true;
             l_cuit.BackColor = Color.White;
             l_cuit.Font = new Font("Segoe UI", 12F);
@@ -124,6 +129,7 @@
             // 
             // l_estado
             // 
+            l_estado.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             l_estado.AutoSize = true;
             l_estado.BackColor = Color.White;
             l_estado.Font = new Font("Segoe UI", 12F);
@@ -135,6 +141,7 @@
             // 
             // l_rol
             // 
+            l_rol.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             l_rol.AutoSize = true;
             l_rol.BackColor = Color.White;
             l_rol.Font = new Font("Segoe UI", 12F);
@@ -146,6 +153,7 @@
             // 
             // text_nombre_usuario
             // 
+            text_nombre_usuario.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             text_nombre_usuario.Font = new Font("Segoe UI", 12F);
             text_nombre_usuario.Location = new Point(59, 109);
             text_nombre_usuario.Name = "text_nombre_usuario";
@@ -154,6 +162,7 @@
             // 
             // text_cuit_usuario
             // 
+            text_cuit_usuario.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             text_cuit_usuario.Font = new Font("Segoe UI", 12F);
             text_cuit_usuario.Location = new Point(59, 395);
             text_cuit_usuario.Name = "text_cuit_usuario";
@@ -162,6 +171,7 @@
             // 
             // text_clave_verificar_usuario
             // 
+            text_clave_verificar_usuario.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             text_clave_verificar_usuario.Font = new Font("Segoe UI", 12F);
             text_clave_verificar_usuario.Location = new Point(59, 330);
             text_clave_verificar_usuario.Name = "text_clave_verificar_usuario";
@@ -170,6 +180,7 @@
             // 
             // text_clave_usuario
             // 
+            text_clave_usuario.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             text_clave_usuario.Font = new Font("Segoe UI", 12F);
             text_clave_usuario.Location = new Point(59, 254);
             text_clave_usuario.Name = "text_clave_usuario";
@@ -178,6 +189,7 @@
             // 
             // text_apellido_usuario
             // 
+            text_apellido_usuario.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             text_apellido_usuario.Font = new Font("Segoe UI", 12F);
             text_apellido_usuario.Location = new Point(59, 182);
             text_apellido_usuario.Name = "text_apellido_usuario";
@@ -186,6 +198,7 @@
             // 
             // cmb_estado_usuario
             // 
+            cmb_estado_usuario.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             cmb_estado_usuario.DropDownStyle = ComboBoxStyle.DropDownList;
             cmb_estado_usuario.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             cmb_estado_usuario.FormattingEnabled = true;
@@ -196,6 +209,7 @@
             // 
             // cmb_rol_usuario
             // 
+            cmb_rol_usuario.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             cmb_rol_usuario.DropDownStyle = ComboBoxStyle.DropDownList;
             cmb_rol_usuario.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             cmb_rol_usuario.FormattingEnabled = true;
@@ -206,6 +220,7 @@
             // 
             // btn_guardar_usuario
             // 
+            btn_guardar_usuario.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             btn_guardar_usuario.BackColor = SystemColors.GradientActiveCaption;
             btn_guardar_usuario.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btn_guardar_usuario.Location = new Point(59, 611);
@@ -217,6 +232,7 @@
             // 
             // btn_modificar_usuario
             // 
+            btn_modificar_usuario.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             btn_modificar_usuario.BackColor = Color.FromArgb(255, 192, 128);
             btn_modificar_usuario.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btn_modificar_usuario.Location = new Point(59, 672);
@@ -228,6 +244,7 @@
             // 
             // btn_eliminar_usuario
             // 
+            btn_eliminar_usuario.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             btn_eliminar_usuario.BackColor = Color.FromArgb(255, 128, 128);
             btn_eliminar_usuario.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btn_eliminar_usuario.Location = new Point(59, 732);
@@ -239,6 +256,7 @@
             // 
             // label2
             // 
+            label2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             label2.AutoSize = true;
             label2.BackColor = Color.White;
             label2.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -251,6 +269,7 @@
             // dataGridView1
             // 
             dataGridView1.AllowUserToAddRows = false;
+            dataGridView1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = SystemColors.Control;
             dataGridViewCellStyle1.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -270,38 +289,8 @@
             dataGridViewCellStyle2.SelectionBackColor = Color.White;
             dataGridViewCellStyle2.SelectionForeColor = Color.Black;
             dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle2;
-            dataGridView1.Size = new Size(903, 564);
+            dataGridView1.Size = new Size(863, 564);
             dataGridView1.TabIndex = 19;
-            // 
-            // l_lista_usuarios
-            // 
-            l_lista_usuarios.BackColor = Color.White;
-            l_lista_usuarios.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            l_lista_usuarios.Location = new Point(420, 28);
-            l_lista_usuarios.Name = "l_lista_usuarios";
-            l_lista_usuarios.Size = new Size(903, 66);
-            l_lista_usuarios.TabIndex = 20;
-            l_lista_usuarios.Text = "Lista de usuarios";
-            l_lista_usuarios.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // text_buscar_usuario
-            // 
-            text_buscar_usuario.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            text_buscar_usuario.Location = new Point(690, 47);
-            text_buscar_usuario.Name = "text_buscar_usuario";
-            text_buscar_usuario.Size = new Size(529, 31);
-            text_buscar_usuario.TabIndex = 23;
-            // 
-            // btn_buscar_usuario
-            // 
-            btn_buscar_usuario.BackColor = SystemColors.GradientActiveCaption;
-            btn_buscar_usuario.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btn_buscar_usuario.Image = Properties.Resources.lupa;
-            btn_buscar_usuario.Location = new Point(1231, 41);
-            btn_buscar_usuario.Name = "btn_buscar_usuario";
-            btn_buscar_usuario.Size = new Size(66, 43);
-            btn_buscar_usuario.TabIndex = 24;
-            btn_buscar_usuario.UseVisualStyleBackColor = false;
             // 
             // btn_seleccionar
             // 
@@ -311,12 +300,45 @@
             btn_seleccionar.ReadOnly = true;
             btn_seleccionar.Width = 30;
             // 
+            // l_lista_usuarios
+            // 
+            l_lista_usuarios.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            l_lista_usuarios.BackColor = Color.White;
+            l_lista_usuarios.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            l_lista_usuarios.Location = new Point(420, 40);
+            l_lista_usuarios.Name = "l_lista_usuarios";
+            l_lista_usuarios.Size = new Size(863, 66);
+            l_lista_usuarios.TabIndex = 20;
+            l_lista_usuarios.Text = "Lista de usuarios";
+            l_lista_usuarios.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // text_buscar_usuario
+            // 
+            text_buscar_usuario.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            text_buscar_usuario.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            text_buscar_usuario.Location = new Point(664, 59);
+            text_buscar_usuario.Name = "text_buscar_usuario";
+            text_buscar_usuario.Size = new Size(529, 31);
+            text_buscar_usuario.TabIndex = 23;
+            // 
+            // btn_buscar_usuario
+            // 
+            btn_buscar_usuario.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btn_buscar_usuario.BackColor = SystemColors.GradientActiveCaption;
+            btn_buscar_usuario.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btn_buscar_usuario.Image = Properties.Resources.lupa;
+            btn_buscar_usuario.Location = new Point(1205, 53);
+            btn_buscar_usuario.Name = "btn_buscar_usuario";
+            btn_buscar_usuario.Size = new Size(66, 43);
+            btn_buscar_usuario.TabIndex = 24;
+            btn_buscar_usuario.UseVisualStyleBackColor = false;
+            // 
             // GerenteViewUsuario
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveCaption;
-            ClientSize = new Size(1340, 781);
+            ClientSize = new Size(1418, 781);
             Controls.Add(btn_buscar_usuario);
             Controls.Add(text_buscar_usuario);
             Controls.Add(l_lista_usuarios);

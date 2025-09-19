@@ -102,11 +102,14 @@ namespace VocesDePapelV1._1.Views
         }
         //singleton patron (abre una sola instancia del formulario) 
         private static GerenteViewUsuario instance;
-        public static GerenteViewUsuario GetInstance()
+        public static GerenteViewUsuario GetInstance(Form parentConteiner)
         {
             if (instance == null || instance.IsDisposed) //si es nullo o esta desechado
             {
                 instance = new GerenteViewUsuario();
+                instance.MdiParent = parentConteiner; //establecer el formulario padre
+                instance.FormBorderStyle = FormBorderStyle.None; //sin bordes
+                instance.Dock = DockStyle.Fill; //llenar el contenedor
             }
             else
             {
