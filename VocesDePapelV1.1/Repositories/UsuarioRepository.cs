@@ -26,7 +26,7 @@ namespace VocesDePapelV1._1.Repositories
             throw new NotImplementedException();
         }
 
-        public void Eliminar(UsuarioModel usuario)
+        public void Eliminar(UsuarioModel usuario) //cambia de estado a 1 (baja logica)
         {
             throw new NotImplementedException();
         }

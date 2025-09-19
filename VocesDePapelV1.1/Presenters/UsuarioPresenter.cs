@@ -61,7 +61,7 @@ namespace VocesDePapelV1._1.Presenters
 
         private void CancelAction(object? sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            CleanviewFields();
         }
 
         private void SaveUsuario(object? sender, EventArgs e)
@@ -79,19 +79,58 @@ namespace VocesDePapelV1._1.Presenters
             //capturamos los posible errores 
             try
             {
-
-            }catch(Exception ex)
+                //validamos el modelo
+                new Common.ModelDataValidation().Validate(usuario);
+                if (view.IsEdit) //si estamos en modo edicion
+                {
+                    repository.Modificar(usuario); //modificamos el usuario
+                    view.Message = "Usuario modificado exitosamente";
+                }
+                else //si no, agregamos un nuevo usuario
+                {
+                    repository.Add(usuario); //agregamos el nuevo usuario
+                    view.Message = "Usuario agregado exitosamente";
+                }
+                view.IsSuccessful = true; 
+                LoadAllUsuarioList(); //recargamos la lista de usuarios
+                CleanviewFields(); //limpiamos los campos de la vista
+            }
+            catch (Exception ex)
             {
                 this.view.IsSuccessful = false;
-                this.view.Message = "Error al guardar el usuario. Detalles: " + ex.Message;
+                this.view.Message =  ex.Message;
                 return;
 
             }
         }
 
+        private void CleanviewFields()
+        {
+            
+            view.UsuarioNombre = "";
+            view.UsuarioApellido = "";
+            view.Contraseña = "";
+            view.CuitUsuario = "";
+            view.Baja = "";
+            view.UsuarioIdRol = "";
+
+        }
+
         private void DeleteUsuario(object? sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var usuario = (UsuarioModel)usuarioBindingSource.Current; //obtenemos el usuario actual del origen de datos del enlace
+                repository.Eliminar(usuario); //eliminamos el usuario
+                view.IsSuccessful = true;
+                view.Message = "Usuario eliminado exitosamente";
+                LoadAllUsuarioList(); //recargamos la lista de usuarios
+            }
+            catch (Exception ex)
+            {
+                view.IsSuccessful = false;
+                view.Message = "Error al eliminar el usuario. " + ex.Message;
+            }
         }
 
         private void EditUsuario(object? sender, EventArgs e)
