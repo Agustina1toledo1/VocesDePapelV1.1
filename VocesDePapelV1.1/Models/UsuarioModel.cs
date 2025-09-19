@@ -59,14 +59,14 @@ namespace VocesDePapelV1._1.Models
             get { return cuit; }             
             set { cuit = value; }             
         }
-        [DisplayName("Estado del usuario")]
+        [DisplayName("Estado")]
         [Required(ErrorMessage = "El estado del usuario es requerido")]
         public int Baja 
         { 
             get { return baja; }
             set { baja = value; }
         }
-        [DisplayName("Rol del usuario")]
+        [DisplayName("Rol ")]
         [Required(ErrorMessage = "El rol del usuario es requerido")]
         public int Id_rol 
         { 

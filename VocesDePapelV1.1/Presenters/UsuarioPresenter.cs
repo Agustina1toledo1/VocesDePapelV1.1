@@ -29,7 +29,7 @@ namespace VocesDePapelV1._1.Presenters
             this.view.EditEvent += EditUsuario;
             this.view.DeleteEvent += DeleteUsuario;
             this.view.SaveEvent += SaveUsuario;
-            this.view.CancelEvent += CancelAction;
+            this.view.CancelEvent += CancelAction; //no se si es necesario
             //Establecemos el origen de datos del enlace, fuente vinculante
             this.view.SetUsuarioListBindingSource(usuarioBindingSource);
             //cargamos los datos de usuario a  la lista de usuarios
@@ -66,7 +66,27 @@ namespace VocesDePapelV1._1.Presenters
 
         private void SaveUsuario(object? sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            var usuario = new UsuarioModel(); //creamos una nueva instancia del modelo de usuario
+            //asignamos los valores de la vista a las propiedades del modelo
+            usuario.Id_usuario = Convert.ToInt32(view.UsuarioId);
+            usuario.Nombre = view.UsuarioNombre;
+            usuario.Apellido = view.UsuarioApellido;
+            usuario.Contraseña = view.Contraseña;
+            usuario.Cuit_usuario = view.CuitUsuario;
+            usuario.Baja = Convert.ToInt32(view.Baja);
+            usuario.Id_rol = Convert.ToInt32(view.UsuarioIdRol);
+
+            //capturamos los posible errores 
+            try
+            {
+
+            }catch(Exception ex)
+            {
+                this.view.IsSuccessful = false;
+                this.view.Message = "Error al guardar el usuario. Detalles: " + ex.Message;
+                return;
+
+            }
         }
 
         private void DeleteUsuario(object? sender, EventArgs e)
@@ -76,12 +96,21 @@ namespace VocesDePapelV1._1.Presenters
 
         private void EditUsuario(object? sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            var usuario = (UsuarioModel)usuarioBindingSource.Current; //obtenemos el usuario actual del origen de datos del enlace
+            //asignamos los valores de la vista a las propiedades del modelo    
+                view.UsuarioId = usuario.Id_usuario.ToString();
+                view.UsuarioNombre = usuario.Nombre;
+                view.UsuarioApellido = usuario.Apellido;
+                view.Contraseña = usuario.Contraseña;
+                view.CuitUsuario = usuario.Cuit_usuario;
+                view.Baja = usuario.Baja.ToString();
+                view.UsuarioIdRol = usuario.Id_rol.ToString();
+                this.view.IsEdit = true; //establecemos la vista en modo edicion
         }
 
         private void AddNewUsuario(object? sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            this.view.IsEdit = false; //establecemos la vista en modo no edicion
         }
 
         
