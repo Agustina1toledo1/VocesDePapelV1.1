@@ -27,7 +27,7 @@ namespace VocesDePapelV1._1.Presenters
         //mostrar vista de usuario
         private void ShowUsuariosView(object? sender, EventArgs e)
         {
-            IGerenteViewUsuario view = new GerenteViewUsuario();
+            IGerenteViewUsuario view = GerenteViewUsuario.GetInstance(); //muetra solo una instancia de la vista de usuario
             IUsuarioRepository repository = new UsuarioRepository(connectionString);
             new UsuarioPresenter(view, repository);
         }

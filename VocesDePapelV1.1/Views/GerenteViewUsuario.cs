@@ -100,7 +100,26 @@ namespace VocesDePapelV1._1.Views
 
             //throw new NotImplementedException();
         }
+        //singleton patron (abre una sola instancia del formulario) 
+        private static GerenteViewUsuario instance;
+        public static GerenteViewUsuario GetInstance()
+        {
+            if (instance == null || instance.IsDisposed) //si es nullo o esta desechado
+            {
+                instance = new GerenteViewUsuario();
+            }
+            else
+            {
+                if(instance.WindowState == FormWindowState.Minimized)//si esta minimizado, restaurar
+                {
+                    instance.WindowState = FormWindowState.Normal; 
+                }
+                instance.BringToFront();//si ya existe, traer al frente
 
-    
+            } 
+            return instance;
+        }
+
+
     }
 }
