@@ -35,7 +35,13 @@ namespace VocesDePapelV1._1.Views
                     SearchEvent?.Invoke(this, EventArgs.Empty);
                 }
             };
-            //otros
+            //Agregar nuevo usuario
+            btn_guardar_usuario.Click += delegate { AddNewEvent?.Invoke(this, EventArgs.Empty); };
+            //editar usuario
+            btn_modificar_usuario.Click += delegate { EditEvent?.Invoke(this, EventArgs.Empty); };
+            //eliminar usuario
+            btn_eliminar_usuario.Click += delegate { DeleteEvent?.Invoke(this, EventArgs.Empty); };
+            
         }
 
         //propiedades
