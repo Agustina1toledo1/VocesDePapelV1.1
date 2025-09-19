@@ -23,12 +23,35 @@ namespace VocesDePapelV1._1.Repositories
         //metodos
         public void Add(UsuarioModel usuario)
         {
-            throw new NotImplementedException();
+            using (var connection = new Microsoft.Data.SqlClient.SqlConnection(connectionString))
+            using (var command = new Microsoft.Data.SqlClient.SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                //command.CommandText = "SELECT * FROM Usuario ORDER BY id_usuario DESC"; video
+                command.CommandText = "INSERT INTO usuario VALES @nombre, @apellido, @contraseña, @cuit, @baja, @id_rol ";
+                command.Parameters.Add("@nombre", SqlDbType.NVarChar).Value = usuario.Nombre;
+                command.Parameters.Add("@apellido", SqlDbType.NVarChar).Value = usuario.Apellido;
+                command.Parameters.Add("@contraseña", SqlDbType.NVarChar).Value = usuario.Contraseña;
+                command.Parameters.Add("@cuit", SqlDbType.NVarChar).Value = usuario.Cuit_usuario;
+                command.Parameters.Add("@baja", SqlDbType.Int).Value = usuario.Baja;
+                command.Parameters.Add("@id_rol", SqlDbType.Int).Value = usuario.Id_rol;
+                command.ExecuteNonQuery(); //ejecuta la consulta
+            }
         }
 
-        public void Eliminar(UsuarioModel usuario) //cambia de estado a 1 (baja logica)
+        public void Eliminar(int id) //cambia de estado a 1 (baja logica)
         {
-            throw new NotImplementedException();
+            using (var connection = new Microsoft.Data.SqlClient.SqlConnection(connectionString))
+            using (var command = new Microsoft.Data.SqlClient.SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = "UPDATE usuario SET baja =1 WHERE id_usuario = @id"; //modificamos el estado a 1 (baja logica)
+                command.Parameters.Add("@id", SqlDbType.Int).Value = id;
+                command.ExecuteNonQuery(); //ejecuta la consulta
+
+            }
         }
 
         public IEnumerable<UsuarioModel> GetAll()
@@ -115,7 +138,28 @@ namespace VocesDePapelV1._1.Repositories
 
         public void Modificar(UsuarioModel usuario)
         {
-            throw new NotImplementedException();
+            using (var connection = new Microsoft.Data.SqlClient.SqlConnection(connectionString))
+            using (var command = new Microsoft.Data.SqlClient.SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = @"UPDATE usuario SET nombre = @nombre, apellido = @apellido, 
+                                       contraseña = @contraseña, cuit = @cuit, baja = @baja, 
+                                        id_rol = @id_rol 
+                                        WHERE id_usuario = @id_usuario";
+
+                command.Parameters.Add("@id_usuario", SqlDbType.Int).Value = usuario.Id_usuario;
+                command.Parameters.Add("@nombre", SqlDbType.NVarChar).Value = usuario.Nombre;
+                command.Parameters.Add("@apellido", SqlDbType.NVarChar).Value = usuario.Apellido;
+                command.Parameters.Add("@contraseña", SqlDbType.NVarChar).Value = usuario.Contraseña;
+                command.Parameters.Add("@cuit", SqlDbType.NVarChar).Value = usuario.Cuit_usuario;
+                command.Parameters.Add("@baja", SqlDbType.Int).Value = usuario.Baja;
+                command.Parameters.Add("@id_rol", SqlDbType.Int).Value = usuario.Id_rol;
+                command.ExecuteNonQuery(); //ejecuta la consulta
+
+
+            }
+             
         }
     }
 }

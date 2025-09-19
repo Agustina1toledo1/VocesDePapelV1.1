@@ -121,7 +121,7 @@ namespace VocesDePapelV1._1.Presenters
             try
             {
                 var usuario = (UsuarioModel)usuarioBindingSource.Current; //obtenemos el usuario actual del origen de datos del enlace
-                repository.Eliminar(usuario); //eliminamos el usuario
+                repository.Eliminar(usuario.Id_usuario); //eliminamos el usuario
                 view.IsSuccessful = true;
                 view.Message = "Usuario eliminado exitosamente";
                 LoadAllUsuarioList(); //recargamos la lista de usuarios

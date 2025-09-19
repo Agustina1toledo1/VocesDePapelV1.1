@@ -11,7 +11,7 @@ namespace VocesDePapelV1._1.Models
     {
         void Add(UsuarioModel usuario);
         void Modificar(UsuarioModel usuario);
-        void Eliminar(UsuarioModel usuario);
+        void Eliminar(int id);
         IEnumerable<UsuarioModel> GetAll(); //listar todos
         IEnumerable<UsuarioModel> GetByValue(string value); //buscar por valor
     }
