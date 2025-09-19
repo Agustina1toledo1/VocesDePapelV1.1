@@ -38,9 +38,23 @@ namespace VocesDePapelV1._1.Views
             //Agregar nuevo usuario
             btn_guardar_usuario.Click += delegate { AddNewEvent?.Invoke(this, EventArgs.Empty); };
             //editar usuario
-            btn_modificar_usuario.Click += delegate { EditEvent?.Invoke(this, EventArgs.Empty); };
+            btn_modificar_usuario.Click += delegate { EditEvent?.Invoke(this, EventArgs.Empty);
+                if (IsSuccessful)
+                {
+                    MessageBox.Show("aca actualiza la lista de usuarios");
+                }
+                MessageBox.Show(Message);
+            };
             //eliminar usuario
-            btn_eliminar_usuario.Click += delegate { DeleteEvent?.Invoke(this, EventArgs.Empty); };
+            btn_eliminar_usuario.Click += delegate { 
+            var result = MessageBox.Show("Estas seguro de eliminar el usuario seleccionado?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if(result == DialogResult.Yes)
+                {
+                    DeleteEvent?.Invoke(this, EventArgs.Empty);                    
+                    MessageBox.Show(Message);
+                    
+                }
+            };
             
         }
 
