@@ -184,8 +184,9 @@ namespace VocesDePapelV1._1.Presenters
                 view.UsuarioApellido = usuario.Apellido;
                 view.Contraseña = usuario.Contraseña;
                 view.CuitUsuario = usuario.Cuit_usuario;
-                view.Baja = usuario.Baja.ToString();
-                view.UsuarioIdRol = usuario.Id_rol.ToString();
+                view.NombreEstado = usuario.Nombre_estado;
+                view.NombreRol = usuario.Nombre_rol;
+                
                 this.view.IsEdit = true; //establecemos la vista en modo edicion
         }
 

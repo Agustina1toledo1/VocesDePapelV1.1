@@ -37,7 +37,7 @@ namespace VocesDePapelV1._1.Views
             btn_guardar_usuario.Click += delegate { AddNewEvent?.Invoke(this, EventArgs.Empty); };
             //editar usuario
             
-            btn_modificar_usuario.Click += delegate { EditEvent?.Invoke(this, EventArgs.Empty);
+            btn_modificar_usuario.Click += delegate { SaveEvent?.Invoke(this, EventArgs.Empty);
                 if (IsSuccessful)
                 {
                     
@@ -64,7 +64,11 @@ namespace VocesDePapelV1._1.Views
 
         //propiedades
         public string UsuarioId {
-            get { return "0"; } //ver que pasa con esto
+            get {
+                if (dataGridView1.CurrentRow != null)
+                    return dataGridView1.CurrentRow.Cells["Id_usuario"].Value?.ToString();
+                return "0";
+            } //ver que pasa con esto
             set {  }
         }
         public string UsuarioNombre {
@@ -84,18 +88,21 @@ namespace VocesDePapelV1._1.Views
             set { text_cuit_usuario.Text = value; }
         }
         public string Baja {
-            get { return cmb_estado_usuario.Text; }
-            set { cmb_estado_usuario.Text = value; }
+            get { return cmb_estado_usuario.SelectedValue?.ToString(); }
+            set { cmb_estado_usuario.SelectedValue = value; }
+
         }
         public string UsuarioIdRol {
-            get { return cmb_rol_usuario.Text; }
-            set { cmb_rol_usuario.Text = value; }
+            get { return cmb_rol_usuario.SelectedValue?.ToString(); }
+            set { cmb_rol_usuario.SelectedValue = value; }
         }
         
         public string SearchValue {
             get { return text_buscar_usuario.Text; }
             set { text_buscar_usuario.Text = value; }
         }
+
+        
         public bool IsEdit {
             get { return isEdit; }
             set { isEdit = value; }
@@ -107,6 +114,15 @@ namespace VocesDePapelV1._1.Views
         public string Message {
             get { return message; }
             set { message = value; }
+        }
+
+        public string NombreEstado {
+            get { return cmb_estado_usuario.Text; }
+            set { cmb_estado_usuario.Text = value; }
+        }
+        public string NombreRol {
+            get { return cmb_rol_usuario.Text; }
+            set { cmb_rol_usuario.Text = value; }
         }
 
         //Eventos

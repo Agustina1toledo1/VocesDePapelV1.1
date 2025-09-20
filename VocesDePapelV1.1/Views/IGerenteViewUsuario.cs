@@ -16,6 +16,8 @@ namespace VocesDePapelV1._1.Views
         string CuitUsuario { get; set; }
         string Baja { get; set; }
         string UsuarioIdRol { get; set; }
+        string NombreEstado { get; set; }
+        string NombreRol { get; set; }
 
         string SearchValue { get; set; }
         bool IsEdit { get; set; }

@@ -54,7 +54,7 @@ namespace VocesDePapelV1._1.Models
         [DisplayName("Cuit")]
         [Required(ErrorMessage = "El cuit del usuario es requerido")]
         [StringLength(11, ErrorMessage = "El cuit no puede ser mayor a 11 caracteres")]
-        [RegularExpression("(^[0-9]){11}$", ErrorMessage = "Solo se permiten números y debe contener 11 caracteres\"")] //^ indica inicio de la cadena, $ indica fin de la cadena, [0-9] indica que solo se permiten números, + indica que se permiten uno o más caracteres
+        [RegularExpression(@"^\d{11}$", ErrorMessage = "El CUIT debe tener exactamente 11 dígitos numéricos")]
         public string Cuit_usuario { 
             get { return cuit; }             
             set { cuit = value; }             
