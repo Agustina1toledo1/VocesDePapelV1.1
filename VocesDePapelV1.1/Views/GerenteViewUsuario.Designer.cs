@@ -187,11 +187,9 @@
             // 
             // cmb_estado_usuario
             // 
-            cmb_estado_usuario.AutoCompleteCustomSource.AddRange(new string[] { "1" });
             cmb_estado_usuario.DropDownStyle = ComboBoxStyle.DropDownList;
             cmb_estado_usuario.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             cmb_estado_usuario.FormattingEnabled = true;
-            cmb_estado_usuario.Items.AddRange(new object[] { "1" });
             cmb_estado_usuario.Location = new Point(59, 402);
             cmb_estado_usuario.Name = "cmb_estado_usuario";
             cmb_estado_usuario.Size = new Size(269, 36);
