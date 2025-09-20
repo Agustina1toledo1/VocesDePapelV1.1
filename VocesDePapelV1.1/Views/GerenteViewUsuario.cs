@@ -118,7 +118,6 @@ namespace VocesDePapelV1._1.Views
         {
             dataGridView1.DataSource = usuarioList;
 
-            //throw new NotImplementedException();
         }
         //singleton patron (abre una sola instancia del formulario) 
         private static GerenteViewUsuario instance;
@@ -143,6 +142,18 @@ namespace VocesDePapelV1._1.Views
             return instance;
         }
 
+        public void SetEstadoListBindingSource(BindingSource estadoList)
+        {
+            cmb_estado_usuario.DataSource = estadoList;
+            cmb_estado_usuario.DisplayMember = "Nombre_estado"; 
+            cmb_estado_usuario.ValueMember = "Id_estado";
+        }
 
+        public void SetRolListBindingSource(BindingSource rolList)
+        {
+            cmb_rol_usuario.DataSource = rolList;
+            cmb_rol_usuario.DisplayMember = "Nombre_rol";
+            cmb_rol_usuario.ValueMember = "Id_rol";
+        }
     }
 }

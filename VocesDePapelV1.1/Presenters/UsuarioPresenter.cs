@@ -14,13 +14,18 @@ namespace VocesDePapelV1._1.Presenters
         private IGerenteViewUsuario view; //campo privado para la vista usando la interfaz
         private IUsuarioRepository repository; //campo privado para el repositorio usando la interfaz
         private BindingSource usuarioBindingSource; //origen de datos para el enlace
+        private BindingSource estadoBindingSource; //origen de datos para el enlace
+        private BindingSource rolBindingSource; //origen de datos para el enlace
         private IEnumerable<UsuarioModel> usuarioList; //lista de usuarios
-
+        private IEnumerable<RolModel> rolList;
+        private IEnumerable<EstadoModel> estadoList;
         //constructor
         public UsuarioPresenter(IGerenteViewUsuario view, IUsuarioRepository repository)
         {
             //inicializamos los campos
             this.usuarioBindingSource = new BindingSource();
+            this.estadoBindingSource = new BindingSource();
+            this.rolBindingSource = new BindingSource();
             this.view = view;
             this.repository = repository;
             //Suscribimos los eventos del controlador a los eventos de la vista
@@ -30,12 +35,44 @@ namespace VocesDePapelV1._1.Presenters
             this.view.DeleteEvent += DeleteUsuario;
             this.view.SaveEvent += SaveUsuario;
             this.view.CancelEvent += CancelAction; //no se si es necesario
+            
+            //cargar los datos de rol y estado 
+            CargarAllRol();
+            CargarAllEstado();
             //Establecemos el origen de datos del enlace, fuente vinculante
             this.view.SetUsuarioListBindingSource(usuarioBindingSource);
+            this.view.SetEstadoListBindingSource(estadoBindingSource);
+            this.view.SetRolListBindingSource(rolBindingSource);
             //cargamos los datos de usuario a  la lista de usuarios
             LoadAllUsuarioList();
             //mostramos la vista
             this.view.Show();
+            
+            
+
+            //var roles = repository.GetRol();
+            //var estados = repository.GetEstado();
+            //asignar los datos a los combobox
+            //((System.Windows.Forms.ComboBox)((System.Windows.Forms.Form)view).Controls["cmb_rol_usuario"]).DataSource = roles.ToList();
+            //((System.Windows.Forms.ComboBox)((System.Windows.Forms.Form)view).Controls["cmb_rol_usuario"]).DisplayMember = "Descripcion";
+            //((System.Windows.Forms.ComboBox)((System.Windows.Forms.Form)view).Controls["cmb_rol_usuario"]).ValueMember = "Id_rol";
+            //((System.Windows.Forms.ComboBox)((System.Windows.Forms.Form)view).Controls["cmb_estado_usuario"]).DataSource = estados.ToList();
+            //((System.Windows.Forms.ComboBox)((System.Windows.Forms.Form)view).Controls["cmb_estado_usuario"]).DisplayMember = "Descripcion";
+            //((System.Windows.Forms.ComboBox)((System.Windows.Forms.Form)view).Controls["cmb_estado_usuario"]).ValueMember = "Id_estado";
+
+
+        }
+
+        private void CargarAllEstado()
+        {
+            estadoList = repository.GetEstado();
+            estadoBindingSource.DataSource = estadoList; //establecemos la lista de estados como el origen de datos del enlace
+        }
+
+        private void CargarAllRol()
+        {
+            rolList = repository.GetRol(); //obtenemos todos los usuarios del repositorio
+            rolBindingSource.DataSource = rolList; //establecemos la lista de roles como el origen de datos del enlace
         }
 
         private void LoadAllUsuarioList()

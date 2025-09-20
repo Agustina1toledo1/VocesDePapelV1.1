@@ -33,6 +33,8 @@ namespace VocesDePapelV1._1.Views
         //Metodos
         //enlace a la lista de usuarios
         void SetUsuarioListBindingSource(BindingSource usuarioList);
+        void SetEstadoListBindingSource(BindingSource estadoList);
+        void SetRolListBindingSource(BindingSource rolList);
         void Show(); //mostrar formulario
     }
 }
