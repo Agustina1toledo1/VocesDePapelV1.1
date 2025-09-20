@@ -136,6 +136,64 @@ namespace VocesDePapelV1._1.Repositories
             return usuarioList;
         }
 
+        public IEnumerable<EstadoModel> GetEstado()
+        {
+            //lista de estados
+            var estadoList = new List<EstadoModel>();
+            //consultas sql
+            using (var connection = new Microsoft.Data.SqlClient.SqlConnection(connectionString))
+            using (var command = new Microsoft.Data.SqlClient.SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = "SELECT *  FROM estado ORDER BY id_estado DESC";
+                using (var reader = command.ExecuteReader())
+                {
+
+                    while (reader.Read())
+                    {
+                        var estado = new EstadoModel
+                        {
+                            Id_estado = Convert.ToInt32(reader["id_estado"]),
+                            Nombre_estado = reader["nombre_estado"].ToString(),
+                        };
+                        estadoList.Add(estado);
+                    }
+
+                }
+            }
+            return estadoList;
+        }
+
+        public IEnumerable<RolModel> GetRol()
+        {
+            //lista de usuarios
+            var rolList = new List<RolModel>();
+            //consultas sql
+            using (var connection = new Microsoft.Data.SqlClient.SqlConnection(connectionString))
+            using (var command = new Microsoft.Data.SqlClient.SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = "SELECT *  FROM rol ORDER BY id_rol DESC";
+                using (var reader = command.ExecuteReader())
+                {
+
+                    while (reader.Read())
+                    {
+                        var rol = new RolModel
+                        {
+                            Id_rol = Convert.ToInt32(reader["id_rol"]),
+                            Nombre_rol = reader["nombre_rol"].ToString(),
+                        };
+                        rolList.Add(rol);
+                    }
+
+                }
+            }
+            return rolList;
+        }
+
         public void Modificar(UsuarioModel usuario)
         {
             using (var connection = new Microsoft.Data.SqlClient.SqlConnection(connectionString))

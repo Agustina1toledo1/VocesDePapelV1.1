@@ -14,6 +14,8 @@ namespace VocesDePapelV1._1.Models
         void Eliminar(int id);
         IEnumerable<UsuarioModel> GetAll(); //listar todos
         IEnumerable<UsuarioModel> GetByValue(string value); //buscar por valor
+        IEnumerable<RolModel> GetRol();
+        IEnumerable<EstadoModel> GetEstado();
 
     }
 }
