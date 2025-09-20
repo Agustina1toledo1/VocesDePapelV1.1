@@ -55,8 +55,12 @@ namespace VocesDePapelV1._1.Views
                     
                 }
             };
-            
-        }
+            dataGridView1.SelectionChanged += delegate
+            {
+                EditEvent?.Invoke(this, EventArgs.Empty);
+            };
+
+            }
 
         //propiedades
         public string UsuarioId {

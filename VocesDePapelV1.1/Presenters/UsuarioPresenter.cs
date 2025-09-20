@@ -89,6 +89,14 @@ namespace VocesDePapelV1._1.Presenters
             {
                 usuarioList = repository.GetAll(); //si es vacio, obtenemos todos los usuarios
             }
+            foreach (var usuario in usuarioList)
+            {
+                var estado = estadoList.FirstOrDefault(e => e.Id_estado == usuario.Baja);
+                var rol = rolList.FirstOrDefault(r => r.Id_rol == usuario.Id_rol);
+
+                usuario.Nombre_estado = estado?.Nombre_estado ?? "Desconocido";
+                usuario.Nombre_rol = rol?.Nombre_rol ?? "Desconocido";
+            }
             //actualizamos el origen de datos del enlace
             usuarioBindingSource.DataSource = usuarioList;
         }
