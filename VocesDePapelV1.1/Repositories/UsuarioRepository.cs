@@ -1,0 +1,165 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Data.SqlClient;
+using System.Data;
+using Microsoft.Data.SqlClient;
+using VocesDePapelV1._1.Models;
+using System.Transactions;
+
+namespace VocesDePapelV1._1.Repositories
+{
+    public class UsuarioRepository : BaseRepository, IUsuarioRepository
+    {
+
+        //constructor que recibe la cadena de conexion y la pasa a la clase base
+        public UsuarioRepository(string connectionString)
+        {
+            this.connectionString = connectionString;
+        
+        }
+        //metodos
+        public void Add(UsuarioModel usuario)
+        {
+            using (var connection = new Microsoft.Data.SqlClient.SqlConnection(connectionString))
+            using (var command = new Microsoft.Data.SqlClient.SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                //command.CommandText = "SELECT * FROM Usuario ORDER BY id_usuario DESC"; video
+                command.CommandText = "INSERT INTO usuario VALES @nombre, @apellido, @contraseña, @cuit, @baja, @id_rol ";
+                command.Parameters.Add("@nombre", SqlDbType.NVarChar).Value = usuario.Nombre;
+                command.Parameters.Add("@apellido", SqlDbType.NVarChar).Value = usuario.Apellido;
+                command.Parameters.Add("@contraseña", SqlDbType.NVarChar).Value = usuario.Contraseña;
+                command.Parameters.Add("@cuit", SqlDbType.NVarChar).Value = usuario.Cuit_usuario;
+                command.Parameters.Add("@baja", SqlDbType.Int).Value = usuario.Baja;
+                command.Parameters.Add("@id_rol", SqlDbType.Int).Value = usuario.Id_rol;
+                command.ExecuteNonQuery(); //ejecuta la consulta
+            }
+        }
+
+        public void Eliminar(int id) //cambia de estado a 1 (baja logica)
+        {
+            using (var connection = new Microsoft.Data.SqlClient.SqlConnection(connectionString))
+            using (var command = new Microsoft.Data.SqlClient.SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = "UPDATE usuario SET baja =1 WHERE id_usuario = @id"; //modificamos el estado a 1 (baja logica)
+                command.Parameters.Add("@id", SqlDbType.Int).Value = id;
+                command.ExecuteNonQuery(); //ejecuta la consulta
+
+            }
+        }
+
+        public IEnumerable<UsuarioModel> GetAll()
+        {
+            //lista de usuarios
+            var usuarioList = new List<UsuarioModel>();
+            //consultas sql
+            using (var connection = new Microsoft.Data.SqlClient.SqlConnection(connectionString))
+            using (var command = new Microsoft.Data.SqlClient.SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                //command.CommandText = "SELECT * FROM Usuario ORDER BY id_usuario DESC"; video
+                command.CommandText = "SELECT id_usuario, nombre, apellido, contraseña, cuit, baja, id_rol FROM Usuario ORDER BY id_usuario DESC";
+                using (var reader = command.ExecuteReader())
+                //using (var command = new SqlCommand("SELECT id_usuario, nombre, apellido, clave, cuit_usuario, baja, id_rol FROM Usuario", connection))
+                {
+                    //command.CommandType = CommandType.Text;
+                    //using (var reader = command.ExecuteReader())
+                    
+                        while (reader.Read())
+                        {
+                            var usuario = new UsuarioModel
+                            {
+                                Id_usuario = Convert.ToInt32(reader["id_usuario"]),
+                                Nombre = reader["nombre"].ToString(),
+                                Apellido = reader["apellido"].ToString(),
+                                Contraseña = reader["contraseña"].ToString(),
+                                Cuit_usuario = reader["cuit"].ToString(), //char(11)
+                                Baja = Convert.ToInt32(reader["baja"]), //int
+                                Id_rol = Convert.ToInt32(reader["id_rol"])
+                            };
+                            usuarioList.Add(usuario);
+                        }
+                    
+                }
+            }
+            return usuarioList;
+        }
+
+        public IEnumerable<UsuarioModel> GetByValue(string value)
+        {
+            //lista de usuarios
+            var usuarioList = new List<UsuarioModel>();
+            //long usuario_cuit = long.TryParse(value, out _) ? Convert.ToInt64(value) : 0; //si es numerico lo convierte, sino 0
+            string usuario_cuit = value;
+            string usuario_nombre_apellido = value;
+            //consultas sql
+            using (var connection = new Microsoft.Data.SqlClient.SqlConnection(connectionString))
+            using (var command = new Microsoft.Data.SqlClient.SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                //command.CommandText = "SELECT * FROM Usuario ORDER BY id_usuario DESC"; video
+                command.CommandText = @"SELECT *FROM usuario
+                                    WHERE cuit like @cuit+'%' or nombre like @nombre_apellido+'%' or apellido like @nombre_apellido+'%'
+                                    ORDER BY id_usuario DESC";
+
+                command.Parameters.Add("@cuit", SqlDbType.NVarChar).Value = usuario_cuit ;
+                command.Parameters.Add("@nombre_apellido", SqlDbType.NVarChar).Value = usuario_nombre_apellido;
+
+                using (var reader = command.ExecuteReader())
+                {
+
+                    while (reader.Read())
+                    {
+                        var usuario = new UsuarioModel
+                        {
+                            Id_usuario = Convert.ToInt32(reader["id_usuario"]),
+                            Nombre = reader["nombre"].ToString(),
+                            Apellido = reader["apellido"].ToString(),
+                            Contraseña = reader["contraseña"].ToString(),
+                            Cuit_usuario = reader["cuit"].ToString(), //long
+                            Baja = Convert.ToInt16(reader["baja"]), //short
+                            Id_rol = Convert.ToInt32(reader["id_rol"])
+                        };
+                        usuarioList.Add(usuario);
+                    }
+
+                }
+            }
+            return usuarioList;
+        }
+
+        public void Modificar(UsuarioModel usuario)
+        {
+            using (var connection = new Microsoft.Data.SqlClient.SqlConnection(connectionString))
+            using (var command = new Microsoft.Data.SqlClient.SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = @"UPDATE usuario SET nombre = @nombre, apellido = @apellido, 
+                                       contraseña = @contraseña, cuit = @cuit, baja = @baja, 
+                                        id_rol = @id_rol 
+                                        WHERE id_usuario = @id_usuario";
+
+                command.Parameters.Add("@id_usuario", SqlDbType.Int).Value = usuario.Id_usuario;
+                command.Parameters.Add("@nombre", SqlDbType.NVarChar).Value = usuario.Nombre;
+                command.Parameters.Add("@apellido", SqlDbType.NVarChar).Value = usuario.Apellido;
+                command.Parameters.Add("@contraseña", SqlDbType.NVarChar).Value = usuario.Contraseña;
+                command.Parameters.Add("@cuit", SqlDbType.NVarChar).Value = usuario.Cuit_usuario;
+                command.Parameters.Add("@baja", SqlDbType.Int).Value = usuario.Baja;
+                command.Parameters.Add("@id_rol", SqlDbType.Int).Value = usuario.Id_rol;
+                command.ExecuteNonQuery(); //ejecuta la consulta
+
+
+            }
+             
+        }
+    }
+}

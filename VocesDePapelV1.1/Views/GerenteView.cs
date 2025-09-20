@@ -8,13 +8,20 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace VocesDePapelV1._1.Views
-{
-    public partial class GerenteView : Form
+namespace VocesDePapelV1._1.Views { 
+
+    public partial class GerenteView : Form, IGerenteView
     {
         public GerenteView()
         {
             InitializeComponent();
+            usuarioItemMenu.Click += delegate { ShowUsuarioView?.Invoke(this, EventArgs.Empty); };
         }
+
+        public event EventHandler ShowUsuarioView;
+        public event EventHandler ShowBackupView;
+        public event EventHandler ShowReporteVentaView;
+        public event EventHandler ShowReporteLibroView;
     }
+    
 }

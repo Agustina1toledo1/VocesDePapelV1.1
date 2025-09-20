@@ -33,6 +33,8 @@
             backupItemMenu = new ToolStripMenuItem();
             toolStripMenuItem3 = new ToolStripMenuItem();
             toolStripMenuItem4 = new ToolStripMenuItem();
+            pocoStockToolStripMenuItem = new ToolStripMenuItem();
+            másVendidosToolStripMenuItem = new ToolStripMenuItem();
             menu.SuspendLayout();
             SuspendLayout();
             // 
@@ -44,7 +46,7 @@
             menu.Items.AddRange(new ToolStripItem[] { usuarioItemMenu, backupItemMenu, toolStripMenuItem3, toolStripMenuItem4 });
             menu.Location = new Point(0, 0);
             menu.Name = "menu";
-            menu.Size = new Size(1349, 90);
+            menu.Size = new Size(1549, 90);
             menu.TabIndex = 0;
             menu.Text = "menuStrip1";
             // 
@@ -87,6 +89,7 @@
             // toolStripMenuItem4
             // 
             toolStripMenuItem4.AutoSize = false;
+            toolStripMenuItem4.DropDownItems.AddRange(new ToolStripItem[] { pocoStockToolStripMenuItem, másVendidosToolStripMenuItem });
             toolStripMenuItem4.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             toolStripMenuItem4.Image = Properties.Resources.aumentar;
             toolStripMenuItem4.ImageAlign = ContentAlignment.BottomCenter;
@@ -96,12 +99,25 @@
             toolStripMenuItem4.Text = "Reporte Libro";
             toolStripMenuItem4.TextImageRelation = TextImageRelation.ImageAboveText;
             // 
+            // pocoStockToolStripMenuItem
+            // 
+            pocoStockToolStripMenuItem.Name = "pocoStockToolStripMenuItem";
+            pocoStockToolStripMenuItem.Size = new Size(244, 36);
+            pocoStockToolStripMenuItem.Text = "Stock";
+            // 
+            // másVendidosToolStripMenuItem
+            // 
+            másVendidosToolStripMenuItem.Name = "másVendidosToolStripMenuItem";
+            másVendidosToolStripMenuItem.Size = new Size(244, 36);
+            másVendidosToolStripMenuItem.Text = "Más vendidos";
+            // 
             // GerenteView
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1349, 525);
+            ClientSize = new Size(1549, 875);
             Controls.Add(menu);
+            IsMdiContainer = true;
             MainMenuStrip = menu;
             Name = "GerenteView";
             Text = "Form1";
@@ -117,5 +133,7 @@
         private ToolStripMenuItem backupItemMenu;
         private ToolStripMenuItem toolStripMenuItem3;
         private ToolStripMenuItem toolStripMenuItem4;
+        private ToolStripMenuItem pocoStockToolStripMenuItem;
+        private ToolStripMenuItem másVendidosToolStripMenuItem;
     }
 }

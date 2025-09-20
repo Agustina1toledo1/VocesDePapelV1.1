@@ -30,7 +30,6 @@
         {
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
-            label1 = new Label();
             l_nombre = new Label();
             l_apellido = new Label();
             l_clave = new Label();
@@ -54,7 +53,6 @@
             id_usuario = new DataGridViewTextBoxColumn();
             nombre = new DataGridViewTextBoxColumn();
             apellido = new DataGridViewTextBoxColumn();
-            Contraseña = new DataGridViewTextBoxColumn();
             cuit = new DataGridViewTextBoxColumn();
             id_rol = new DataGridViewTextBoxColumn();
             rol = new DataGridViewTextBoxColumn();
@@ -65,18 +63,9 @@
             cmb_buscar_por = new ComboBox();
             text_buscar_usuario = new TextBox();
             btn_buscar_usuario = new Button();
+            label1 = new Label();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
-            // 
-            // label1
-            // 
-            label1.BackColor = Color.White;
-            label1.BorderStyle = BorderStyle.FixedSingle;
-            label1.Dock = DockStyle.Left;
-            label1.Location = new Point(0, 0);
-            label1.Name = "label1";
-            label1.Size = new Size(399, 781);
-            label1.TabIndex = 0;
             // 
             // l_nombre
             // 
@@ -107,9 +96,9 @@
             l_clave.Font = new Font("Segoe UI", 12F);
             l_clave.Location = new Point(62, 224);
             l_clave.Name = "l_clave";
-            l_clave.Size = new Size(110, 28);
+            l_clave.Size = new Size(59, 28);
             l_clave.TabIndex = 3;
-            l_clave.Text = "Contraseña";
+            l_clave.Text = "Clave";
             // 
             // l_verificar_clave
             // 
@@ -118,9 +107,9 @@
             l_verificar_clave.Font = new Font("Segoe UI", 12F);
             l_verificar_clave.Location = new Point(60, 298);
             l_verificar_clave.Name = "l_verificar_clave";
-            l_verificar_clave.Size = new Size(182, 28);
+            l_verificar_clave.Size = new Size(131, 28);
             l_verificar_clave.TabIndex = 4;
-            l_verificar_clave.Text = "Verificar contraseña";
+            l_verificar_clave.Text = "Verificar clave";
             // 
             // l_cuit
             // 
@@ -264,7 +253,7 @@
             dataGridView1.AllowUserToAddRows = false;
             dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = SystemColors.Control;
-            dataGridViewCellStyle3.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
             dataGridViewCellStyle3.Padding = new Padding(2);
             dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
@@ -272,7 +261,7 @@
             dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
             dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { btn_seleccionar, id_usuario, nombre, apellido, Contraseña, cuit, id_rol, rol, Estado, estado_valor });
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { btn_seleccionar, id_usuario, nombre, apellido, cuit, id_rol, rol, Estado, estado_valor });
             dataGridView1.Location = new Point(420, 124);
             dataGridView1.MultiSelect = false;
             dataGridView1.Name = "dataGridView1";
@@ -316,15 +305,6 @@
             apellido.Name = "apellido";
             apellido.ReadOnly = true;
             apellido.Width = 150;
-            // 
-            // Contraseña
-            // 
-            Contraseña.HeaderText = "Contraseña";
-            Contraseña.MinimumWidth = 6;
-            Contraseña.Name = "Contraseña";
-            Contraseña.ReadOnly = true;
-            Contraseña.Visible = false;
-            Contraseña.Width = 125;
             // 
             // cuit
             // 
@@ -419,6 +399,16 @@
             btn_buscar_usuario.TabIndex = 24;
             btn_buscar_usuario.UseVisualStyleBackColor = false;
             // 
+            // label1
+            // 
+            label1.BackColor = Color.White;
+            label1.BorderStyle = BorderStyle.FixedSingle;
+            label1.Dock = DockStyle.Left;
+            label1.Location = new Point(0, 0);
+            label1.Name = "label1";
+            label1.Size = new Size(399, 781);
+            label1.TabIndex = 0;
+            // 
             // GerenteViewUsuario
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -459,8 +449,6 @@
         }
 
         #endregion
-
-        private Label label1;
         private Label l_nombre;
         private Label l_apellido;
         private Label l_clave;
@@ -485,7 +473,6 @@
         private DataGridViewTextBoxColumn id_usuario;
         private DataGridViewTextBoxColumn nombre;
         private DataGridViewTextBoxColumn apellido;
-        private DataGridViewTextBoxColumn Contraseña;
         private DataGridViewTextBoxColumn cuit;
         private DataGridViewTextBoxColumn id_rol;
         private DataGridViewTextBoxColumn rol;
@@ -495,5 +482,6 @@
         private ComboBox cmb_buscar_por;
         private TextBox text_buscar_usuario;
         private Button btn_buscar_usuario;
+        private Label label1;
     }
 }
