@@ -45,7 +45,7 @@ namespace VocesDePapelV1._1.Models
         }
         [DisplayName("Contraseña")]
         [Required(ErrorMessage = "La clave del usuario es requerido")]
-        [StringLength( 8, ErrorMessage = "La clave debe contener al menos 8 caracteres")]
+        [MinLength( 8, ErrorMessage = "La clave debe contener al menos 8 caracteres")]
         public string Contraseña 
         { 
             get { return contraseña; }  

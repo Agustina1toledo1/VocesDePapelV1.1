@@ -22,8 +22,9 @@ namespace VocesDePapelV1._1.Presenters.Common
                 foreach (var item in results)
                 {
                     errorMessage += "-"+ item.ErrorMessage + "\n"; //concatenamos los mensajes de error
-                    throw new Exception(errorMessage); //lanzamos una excepcion con los mensajes de error
+                    
                 }
+                throw new Exception(errorMessage); //lanzamos una excepcion con los mensajes de error
             }
         }
     }
