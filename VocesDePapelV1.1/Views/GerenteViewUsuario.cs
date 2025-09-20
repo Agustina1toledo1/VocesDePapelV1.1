@@ -117,13 +117,16 @@ namespace VocesDePapelV1._1.Views
         public void SetUsuarioListBindingSource(BindingSource usuarioList)
         {
             dataGridView1.DataSource = usuarioList;
+            //ocultar los ids de estado y rol
+            dataGridView1.Columns["Id_rol"].Visible = false;
+            dataGridView1.Columns["Baja"].Visible = false;
 
         }
         //singleton patron (abre una sola instancia del formulario) 
         private static GerenteViewUsuario instance;
         public static GerenteViewUsuario GetInstance(Form parentConteiner)
         {
-            if (instance == null || instance.IsDisposed) //si es nullo o esta desechado
+            if (instance == null || instance.IsDisposed) //si es nulo o esta desechado
             {
                 instance = new GerenteViewUsuario();
                 instance.MdiParent = parentConteiner; //establecer el formulario padre

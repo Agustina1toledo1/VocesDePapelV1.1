@@ -59,19 +59,24 @@ namespace VocesDePapelV1._1.Models
             get { return cuit; }             
             set { cuit = value; }             
         }
-        [DisplayName("Estado")]
+        [DisplayName("Estado_id")]
         [Required(ErrorMessage = "El estado del usuario es requerido")]
         public int Baja 
         { 
             get { return baja; }
             set { baja = value; }
         }
-        [DisplayName("Rol ")]
+        [DisplayName("Rol_id ")]
         [Required(ErrorMessage = "El rol del usuario es requerido")]
         public int Id_rol 
         { 
             get { return id_rol; }            
             set { id_rol = value; }            
         }
+        //propiedades adicionales para mostrar el nombre del estado y rol en la vista
+        [DisplayName("Estado ")] //se asocia al nombre del encabezado de la columna en el datagridview
+        public string Nombre_estado { get; set; }
+        [DisplayName("Rol ")]
+        public string Nombre_rol { get; set; }
     }
 }

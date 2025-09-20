@@ -67,10 +67,7 @@ namespace VocesDePapelV1._1.Repositories
                 //command.CommandText = "SELECT * FROM Usuario ORDER BY id_usuario DESC"; video
                 command.CommandText = "SELECT id_usuario, nombre, apellido, contraseña, cuit, baja, id_rol FROM Usuario ORDER BY id_usuario DESC";
                 using (var reader = command.ExecuteReader())
-                //using (var command = new SqlCommand("SELECT id_usuario, nombre, apellido, clave, cuit_usuario, baja, id_rol FROM Usuario", connection))
                 {
-                    //command.CommandType = CommandType.Text;
-                    //using (var reader = command.ExecuteReader())
                     
                         while (reader.Read())
                         {

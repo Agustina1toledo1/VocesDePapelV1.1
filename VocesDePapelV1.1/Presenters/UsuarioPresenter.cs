@@ -39,27 +39,15 @@ namespace VocesDePapelV1._1.Presenters
             //cargar los datos de rol y estado 
             CargarAllRol();
             CargarAllEstado();
+            //cargamos los datos de usuario a  la lista de usuarios
+            LoadAllUsuarioList();
             //Establecemos el origen de datos del enlace, fuente vinculante
             this.view.SetUsuarioListBindingSource(usuarioBindingSource);
             this.view.SetEstadoListBindingSource(estadoBindingSource);
             this.view.SetRolListBindingSource(rolBindingSource);
-            //cargamos los datos de usuario a  la lista de usuarios
-            LoadAllUsuarioList();
             //mostramos la vista
             this.view.Show();
-            
-            
-
-            //var roles = repository.GetRol();
-            //var estados = repository.GetEstado();
-            //asignar los datos a los combobox
-            //((System.Windows.Forms.ComboBox)((System.Windows.Forms.Form)view).Controls["cmb_rol_usuario"]).DataSource = roles.ToList();
-            //((System.Windows.Forms.ComboBox)((System.Windows.Forms.Form)view).Controls["cmb_rol_usuario"]).DisplayMember = "Descripcion";
-            //((System.Windows.Forms.ComboBox)((System.Windows.Forms.Form)view).Controls["cmb_rol_usuario"]).ValueMember = "Id_rol";
-            //((System.Windows.Forms.ComboBox)((System.Windows.Forms.Form)view).Controls["cmb_estado_usuario"]).DataSource = estados.ToList();
-            //((System.Windows.Forms.ComboBox)((System.Windows.Forms.Form)view).Controls["cmb_estado_usuario"]).DisplayMember = "Descripcion";
-            //((System.Windows.Forms.ComboBox)((System.Windows.Forms.Form)view).Controls["cmb_estado_usuario"]).ValueMember = "Id_estado";
-
+        
 
         }
 
@@ -78,7 +66,16 @@ namespace VocesDePapelV1._1.Presenters
         private void LoadAllUsuarioList()
         {
             usuarioList = repository.GetAll(); //obtenemos todos los usuarios del repositorio
+            foreach (var usuario in usuarioList)
+            {
+                var estado = estadoList.FirstOrDefault(e => e.Id_estado == usuario.Baja);
+                var rol = rolList.FirstOrDefault(r => r.Id_rol == usuario.Id_rol);
+
+                usuario.Nombre_estado = estado?.Nombre_estado ?? "Desconocido";
+                usuario.Nombre_rol = rol?.Nombre_rol ?? "Desconocido";
+            }
             usuarioBindingSource.DataSource = usuarioList; //establecemos la lista de usuarios como el origen de datos del enlace
+            
         }
         private void SearchUsuario(object? sender, EventArgs e)
         {
