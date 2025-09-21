@@ -29,7 +29,7 @@ namespace VocesDePapelV1._1.Models
         }
         [DisplayName("Nombre")]
         [Required(ErrorMessage = "El nombre de usuario es requerido")]
-        [RegularExpression(@"^[a-zA-Z]{3,50}$", ErrorMessage = "Solo se permiten letras y  debe tener entre 3 y 50 caracteres.")]
+        [RegularExpression(@"^[a-zA-Z]{3,50}$", ErrorMessage = "El nombre solo se permiten letras y  debe tener entre 3 y 50 caracteres.")]
         public string Nombre 
         { 
             get { return nombre; }
@@ -37,7 +37,7 @@ namespace VocesDePapelV1._1.Models
         }
         [DisplayName("Apellido")]
         [Required(ErrorMessage = "El apellido de usuario es requerido")]
-        [RegularExpression(@"^[a-zA-Z]{3,50}$", ErrorMessage = "Solo se permiten letras y  debe tener entre 3 y 50 caracteres.")]
+        [RegularExpression(@"^[a-zA-Z]{3,50}$", ErrorMessage = "El apellido solo se permiten letras y  debe tener entre 3 y 50 caracteres.")]
         public string Apellido 
         { 
             get { return apellido; }            

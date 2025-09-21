@@ -7,7 +7,7 @@ using System.Security.Cryptography;
 
 namespace VocesDePapelV1._1.Servicios
 {
-    internal class pbkdf2ContraseniaHasher : IContraseniaHasher
+    public class pbkdf2ContraseniaHasher : IContraseniaHasher
     {
         private const int Iterations = 100_000;
         private const int SaltSize = 16; // bytes

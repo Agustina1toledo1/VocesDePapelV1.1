@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace VocesDePapelV1._1.Servicios
 {
-    internal interface IContraseniaHasher
+    public interface IContraseniaHasher
     {
         string Hash(string contraseniaPlana);
         bool Verify(string contraseniaPlana, string almacenaHash);

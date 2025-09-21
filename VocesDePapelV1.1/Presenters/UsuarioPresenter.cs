@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using VocesDePapelV1._1.Models;
 using VocesDePapelV1._1.Views;
-
+using VocesDePapelV1._1.Repositories;
+using VocesDePapelV1._1.Servicios;
 namespace VocesDePapelV1._1.Presenters
 {
     public class UsuarioPresenter
@@ -14,6 +15,7 @@ namespace VocesDePapelV1._1.Presenters
         //campos        
         private IGerenteViewUsuario view; //campo privado para la vista usando la interfaz
         private IUsuarioRepository repository; //campo privado para el repositorio usando la interfaz
+        private IContraseniaHasher hasher; //campo privado para el hasher usando la interfaz
         private BindingSource usuarioBindingSource; //origen de datos para el enlace
         private BindingSource estadoBindingSource; //origen de datos para el enlace
         private BindingSource rolBindingSource; //origen de datos para el enlace
@@ -21,7 +23,7 @@ namespace VocesDePapelV1._1.Presenters
         private IEnumerable<RolModel> rolList;
         private IEnumerable<EstadoModel> estadoList;
         //constructor
-        public UsuarioPresenter(IGerenteViewUsuario view, IUsuarioRepository repository)
+        public UsuarioPresenter(IGerenteViewUsuario view, IUsuarioRepository repository, IContraseniaHasher hasher)
         {
             //inicializamos los campos
             this.usuarioBindingSource = new BindingSource();
@@ -29,6 +31,7 @@ namespace VocesDePapelV1._1.Presenters
             this.rolBindingSource = new BindingSource();
             this.view = view;
             this.repository = repository;
+            this.hasher = hasher;
             //Suscribimos los eventos del controlador a los eventos de la vista
             this.view.SearchEvent += SearchUsuario;
             this.view.AddNewEvent += AddNewUsuario;
@@ -191,11 +194,13 @@ namespace VocesDePapelV1._1.Presenters
         {
 
             var usuario = new UsuarioModel(); //creamos una nueva instancia del modelo de usuario
-            //asignamos los valores de la vista a las propiedades del modelo
+                                              //  Hashear contraseña
+            string hashedPwd = hasher.Hash(view.Contraseña);
+            //asignamos los valores de la vista a las propiedades del modelo y el modelo con hash en lugar de texto plano
             usuario.Id_usuario = Convert.ToInt32(view.UsuarioId);
             usuario.Nombre = view.UsuarioNombre;
             usuario.Apellido = view.UsuarioApellido;
-            usuario.Contraseña = view.Contraseña;
+            usuario.Contraseña = hashedPwd;
             usuario.Cuit_usuario = view.CuitUsuario;
             usuario.Baja = Convert.ToInt32(view.Baja);
             usuario.Id_rol = Convert.ToInt32(view.UsuarioIdRol);
