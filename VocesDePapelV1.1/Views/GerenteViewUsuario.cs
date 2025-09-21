@@ -179,7 +179,7 @@ namespace VocesDePapelV1._1.Views
         public void SetUsuarioListBindingSource(BindingSource usuarioList)
         {
             dataGridView1.DataSource = usuarioList;
-            //ocultar los ids de estado y rol
+            //ocultar los ids de estado, rol y contraseña
             dataGridView1.Columns["Id_rol"].Visible = false;
             dataGridView1.Columns["Baja"].Visible = false;
             dataGridView1.Columns["Contraseña"].Visible = false;
