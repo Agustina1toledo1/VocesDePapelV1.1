@@ -153,9 +153,6 @@ namespace VocesDePapelV1._1.Presenters
             view.UsuarioApellido = "";
             view.Contraseña = "";
             view.CuitUsuario = "";
-            view.Baja = "";
-            view.UsuarioIdRol = "";
-
         }
 
         private void DeleteUsuario(object? sender, EventArgs e)
