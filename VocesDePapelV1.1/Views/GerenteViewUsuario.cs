@@ -34,33 +34,83 @@ namespace VocesDePapelV1._1.Views
                 }
             };
             //Agregar nuevo usuario
-            btn_guardar_usuario.Click += delegate { AddNewEvent?.Invoke(this, EventArgs.Empty); };
-            //editar usuario
-            
-            btn_modificar_usuario.Click += delegate { EditEvent?.Invoke(this, EventArgs.Empty);
-                if (IsSuccessful)
-                {
-                    
-                }
+            btn_guardar_usuario.Click += delegate { AddNewEvent?.Invoke(this, EventArgs.Empty);
                 MessageBox.Show(Message);
+            };
+            //editar usuario
+            btn_modificar_usuario.Click += delegate {
+                if (dataGridView1.SelectedCells.Count > 0)
+                {
+                    SaveEvent?.Invoke(this, EventArgs.Empty);
+                    MessageBox.Show(Message);
+                }
             };
 
             //eliminar usuario
-            btn_eliminar_usuario.Click += delegate { 
-            var result = MessageBox.Show("Estas seguro de eliminar el usuario seleccionado?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-            if(result == DialogResult.Yes)
+            btn_eliminar_usuario.Click += delegate {
+                if (dataGridView1.SelectedCells.Count > 0)
                 {
-                    DeleteEvent?.Invoke(this, EventArgs.Empty);                    
-                    MessageBox.Show(Message);
-                    
+                    var result = MessageBox.Show("Estas seguro de eliminar el usuario seleccionado?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    if (result == DialogResult.Yes)
+                    {
+                        DeleteEvent?.Invoke(this, EventArgs.Empty);
+                        MessageBox.Show(Message);
+
+                    }
                 }
+                
             };
-            
+            dataGridView1.SelectionChanged += delegate
+            {
+                if (dataGridView1.SelectedCells.Count > 0)
+                {
+                    EditEvent?.Invoke(this, EventArgs.Empty);
+                }
+                else
+                {
+                    CancelEvent?.Invoke(this, EventArgs.Empty);
+                }
+                    
+            };
+            // Text box que solo admiten letras
+            text_nombre_usuario.KeyPress += TextBoxSoloLetras_KeyPress;
+            text_apellido_usuario.KeyPress += TextBoxSoloLetras_KeyPress;
+            // Text box que solo admiten numeros
+            text_cuit_usuario.KeyPress += TextBoxSoloNumeros_KeyPress;
+
+        }
+
+        private void TextBoxSoloNumeros_KeyPress(object? sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == ' ' || (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar)))
+            {
+                e.Handled = true;
+                return;
+            }
+        }
+
+        private void TextBoxSoloLetras_KeyPress(object? sender, KeyPressEventArgs e)
+        {
+            // si es: 
+            //  - Espacios, caracteres especiales char.IsControl
+            //  - Letras y letras con acento => char.IsLetter
+            //  - Espacio => e.KeyChar == ' '
+            if (!char.IsControl(e.KeyChar)
+                && !char.IsLetter(e.KeyChar)
+                && e.KeyChar != ' ')
+            {
+                // Bloquea la tecla
+                e.Handled = true;
+            }
         }
 
         //propiedades
         public string UsuarioId {
-            get { return "0"; } //ver que pasa con esto
+            get {
+                if (dataGridView1.CurrentRow != null)
+                    return dataGridView1.CurrentRow.Cells["Id_usuario"].Value?.ToString();
+                return "0";
+            } //ver que pasa con esto
             set {  }
         }
         public string UsuarioNombre {
@@ -80,18 +130,21 @@ namespace VocesDePapelV1._1.Views
             set { text_cuit_usuario.Text = value; }
         }
         public string Baja {
-            get { return cmb_estado_usuario.Text; }
-            set { cmb_estado_usuario.Text = value; }
+            get { return cmb_estado_usuario.SelectedValue?.ToString(); }
+            set { cmb_estado_usuario.SelectedValue = value; }
+
         }
         public string UsuarioIdRol {
-            get { return cmb_rol_usuario.Text; }
-            set { cmb_rol_usuario.Text = value; }
+            get { return cmb_rol_usuario.SelectedValue?.ToString(); }
+            set { cmb_rol_usuario.SelectedValue = value; }
         }
         
         public string SearchValue {
             get { return text_buscar_usuario.Text; }
             set { text_buscar_usuario.Text = value; }
         }
+
+        
         public bool IsEdit {
             get { return isEdit; }
             set { isEdit = value; }
@@ -103,6 +156,15 @@ namespace VocesDePapelV1._1.Views
         public string Message {
             get { return message; }
             set { message = value; }
+        }
+
+        public string NombreEstado {
+            get { return cmb_estado_usuario.Text; }
+            set { cmb_estado_usuario.Text = value; }
+        }
+        public string NombreRol {
+            get { return cmb_rol_usuario.Text; }
+            set { cmb_rol_usuario.Text = value; }
         }
 
         //Eventos
@@ -117,14 +179,17 @@ namespace VocesDePapelV1._1.Views
         public void SetUsuarioListBindingSource(BindingSource usuarioList)
         {
             dataGridView1.DataSource = usuarioList;
+            //ocultar los ids de estado, rol y contraseña
+            dataGridView1.Columns["Id_rol"].Visible = false;
+            dataGridView1.Columns["Baja"].Visible = false;
+            dataGridView1.Columns["Contraseña"].Visible = false;
 
-            //throw new NotImplementedException();
         }
         //singleton patron (abre una sola instancia del formulario) 
         private static GerenteViewUsuario instance;
         public static GerenteViewUsuario GetInstance(Form parentConteiner)
         {
-            if (instance == null || instance.IsDisposed) //si es nullo o esta desechado
+            if (instance == null || instance.IsDisposed) //si es nulo o esta desechado
             {
                 instance = new GerenteViewUsuario();
                 instance.MdiParent = parentConteiner; //establecer el formulario padre
@@ -143,6 +208,18 @@ namespace VocesDePapelV1._1.Views
             return instance;
         }
 
+        public void SetEstadoListBindingSource(BindingSource estadoList)
+        {
+            cmb_estado_usuario.DataSource = estadoList;
+            cmb_estado_usuario.DisplayMember = "Nombre_estado"; 
+            cmb_estado_usuario.ValueMember = "Id_estado";
+        }
 
+        public void SetRolListBindingSource(BindingSource rolList)
+        {
+            cmb_rol_usuario.DataSource = rolList;
+            cmb_rol_usuario.DisplayMember = "Nombre_rol";
+            cmb_rol_usuario.ValueMember = "Id_rol";
+        }
     }
 }

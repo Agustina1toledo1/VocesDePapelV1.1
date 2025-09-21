@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using VocesDePapelV1._1.Views;
 using VocesDePapelV1._1.Models;
 using VocesDePapelV1._1.Repositories;
+using VocesDePapelV1._1.Servicios;
 using System.Windows.Forms;
 
 namespace VocesDePapelV1._1.Presenters
@@ -29,7 +30,8 @@ namespace VocesDePapelV1._1.Presenters
         {
             IGerenteViewUsuario usuarioView = GerenteViewUsuario.GetInstance((GerenteView)this.view); // muestra solo una instancia de la vista de usuario
             IUsuarioRepository repository = new UsuarioRepository(connectionString);
-            new UsuarioPresenter(usuarioView, repository);
+            IContraseniaHasher hasher = new pbkdf2ContraseniaHasher();
+            new UsuarioPresenter(usuarioView, repository, hasher);
         }
     }
 }

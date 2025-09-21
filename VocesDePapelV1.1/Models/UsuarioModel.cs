@@ -29,7 +29,7 @@ namespace VocesDePapelV1._1.Models
         }
         [DisplayName("Nombre")]
         [Required(ErrorMessage = "El nombre de usuario es requerido")]
-        [RegularExpression(@"^[a-zA-Z]{3,50}$", ErrorMessage = "Solo se permiten letras y  debe tener entre 3 y 50 caracteres.")]
+        [RegularExpression(@"^[a-zA-Z]{3,50}$", ErrorMessage = "El nombre solo se permiten letras y  debe tener entre 3 y 50 caracteres.")]
         public string Nombre 
         { 
             get { return nombre; }
@@ -37,7 +37,7 @@ namespace VocesDePapelV1._1.Models
         }
         [DisplayName("Apellido")]
         [Required(ErrorMessage = "El apellido de usuario es requerido")]
-        [RegularExpression(@"^[a-zA-Z]{3,50}$", ErrorMessage = "Solo se permiten letras y  debe tener entre 3 y 50 caracteres.")]
+        [RegularExpression(@"^[a-zA-Z]{3,50}$", ErrorMessage = "El apellido solo se permiten letras y  debe tener entre 3 y 50 caracteres.")]
         public string Apellido 
         { 
             get { return apellido; }            
@@ -45,7 +45,7 @@ namespace VocesDePapelV1._1.Models
         }
         [DisplayName("Contraseña")]
         [Required(ErrorMessage = "La clave del usuario es requerido")]
-        [StringLength( 8, ErrorMessage = "La clave debe contener al menos 8 caracteres")]
+        [MinLength( 8, ErrorMessage = "La clave debe contener al menos 8 caracteres")]
         public string Contraseña 
         { 
             get { return contraseña; }  
@@ -54,24 +54,29 @@ namespace VocesDePapelV1._1.Models
         [DisplayName("Cuit")]
         [Required(ErrorMessage = "El cuit del usuario es requerido")]
         [StringLength(11, ErrorMessage = "El cuit no puede ser mayor a 11 caracteres")]
-        [RegularExpression("(^[0-9]){11}$", ErrorMessage = "Solo se permiten números y debe contener 11 caracteres\"")] //^ indica inicio de la cadena, $ indica fin de la cadena, [0-9] indica que solo se permiten números, + indica que se permiten uno o más caracteres
+        [RegularExpression(@"^\d{11}$", ErrorMessage = "El CUIT debe tener exactamente 11 dígitos numéricos")]
         public string Cuit_usuario { 
             get { return cuit; }             
             set { cuit = value; }             
         }
-        [DisplayName("Estado")]
+        [DisplayName("Estado_id")]
         [Required(ErrorMessage = "El estado del usuario es requerido")]
         public int Baja 
         { 
             get { return baja; }
             set { baja = value; }
         }
-        [DisplayName("Rol ")]
+        [DisplayName("Rol_id ")]
         [Required(ErrorMessage = "El rol del usuario es requerido")]
         public int Id_rol 
         { 
             get { return id_rol; }            
             set { id_rol = value; }            
         }
+        //propiedades adicionales para mostrar el nombre del estado y rol en la vista
+        [DisplayName("Estado ")] //se asocia al nombre del encabezado de la columna en el datagridview
+        public string Nombre_estado { get; set; }
+        [DisplayName("Rol ")]
+        public string Nombre_rol { get; set; }
     }
 }
