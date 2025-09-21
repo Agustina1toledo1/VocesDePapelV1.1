@@ -1,13 +1,14 @@
-﻿using System;
+﻿using Microsoft.Data.SqlClient;
+using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Data.SqlClient;
-using System.Data;
-using Microsoft.Data.SqlClient;
-using VocesDePapelV1._1.Models;
 using System.Transactions;
+using System.Windows.Forms;
+using VocesDePapelV1._1.Models;
 
 namespace VocesDePapelV1._1.Repositories
 {
@@ -24,22 +25,44 @@ namespace VocesDePapelV1._1.Repositories
         public void Add(UsuarioModel usuario)
         {
             using (var connection = new Microsoft.Data.SqlClient.SqlConnection(connectionString))
-            using (var command = new Microsoft.Data.SqlClient.SqlCommand())
+            using (var command = connection.CreateCommand())
             {
                 connection.Open();
-                command.Connection = connection;
-                //command.CommandText = "SELECT * FROM Usuario ORDER BY id_usuario DESC"; video
-                command.CommandText = "INSERT INTO usuario VALES @nombre, @apellido, @contraseña, @cuit, @baja, @id_rol ";
+
+                // Verifico existencia de CUIT
+                command.CommandText = @"
+                                    SELECT COUNT(1)
+                                        FROM dbo.usuario
+                                     WHERE cuit = @cuit;
+                                        ";
+                command.Parameters.Add("@cuit", SqlDbType.NVarChar, 20).Value = usuario.Cuit_usuario;
+
+                int existe = (int)command.ExecuteScalar();
+                if (existe > 0)
+                {
+                    // Retiro los parámetros previos y lanzo excepción de negocio
+                    command.Parameters.Clear();
+                    throw new InvalidOperationException("El CUIT ingresado ya está registrado.");
+                }
+
+                // Si no existe, hago el INSERT
+                command.Parameters.Clear();
+                command.CommandText = @"
+                    INSERT INTO dbo.usuario
+                            (nombre, apellido, contraseña, cuit, baja, id_rol)
+                            VALUES
+                            (@nombre, @apellido, @contraseña, @cuit, @baja, @id_rol);
+                    ";
                 command.Parameters.Add("@nombre", SqlDbType.NVarChar).Value = usuario.Nombre;
                 command.Parameters.Add("@apellido", SqlDbType.NVarChar).Value = usuario.Apellido;
                 command.Parameters.Add("@contraseña", SqlDbType.NVarChar).Value = usuario.Contraseña;
                 command.Parameters.Add("@cuit", SqlDbType.NVarChar).Value = usuario.Cuit_usuario;
                 command.Parameters.Add("@baja", SqlDbType.Int).Value = usuario.Baja;
                 command.Parameters.Add("@id_rol", SqlDbType.Int).Value = usuario.Id_rol;
-                command.ExecuteNonQuery(); //ejecuta la consulta
+
+                command.ExecuteNonQuery();
             }
         }
-
         public void Eliminar(int id) //cambia de estado a 1 (baja logica)
         {
             using (var connection = new Microsoft.Data.SqlClient.SqlConnection(connectionString))
@@ -67,10 +90,7 @@ namespace VocesDePapelV1._1.Repositories
                 //command.CommandText = "SELECT * FROM Usuario ORDER BY id_usuario DESC"; video
                 command.CommandText = "SELECT id_usuario, nombre, apellido, contraseña, cuit, baja, id_rol FROM Usuario ORDER BY id_usuario DESC";
                 using (var reader = command.ExecuteReader())
-                //using (var command = new SqlCommand("SELECT id_usuario, nombre, apellido, clave, cuit_usuario, baja, id_rol FROM Usuario", connection))
                 {
-                    //command.CommandType = CommandType.Text;
-                    //using (var reader = command.ExecuteReader())
                     
                         while (reader.Read())
                         {
@@ -136,6 +156,64 @@ namespace VocesDePapelV1._1.Repositories
             return usuarioList;
         }
 
+        public IEnumerable<EstadoModel> GetEstado()
+        {
+            //lista de estados
+            var estadoList = new List<EstadoModel>();
+            //consultas sql
+            using (var connection = new Microsoft.Data.SqlClient.SqlConnection(connectionString))
+            using (var command = new Microsoft.Data.SqlClient.SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = "SELECT *  FROM estado ORDER BY id_estado DESC";
+                using (var reader = command.ExecuteReader())
+                {
+
+                    while (reader.Read())
+                    {
+                        var estado = new EstadoModel
+                        {
+                            Id_estado = Convert.ToInt32(reader["id_estado"]),
+                            Nombre_estado = reader["nombre_estado"].ToString(),
+                        };
+                        estadoList.Add(estado);
+                    }
+
+                }
+            }
+            return estadoList;
+        }
+
+        public IEnumerable<RolModel> GetRol()
+        {
+            //lista de usuarios
+            var rolList = new List<RolModel>();
+            //consultas sql
+            using (var connection = new Microsoft.Data.SqlClient.SqlConnection(connectionString))
+            using (var command = new Microsoft.Data.SqlClient.SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = "SELECT *  FROM rol ORDER BY id_rol DESC";
+                using (var reader = command.ExecuteReader())
+                {
+
+                    while (reader.Read())
+                    {
+                        var rol = new RolModel
+                        {
+                            Id_rol = Convert.ToInt32(reader["id_rol"]),
+                            Nombre_rol = reader["nombre_rol"].ToString(),
+                        };
+                        rolList.Add(rol);
+                    }
+
+                }
+            }
+            return rolList;
+        }
+
         public void Modificar(UsuarioModel usuario)
         {
             using (var connection = new Microsoft.Data.SqlClient.SqlConnection(connectionString))
@@ -143,15 +221,30 @@ namespace VocesDePapelV1._1.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = @"UPDATE usuario SET nombre = @nombre, apellido = @apellido, 
-                                       contraseña = @contraseña, cuit = @cuit, baja = @baja, 
-                                        id_rol = @id_rol 
-                                        WHERE id_usuario = @id_usuario";
+
+                // consulta sql
+                var sql_consulta = new StringBuilder();
+                sql_consulta.Append("UPDATE usuario SET ");
+                sql_consulta.Append("nombre = @nombre, ");
+                sql_consulta.Append("apellido = @apellido, ");
+                sql_consulta.Append("cuit = @cuit, ");
+                sql_consulta.Append("baja = @baja, ");
+                sql_consulta.Append("id_rol = @id_rol");
+
+                // Agregar contraseña solo si no está vacía
+                if (usuario.Contraseña != "00000000")
+                {
+                    sql_consulta.Append(", contraseña = @contraseña");
+                    command.Parameters.Add("@contraseña", SqlDbType.NVarChar).Value = usuario.Contraseña;
+                }
+
+                sql_consulta.Append(" WHERE id_usuario = @id_usuario");
+
+                command.CommandText = sql_consulta.ToString();
 
                 command.Parameters.Add("@id_usuario", SqlDbType.Int).Value = usuario.Id_usuario;
                 command.Parameters.Add("@nombre", SqlDbType.NVarChar).Value = usuario.Nombre;
                 command.Parameters.Add("@apellido", SqlDbType.NVarChar).Value = usuario.Apellido;
-                command.Parameters.Add("@contraseña", SqlDbType.NVarChar).Value = usuario.Contraseña;
                 command.Parameters.Add("@cuit", SqlDbType.NVarChar).Value = usuario.Cuit_usuario;
                 command.Parameters.Add("@baja", SqlDbType.Int).Value = usuario.Baja;
                 command.Parameters.Add("@id_rol", SqlDbType.Int).Value = usuario.Id_rol;

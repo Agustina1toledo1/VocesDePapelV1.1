@@ -50,14 +50,6 @@
             label2 = new Label();
             dataGridView1 = new DataGridView();
             btn_seleccionar = new DataGridViewButtonColumn();
-            id_usuario = new DataGridViewTextBoxColumn();
-            nombre = new DataGridViewTextBoxColumn();
-            apellido = new DataGridViewTextBoxColumn();
-            cuit = new DataGridViewTextBoxColumn();
-            id_rol = new DataGridViewTextBoxColumn();
-            rol = new DataGridViewTextBoxColumn();
-            Estado = new DataGridViewTextBoxColumn();
-            estado_valor = new DataGridViewTextBoxColumn();
             l_lista_usuarios = new Label();
             l_buscar_usuario = new Label();
             cmb_buscar_por = new ComboBox();
@@ -189,7 +181,8 @@
             cmb_estado_usuario.DropDownStyle = ComboBoxStyle.DropDownList;
             cmb_estado_usuario.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             cmb_estado_usuario.FormattingEnabled = true;
-            cmb_estado_usuario.Location = new Point(59, 471);
+            cmb_estado_usuario.Items.AddRange(new object[] { "1" });
+            cmb_estado_usuario.Location = new Point(59, 402);
             cmb_estado_usuario.Name = "cmb_estado_usuario";
             cmb_estado_usuario.Size = new Size(269, 36);
             cmb_estado_usuario.TabIndex = 13;
@@ -261,16 +254,16 @@
             dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
             dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { btn_seleccionar, id_usuario, nombre, apellido, cuit, id_rol, rol, Estado, estado_valor });
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { btn_seleccionar });
             dataGridView1.Location = new Point(420, 124);
             dataGridView1.MultiSelect = false;
             dataGridView1.Name = "dataGridView1";
             dataGridView1.ReadOnly = true;
             dataGridView1.RowHeadersWidth = 51;
-            dataGridViewCellStyle4.SelectionBackColor = Color.White;
-            dataGridViewCellStyle4.SelectionForeColor = Color.Black;
-            dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle4;
-            dataGridView1.Size = new Size(903, 564);
+            dataGridViewCellStyle2.SelectionBackColor = Color.White;
+            dataGridViewCellStyle2.SelectionForeColor = Color.Black;
+            dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridView1.Size = new Size(863, 558);
             dataGridView1.TabIndex = 19;
             // 
             // btn_seleccionar
@@ -281,80 +274,13 @@
             btn_seleccionar.ReadOnly = true;
             btn_seleccionar.Width = 30;
             // 
-            // id_usuario
-            // 
-            id_usuario.HeaderText = "id_usuario";
-            id_usuario.MinimumWidth = 6;
-            id_usuario.Name = "id_usuario";
-            id_usuario.ReadOnly = true;
-            id_usuario.Visible = false;
-            id_usuario.Width = 125;
-            // 
-            // nombre
-            // 
-            nombre.HeaderText = "Nombre";
-            nombre.MinimumWidth = 6;
-            nombre.Name = "nombre";
-            nombre.ReadOnly = true;
-            nombre.Width = 150;
-            // 
-            // apellido
-            // 
-            apellido.HeaderText = "Apellido";
-            apellido.MinimumWidth = 6;
-            apellido.Name = "apellido";
-            apellido.ReadOnly = true;
-            apellido.Width = 150;
-            // 
-            // cuit
-            // 
-            cuit.HeaderText = "CUIT";
-            cuit.MinimumWidth = 6;
-            cuit.Name = "cuit";
-            cuit.ReadOnly = true;
-            cuit.Width = 125;
-            // 
-            // id_rol
-            // 
-            id_rol.HeaderText = "id_rol";
-            id_rol.MinimumWidth = 6;
-            id_rol.Name = "id_rol";
-            id_rol.ReadOnly = true;
-            id_rol.Visible = false;
-            id_rol.Width = 125;
-            // 
-            // rol
-            // 
-            rol.HeaderText = "Rol";
-            rol.MinimumWidth = 6;
-            rol.Name = "rol";
-            rol.ReadOnly = true;
-            rol.Width = 125;
-            // 
-            // Estado
-            // 
-            Estado.HeaderText = "Estado";
-            Estado.MinimumWidth = 6;
-            Estado.Name = "Estado";
-            Estado.ReadOnly = true;
-            Estado.Width = 125;
-            // 
-            // estado_valor
-            // 
-            estado_valor.HeaderText = "Estado valor";
-            estado_valor.MinimumWidth = 6;
-            estado_valor.Name = "estado_valor";
-            estado_valor.ReadOnly = true;
-            estado_valor.Visible = false;
-            estado_valor.Width = 125;
-            // 
             // l_lista_usuarios
             // 
             l_lista_usuarios.BackColor = Color.White;
             l_lista_usuarios.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             l_lista_usuarios.Location = new Point(420, 28);
             l_lista_usuarios.Name = "l_lista_usuarios";
-            l_lista_usuarios.Size = new Size(903, 66);
+            l_lista_usuarios.Size = new Size(863, 66);
             l_lista_usuarios.TabIndex = 20;
             l_lista_usuarios.Text = "Lista de usuarios";
             l_lista_usuarios.TextAlign = ContentAlignment.MiddleLeft;
@@ -385,7 +311,7 @@
             text_buscar_usuario.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             text_buscar_usuario.Location = new Point(984, 47);
             text_buscar_usuario.Name = "text_buscar_usuario";
-            text_buscar_usuario.Size = new Size(269, 31);
+            text_buscar_usuario.Size = new Size(529, 31);
             text_buscar_usuario.TabIndex = 23;
             // 
             // btn_buscar_usuario
@@ -393,9 +319,9 @@
             btn_buscar_usuario.BackColor = SystemColors.GradientActiveCaption;
             btn_buscar_usuario.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btn_buscar_usuario.Image = Properties.Resources.lupa;
-            btn_buscar_usuario.Location = new Point(1255, 43);
+            btn_buscar_usuario.Location = new Point(1205, 53);
             btn_buscar_usuario.Name = "btn_buscar_usuario";
-            btn_buscar_usuario.Size = new Size(66, 43);
+            btn_buscar_usuario.Size = new Size(55, 43);
             btn_buscar_usuario.TabIndex = 24;
             btn_buscar_usuario.UseVisualStyleBackColor = false;
             // 
@@ -482,6 +408,6 @@
         private ComboBox cmb_buscar_por;
         private TextBox text_buscar_usuario;
         private Button btn_buscar_usuario;
-        private Label label1;
+        private DataGridViewButtonColumn btn_seleccionar;
     }
 }
