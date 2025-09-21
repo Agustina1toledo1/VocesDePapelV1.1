@@ -34,18 +34,16 @@ namespace VocesDePapelV1._1.Views
                 }
             };
             //Agregar nuevo usuario
-            btn_guardar_usuario.Click += delegate { AddNewEvent?.Invoke(this, EventArgs.Empty); };
+            btn_guardar_usuario.Click += delegate { AddNewEvent?.Invoke(this, EventArgs.Empty);
+                MessageBox.Show(Message);
+            };
             //editar usuario
-            
             btn_modificar_usuario.Click += delegate {
                 if (dataGridView1.SelectedCells.Count > 0)
                 {
                     SaveEvent?.Invoke(this, EventArgs.Empty);
                     MessageBox.Show(Message);
                 }
-                
-                
-                
             };
 
             //eliminar usuario
@@ -74,8 +72,37 @@ namespace VocesDePapelV1._1.Views
                 }
                     
             };
+            // Text box que solo admiten letras
+            text_nombre_usuario.KeyPress += TextBoxSoloLetras_KeyPress;
+            text_apellido_usuario.KeyPress += TextBoxSoloLetras_KeyPress;
+            // Text box que solo admiten numeros
+            text_cuit_usuario.KeyPress += TextBoxSoloNumeros_KeyPress;
 
+        }
+
+        private void TextBoxSoloNumeros_KeyPress(object? sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == ' ' || (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar)))
+            {
+                e.Handled = true;
+                return;
             }
+        }
+
+        private void TextBoxSoloLetras_KeyPress(object? sender, KeyPressEventArgs e)
+        {
+            // si es: 
+            //  - Espacios, caracteres especiales char.IsControl
+            //  - Letras y letras con acento => char.IsLetter
+            //  - Espacio => e.KeyChar == ' '
+            if (!char.IsControl(e.KeyChar)
+                && !char.IsLetter(e.KeyChar)
+                && e.KeyChar != ' ')
+            {
+                // Bloquea la tecla
+                e.Handled = true;
+            }
+        }
 
         //propiedades
         public string UsuarioId {

@@ -189,8 +189,38 @@ namespace VocesDePapelV1._1.Presenters
        
         private void AddNewUsuario(object? sender, EventArgs e)
         {
-            this.view.IsEdit = false; //establecemos la vista en modo no edicion
 
+            var usuario = new UsuarioModel(); //creamos una nueva instancia del modelo de usuario
+            //asignamos los valores de la vista a las propiedades del modelo
+            usuario.Id_usuario = Convert.ToInt32(view.UsuarioId);
+            usuario.Nombre = view.UsuarioNombre;
+            usuario.Apellido = view.UsuarioApellido;
+            usuario.Contraseña = view.Contraseña;
+            usuario.Cuit_usuario = view.CuitUsuario;
+            usuario.Baja = Convert.ToInt32(view.Baja);
+            usuario.Id_rol = Convert.ToInt32(view.UsuarioIdRol);
+
+            //capturamos los posible errores 
+            try
+            {
+                //validamos el modelo
+                new Common.ModelDataValidation().Validate(usuario);
+                
+                    repository.Add(usuario); //agregamos el nuevo usuario
+                    view.Message = "Usuario agregado exitosamente";
+                
+                view.IsSuccessful = true;
+                LoadAllUsuarioList(); //recargamos la lista de usuarios
+            }
+            catch (Exception ex)
+            {
+                this.view.IsSuccessful = false;
+                this.view.Message = ex.Message;
+                return;
+
+            }
+            //this.view.IsEdit = false; //establecemos la vista en modo no edicion
+            //SaveUsuario(sender, e);
         }
 
         

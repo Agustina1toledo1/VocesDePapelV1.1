@@ -24,12 +24,56 @@ namespace VocesDePapelV1._1.Repositories
         public void Add(UsuarioModel usuario)
         {
             using (var connection = new Microsoft.Data.SqlClient.SqlConnection(connectionString))
+            using (var command = connection.CreateCommand())
+            {
+                connection.Open();
+
+                // Verifico existencia de CUIT
+                command.CommandText = @"
+                                    SELECT COUNT(1)
+                                        FROM dbo.usuario
+                                     WHERE cuit = @cuit;
+                                        ";
+                command.Parameters.Add("@cuit", SqlDbType.NVarChar, 20).Value = usuario.Cuit_usuario;
+
+                int existe = (int)command.ExecuteScalar();
+                if (existe > 0)
+                {
+                    // Retiro los parámetros previos y lanzo excepción de negocio
+                    command.Parameters.Clear();
+                    throw new InvalidOperationException("El CUIT ingresado ya está registrado.");
+                }
+
+                // Si no existe, hago el INSERT
+                command.Parameters.Clear();
+                command.CommandText = @"
+                    INSERT INTO dbo.usuario
+                            (nombre, apellido, contraseña, cuit, baja, id_rol)
+                            VALUES
+                            (@nombre, @apellido, @contraseña, @cuit, @baja, @id_rol);
+                    ";
+                command.Parameters.Add("@nombre", SqlDbType.NVarChar).Value = usuario.Nombre;
+                command.Parameters.Add("@apellido", SqlDbType.NVarChar).Value = usuario.Apellido;
+                command.Parameters.Add("@contraseña", SqlDbType.NVarChar).Value = usuario.Contraseña;
+                command.Parameters.Add("@cuit", SqlDbType.NVarChar).Value = usuario.Cuit_usuario;
+                command.Parameters.Add("@baja", SqlDbType.Int).Value = usuario.Baja;
+                command.Parameters.Add("@id_rol", SqlDbType.Int).Value = usuario.Id_rol;
+
+                command.ExecuteNonQuery();
+            }
+        }
+        /*
+        public void Add(UsuarioModel usuario)
+        {
+
+
+            using (var connection = new Microsoft.Data.SqlClient.SqlConnection(connectionString))
             using (var command = new Microsoft.Data.SqlClient.SqlCommand())
             {
                 connection.Open();
                 command.Connection = connection;
                 //command.CommandText = "SELECT * FROM Usuario ORDER BY id_usuario DESC"; video
-                command.CommandText = "INSERT INTO usuario VALES @nombre, @apellido, @contraseña, @cuit, @baja, @id_rol ";
+                command.CommandText = "INSERT INTO usuario VALUES (@nombre, @apellido, @contraseña, @cuit, @baja, @id_rol) ";
                 command.Parameters.Add("@nombre", SqlDbType.NVarChar).Value = usuario.Nombre;
                 command.Parameters.Add("@apellido", SqlDbType.NVarChar).Value = usuario.Apellido;
                 command.Parameters.Add("@contraseña", SqlDbType.NVarChar).Value = usuario.Contraseña;
@@ -39,7 +83,7 @@ namespace VocesDePapelV1._1.Repositories
                 command.ExecuteNonQuery(); //ejecuta la consulta
             }
         }
-
+        */
         public void Eliminar(int id) //cambia de estado a 1 (baja logica)
         {
             using (var connection = new Microsoft.Data.SqlClient.SqlConnection(connectionString))
