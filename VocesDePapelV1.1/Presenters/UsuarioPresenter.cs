@@ -114,10 +114,11 @@ namespace VocesDePapelV1._1.Presenters
         {
             var usuario = new UsuarioModel(); //creamos una nueva instancia del modelo de usuario
             //asignamos los valores de la vista a las propiedades del modelo
+            string hashedPwd = hasher.Hash(view.Contraseña);
             usuario.Id_usuario = Convert.ToInt32(view.UsuarioId);
             usuario.Nombre = view.UsuarioNombre;
             usuario.Apellido = view.UsuarioApellido;
-            usuario.Contraseña = view.Contraseña;
+            usuario.Contraseña = hashedPwd;
             usuario.Cuit_usuario = view.CuitUsuario;
             usuario.Baja = Convert.ToInt32(view.Baja);
             usuario.Id_rol = Convert.ToInt32(view.UsuarioIdRol);
@@ -183,7 +184,7 @@ namespace VocesDePapelV1._1.Presenters
              view.UsuarioId = usuario.Id_usuario.ToString();
              view.UsuarioNombre = usuario.Nombre;
              view.UsuarioApellido = usuario.Apellido;
-             view.Contraseña = usuario.Contraseña;
+             view.Contraseña = "";
              view.CuitUsuario = usuario.Cuit_usuario;
              view.NombreEstado = usuario.Nombre_estado;
              view.NombreRol = usuario.Nombre_rol;
