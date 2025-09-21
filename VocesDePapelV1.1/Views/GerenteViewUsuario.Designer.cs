@@ -49,10 +49,10 @@
             btn_eliminar_usuario = new Button();
             label2 = new Label();
             dataGridView1 = new DataGridView();
+<<<<<<<<< Temporary merge branch 1
             btn_seleccionar = new DataGridViewButtonColumn();
             l_lista_usuarios = new Label();
             l_buscar_usuario = new Label();
-            cmb_buscar_por = new ComboBox();
             text_buscar_usuario = new TextBox();
             btn_buscar_usuario = new Button();
             label1 = new Label();
@@ -91,17 +91,7 @@
             l_clave.Size = new Size(59, 28);
             l_clave.TabIndex = 3;
             l_clave.Text = "Clave";
-            // 
-            // l_verificar_clave
-            // 
-            l_verificar_clave.AutoSize = true;
-            l_verificar_clave.BackColor = Color.White;
-            l_verificar_clave.Font = new Font("Segoe UI", 12F);
-            l_verificar_clave.Location = new Point(60, 298);
-            l_verificar_clave.Name = "l_verificar_clave";
-            l_verificar_clave.Size = new Size(131, 28);
-            l_verificar_clave.TabIndex = 4;
-            l_verificar_clave.Text = "Verificar clave";
+            
             // 
             // l_cuit
             // 
@@ -151,14 +141,6 @@
             text_cuit_usuario.Name = "text_cuit_usuario";
             text_cuit_usuario.Size = new Size(269, 34);
             text_cuit_usuario.TabIndex = 9;
-            // 
-            // text_clave_verificar_usuario
-            // 
-            text_clave_verificar_usuario.Font = new Font("Segoe UI", 12F);
-            text_clave_verificar_usuario.Location = new Point(59, 330);
-            text_clave_verificar_usuario.Name = "text_clave_verificar_usuario";
-            text_clave_verificar_usuario.Size = new Size(269, 34);
-            text_clave_verificar_usuario.TabIndex = 10;
             // 
             // text_clave_usuario
             // 
