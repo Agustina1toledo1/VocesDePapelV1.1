@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using VocesDePapelV1._1.Views;
+using System.Windows.Forms;
 using VocesDePapelV1._1.Models;
+using VocesDePapelV1._1.Views;
 
 namespace VocesDePapelV1._1.Presenters
 {
@@ -131,11 +132,10 @@ namespace VocesDePapelV1._1.Presenters
                 else //si no, agregamos un nuevo usuario
                 {
                     repository.Add(usuario); //agregamos el nuevo usuario
-                    view.Message = "Usuario agregado exitosamente";
+                    view.Message = "Usuario agregado exitosamente";                                            
                 }
                 view.IsSuccessful = true; 
                 LoadAllUsuarioList(); //recargamos la lista de usuarios
-                CleanviewFields(); //limpiamos los campos de la vista
             }
             catch (Exception ex)
             {
@@ -175,21 +175,22 @@ namespace VocesDePapelV1._1.Presenters
         private void EditUsuario(object? sender, EventArgs e)
         {
             var usuario = (UsuarioModel)usuarioBindingSource.Current; //obtenemos el usuario actual del origen de datos del enlace
-            //asignamos los valores de la vista a las propiedades del modelo    
-                view.UsuarioId = usuario.Id_usuario.ToString();
-                view.UsuarioNombre = usuario.Nombre;
-                view.UsuarioApellido = usuario.Apellido;
-                view.Contraseña = usuario.Contraseña;
-                view.CuitUsuario = usuario.Cuit_usuario;
-                view.NombreEstado = usuario.Nombre_estado;
-                view.NombreRol = usuario.Nombre_rol;
-                
-                this.view.IsEdit = true; //establecemos la vista en modo edicion
+            //asignamos los valores de la vista a las propiedades del modelo
+            
+             view.UsuarioId = usuario.Id_usuario.ToString();
+             view.UsuarioNombre = usuario.Nombre;
+             view.UsuarioApellido = usuario.Apellido;
+             view.Contraseña = usuario.Contraseña;
+             view.CuitUsuario = usuario.Cuit_usuario;
+             view.NombreEstado = usuario.Nombre_estado;
+             view.NombreRol = usuario.Nombre_rol;
+             this.view.IsEdit = true; //establecemos la vista en modo edicion
         }
-
+       
         private void AddNewUsuario(object? sender, EventArgs e)
         {
             this.view.IsEdit = false; //establecemos la vista en modo no edicion
+
         }
 
         

@@ -37,27 +37,42 @@ namespace VocesDePapelV1._1.Views
             btn_guardar_usuario.Click += delegate { AddNewEvent?.Invoke(this, EventArgs.Empty); };
             //editar usuario
             
-            btn_modificar_usuario.Click += delegate { SaveEvent?.Invoke(this, EventArgs.Empty);
-                if (IsSuccessful)
+            btn_modificar_usuario.Click += delegate {
+                if (dataGridView1.SelectedCells.Count > 0)
                 {
-                    
+                    SaveEvent?.Invoke(this, EventArgs.Empty);
+                    MessageBox.Show(Message);
                 }
-                MessageBox.Show(Message);
+                
+                
+                
             };
 
             //eliminar usuario
-            btn_eliminar_usuario.Click += delegate { 
-            var result = MessageBox.Show("Estas seguro de eliminar el usuario seleccionado?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-            if(result == DialogResult.Yes)
+            btn_eliminar_usuario.Click += delegate {
+                if (dataGridView1.SelectedCells.Count > 0)
                 {
-                    DeleteEvent?.Invoke(this, EventArgs.Empty);                    
-                    MessageBox.Show(Message);
-                    
+                    var result = MessageBox.Show("Estas seguro de eliminar el usuario seleccionado?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    if (result == DialogResult.Yes)
+                    {
+                        DeleteEvent?.Invoke(this, EventArgs.Empty);
+                        MessageBox.Show(Message);
+
+                    }
                 }
+                
             };
             dataGridView1.SelectionChanged += delegate
             {
-                EditEvent?.Invoke(this, EventArgs.Empty);
+                if (dataGridView1.SelectedCells.Count > 0)
+                {
+                    EditEvent?.Invoke(this, EventArgs.Empty);
+                }
+                else
+                {
+                    CancelEvent?.Invoke(this, EventArgs.Empty);
+                }
+                    
             };
 
             }
