@@ -1,13 +1,14 @@
-﻿using System;
+﻿using Microsoft.Data.SqlClient;
+using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Data.SqlClient;
-using System.Data;
-using Microsoft.Data.SqlClient;
-using VocesDePapelV1._1.Models;
 using System.Transactions;
+using System.Windows.Forms;
+using VocesDePapelV1._1.Models;
 
 namespace VocesDePapelV1._1.Repositories
 {
@@ -62,28 +63,6 @@ namespace VocesDePapelV1._1.Repositories
                 command.ExecuteNonQuery();
             }
         }
-        /*
-        public void Add(UsuarioModel usuario)
-        {
-
-
-            using (var connection = new Microsoft.Data.SqlClient.SqlConnection(connectionString))
-            using (var command = new Microsoft.Data.SqlClient.SqlCommand())
-            {
-                connection.Open();
-                command.Connection = connection;
-                //command.CommandText = "SELECT * FROM Usuario ORDER BY id_usuario DESC"; video
-                command.CommandText = "INSERT INTO usuario VALUES (@nombre, @apellido, @contraseña, @cuit, @baja, @id_rol) ";
-                command.Parameters.Add("@nombre", SqlDbType.NVarChar).Value = usuario.Nombre;
-                command.Parameters.Add("@apellido", SqlDbType.NVarChar).Value = usuario.Apellido;
-                command.Parameters.Add("@contraseña", SqlDbType.NVarChar).Value = usuario.Contraseña;
-                command.Parameters.Add("@cuit", SqlDbType.NVarChar).Value = usuario.Cuit_usuario;
-                command.Parameters.Add("@baja", SqlDbType.Int).Value = usuario.Baja;
-                command.Parameters.Add("@id_rol", SqlDbType.Int).Value = usuario.Id_rol;
-                command.ExecuteNonQuery(); //ejecuta la consulta
-            }
-        }
-        */
         public void Eliminar(int id) //cambia de estado a 1 (baja logica)
         {
             using (var connection = new Microsoft.Data.SqlClient.SqlConnection(connectionString))
@@ -242,15 +221,30 @@ namespace VocesDePapelV1._1.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = @"UPDATE usuario SET nombre = @nombre, apellido = @apellido, 
-                                       contraseña = @contraseña, cuit = @cuit, baja = @baja, 
-                                        id_rol = @id_rol 
-                                        WHERE id_usuario = @id_usuario";
+
+                // consulta sql
+                var sql_consulta = new StringBuilder();
+                sql_consulta.Append("UPDATE usuario SET ");
+                sql_consulta.Append("nombre = @nombre, ");
+                sql_consulta.Append("apellido = @apellido, ");
+                sql_consulta.Append("cuit = @cuit, ");
+                sql_consulta.Append("baja = @baja, ");
+                sql_consulta.Append("id_rol = @id_rol");
+
+                // Agregar contraseña solo si no está vacía
+                if (usuario.Contraseña != "00000000")
+                {
+                    sql_consulta.Append(", contraseña = @contraseña");
+                    command.Parameters.Add("@contraseña", SqlDbType.NVarChar).Value = usuario.Contraseña;
+                }
+
+                sql_consulta.Append(" WHERE id_usuario = @id_usuario");
+
+                command.CommandText = sql_consulta.ToString();
 
                 command.Parameters.Add("@id_usuario", SqlDbType.Int).Value = usuario.Id_usuario;
                 command.Parameters.Add("@nombre", SqlDbType.NVarChar).Value = usuario.Nombre;
                 command.Parameters.Add("@apellido", SqlDbType.NVarChar).Value = usuario.Apellido;
-                command.Parameters.Add("@contraseña", SqlDbType.NVarChar).Value = usuario.Contraseña;
                 command.Parameters.Add("@cuit", SqlDbType.NVarChar).Value = usuario.Cuit_usuario;
                 command.Parameters.Add("@baja", SqlDbType.Int).Value = usuario.Baja;
                 command.Parameters.Add("@id_rol", SqlDbType.Int).Value = usuario.Id_rol;

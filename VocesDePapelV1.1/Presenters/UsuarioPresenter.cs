@@ -5,9 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using VocesDePapelV1._1.Models;
-using VocesDePapelV1._1.Views;
+using VocesDePapelV1._1.Presenters.Common;
 using VocesDePapelV1._1.Repositories;
 using VocesDePapelV1._1.Servicios;
+using VocesDePapelV1._1.Views;
 namespace VocesDePapelV1._1.Presenters
 {
     public class UsuarioPresenter
@@ -113,31 +114,39 @@ namespace VocesDePapelV1._1.Presenters
         private void SaveUsuario(object? sender, EventArgs e)
         {
             var usuario = new UsuarioModel(); //creamos una nueva instancia del modelo de usuario
-            //asignamos los valores de la vista a las propiedades del modelo
-            string hashedPwd = hasher.Hash(view.Contraseña);
+            //asignamos los valores de la vista a las propiedades del modelo            
             usuario.Id_usuario = Convert.ToInt32(view.UsuarioId);
             usuario.Nombre = view.UsuarioNombre;
             usuario.Apellido = view.UsuarioApellido;
-            usuario.Contraseña = hashedPwd;
             usuario.Cuit_usuario = view.CuitUsuario;
+            usuario.Contraseña = view.Contraseña;
             usuario.Baja = Convert.ToInt32(view.Baja);
             usuario.Id_rol = Convert.ToInt32(view.UsuarioIdRol);
 
+            //hashea si es corresponde
+            if (view.Contraseña != "00000000") //si la contraseña no es "00000000"
+            {
+                // Hashear contraseña
+                string hashedPwd = hasher.Hash(view.Contraseña);
+                usuario.Contraseña = hashedPwd;
+            }
+            else
+            {
+            //si la contraseña es nula o vacia, obtenemos el usuario actual y mantenemos su contraseña
+                usuario.Contraseña = view.Contraseña;
+            }
             //capturamos los posible errores 
             try
             {
                 //validamos el modelo
                 new Common.ModelDataValidation().Validate(usuario);
-                if (view.IsEdit) //si estamos en modo edicion
-                {
+                //if (view.IsEdit) //si estamos en modo edicion
+                //{
+                    
                     repository.Modificar(usuario); //modificamos el usuario
                     view.Message = "Usuario modificado exitosamente";
-                }
-                else //si no, agregamos un nuevo usuario
-                {
-                    repository.Add(usuario); //agregamos el nuevo usuario
-                    view.Message = "Usuario agregado exitosamente";                                            
-                }
+                //}
+               
                 view.IsSuccessful = true; 
                 LoadAllUsuarioList(); //recargamos la lista de usuarios
             }
@@ -155,7 +164,7 @@ namespace VocesDePapelV1._1.Presenters
             
             view.UsuarioNombre = "";
             view.UsuarioApellido = "";
-            view.Contraseña = "";
+            view.Contraseña = "00000000";
             view.CuitUsuario = "";
         }
 
@@ -184,7 +193,7 @@ namespace VocesDePapelV1._1.Presenters
              view.UsuarioId = usuario.Id_usuario.ToString();
              view.UsuarioNombre = usuario.Nombre;
              view.UsuarioApellido = usuario.Apellido;
-             view.Contraseña = "";
+             view.Contraseña = "00000000";
              view.CuitUsuario = usuario.Cuit_usuario;
              view.NombreEstado = usuario.Nombre_estado;
              view.NombreRol = usuario.Nombre_rol;
