@@ -32,7 +32,7 @@
             LFechaFinRVentaVendedor = new Label();
             LFechaInicioReporteVentaVendedo = new Label();
             DTFechaInicioReporteVentaVendedor = new DateTimePicker();
-            LReporteVentaVendedor = new Label();
+            LRepVentaVendedor = new Label();
             label1 = new Label();
             dataGridView1 = new DataGridView();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
@@ -76,16 +76,16 @@
             DTFechaInicioReporteVentaVendedor.Size = new Size(155, 27);
             DTFechaInicioReporteVentaVendedor.TabIndex = 83;
             // 
-            // LReporteVentaVendedor
+            // LRepVentaVendedor
             // 
-            LReporteVentaVendedor.AutoSize = true;
-            LReporteVentaVendedor.BackColor = Color.White;
-            LReporteVentaVendedor.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            LReporteVentaVendedor.Location = new Point(12, 20);
-            LReporteVentaVendedor.Name = "LReporteVentaVendedor";
-            LReporteVentaVendedor.Size = new Size(256, 38);
-            LReporteVentaVendedor.TabIndex = 82;
-            LReporteVentaVendedor.Text = "Reporte de Ventas";
+            LRepVentaVendedor.AutoSize = true;
+            LRepVentaVendedor.BackColor = Color.White;
+            LRepVentaVendedor.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            LRepVentaVendedor.Location = new Point(12, 20);
+            LRepVentaVendedor.Name = "LRepVentaVendedor";
+            LRepVentaVendedor.Size = new Size(256, 38);
+            LRepVentaVendedor.TabIndex = 82;
+            LRepVentaVendedor.Text = "Reporte de Ventas";
             // 
             // label1
             // 
@@ -116,7 +116,7 @@
             Controls.Add(LFechaFinRVentaVendedor);
             Controls.Add(LFechaInicioReporteVentaVendedo);
             Controls.Add(DTFechaInicioReporteVentaVendedor);
-            Controls.Add(LReporteVentaVendedor);
+            Controls.Add(LRepVentaVendedor);
             Controls.Add(label1);
             Name = "VendedorReporteVentasView";
             Text = "VendedorReporteVentasView";
@@ -131,7 +131,7 @@
         private Label LFechaFinRVentaVendedor;
         private Label LFechaInicioReporteVentaVendedo;
         private DateTimePicker DTFechaInicioReporteVentaVendedor;
-        private Label LReporteVentaVendedor;
+        private Label LRepVentaVendedor;
         private Label label1;
         private DataGridView dataGridView1;
     }
