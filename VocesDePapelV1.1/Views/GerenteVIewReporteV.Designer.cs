@@ -1,6 +1,6 @@
 ﻿namespace VocesDePapelV1._1.Views
 {
-    partial class GerenteVIewReporteV
+    partial class GerenteVIewReporteV : Form
     {
         /// <summary>
         /// Required designer variable.

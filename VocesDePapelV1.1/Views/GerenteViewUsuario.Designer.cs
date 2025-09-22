@@ -49,13 +49,12 @@
             btn_eliminar_usuario = new Button();
             label2 = new Label();
             dataGridView1 = new DataGridView();
-<<<<<<<<< Temporary merge branch 1
-            btn_seleccionar = new DataGridViewButtonColumn();
+            DataGridViewButtonColumn btn_seleccionarU = new DataGridViewButtonColumn();
             l_lista_usuarios = new Label();
             l_buscar_usuario = new Label();
             text_buscar_usuario = new TextBox();
             btn_buscar_usuario = new Button();
-            label1 = new Label();
+            Label label1 = new Label();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -236,25 +235,25 @@
             dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
             dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { btn_seleccionar });
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { btn_seleccionarU });
             dataGridView1.Location = new Point(420, 124);
             dataGridView1.MultiSelect = false;
             dataGridView1.Name = "dataGridView1";
             dataGridView1.ReadOnly = true;
             dataGridView1.RowHeadersWidth = 51;
-            dataGridViewCellStyle2.SelectionBackColor = Color.White;
-            dataGridViewCellStyle2.SelectionForeColor = Color.Black;
-            dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle2;
+            //dataGridViewCellStyle2.SelectionBackColor = Color.White;
+            //dataGridViewCellStyle2.SelectionForeColor = Color.Black;
+            //dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle2;
             dataGridView1.Size = new Size(863, 558);
             dataGridView1.TabIndex = 19;
             // 
-            // btn_seleccionar
+            // btn_seleccionarU
             // 
-            btn_seleccionar.HeaderText = "";
-            btn_seleccionar.MinimumWidth = 6;
-            btn_seleccionar.Name = "btn_seleccionar";
-            btn_seleccionar.ReadOnly = true;
-            btn_seleccionar.Width = 30;
+            btn_seleccionarU.HeaderText = "";
+            btn_seleccionarU.MinimumWidth = 6;
+            btn_seleccionarU.Name = "btn_seleccionar";
+            btn_seleccionarU.ReadOnly = true;
+            btn_seleccionarU.Width = 30;
             // 
             // l_lista_usuarios
             // 
@@ -280,13 +279,13 @@
             // 
             // cmb_buscar_por
             // 
-            cmb_buscar_por.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmb_buscar_por.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            cmb_buscar_por.FormattingEnabled = true;
-            cmb_buscar_por.Location = new Point(820, 45);
-            cmb_buscar_por.Name = "cmb_buscar_por";
-            cmb_buscar_por.Size = new Size(158, 33);
-            cmb_buscar_por.TabIndex = 22;
+            //cmb_buscar_por.DropDownStyle = ComboBoxStyle.DropDownList;
+            //cmb_buscar_por.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+           // cmb_buscar_por.FormattingEnabled = true;
+           // cmb_buscar_por.Location = new Point(820, 45);
+           // cmb_buscar_por.Name = "cmb_buscar_por";
+            /*cmb_buscar_por.Size = new Size(158, 33);
+            cmb_buscar_por.TabIndex = 22;*/
             // 
             // text_buscar_usuario
             // 
@@ -390,6 +389,6 @@
         private ComboBox cmb_buscar_por;
         private TextBox text_buscar_usuario;
         private Button btn_buscar_usuario;
-        private DataGridViewButtonColumn btn_seleccionar;
+        private DataGridViewButtonColumn btn_seleccionarU;
     }
 }
