@@ -1,6 +1,6 @@
 using VocesDePapelV1._1.Presenters;
 using VocesDePapelV1._1.Views;
-using VocesDePapelV1._1.Repositories;
+using VocesDePapelV1._1.Models;
 using VocesDePapelV1._1.Models;
 using System.Configuration;
 using System;

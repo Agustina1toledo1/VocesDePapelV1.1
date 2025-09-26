@@ -10,7 +10,7 @@ using System.Transactions;
 using System.Windows.Forms;
 using VocesDePapelV1._1.Models;
 
-namespace VocesDePapelV1._1.Repositories
+namespace VocesDePapelV1._1.Models
 {
     public class UsuarioRepository : BaseRepository, IUsuarioRepository
     {
@@ -253,6 +253,45 @@ namespace VocesDePapelV1._1.Repositories
 
             }
              
+        }
+
+        public UsuarioModel ObtenerPorCuit(string cuit)
+        {
+            using (var connection = new Microsoft.Data.SqlClient.SqlConnection(connectionString))
+            using (var command = new Microsoft.Data.SqlClient.SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = @"
+                    SELECT u.*, r.nombre_rol as Nombre_rol, 
+                           CASE WHEN u.baja = 0 THEN 'Activo' ELSE 'Inactivo' END as Nombre_estado
+                    FROM usuario u 
+                    INNER JOIN rol r ON u.id_rol = r.id_rol 
+                    WHERE u.cuit = @cuit";
+
+                command.Parameters.Add("@cuit", SqlDbType.NVarChar).Value = cuit;
+
+                using (var reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        var usuario = new UsuarioModel
+                        {
+                            Id_usuario = Convert.ToInt32(reader["id_usuario"]),
+                            Nombre = reader["nombre"].ToString(),
+                            Apellido = reader["apellido"].ToString(),
+                            Contraseña = reader["contraseña"].ToString(),
+                            Cuit_usuario = reader["cuit"].ToString(),
+                            Baja = Convert.ToInt32(reader["baja"]),
+                            Id_rol = Convert.ToInt32(reader["id_rol"]),
+                            Nombre_rol = reader["nombre_rol"]?.ToString(),
+                            Nombre_estado = reader["Nombre_estado"]?.ToString()
+                        };
+                        return usuario;
+                    }
+                }
+            }
+            return null;
         }
     }
 }

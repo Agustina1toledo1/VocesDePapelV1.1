@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Numerics;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel;
 
 namespace VocesDePapelV1._1.Models
 {
@@ -43,14 +45,22 @@ namespace VocesDePapelV1._1.Models
             get { return apellido; }            
             set { apellido = value; }             
         }
-        [DisplayName("Contraseña")]
-        [Required(ErrorMessage = "La clave del usuario es requerido")]
-        [MinLength( 8, ErrorMessage = "La clave debe contener al menos 8 caracteres")]
-        public string Contraseña 
-        { 
-            get { return contraseña; }  
+        // "Contraseña" mapea con la BD, almacenará el HASH
+        [DisplayName("Contraseña Hash")]
+        [Browsable(false)]
+        public string Contraseña
+        {
+            get { return contraseña; }
             set { contraseña = value; }
         }
+
+        // SOLO para formularios (no se mapea a la BD)
+        [DisplayName("Contraseña")]
+        [Required(ErrorMessage = "La clave del usuario es requerida")]
+        [MinLength(8, ErrorMessage = "La clave debe contener al menos 8 caracteres")]
+        [Browsable(false)]
+        public string ContraseñaPlana { get; set; } 
+        
         [DisplayName("Cuit")]
         [Required(ErrorMessage = "El cuit del usuario es requerido")]
         [StringLength(11, ErrorMessage = "El cuit no puede ser mayor a 11 caracteres")]
@@ -59,6 +69,7 @@ namespace VocesDePapelV1._1.Models
             get { return cuit; }             
             set { cuit = value; }             
         }
+
         [DisplayName("Estado_id")]
         [Required(ErrorMessage = "El estado del usuario es requerido")]
         public int Baja 
@@ -66,6 +77,7 @@ namespace VocesDePapelV1._1.Models
             get { return baja; }
             set { baja = value; }
         }
+
         [DisplayName("Rol_id ")]
         [Required(ErrorMessage = "El rol del usuario es requerido")]
         public int Id_rol 
@@ -76,7 +88,11 @@ namespace VocesDePapelV1._1.Models
         //propiedades adicionales para mostrar el nombre del estado y rol en la vista
         [DisplayName("Estado ")] //se asocia al nombre del encabezado de la columna en el datagridview
         public string Nombre_estado { get; set; }
+        
         [DisplayName("Rol ")]
         public string Nombre_rol { get; set; }
+        
+        [DisplayName("Nombre Completo")]
+        public string NombreCompleto => $"{Nombre} {Apellido}";
     }
 }
