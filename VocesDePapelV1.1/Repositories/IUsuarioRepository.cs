@@ -16,6 +16,7 @@ namespace VocesDePapelV1._1.Models
         IEnumerable<UsuarioModel> GetByValue(string value); //buscar por valor
         IEnumerable<RolModel> GetRol();
         IEnumerable<EstadoModel> GetEstado();
+        UsuarioModel ObtenerPorCuit(string cuit);
 
     }
 }
