@@ -33,5 +33,6 @@ namespace VocesDePapelV1._1.Presenters
             IContraseniaHasher hasher = new pbkdf2ContraseniaHasher();
             new UsuarioPresenter(usuarioView, repository, hasher);
         }
+
     }
 }
