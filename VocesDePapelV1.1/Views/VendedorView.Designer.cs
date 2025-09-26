@@ -30,10 +30,10 @@
         {
             menuVendedor = new MenuStrip();
             ventaToolStripMenuItem = new ToolStripMenuItem();
+            toolStripMenuItem1 = new ToolStripMenuItem();
             librosToolStripMenuItem = new ToolStripMenuItem();
             usuariosToolStripMenuItem = new ToolStripMenuItem();
             reportesToolStripMenuItem = new ToolStripMenuItem();
-            toolStripMenuItem1 = new ToolStripMenuItem();
             menuVendedor.SuspendLayout();
             SuspendLayout();
             // 
@@ -54,6 +54,15 @@
             ventaToolStripMenuItem.Name = "ventaToolStripMenuItem";
             ventaToolStripMenuItem.Size = new Size(14, 86);
             // 
+            // toolStripMenuItem1
+            // 
+            toolStripMenuItem1.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            toolStripMenuItem1.Image = Properties.Resources.verificar;
+            toolStripMenuItem1.Name = "toolStripMenuItem1";
+            toolStripMenuItem1.Size = new Size(86, 86);
+            toolStripMenuItem1.Text = "Venta";
+            toolStripMenuItem1.TextImageRelation = TextImageRelation.ImageAboveText;
+            // 
             // librosToolStripMenuItem
             // 
             librosToolStripMenuItem.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
@@ -68,8 +77,8 @@
             usuariosToolStripMenuItem.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             usuariosToolStripMenuItem.Image = Properties.Resources.usuario;
             usuariosToolStripMenuItem.Name = "usuariosToolStripMenuItem";
-            usuariosToolStripMenuItem.Size = new Size(116, 86);
-            usuariosToolStripMenuItem.Text = "Usuarios";
+            usuariosToolStripMenuItem.Size = new Size(109, 86);
+            usuariosToolStripMenuItem.Text = "Clientes";
             usuariosToolStripMenuItem.TextImageRelation = TextImageRelation.ImageAboveText;
             // 
             // reportesToolStripMenuItem
@@ -80,15 +89,6 @@
             reportesToolStripMenuItem.Size = new Size(113, 86);
             reportesToolStripMenuItem.Text = "reportes";
             reportesToolStripMenuItem.TextImageRelation = TextImageRelation.ImageAboveText;
-            // 
-            // toolStripMenuItem1
-            // 
-            toolStripMenuItem1.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            toolStripMenuItem1.Image = Properties.Resources.verificar;
-            toolStripMenuItem1.Name = "toolStripMenuItem1";
-            toolStripMenuItem1.Size = new Size(86, 86);
-            toolStripMenuItem1.Text = "Venta";
-            toolStripMenuItem1.TextImageRelation = TextImageRelation.ImageAboveText;
             // 
             // VendedorView
             // 
