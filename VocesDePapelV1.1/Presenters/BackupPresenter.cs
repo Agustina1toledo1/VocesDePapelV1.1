@@ -5,14 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using VocesDePapelV1._1.Views;
 
+
 namespace VocesDePapelV1._1.Presenters
 {
     public class BackupPresenter
     {
         //campos        
-        private IGerenteViewUsuario view; //campo privado para la vista usando la interfaz
+        private IGerenteBackupView view; //campo privado para la vista usando la interfaz
 
-        public BackupPresenter(IGerenteViewUsuario view)
+        public BackupPresenter(IGerenteBackupView view)
         {
             this.view = view;
             //mostramos la vista

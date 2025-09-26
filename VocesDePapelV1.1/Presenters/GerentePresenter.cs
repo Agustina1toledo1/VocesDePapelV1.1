@@ -24,6 +24,7 @@ namespace VocesDePapelV1._1.Presenters
 
             //suscribirse a los eventos de la vista
             this.view.ShowUsuarioView += ShowUsuariosView;
+            this.view.ShowBackupView += ShowBackupView;
 
         }
         private void ShowUsuariosView(object? sender, EventArgs e)
@@ -32,6 +33,12 @@ namespace VocesDePapelV1._1.Presenters
             IUsuarioRepository repository = new UsuarioRepository(connectionString);
             IContraseniaHasher hasher = new pbkdf2ContraseniaHasher();
             new UsuarioPresenter(usuarioView, repository, hasher);
+        }
+        private void ShowBackupView(object? sender, EventArgs e)
+        {
+            IGerenteBackupView backupView = GerenteBackupView.GetInstance((GerenteView)this.view); // muestra solo una instancia de la vista de usuario
+            
+            new BackupPresenter(backupView);
         }
 
     }
