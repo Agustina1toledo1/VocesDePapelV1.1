@@ -18,7 +18,7 @@ namespace VocesDePapelV1._1
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            string connectionString = ConfigurationManager.ConnectionStrings["SqlConnection2"].ConnectionString;
+            string connectionString = ConfigurationManager.ConnectionStrings["SqlConnection"].ConnectionString;
 
             //probamos el presenter de usuario
             //IGerenteViewUsuario view = new GerenteViewUsuario();
@@ -27,11 +27,12 @@ namespace VocesDePapelV1._1
             //Application.Run((Form)view);
 
             //probamos el presenter de gerente
-            //IGerenteView view = new GerenteView();
-            //new GerentePresenter(view, connectionString);
-            // Application.Run((Form)view);
+            IGerenteView view = new GerenteView();
+            new GerentePresenter(view, connectionString);
+            Application.Run((Form)view);
 
             // dependencias para el login
+            /*
             var usuarioRepository = new UsuarioRepository(connectionString);
             var contraseniaHasher = new pbkdf2ContraseniaHasher();
             var authService = new AuthService(usuarioRepository, contraseniaHasher);
@@ -52,7 +53,7 @@ namespace VocesDePapelV1._1
              {
                  Application.Exit();
              }
-         }
+         }*/
      }
 
      private static void RedirigirSegunRol(UsuarioModel usuario, string connectionString)
