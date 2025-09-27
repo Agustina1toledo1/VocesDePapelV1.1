@@ -34,9 +34,10 @@
             reporte_libro_item_menu_admin = new ToolStripMenuItem();
             stockToolStripMenuItem = new ToolStripMenuItem();
             másVendidosToolStripMenuItem = new ToolStripMenuItem();
+            reporteLibroToolStripMenuItem = new ToolStripMenuItem();
             autor_item_menu_admin = new ToolStripMenuItem();
             categorias_menu_item_admin = new ToolStripMenuItem();
-            reporteLibroToolStripMenuItem = new ToolStripMenuItem();
+            toolStripMenuItem1 = new ToolStripMenuItem();
             menu.SuspendLayout();
             SuspendLayout();
             // 
@@ -45,7 +46,7 @@
             menu.AutoSize = false;
             menu.BackColor = Color.FromArgb(255, 192, 128);
             menu.ImageScalingSize = new Size(20, 20);
-            menu.Items.AddRange(new ToolStripItem[] { producto_item_menu_admin, reporte_venta_item_menu_admin, reporte_libro_item_menu_admin, autor_item_menu_admin, categorias_menu_item_admin });
+            menu.Items.AddRange(new ToolStripItem[] { producto_item_menu_admin, reporte_venta_item_menu_admin, reporte_libro_item_menu_admin, autor_item_menu_admin, categorias_menu_item_admin, toolStripMenuItem1 });
             menu.Location = new Point(0, 0);
             menu.Name = "menu";
             menu.Size = new Size(1256, 90);
@@ -101,6 +102,12 @@
             másVendidosToolStripMenuItem.Size = new Size(244, 36);
             másVendidosToolStripMenuItem.Text = "Más vendidos";
             // 
+            // reporteLibroToolStripMenuItem
+            // 
+            reporteLibroToolStripMenuItem.Name = "reporteLibroToolStripMenuItem";
+            reporteLibroToolStripMenuItem.Size = new Size(244, 36);
+            reporteLibroToolStripMenuItem.Text = "Reporte Libro";
+            // 
             // autor_item_menu_admin
             // 
             autor_item_menu_admin.AutoSize = false;
@@ -125,11 +132,17 @@
             categorias_menu_item_admin.Text = "Categorias";
             categorias_menu_item_admin.TextImageRelation = TextImageRelation.ImageAboveText;
             // 
-            // reporteLibroToolStripMenuItem
+            // toolStripMenuItem1
             // 
-            reporteLibroToolStripMenuItem.Name = "reporteLibroToolStripMenuItem";
-            reporteLibroToolStripMenuItem.Size = new Size(244, 36);
-            reporteLibroToolStripMenuItem.Text = "Reporte Libro";
+            toolStripMenuItem1.AutoSize = false;
+            toolStripMenuItem1.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            toolStripMenuItem1.Image = Properties.Resources.salida;
+            toolStripMenuItem1.ImageAlign = ContentAlignment.BottomCenter;
+            toolStripMenuItem1.ImageScaling = ToolStripItemImageScaling.None;
+            toolStripMenuItem1.Name = "toolStripMenuItem1";
+            toolStripMenuItem1.Size = new Size(150, 110);
+            toolStripMenuItem1.Text = "Cerrar Sesión";
+            toolStripMenuItem1.TextImageRelation = TextImageRelation.ImageAboveText;
             // 
             // AdministradorView
             // 
@@ -155,5 +168,6 @@
         private ToolStripMenuItem stockToolStripMenuItem;
         private ToolStripMenuItem másVendidosToolStripMenuItem;
         private ToolStripMenuItem reporteLibroToolStripMenuItem;
+        private ToolStripMenuItem toolStripMenuItem1;
     }
 }
