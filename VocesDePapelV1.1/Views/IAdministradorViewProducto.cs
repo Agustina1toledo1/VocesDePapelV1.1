@@ -8,5 +8,6 @@ namespace VocesDePapelV1._1.Views
 {
     public interface IAdministradorViewProducto
     {
+        void Show(); //metodo para mostrar la vista
     }
 }

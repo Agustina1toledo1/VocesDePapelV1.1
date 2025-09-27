@@ -15,6 +15,9 @@ namespace VocesDePapelV1._1.Views
         public AdministradorView()
         {
             InitializeComponent();
+            //Asignar eventos a los botones
+            producto_item_menu_admin.Click += delegate { ShowProductoView?.Invoke(this, EventArgs.Empty); };
+
         }
 
         public event EventHandler ShowProductoView;

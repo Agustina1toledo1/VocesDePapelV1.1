@@ -27,8 +27,12 @@ namespace VocesDePapelV1._1
             //Application.Run((Form)view);
 
             //probamos el presenter de gerente
-            IGerenteView view = new GerenteView();
+            /*IGerenteView view = new GerenteView();
             new GerentePresenter(view, connectionString);
+            Application.Run((Form)view);*/
+            //probamos el presenter de administrador
+            IAdministradorView view = new AdministradorView();
+            new AdministradorPresenter(view, connectionString);
             Application.Run((Form)view);
 
             // dependencias para el login
@@ -54,7 +58,7 @@ namespace VocesDePapelV1._1
                  Application.Exit();
              }
          }*/
-     }
+        }
 
      private static void RedirigirSegunRol(UsuarioModel usuario, string connectionString)
      {

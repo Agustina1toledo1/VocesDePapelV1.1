@@ -47,7 +47,7 @@
             menu.Items.AddRange(new ToolStripItem[] { usuarioItemMenu, backupItemMenu, reporteVentaGerenteItemMenu, reporteLGerenteItemMenu, toolStripMenuItem1 });
             menu.Location = new Point(0, 0);
             menu.Name = "menu";
-            menu.Size = new Size(1549, 90);
+            menu.Size = new Size(1382, 90);
             menu.TabIndex = 0;
             menu.Text = "menuStrip1";
             // 
@@ -129,7 +129,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1549, 875);
+            ClientSize = new Size(1382, 875);
             Controls.Add(menu);
             IsMdiContainer = true;
             MainMenuStrip = menu;

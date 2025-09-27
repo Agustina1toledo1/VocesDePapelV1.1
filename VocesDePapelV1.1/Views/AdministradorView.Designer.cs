@@ -49,7 +49,7 @@
             menu.Items.AddRange(new ToolStripItem[] { producto_item_menu_admin, reporte_venta_item_menu_admin, reporte_libro_item_menu_admin, autor_item_menu_admin, categorias_menu_item_admin, toolStripMenuItem1 });
             menu.Location = new Point(0, 0);
             menu.Name = "menu";
-            menu.Size = new Size(1256, 90);
+            menu.Size = new Size(1382, 90);
             menu.TabIndex = 1;
             menu.Text = "menuStrip1";
             // 
@@ -148,7 +148,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1256, 660);
+            ClientSize = new Size(1382, 875);
             Controls.Add(menu);
             IsMdiContainer = true;
             Name = "AdministradorView";
