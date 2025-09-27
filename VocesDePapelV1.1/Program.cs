@@ -1,9 +1,10 @@
-using VocesDePapelV1._1.Presenters;
-using VocesDePapelV1._1.Views;
-using VocesDePapelV1._1.Models;
-using VocesDePapelV1._1.Models;
+﻿using System;
 using System.Configuration;
-using System;
+using VocesDePapelV1._1.Models;
+using VocesDePapelV1._1.Models;
+using VocesDePapelV1._1.Presenters;
+using VocesDePapelV1._1.Servicios;
+using VocesDePapelV1._1.Views;
 namespace VocesDePapelV1._1
 {
     internal static class Program
@@ -17,7 +18,7 @@ namespace VocesDePapelV1._1
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            string connectionString = ConfigurationManager.ConnectionStrings["SqlConnection"].ConnectionString;
+            string connectionString = ConfigurationManager.ConnectionStrings["SqlConnection2"].ConnectionString;
 
             //probamos el presenter de usuario
             //IGerenteViewUsuario view = new GerenteViewUsuario();
@@ -26,9 +27,79 @@ namespace VocesDePapelV1._1
             //Application.Run((Form)view);
 
             //probamos el presenter de gerente
+            //IGerenteView view = new GerenteView();
+            //new GerentePresenter(view, connectionString);
+            // Application.Run((Form)view);
+
+            // dependencias para el login
+            var usuarioRepository = new UsuarioRepository(connectionString);
+            var contraseniaHasher = new pbkdf2ContraseniaHasher();
+            var authService = new AuthService(usuarioRepository, contraseniaHasher);
+
+           // AbrirVistaGerente(connectionString);
+       // }
+          //Mostrar login primero
+         using (var loginView = new LoginView(authService))
+         {
+             if (loginView.ShowDialog() == DialogResult.OK && loginView.AutenticacionExitosa)
+             {
+                 var usuario = loginView.UsuarioAutenticado;
+
+                 //  Redirigir según el rol
+                 RedirigirSegunRol(usuario, connectionString);
+             }
+             else
+             {
+                 Application.Exit();
+             }
+         }
+     }
+
+     private static void RedirigirSegunRol(UsuarioModel usuario, string connectionString)
+     {
+         switch (usuario.Id_rol)
+         {
+             case 1: // Administrador
+                 AbrirVistaAdministrador(connectionString);
+                 break;
+             case 2: // Gerente
+                 AbrirVistaGerente(connectionString);
+                 break;
+             case 3: // Vendedor
+                 AbrirVistaVendedor(connectionString, usuario);
+                 break;
+             default:
+                 MessageBox.Show($"Rol no reconocido: {usuario.Nombre_rol}");
+                 break;
+         }
+     }
+
+     private static void AbrirVistaAdministrador(string connectionString)
+     {
+          MessageBox.Show("Bienvenido Administrador");
+
+         // IAdministradorView view = new AdministradorView();
+         // new AdministradorPresenter(view, connectionString);
+         // Application.Run((Form)view);
+     }
+
+        private static void AbrirVistaGerente(string connectionString)
+        {
+            MessageBox.Show("Bienvenido Gerente");
             IGerenteView view = new GerenteView();
             new GerentePresenter(view, connectionString);
             Application.Run((Form)view);
         }
+
+        private static void AbrirVistaVendedor(string connectionString, UsuarioModel usuario)
+        {
+            
+            MessageBox.Show($"Bienvenido Vendedor: {usuario.Nombre}");
+            
+            // IVendedorView view = new VendedorView();
+            // new VendedorPresenter(view, connectionString, usuario);
+            // Application.Run((Form)view);
+        }
     }
+
 }

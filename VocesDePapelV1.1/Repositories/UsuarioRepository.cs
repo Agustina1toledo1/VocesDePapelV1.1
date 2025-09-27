@@ -263,11 +263,11 @@ namespace VocesDePapelV1._1.Models
                 connection.Open();
                 command.Connection = connection;
                 command.CommandText = @"
-                    SELECT u.*, r.nombre_rol as Nombre_rol, 
-                           CASE WHEN u.baja = 0 THEN 'Activo' ELSE 'Inactivo' END as Nombre_estado
-                    FROM usuario u 
-                    INNER JOIN rol r ON u.id_rol = r.id_rol 
-                    WHERE u.cuit = @cuit";
+            SELECT u.*, r.nombre_rol as Nombre_rol, 
+                   CASE WHEN u.baja = 0 THEN 'Activo' ELSE 'Inactivo' END as Nombre_estado
+            FROM usuario u 
+            INNER JOIN rol r ON u.id_rol = r.id_rol 
+            WHERE u.cuit = @cuit";
 
                 command.Parameters.Add("@cuit", SqlDbType.NVarChar).Value = cuit;
 
@@ -277,13 +277,13 @@ namespace VocesDePapelV1._1.Models
                     {
                         var usuario = new UsuarioModel
                         {
-                            Id_usuario = Convert.ToInt32(reader["id_usuario"]),
+                            Id_usuario = (int)reader["id_usuario"],
                             Nombre = reader["nombre"].ToString(),
                             Apellido = reader["apellido"].ToString(),
-                            Contraseña = reader["contraseña"].ToString(),
+                            Contraseña = reader["contraseña"].ToString(), // ← Este es el HASH
                             Cuit_usuario = reader["cuit"].ToString(),
-                            Baja = Convert.ToInt32(reader["baja"]),
-                            Id_rol = Convert.ToInt32(reader["id_rol"]),
+                            Baja = (int)reader["baja"],
+                            Id_rol = (int)reader["id_rol"],
                             Nombre_rol = reader["nombre_rol"]?.ToString(),
                             Nombre_estado = reader["Nombre_estado"]?.ToString()
                         };
