@@ -18,12 +18,14 @@ namespace VocesDePapelV1._1.Views {
             usuarioItemMenu.Click += delegate { ShowUsuarioView?.Invoke(this, EventArgs.Empty); };
             backupItemMenu.Click += delegate { ShowBackupView?.Invoke(this, EventArgs.Empty); };
             reporteVentaGerenteItemMenu.Click += delegate { ShowReporteVentaView?.Invoke(this, EventArgs.Empty); };
+            reporteLSGerenteItemMenu.Click += delegate { ShowReporteLibroStockView?.Invoke(this, EventArgs.Empty); };
         }
 
         public event EventHandler ShowUsuarioView;
         public event EventHandler ShowBackupView;
         public event EventHandler ShowReporteVentaView;
-        public event EventHandler ShowReporteLibroView;
+        public event EventHandler ShowReporteLibroStockView;
+        public event EventHandler ShowReporteLibroMasVendidosView;
     }
     
 }

@@ -26,7 +26,15 @@ namespace VocesDePapelV1._1.Presenters
             this.view.ShowUsuarioView += ShowUsuariosView;
             this.view.ShowBackupView += ShowBackupView;
             this.view.ShowReporteVentaView += ShowReporteVentaView;
+            this.view.ShowReporteLibroStockView += ShowReporteLibroStockView;
 
+        }
+
+        private void ShowReporteLibroStockView(object? sender, EventArgs e)
+        {
+            IGerenteReporteLibroStock backupView = GerenteViewReporteLibroStock.GetInstance((GerenteView)this.view); // muestra solo una instancia de la vista de usuario
+
+            new ReporteLibroStockPresenter(backupView);
         }
 
         private void ShowReporteVentaView(object? sender, EventArgs e)
