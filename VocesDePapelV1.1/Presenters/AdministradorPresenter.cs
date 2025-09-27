@@ -23,7 +23,24 @@ namespace VocesDePapelV1._1.Presenters
 
             //suscribirse a los eventos de la vista
             this.view.ShowProductoView += ShowProductoView;
+            this.view.ShowReporteVentaView += ShowReporteVentaView;
+            this.view.ShowReporteLibroStockView += ShowReporteLibroStockView;
 
+        }
+        //como el reporte de stock y mas vendidos de libro y reporte de venta son iguales en la vista del gerente
+
+        private void ShowReporteLibroStockView(object? sender, EventArgs e)
+        {
+            IGerenteReporteLibroStock backupView = GerenteViewReporteLibroStock.GetInstance((AdministradorView)this.view); // muestra solo una instancia de la vista de usuario
+
+            new ReporteLibroStockPresenter(backupView);
+        }
+
+        private void ShowReporteVentaView(object? sender, EventArgs e)
+        {
+            IGerenteViewReporteV backupView = GerenteViewReporteV.GetInstance((AdministradorView)this.view); // muestra solo una instancia de la vista de usuario
+
+            new ReporteVentaGerentePresenter(backupView);
         }
 
         private void ShowProductoView(object? sender, EventArgs e)
