@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using VocesDePapelV1._1.Repositories;
+using VocesDePapelV1._1.Models;
 using VocesDePapelV1._1.Servicios;
 
 namespace VocesDePapelV1._1.Views

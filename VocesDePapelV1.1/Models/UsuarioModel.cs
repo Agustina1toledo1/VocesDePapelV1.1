@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VocesDePapelV1._1.Repositories
+namespace VocesDePapelV1._1.Models
 {
     public class UsuarioModel
     {

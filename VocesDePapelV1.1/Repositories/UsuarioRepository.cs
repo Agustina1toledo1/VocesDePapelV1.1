@@ -8,9 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Transactions;
 using System.Windows.Forms;
-using VocesDePapelV1._1.Repositories;
+using VocesDePapelV1._1.Models;
 
-namespace VocesDePapelV1._1.Repositories
+namespace VocesDePapelV1._1.Models
 {
     public class UsuarioRepository : BaseRepository, IUsuarioRepository
     {

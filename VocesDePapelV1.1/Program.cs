@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Configuration;
 using System.Windows.Forms;
-using VocesDePapelV1._1.Repositories;
+using VocesDePapelV1._1.Models;
 using VocesDePapelV1._1.Presenters;
 using VocesDePapelV1._1.Servicios;
 using VocesDePapelV1._1.Views;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace VocesDePapelV1._1.Views
 {
@@ -24,6 +25,10 @@ namespace VocesDePapelV1._1.Views
         bool IsSuccessful { get; set; }
         string Message { get; set; }
 
+        BindingSource UsuarioBindingSource { get; }
+        BindingSource EstadoBindingSource { get; }
+        BindingSource RolBindingSource { get; }
+
         //Eventos
         event EventHandler SearchEvent;
         event EventHandler AddNewEvent;
@@ -41,5 +46,6 @@ namespace VocesDePapelV1._1.Views
 
         void SetDefaultEstado(string estadoId);
         void SetDefaultRol(string rolId);
+        void LimpiarCampos();
     }
 }

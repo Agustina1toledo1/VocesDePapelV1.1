@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using VocesDePapelV1._1.Models;
 
 namespace VocesDePapelV1._1.Views
 {
@@ -15,13 +16,11 @@ namespace VocesDePapelV1._1.Views
         private string message;
         private bool isSuccessful;
         private bool isEdit;
+        public BindingSource UsuarioBindingSource { get; private set; }  // Nuevo: Para sincronizar controles con modelo seleccionado
+        public BindingSource EstadoBindingSource { get; private set; }
+        public BindingSource RolBindingSource { get; private set; }
 
-        public GerenteViewUsuario()
-        {
-            InitializeComponent();
-            AssociateAndRaiseViewEvents(); //asociar y generar los eventos de vistas
-        }
-        private void AssociateAndRaiseViewEvents()
+       private void AssociateAndRaiseViewEvents()
         {
             //Buscar usuario
             btn_buscar_usuario.Click += delegate { SearchEvent?.Invoke(this, EventArgs.Empty); }; //al hacer clic (formulario, argumento de evento vacio)
@@ -34,15 +33,49 @@ namespace VocesDePapelV1._1.Views
                 }
             };
             //Agregar nuevo usuario
-            btn_guardar_usuario.Click += delegate { AddNewEvent?.Invoke(this, EventArgs.Empty);
-                MessageBox.Show(Message);
+            btn_guardar_usuario.Click += delegate {
+                // Nuevo: Validación mínima antes de invocar eventos (evita saves inválidos)
+                if (string.IsNullOrWhiteSpace(text_nombre_usuario.Text) ||
+                    string.IsNullOrWhiteSpace(text_apellido_usuario.Text) ||
+                    string.IsNullOrWhiteSpace(text_cuit_usuario.Text) ||
+                    string.IsNullOrWhiteSpace(text_clave_usuario.Text) ||
+                    cmb_estado_usuario.SelectedIndex < 0 ||
+                    cmb_rol_usuario.SelectedIndex < 0)
+                {
+                    MessageBox.Show("Complete todos los campos obligatorios (nombre, apellido, CUIT, clave, estado, rol).",
+                                    "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                if (text_clave_usuario.Text.Length < 8)
+                {
+                    MessageBox.Show("La clave debe tener al menos 8 caracteres.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                AddNewEvent?.Invoke(this, EventArgs.Empty); // Inicializa el objeto en el BindingSource (para nuevo)
+                SaveEvent?.Invoke(this, EventArgs.Empty);   // Guarda el objeto
+
+                // Nuevo: Muestra mensaje solo si éxito, y recarga grid
+                if (!string.IsNullOrWhiteSpace(Message))
+                {
+                    MessageBox.Show(Message);
+                    if (IsSuccessful)
+                    {
+                        SearchEvent?.Invoke(this, EventArgs.Empty);  // Recarga grid después de éxito
+                    }
+                }
             };
             //editar usuario
             btn_modificar_usuario.Click += delegate {
-                if (dataGridView1.SelectedCells.Count > 0)
+                if (dataGridView1.SelectedCells.Count == 0)
                 {
-                    SaveEvent?.Invoke(this, EventArgs.Empty);
+                    MessageBox.Show("Seleccione un usuario del grid para modificar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                SaveEvent?.Invoke(this, EventArgs.Empty);
+                if (!string.IsNullOrWhiteSpace(Message) && IsSuccessful)
+                {
                     MessageBox.Show(Message);
+                    SearchEvent?.Invoke(this, EventArgs.Empty);  // Recarga grid
                 }
             };
 
@@ -80,6 +113,15 @@ namespace VocesDePapelV1._1.Views
 
         }
 
+        public GerenteViewUsuario()
+        {
+            InitializeComponent();
+            UsuarioBindingSource = new BindingSource();  // Nuevo: Inicializa binding local
+            AssociateAndRaiseViewEvents(); //asociar y generar los eventos de vistas
+
+            // Nuevo: Carga inicial de usuarios al abrir la vista (invoca SearchEvent en Presenter)
+            if (SearchEvent != null) SearchEvent(this, EventArgs.Empty);
+        }
         private void TextBoxSoloNumeros_KeyPress(object? sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == ' ' || (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar)))
@@ -105,67 +147,142 @@ namespace VocesDePapelV1._1.Views
         }
 
         //propiedades
-        public string UsuarioId {
-            get {
-                if (dataGridView1.CurrentRow != null)
-                    return dataGridView1.CurrentRow.Cells["Id_usuario"].Value?.ToString();
+        public string UsuarioId
+        {
+            get
+            {
+                if (UsuarioBindingSource.Current != null)
+                {
+                    var usuario = (UsuarioModel)UsuarioBindingSource.Current;
+                    return usuario.Id_usuario.ToString();
+                }
+                // Fallback al grid si no hay binding actual
+                if (dataGridView1.CurrentRow != null && dataGridView1.CurrentRow.Cells["Id_usuario"] != null)
+                    return dataGridView1.CurrentRow.Cells["Id_usuario"].Value?.ToString() ?? "0";
                 return "0";
-            } //ver que pasa con esto
-            set {  }
+            }
+            set { }
         }
-        public string UsuarioNombre {
-            get { return text_nombre_usuario.Text; }
+        public string UsuarioNombre
+        {
+            get
+            {
+                if (UsuarioBindingSource.Current != null)
+                {
+                    var usuario = (UsuarioModel)UsuarioBindingSource.Current;
+                    return usuario.Nombre;
+                }
+                return text_nombre_usuario.Text;
+            }
             set { text_nombre_usuario.Text = value; }
         }
-        public string UsuarioApellido {
-            get { return text_apellido_usuario.Text; }
+
+        public string UsuarioApellido
+        {
+            get
+            {
+                if (UsuarioBindingSource.Current != null)
+                {
+                    var usuario = (UsuarioModel)UsuarioBindingSource.Current;
+                    return usuario.Apellido;
+                }
+                return text_apellido_usuario.Text;
+            }
             set { text_apellido_usuario.Text = value; }
         }
-        public string Contraseña {
-            get { return text_clave_usuario.Text; }
+
+        public string Contraseña
+        {
+            get
+            {
+                if (UsuarioBindingSource.Current != null)
+                {
+                    var usuario = (UsuarioModel)UsuarioBindingSource.Current;
+                    return usuario.ContraseñaPlana;
+                }
+                return text_clave_usuario.Text;
+            }
             set { text_clave_usuario.Text = value; }
         }
-        public string CuitUsuario {
-            get { return text_cuit_usuario.Text; }
+
+        public string CuitUsuario
+        {
+            get
+            {
+                if (UsuarioBindingSource.Current != null)
+                {
+                    var usuario = (UsuarioModel)UsuarioBindingSource.Current;
+                    return usuario.Cuit_usuario;
+                }
+                return text_cuit_usuario.Text;
+            }
             set { text_cuit_usuario.Text = value; }
         }
-        public string Baja {
-            get { return cmb_estado_usuario.SelectedValue?.ToString(); }
-            set { cmb_estado_usuario.SelectedValue = value; }
 
+        public string Baja
+        {
+            get
+            {
+                if (UsuarioBindingSource.Current != null)
+                {
+                    var usuario = (UsuarioModel)UsuarioBindingSource.Current;
+                    return usuario.Baja.ToString();
+                }
+                return cmb_estado_usuario.SelectedValue?.ToString();
+            }
+            set { cmb_estado_usuario.SelectedValue = value; }
         }
-        public string UsuarioIdRol {
-            get { return cmb_rol_usuario.SelectedValue?.ToString(); }
+
+        public string UsuarioIdRol
+        {
+            get
+            {
+                if (UsuarioBindingSource.Current != null)
+                {
+                    var usuario = (UsuarioModel)UsuarioBindingSource.Current;
+                    return usuario.Id_rol.ToString();
+                }
+                return cmb_rol_usuario.SelectedValue?.ToString();
+            }
             set { cmb_rol_usuario.SelectedValue = value; }
         }
-        
-        public string SearchValue {
+
+        public string SearchValue
+        {
             get { return text_buscar_usuario.Text; }
             set { text_buscar_usuario.Text = value; }
         }
 
-        
-        public bool IsEdit {
+        public bool IsEdit
+        {
             get { return isEdit; }
             set { isEdit = value; }
         }
-        public bool IsSuccessful {
+
+        public bool IsSuccessful
+        {
             get { return isSuccessful; }
             set { isSuccessful = value; }
         }
-        public string Message {
+
+        public string Message
+        {
             get { return message; }
             set { message = value; }
         }
 
-        public string NombreEstado {
+        public string NombreEstado
+        {
             get { return cmb_estado_usuario.Text; }
             set { cmb_estado_usuario.Text = value; }
         }
-        public string NombreRol {
+
+        public string NombreRol
+        {
             get { return cmb_rol_usuario.Text; }
             set { cmb_rol_usuario.Text = value; }
         }
+
 
         //Eventos
         public event EventHandler SearchEvent;
@@ -178,15 +295,91 @@ namespace VocesDePapelV1._1.Views
         //Metodos
         public void SetUsuarioListBindingSource(BindingSource usuarioList)
         {
-            dataGridView1.DataSource = usuarioList;
-            //ocultar los ids de estado, rol y contraseña
-            dataGridView1.Columns["Id_rol"].Visible = false;
-            dataGridView1.Columns["Baja"].Visible = false;
-
-           // dataGridView1.Columns["Contraseña"].Visible = false;
-
-
+            UsuarioBindingSource = usuarioList;  // Asigna al binding local
+            dataGridView1.DataSource = UsuarioBindingSource;
+            // Nuevo: Evento para configurar columnas después del binding (ocultar + UX)
+            dataGridView1.DataBindingComplete += (s, e) =>
+            {
+                // Ocultar columnas sensibles (Id_rol, Baja, Contraseña, etc.)
+                var columnsToHide = new[] { "Id_rol", "Baja", "Contraseña", "ContraseñaPlana", "Id_usuario" };
+                foreach (var colName in columnsToHide)
+                {
+                    if (dataGridView1.Columns[colName] != null)
+                        dataGridView1.Columns[colName].Visible = false;
+                }
+                // Configurar headers para columnas visibles (del modelo: Nombre_estado, Nombre_rol)
+                if (dataGridView1.Columns["Nombre_estado"] != null)
+                    dataGridView1.Columns["Nombre_estado"].HeaderText = "Estado";
+                if (dataGridView1.Columns["Nombre_rol"] != null)
+                    dataGridView1.Columns["Nombre_rol"].HeaderText = "Rol";
+                // Auto-ajustar columnas para mejor visualización
+                dataGridView1.AutoResizeColumns();
+            };
+            // Nuevo: Vincular controles al BindingSource (sincroniza TextBoxes/Combos al seleccionar fila)
+            VincularControles();
         }
+        private void VincularControles()
+        {
+            // Limpiar bindings previos
+            text_nombre_usuario.DataBindings.Clear();
+            text_apellido_usuario.DataBindings.Clear();
+            text_cuit_usuario.DataBindings.Clear();
+            text_clave_usuario.DataBindings.Clear();
+            cmb_estado_usuario.DataBindings.Clear();
+            cmb_rol_usuario.DataBindings.Clear();
+            // Agregar bindings (sincroniza con propiedades del UsuarioModel)
+            text_nombre_usuario.DataBindings.Add("Text", UsuarioBindingSource, "Nombre", true, DataSourceUpdateMode.OnPropertyChanged);
+            text_apellido_usuario.DataBindings.Add("Text", UsuarioBindingSource, "Apellido", true, DataSourceUpdateMode.OnPropertyChanged);
+            text_cuit_usuario.DataBindings.Add("Text", UsuarioBindingSource, "Cuit_usuario", true, DataSourceUpdateMode.OnPropertyChanged);
+            text_clave_usuario.DataBindings.Add("Text", UsuarioBindingSource, "ContraseñaPlana", true, DataSourceUpdateMode.OnPropertyChanged);  // Temporal para UI
+                                                                                                                                                 // Combos: Usa SelectedValue para IDs (Baja = Id_estado, Id_rol)
+            cmb_estado_usuario.DataBindings.Add("SelectedValue", UsuarioBindingSource, "Baja", true, DataSourceUpdateMode.OnPropertyChanged);
+            cmb_rol_usuario.DataBindings.Add("SelectedValue", UsuarioBindingSource, "Id_rol", true, DataSourceUpdateMode.OnPropertyChanged);
+        }
+
+        private void VincularControlesABindingSource()
+        {
+            try
+            {
+                // Vincular TextBoxes
+                text_nombre_usuario.DataBindings.Clear();
+                text_nombre_usuario.DataBindings.Add("Text", UsuarioBindingSource, "Nombre", true, DataSourceUpdateMode.OnPropertyChanged);
+
+                text_apellido_usuario.DataBindings.Clear();
+                text_apellido_usuario.DataBindings.Add("Text", UsuarioBindingSource, "Apellido", true, DataSourceUpdateMode.OnPropertyChanged);
+
+                text_cuit_usuario.DataBindings.Clear();
+                text_cuit_usuario.DataBindings.Add("Text", UsuarioBindingSource, "Cuit_usuario", true, DataSourceUpdateMode.OnPropertyChanged);
+
+                text_clave_usuario.DataBindings.Clear();
+                text_clave_usuario.DataBindings.Add("Text", UsuarioBindingSource, "ContraseñaPlana", true, DataSourceUpdateMode.OnPropertyChanged);
+
+                // Vincular ComboBoxes
+                cmb_estado_usuario.DataBindings.Clear();
+                cmb_estado_usuario.DataBindings.Add("SelectedValue", UsuarioBindingSource, "Baja", true, DataSourceUpdateMode.OnPropertyChanged);
+
+                cmb_rol_usuario.DataBindings.Clear();
+                cmb_rol_usuario.DataBindings.Add("SelectedValue", UsuarioBindingSource, "Id_rol", true, DataSourceUpdateMode.OnPropertyChanged);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al vincular controles: {ex.Message}");
+            }
+        }
+        public void LimpiarCampos()
+        {
+            // Limpia bindings y TextBoxes
+            UsuarioBindingSource.ResetBindings(false);
+            text_nombre_usuario.Text = "";
+            text_apellido_usuario.Text = "";
+            text_cuit_usuario.Text = "";
+            text_clave_usuario.Text = "";  // Vacío para nuevo (obligatorio ingresar)
+                                           // Defaults
+            SetDefaultEstado("0");  // Activo (ajusta si id_estado difiere)
+            SetDefaultRol("1");     // Gerente (ajusta si id_rol=2 en BD)
+            IsEdit = false;
+        }
+
         //singleton patron (abre una sola instancia del formulario) 
         private static GerenteViewUsuario instance;
         public static GerenteViewUsuario GetInstance(Form parentConteiner)
@@ -212,14 +405,16 @@ namespace VocesDePapelV1._1.Views
 
         public void SetEstadoListBindingSource(BindingSource estadoList)
         {
-            cmb_estado_usuario.DataSource = estadoList;
-            cmb_estado_usuario.DisplayMember = "Nombre_estado"; 
+            EstadoBindingSource = estadoList;
+            cmb_estado_usuario.DataSource = EstadoBindingSource;
+            cmb_estado_usuario.DisplayMember = "Nombre_estado";
             cmb_estado_usuario.ValueMember = "Id_estado";
         }
 
         public void SetRolListBindingSource(BindingSource rolList)
         {
-            cmb_rol_usuario.DataSource = rolList;
+            RolBindingSource = rolList;
+            cmb_rol_usuario.DataSource = RolBindingSource;
             cmb_rol_usuario.DisplayMember = "Nombre_rol";
             cmb_rol_usuario.ValueMember = "Id_rol";
         }
@@ -256,6 +451,11 @@ namespace VocesDePapelV1._1.Views
                         cmb_rol_usuario.SelectedIndex = 0;
                 }
             }
+        }
+
+        public new void Show()
+        {
+            base.Show();
         }
     }
 }

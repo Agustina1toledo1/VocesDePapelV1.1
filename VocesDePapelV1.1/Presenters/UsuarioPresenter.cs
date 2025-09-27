@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using VocesDePapelV1._1.Repositories;
+using VocesDePapelV1._1.Models;
 using VocesDePapelV1._1.Presenters.Common;
 using VocesDePapelV1._1.Servicios;
 using VocesDePapelV1._1.Views;
@@ -49,6 +49,9 @@ namespace VocesDePapelV1._1.Presenters
             this.view.SetUsuarioListBindingSource(usuarioBindingSource);
             this.view.SetEstadoListBindingSource(estadoBindingSource);
             this.view.SetRolListBindingSource(rolBindingSource);
+            // Establecer defaults después de poblar combos
+            this.view.SetDefaultEstado("0");  // Activo por defecto
+            this.view.SetDefaultRol("1");     // Gerente por defecto (ajusta si BD usa id=2)
             //mostramos la vista
             this.view.Show();
         
@@ -70,6 +73,23 @@ namespace VocesDePapelV1._1.Presenters
         private void LoadAllUsuarioList()
         {
             usuarioList = repository.GetAll(); //obtenemos todos los usuarios del repositorio
+                                               //Si listas de estado/rol están vacías (BD sin datos), usa defaults para evitar "Desconocido"
+            if (!estadoList.Any())
+            {
+                estadoList = new List<EstadoModel>
+    {
+        new EstadoModel { Id_estado = 0, Nombre_estado = "Activo" },
+        new EstadoModel { Id_estado = 1, Nombre_estado = "Inactivo" }
+    };
+            }
+            if (!rolList.Any())
+            {
+                rolList = new List<RolModel>
+    {
+        new RolModel { Id_rol = 1, Nombre_rol = "Gerente" }
+        // Agrega más si hay otros roles, e.g., {2, "Vendedor"}
+    };
+            }
             foreach (var usuario in usuarioList)
             {
                 var estado = estadoList.FirstOrDefault(e => e.Id_estado == usuario.Baja);
@@ -79,7 +99,8 @@ namespace VocesDePapelV1._1.Presenters
                 usuario.Nombre_rol = rol?.Nombre_rol ?? "Desconocido";
             }
             usuarioBindingSource.DataSource = usuarioList; //establecemos la lista de usuarios como el origen de datos del enlace
-            
+
+            usuarioBindingSource.ResetBindings(false);//  Refresca binding para actualizar vista
         }
         
 
@@ -95,6 +116,22 @@ namespace VocesDePapelV1._1.Presenters
             {
                 usuarioList = repository.GetAll(); //si es vacio, obtenemos todos los usuarios
             }
+            // Mismo fallback para listas vacías en búsqueda
+            if (!estadoList.Any())
+            {
+                 estadoList = new List<EstadoModel>
+                {
+                    new EstadoModel { Id_estado = 0, Nombre_estado = "Activo" },
+                    new EstadoModel { Id_estado = 1, Nombre_estado = "Inactivo" }
+                };
+              }
+            if (!rolList.Any())
+                {
+                  rolList = new List<RolModel>
+                {
+                    new RolModel { Id_rol = 1, Nombre_rol = "Gerente" }
+                };
+            }
             foreach (var usuario in usuarioList)
             {
                 var estado = estadoList.FirstOrDefault(e => e.Id_estado == usuario.Baja);
@@ -105,6 +142,8 @@ namespace VocesDePapelV1._1.Presenters
             }
             //actualizamos el origen de datos del enlace
             usuarioBindingSource.DataSource = usuarioList;
+            // Refresca binding
+            usuarioBindingSource.ResetBindings(false);
         }
 
         private void CancelAction(object? sender, EventArgs e)
@@ -113,72 +152,77 @@ namespace VocesDePapelV1._1.Presenters
         }
 
         private void SaveUsuario(object? sender, EventArgs e)
-        {   // copia al objeto 'usuario' actual antes de guardarlo.
+        {
             usuarioBindingSource.EndEdit();
-            // Obtiene el objeto del BindingSource (el nuevo registro o el que se está editando).
+            // Obtiene el objeto actual del BindingSource (nuevo o editando)
             var usuario = (UsuarioModel)usuarioBindingSource.Current;
-            // Validación básica de campos clave antes de continuar
-            if (string.IsNullOrWhiteSpace(usuario.Cuit_usuario) || string.IsNullOrWhiteSpace(usuario.Nombre))
+            // Asigna valores de la vista al modelo (binding ya ayuda, pero asegura)
+            usuario.Nombre = view.UsuarioNombre;
+            usuario.Apellido = view.UsuarioApellido;
+            usuario.Cuit_usuario = view.CuitUsuario;
+            usuario.ContraseñaPlana = view.Contraseña;  // Temporal para validación
+                                                        // Parsea valores de combos (Baja y Id_rol)
+            int baja = 0;
+            int.TryParse(view.Baja, out baja);
+            usuario.Baja = baja;
+            int idRol = 1;  // Default gerente
+            int.TryParse(view.UsuarioIdRol, out idRol);
+            usuario.Id_rol = idRol;
+            // Nueva Lógica Simplificada para Contraseña (sin sentinel "00000000")
+            string contrasenaPlana = view.Contraseña;  // Declaración corregida: captura de vista
+            if (string.IsNullOrEmpty(contrasenaPlana) && view.IsEdit)  // Edición: no cambiar clave (mantener hash viejo)
             {
-                usuarioBindingSource.CancelEdit(); // Cancela la edición si faltan datos
-                view.IsSuccessful = false;
-                view.Message = "El CUIT y el Nombre son obligatorios.";
-                return;
-            }
-            // Lógica para manejar la Contraseña (FIX DE EDICIÓN)
-            if (view.Contraseña != "00000000") // Si el usuario escribió una nueva contraseña
-            {
-                // Hashear contraseña nueva
-                string hashedPwd = hasher.Hash(view.Contraseña);
-                usuario.Contraseña = hashedPwd;
-            }
-            else // Si la contraseña es "00000000" (modo edición sin cambio de clave)
-            {
-                // Obtener el objeto original de la base de datos para mantener el hash existente.
+                // Recupera hash original de BD vía CUIT (no expone plano)
                 var usuarioOriginal = repository.ObtenerPorCuit(usuario.Cuit_usuario);
-
                 if (usuarioOriginal != null)
                 {
-                    usuario.Contraseña = usuarioOriginal.Contraseña;
+                    usuario.Contraseña = usuarioOriginal.Contraseña;  // Hash existente
                 }
                 else
                 {
-                    // Esto solo debería ocurrir si se intenta editar un CUIT que no existe.
-                    usuario.Contraseña = view.Contraseña; // Mantiene el "00000000", fallará la validación, lo cual es correcto.
+                    // Falla si CUIT no existe (e.g., cambió CUIT sin clave nueva)
+                    throw new InvalidOperationException("No se pudo recuperar el usuario original. Ingrese una nueva contraseña.");
                 }
             }
-
-            //  Bloque Try-Catch para validar y persistir
+            else  // Nuevo usuario o cambio de clave: obligatoria y hasheada
+            {
+                if (string.IsNullOrEmpty(contrasenaPlana))
+                {
+                    throw new InvalidOperationException("La contraseña es obligatoria para nuevos usuarios o cambios.");
+                }
+                // Hashea la nueva contraseña
+                string hashedPwd = hasher.Hash(contrasenaPlana);
+                usuario.Contraseña = hashedPwd;
+            }
+            // Bloque Try-Catch para validar y persistir
             try
             {
-                // Validamos el modelo (el objeto 'usuario' ya contiene la contraseña hasheada o el hash original).
-                new Common.ModelDataValidation().Validate(usuario);
-
-                // Si el ID es 0, es un nuevo registro, si es diferente, es una modificación.
+                // Valida el modelo completo (incluyendo DataAnnotations y Contraseña hasheada)
+                new VocesDePapelV1._1.Presenters.Common.ModelDataValidation().Validate(usuario);  // Corrige namespace si es "Common"
+                                                                                                  // Determina acción: nuevo o modificar
                 if (usuario.Id_usuario == 0)
                 {
-                    // Se asume que el usuario ya tiene todos los campos de la vista asignados, 
-                    // ya que se usa usuarioBindingSource.Current.
                     repository.Add(usuario);
-                    view.Message = "Usuario agregado exitosamente";
+                    view.Message = "Usuario agregado exitosamente.";
                 }
                 else
                 {
-                    // Modificación
                     repository.Modificar(usuario);
-                    view.Message = "Usuario modificado exitosamente";
+                    view.Message = "Usuario modificado exitosamente.";
                 }
-
                 view.IsSuccessful = true;
-                LoadAllUsuarioList(); // Recargamos la lista
-                CleanviewFields(); // Limpiamos campos después de guardar o volvemos al primer elemento.
+                // Post-éxito: Recarga lista y limpia campos
+                LoadAllUsuarioList();  // Recarga grid
+                this.view.LimpiarCampos();  // Limpia vista (nuevo método)
             }
             catch (Exception ex)
             {
-                // Cancelamos la adición pendiente en el BindingSource si falló el guardado.
+                // Cancela edición si falla
                 usuarioBindingSource.CancelEdit();
-                this.view.IsSuccessful = false;
-                this.view.Message = "Error al guardar: " + ex.Message;
+                view.IsSuccessful = false;
+                view.Message = "Error al guardar usuario: " + ex.Message;
+                // Opcional: Limpia en error para resetear UX
+                this.view.LimpiarCampos();
             }
         }
 
@@ -219,8 +263,8 @@ namespace VocesDePapelV1._1.Presenters
              view.UsuarioId = usuario.Id_usuario.ToString();
              view.UsuarioNombre = usuario.Nombre;
              view.UsuarioApellido = usuario.Apellido;
-             view.Contraseña = "00000000";
-             view.CuitUsuario = usuario.Cuit_usuario;
+            view.Contraseña = "";  // Vacío: obliga ingresar nueva si se cambia (Save maneja si vacío = mantener hash)
+            view.CuitUsuario = usuario.Cuit_usuario;
              view.NombreEstado = usuario.Nombre_estado;
              view.NombreRol = usuario.Nombre_rol;
              this.view.IsEdit = true; //establecemos la vista en modo edicion
@@ -228,18 +272,48 @@ namespace VocesDePapelV1._1.Presenters
 
         private void AddNewUsuario(object? sender, EventArgs e)
         {
-            /// Inicia un nuevo registro en el BindingSource.
             usuarioBindingSource.AddNew();
 
-            // Asegura que la vista se comporte como 'Agregar' (por si IsEdit se usa en la vista).
+            var nuevoUsuario = (UsuarioModel)usuarioBindingSource.Current;
+
+            nuevoUsuario.Nombre = view.UsuarioNombre;
+            nuevoUsuario.Apellido = view.UsuarioApellido;
+            nuevoUsuario.Cuit_usuario = view.CuitUsuario;
+
+            // Validación segura para campos numéricos
+            int baja = 0;
+            if (!int.TryParse(view.Baja, out baja))
+            {
+                view.IsSuccessful = false;
+                view.Message = "Debe seleccionar un estado válido.";
+                return;
+            }
+
+            int idRol = 1;
+            if (!int.TryParse(view.UsuarioIdRol, out idRol))
+            {
+                view.IsSuccessful = false;
+                view.Message = "Debe seleccionar un rol válido.";
+                return;
+            }
+
+            nuevoUsuario.Baja = baja;    // Puede ser 0 (activo)
+            nuevoUsuario.Id_rol = idRol;
+            nuevoUsuario.Nombre = view.UsuarioNombre;
+            nuevoUsuario.Apellido = view.UsuarioApellido;
+            nuevoUsuario.Cuit_usuario = view.CuitUsuario;
+            nuevoUsuario.ContraseñaPlana = view.Contraseña;  // Para validación en Save
+            // Defaults ya validados en vista
+            nuevoUsuario.Baja = 0;  // Activo
+            nuevoUsuario.Id_rol = 1;  // Gerente
             this.view.IsEdit = false;
 
-            // Limpia los campos de texto para que el gerente ingrese el nuevo usuario.
-            CleanviewFields();
-        
-        
+
+            nuevoUsuario.ContraseñaPlana = view.Contraseña;
+
+            this.view.IsEdit = false;
         }
-      
+
 
     }
 }
