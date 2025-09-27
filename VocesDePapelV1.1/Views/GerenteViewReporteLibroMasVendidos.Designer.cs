@@ -45,6 +45,7 @@
             label4 = new Label();
             label3 = new Label();
             dateTimePicker1 = new DateTimePicker();
+            btn_modificar_usuario = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -196,12 +197,24 @@
             dateTimePicker1.Size = new Size(155, 27);
             dateTimePicker1.TabIndex = 77;
             // 
+            // btn_modificar_usuario
+            // 
+            btn_modificar_usuario.BackColor = Color.FromArgb(255, 192, 128);
+            btn_modificar_usuario.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btn_modificar_usuario.Location = new Point(1154, 136);
+            btn_modificar_usuario.Name = "btn_modificar_usuario";
+            btn_modificar_usuario.Size = new Size(169, 43);
+            btn_modificar_usuario.TabIndex = 91;
+            btn_modificar_usuario.Text = "Generar excel";
+            btn_modificar_usuario.UseVisualStyleBackColor = false;
+            // 
             // GerenteViewReporteLibroMasVendidos
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveCaption;
             ClientSize = new Size(1340, 781);
+            Controls.Add(btn_modificar_usuario);
             Controls.Add(dateTimePicker2);
             Controls.Add(label4);
             Controls.Add(label3);
@@ -233,5 +246,6 @@
         private Label label4;
         private Label label3;
         private DateTimePicker dateTimePicker1;
+        private Button btn_modificar_usuario;
     }
 }

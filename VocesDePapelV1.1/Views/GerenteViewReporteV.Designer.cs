@@ -39,6 +39,7 @@
             dataGridView1 = new DataGridView();
             cmb_vendedor = new ComboBox();
             label5 = new Label();
+            btn_modificar_usuario = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -121,7 +122,7 @@
             dataGridViewCellStyle4.SelectionBackColor = Color.White;
             dataGridViewCellStyle4.SelectionForeColor = Color.Black;
             dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle4;
-            dataGridView1.Size = new Size(929, 564);
+            dataGridView1.Size = new Size(930, 539);
             dataGridView1.TabIndex = 81;
             // 
             // cmb_vendedor
@@ -130,7 +131,7 @@
             cmb_vendedor.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             cmb_vendedor.FormattingEnabled = true;
             cmb_vendedor.Items.AddRange(new object[] { "1" });
-            cmb_vendedor.Location = new Point(519, 39);
+            cmb_vendedor.Location = new Point(514, 38);
             cmb_vendedor.Name = "cmb_vendedor";
             cmb_vendedor.Size = new Size(269, 36);
             cmb_vendedor.TabIndex = 88;
@@ -140,11 +141,22 @@
             label5.AutoSize = true;
             label5.BackColor = Color.White;
             label5.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label5.Location = new Point(352, 39);
+            label5.Location = new Point(374, 39);
             label5.Name = "label5";
             label5.Size = new Size(113, 31);
             label5.TabIndex = 89;
             label5.Text = "Vendedor";
+            // 
+            // btn_modificar_usuario
+            // 
+            btn_modificar_usuario.BackColor = Color.FromArgb(255, 192, 128);
+            btn_modificar_usuario.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btn_modificar_usuario.Location = new Point(1135, 130);
+            btn_modificar_usuario.Name = "btn_modificar_usuario";
+            btn_modificar_usuario.Size = new Size(169, 43);
+            btn_modificar_usuario.TabIndex = 90;
+            btn_modificar_usuario.Text = "Generar excel";
+            btn_modificar_usuario.UseVisualStyleBackColor = false;
             // 
             // GerenteViewReporteV
             // 
@@ -152,6 +164,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveCaption;
             ClientSize = new Size(1341, 759);
+            Controls.Add(btn_modificar_usuario);
             Controls.Add(label5);
             Controls.Add(cmb_vendedor);
             Controls.Add(dateTimePicker2);
@@ -179,5 +192,6 @@
         private DataGridView dataGridView1;
         private ComboBox cmb_vendedor;
         private Label label5;
+        private Button btn_modificar_usuario;
     }
 }

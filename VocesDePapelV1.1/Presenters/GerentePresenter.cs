@@ -24,8 +24,34 @@ namespace VocesDePapelV1._1.Presenters
 
             //suscribirse a los eventos de la vista
             this.view.ShowUsuarioView += ShowUsuariosView;
+            this.view.ShowBackupView += ShowBackupView;
+            this.view.ShowReporteVentaView += ShowReporteVentaView;
+            this.view.ShowReporteLibroStockView += ShowReporteLibroStockView;
+            this.view.ShowReporteLibroMasVendidosView += ShowReporteLibroMasVendidosView;
 
         }
+
+        private void ShowReporteLibroMasVendidosView(object? sender, EventArgs e)
+        {
+            IGerenteReporteLibroMasVendidos backupView = GerenteViewReporteLibroMasVendidos.GetInstance((GerenteView)this.view); // muestra solo una instancia de la vista de usuario
+
+            new ReporteLibroMasVendidosPresenter(backupView);
+        }
+
+        private void ShowReporteLibroStockView(object? sender, EventArgs e)
+        {
+            IGerenteReporteLibroStock backupView = GerenteViewReporteLibroStock.GetInstance((GerenteView)this.view); // muestra solo una instancia de la vista de usuario
+
+            new ReporteLibroStockPresenter(backupView);
+        }
+
+        private void ShowReporteVentaView(object? sender, EventArgs e)
+        {
+            IGerenteViewReporteV backupView = GerenteViewReporteV.GetInstance((GerenteView)this.view); // muestra solo una instancia de la vista de usuario
+
+            new ReporteVentaGerentePresenter(backupView);
+        }
+
         private void ShowUsuariosView(object? sender, EventArgs e)
         {
             IGerenteViewUsuario usuarioView = GerenteViewUsuario.GetInstance((GerenteView)this.view); // muestra solo una instancia de la vista de usuario
@@ -33,5 +59,13 @@ namespace VocesDePapelV1._1.Presenters
             IContraseniaHasher hasher = new pbkdf2ContraseniaHasher();
             new UsuarioPresenter(usuarioView, repository, hasher);
         }
+        private void ShowBackupView(object? sender, EventArgs e)
+        {
+            IGerenteBackupView backupView = GerenteBackupView.GetInstance((GerenteView)this.view); // muestra solo una instancia de la vista de usuario
+            
+            new BackupPresenter(backupView);
+        }
+
+
     }
 }

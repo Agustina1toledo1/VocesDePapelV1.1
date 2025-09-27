@@ -241,7 +241,7 @@
             dataGridView1.Name = "dataGridView1";
             dataGridView1.ReadOnly = true;
             dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(804, 558);
+            dataGridView1.Size = new Size(927, 558);
             dataGridView1.TabIndex = 19;
             // 
             // l_lista_usuarios
@@ -250,7 +250,7 @@
             l_lista_usuarios.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             l_lista_usuarios.Location = new Point(420, 28);
             l_lista_usuarios.Name = "l_lista_usuarios";
-            l_lista_usuarios.Size = new Size(804, 66);
+            l_lista_usuarios.Size = new Size(927, 66);
             l_lista_usuarios.TabIndex = 20;
             l_lista_usuarios.Text = "Lista de usuarios";
             l_lista_usuarios.TextAlign = ContentAlignment.MiddleLeft;
@@ -258,9 +258,9 @@
             // text_buscar_usuario
             // 
             text_buscar_usuario.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            text_buscar_usuario.Location = new Point(658, 50);
+            text_buscar_usuario.Location = new Point(670, 45);
             text_buscar_usuario.Name = "text_buscar_usuario";
-            text_buscar_usuario.Size = new Size(492, 31);
+            text_buscar_usuario.Size = new Size(581, 31);
             text_buscar_usuario.TabIndex = 23;
             // 
             // btn_buscar_usuario
@@ -268,7 +268,7 @@
             btn_buscar_usuario.BackColor = SystemColors.GradientActiveCaption;
             btn_buscar_usuario.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btn_buscar_usuario.Image = Properties.Resources.lupa;
-            btn_buscar_usuario.Location = new Point(1161, 43);
+            btn_buscar_usuario.Location = new Point(1277, 38);
             btn_buscar_usuario.Name = "btn_buscar_usuario";
             btn_buscar_usuario.Size = new Size(55, 43);
             btn_buscar_usuario.TabIndex = 24;
@@ -279,7 +279,7 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveCaption;
-            ClientSize = new Size(1340, 781);
+            ClientSize = new Size(1367, 781);
             Controls.Add(btn_buscar_usuario);
             Controls.Add(text_buscar_usuario);
             Controls.Add(l_lista_usuarios);
