@@ -94,5 +94,9 @@ namespace VocesDePapelV1._1.Models
         
         [DisplayName("Nombre Completo")]
         public string NombreCompleto => $"{Nombre} {Apellido}";
+
+        // Propiedad para saber si el usuario está activo
+        [Browsable(false)]
+        public bool EstaActivo => Baja == 0;
     }
 }
