@@ -113,50 +113,72 @@ namespace VocesDePapelV1._1.Presenters
         }
 
         private void SaveUsuario(object? sender, EventArgs e)
-        {
-            var usuario = new UsuarioModel(); //creamos una nueva instancia del modelo de usuario
-            //asignamos los valores de la vista a las propiedades del modelo            
-            usuario.Id_usuario = Convert.ToInt32(view.UsuarioId);
-            usuario.Nombre = view.UsuarioNombre;
-            usuario.Apellido = view.UsuarioApellido;
-            usuario.Cuit_usuario = view.CuitUsuario;
-            usuario.Contraseña = view.Contraseña;
-            usuario.Baja = Convert.ToInt32(view.Baja);
-            usuario.Id_rol = Convert.ToInt32(view.UsuarioIdRol);
-
-            //hashea si es corresponde
-            if (view.Contraseña != "00000000") //si la contraseña no es "00000000"
+        {   // copia al objeto 'usuario' actual antes de guardarlo.
+            usuarioBindingSource.EndEdit();
+            // Obtiene el objeto del BindingSource (el nuevo registro o el que se está editando).
+            var usuario = (UsuarioModel)usuarioBindingSource.Current;
+            // Validación básica de campos clave antes de continuar
+            if (string.IsNullOrWhiteSpace(usuario.Cuit_usuario) || string.IsNullOrWhiteSpace(usuario.Nombre))
             {
-                // Hashear contraseña
+                usuarioBindingSource.CancelEdit(); // Cancela la edición si faltan datos
+                view.IsSuccessful = false;
+                view.Message = "El CUIT y el Nombre son obligatorios.";
+                return;
+            }
+            // Lógica para manejar la Contraseña (FIX DE EDICIÓN)
+            if (view.Contraseña != "00000000") // Si el usuario escribió una nueva contraseña
+            {
+                // Hashear contraseña nueva
                 string hashedPwd = hasher.Hash(view.Contraseña);
                 usuario.Contraseña = hashedPwd;
             }
-            else
+            else // Si la contraseña es "00000000" (modo edición sin cambio de clave)
             {
-            //si la contraseña es nula o vacia, obtenemos el usuario actual y mantenemos su contraseña
-                usuario.Contraseña = view.Contraseña;
+                // Obtener el objeto original de la base de datos para mantener el hash existente.
+                var usuarioOriginal = repository.ObtenerPorCuit(usuario.Cuit_usuario);
+
+                if (usuarioOriginal != null)
+                {
+                    usuario.Contraseña = usuarioOriginal.Contraseña;
+                }
+                else
+                {
+                    // Esto solo debería ocurrir si se intenta editar un CUIT que no existe.
+                    usuario.Contraseña = view.Contraseña; // Mantiene el "00000000", fallará la validación, lo cual es correcto.
+                }
             }
-            //capturamos los posible errores 
+
+            //  Bloque Try-Catch para validar y persistir
             try
             {
-                //validamos el modelo
+                // Validamos el modelo (el objeto 'usuario' ya contiene la contraseña hasheada o el hash original).
                 new Common.ModelDataValidation().Validate(usuario);
-                //if (view.IsEdit) //si estamos en modo edicion
-                //{
-                    
-                    repository.Modificar(usuario); //modificamos el usuario
+
+                // Si el ID es 0, es un nuevo registro, si es diferente, es una modificación.
+                if (usuario.Id_usuario == 0)
+                {
+                    // Se asume que el usuario ya tiene todos los campos de la vista asignados, 
+                    // ya que se usa usuarioBindingSource.Current.
+                    repository.Add(usuario);
+                    view.Message = "Usuario agregado exitosamente";
+                }
+                else
+                {
+                    // Modificación
+                    repository.Modificar(usuario);
                     view.Message = "Usuario modificado exitosamente";
-                //}
-               
-                view.IsSuccessful = true; 
-                LoadAllUsuarioList(); //recargamos la lista de usuarios
+                }
+
+                view.IsSuccessful = true;
+                LoadAllUsuarioList(); // Recargamos la lista
+                CleanviewFields(); // Limpiamos campos después de guardar o volvemos al primer elemento.
             }
             catch (Exception ex)
             {
+                // Cancelamos la adición pendiente en el BindingSource si falló el guardado.
+                usuarioBindingSource.CancelEdit();
                 this.view.IsSuccessful = false;
-                this.view.Message =  ex.Message;
-                return;
-
+                this.view.Message = "Error al guardar: " + ex.Message;
             }
         }
 
@@ -206,50 +228,16 @@ namespace VocesDePapelV1._1.Presenters
 
         private void AddNewUsuario(object? sender, EventArgs e)
         {
-            // Validar que la contraseña no esté vacía
-            if (string.IsNullOrWhiteSpace(view.Contraseña) || view.Contraseña == "00000000")
-            {
-                view.IsSuccessful = false;
-                view.Message = "La clave del usuario es requerida";
-                return;
-            }
+            /// Inicia un nuevo registro en el BindingSource.
+            usuarioBindingSource.AddNew();
 
-            var usuario = new UsuarioModel();
+            // Asegura que la vista se comporte como 'Agregar' (por si IsEdit se usa en la vista).
+            this.view.IsEdit = false;
 
-            // Validar longitud mínima de contraseña
-            if (view.Contraseña.Length < 4)
-            {
-                view.IsSuccessful = false;
-                view.Message = "La contraseña debe tener al menos 4 caracteres";
-                return;
-            }
-
-            // Hashear contraseña solo si es válida
-            string hashedPwd = hasher.Hash(view.Contraseña);
-
-            // Asignar valores
-            usuario.Id_usuario = 0; // Para nuevo usuario, ID debe ser 0
-            usuario.Nombre = view.UsuarioNombre;
-            usuario.Apellido = view.UsuarioApellido;
-            usuario.Contraseña = hashedPwd;
-            usuario.Cuit_usuario = view.CuitUsuario;
-            usuario.Baja = 0; // Por defecto activo
-            usuario.Id_rol = Convert.ToInt32(view.UsuarioIdRol);
-
-            try
-            {
-                new Common.ModelDataValidation().Validate(usuario);
-                repository.Add(usuario);
-                view.Message = "Usuario agregado exitosamente";
-                view.IsSuccessful = true;
-                LoadAllUsuarioList();
-                CleanviewFields(); // Limpiar campos después de guardar
-            }
-            catch (Exception ex)
-            {
-                view.IsSuccessful = false;
-                view.Message = ex.Message;
-            }
+            // Limpia los campos de texto para que el gerente ingrese el nuevo usuario.
+            CleanviewFields();
+        
+        
         }
       
 
