@@ -19,6 +19,7 @@ namespace VocesDePapelV1._1.Views
             producto_item_menu_admin.Click += delegate { ShowProductoView?.Invoke(this, EventArgs.Empty); };
             reporte_venta_item_menu_admin.Click += delegate { ShowReporteVentaView?.Invoke(this, EventArgs.Empty); };
             reporteLibroSAdminItemMenu.Click += delegate { ShowReporteLibroStockView?.Invoke(this, EventArgs.Empty); };
+            ReporteMasVendidoLibroItemMenuAdmin.Click += delegate { ShowReporteLibroMasVendidosView?.Invoke(this, EventArgs.Empty); };
 
         }
 

@@ -33,7 +33,7 @@
             reporte_venta_item_menu_admin = new ToolStripMenuItem();
             reporte_libro_item_menu_admin = new ToolStripMenuItem();
             reporteLibroSAdminItemMenu = new ToolStripMenuItem();
-            másVendidosToolStripMenuItem = new ToolStripMenuItem();
+            ReporteMasVendidoLibroItemMenuAdmin = new ToolStripMenuItem();
             autor_item_menu_admin = new ToolStripMenuItem();
             categorias_menu_item_admin = new ToolStripMenuItem();
             toolStripMenuItem1 = new ToolStripMenuItem();
@@ -79,7 +79,7 @@
             // reporte_libro_item_menu_admin
             // 
             reporte_libro_item_menu_admin.AutoSize = false;
-            reporte_libro_item_menu_admin.DropDownItems.AddRange(new ToolStripItem[] { reporteLibroSAdminItemMenu, másVendidosToolStripMenuItem });
+            reporte_libro_item_menu_admin.DropDownItems.AddRange(new ToolStripItem[] { reporteLibroSAdminItemMenu, ReporteMasVendidoLibroItemMenuAdmin });
             reporte_libro_item_menu_admin.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             reporte_libro_item_menu_admin.Image = Properties.Resources.aumentar;
             reporte_libro_item_menu_admin.ImageAlign = ContentAlignment.BottomCenter;
@@ -95,11 +95,11 @@
             reporteLibroSAdminItemMenu.Size = new Size(244, 36);
             reporteLibroSAdminItemMenu.Text = "Stock";
             // 
-            // másVendidosToolStripMenuItem
+            // ReporteMasVendidoLibroItemMenuAdmin
             // 
-            másVendidosToolStripMenuItem.Name = "másVendidosToolStripMenuItem";
-            másVendidosToolStripMenuItem.Size = new Size(244, 36);
-            másVendidosToolStripMenuItem.Text = "Más vendidos";
+            ReporteMasVendidoLibroItemMenuAdmin.Name = "ReporteMasVendidoLibroItemMenuAdmin";
+            ReporteMasVendidoLibroItemMenuAdmin.Size = new Size(244, 36);
+            ReporteMasVendidoLibroItemMenuAdmin.Text = "Más vendidos";
             // 
             // autor_item_menu_admin
             // 
@@ -160,7 +160,7 @@
         private ToolStripMenuItem autor_item_menu_admin;
         private ToolStripMenuItem categorias_menu_item_admin;
         private ToolStripMenuItem reporteLibroSAdminItemMenu;
-        private ToolStripMenuItem másVendidosToolStripMenuItem;
+        private ToolStripMenuItem ReporteMasVendidoLibroItemMenuAdmin;
         private ToolStripMenuItem toolStripMenuItem1;
     }
 }
