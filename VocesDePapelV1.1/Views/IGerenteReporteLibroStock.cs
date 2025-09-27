@@ -8,6 +8,6 @@ namespace VocesDePapelV1._1.Views
 {
     public interface IGerenteReporteLibroStock
     {
-        void show(); //mostrar formulario
+        void Show(); //mostrar formulario
     }
 }

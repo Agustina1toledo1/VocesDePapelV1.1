@@ -10,11 +10,13 @@ using System.Windows.Forms;
 
 namespace VocesDePapelV1._1.Views
 {
-    public partial class GerenteViewReporteLibroStock : Form
+    public partial class GerenteViewReporteLibroStock : Form, IGerenteReporteLibroStock
     {
         public GerenteViewReporteLibroStock()
         {
             InitializeComponent();
         }
+
+        
     }
 }

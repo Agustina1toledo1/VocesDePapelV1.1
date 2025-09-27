@@ -43,6 +43,7 @@
             stock = new DataGridViewTextBoxColumn();
             estado = new DataGridViewTextBoxColumn();
             categoria = new DataGridViewTextBoxColumn();
+            btn_modificar_usuario = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -178,12 +179,24 @@
             categoria.ReadOnly = true;
             categoria.Width = 125;
             // 
+            // btn_modificar_usuario
+            // 
+            btn_modificar_usuario.BackColor = Color.FromArgb(255, 192, 128);
+            btn_modificar_usuario.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btn_modificar_usuario.Location = new Point(1128, 133);
+            btn_modificar_usuario.Name = "btn_modificar_usuario";
+            btn_modificar_usuario.Size = new Size(169, 43);
+            btn_modificar_usuario.TabIndex = 91;
+            btn_modificar_usuario.Text = "Generar excel";
+            btn_modificar_usuario.UseVisualStyleBackColor = false;
+            // 
             // GerenteViewReporteLibroStock
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveCaption;
             ClientSize = new Size(1340, 781);
+            Controls.Add(btn_modificar_usuario);
             Controls.Add(dataGridView1);
             Controls.Add(text_cantidad_libro_reporte_gerente);
             Controls.Add(btn_buscar_poco_stock);
@@ -212,5 +225,6 @@
         private DataGridViewTextBoxColumn stock;
         private DataGridViewTextBoxColumn estado;
         private DataGridViewTextBoxColumn categoria;
+        private Button btn_modificar_usuario;
     }
 }

@@ -7,12 +7,12 @@ using VocesDePapelV1._1.Views;
 
 namespace VocesDePapelV1._1.Presenters
 {
-    public class ReporteVentaGerentePresenter
+    public class ReporteLibroStockPresenter
     {
         //campos        
-        private IGerenteViewReporteV view; //campo privado para la vista usando la interfaz
+        private IGerenteReporteLibroStock view; //campo privado para la vista usando la interfaz
         //constructor
-        public ReporteVentaGerentePresenter(IGerenteViewReporteV view)
+        public ReporteLibroStockPresenter(IGerenteReporteLibroStock view)
         {
             this.view = view;
             //mostramos la vista
