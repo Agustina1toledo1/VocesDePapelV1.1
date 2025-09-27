@@ -35,6 +35,7 @@
             toolStripMenuItem4 = new ToolStripMenuItem();
             pocoStockToolStripMenuItem = new ToolStripMenuItem();
             másVendidosToolStripMenuItem = new ToolStripMenuItem();
+            toolStripMenuItem1 = new ToolStripMenuItem();
             menu.SuspendLayout();
             SuspendLayout();
             // 
@@ -43,7 +44,7 @@
             menu.AutoSize = false;
             menu.BackColor = Color.FromArgb(255, 192, 128);
             menu.ImageScalingSize = new Size(20, 20);
-            menu.Items.AddRange(new ToolStripItem[] { usuarioItemMenu, backupItemMenu, toolStripMenuItem3, toolStripMenuItem4 });
+            menu.Items.AddRange(new ToolStripItem[] { usuarioItemMenu, backupItemMenu, toolStripMenuItem3, toolStripMenuItem4, toolStripMenuItem1 });
             menu.Location = new Point(0, 0);
             menu.Name = "menu";
             menu.Size = new Size(1549, 90);
@@ -111,6 +112,19 @@
             másVendidosToolStripMenuItem.Size = new Size(244, 36);
             másVendidosToolStripMenuItem.Text = "Más vendidos";
             // 
+            // toolStripMenuItem1
+            // 
+            toolStripMenuItem1.AutoSize = false;
+            toolStripMenuItem1.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            toolStripMenuItem1.Image = Properties.Resources.salida;
+            toolStripMenuItem1.ImageAlign = ContentAlignment.BottomCenter;
+            toolStripMenuItem1.ImageScaling = ToolStripItemImageScaling.None;
+            toolStripMenuItem1.Name = "toolStripMenuItem1";
+            toolStripMenuItem1.RightToLeft = RightToLeft.No;
+            toolStripMenuItem1.Size = new Size(152, 110);
+            toolStripMenuItem1.Text = "Cerrar Sesión";
+            toolStripMenuItem1.TextImageRelation = TextImageRelation.ImageAboveText;
+            // 
             // GerenteView
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -135,5 +149,6 @@
         private ToolStripMenuItem toolStripMenuItem4;
         private ToolStripMenuItem pocoStockToolStripMenuItem;
         private ToolStripMenuItem másVendidosToolStripMenuItem;
+        private ToolStripMenuItem toolStripMenuItem1;
     }
 }

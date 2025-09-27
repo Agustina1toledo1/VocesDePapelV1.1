@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             dateTimePicker2 = new DateTimePicker();
             label4 = new Label();
             label3 = new Label();
@@ -39,6 +39,7 @@
             dataGridView1 = new DataGridView();
             cmb_vendedor = new ComboBox();
             label5 = new Label();
+            btn_modificar_usuario = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -103,25 +104,25 @@
             // dataGridView1
             // 
             dataGridView1.AllowUserToAddRows = false;
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = SystemColors.Control;
-            dataGridViewCellStyle3.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle3.Padding = new Padding(2);
-            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
-            dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.Padding = new Padding(2);
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Location = new Point(181, 130);
             dataGridView1.MultiSelect = false;
             dataGridView1.Name = "dataGridView1";
             dataGridView1.ReadOnly = true;
             dataGridView1.RowHeadersWidth = 51;
-            dataGridViewCellStyle4.SelectionBackColor = Color.White;
-            dataGridViewCellStyle4.SelectionForeColor = Color.Black;
-            dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle4;
-            dataGridView1.Size = new Size(929, 564);
+            dataGridViewCellStyle2.SelectionBackColor = Color.White;
+            dataGridViewCellStyle2.SelectionForeColor = Color.Black;
+            dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridView1.Size = new Size(930, 539);
             dataGridView1.TabIndex = 81;
             // 
             // cmb_vendedor
@@ -146,12 +147,24 @@
             label5.TabIndex = 89;
             label5.Text = "Vendedor";
             // 
+            // btn_modificar_usuario
+            // 
+            btn_modificar_usuario.BackColor = Color.FromArgb(255, 192, 128);
+            btn_modificar_usuario.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btn_modificar_usuario.Location = new Point(842, 689);
+            btn_modificar_usuario.Name = "btn_modificar_usuario";
+            btn_modificar_usuario.Size = new Size(269, 43);
+            btn_modificar_usuario.TabIndex = 90;
+            btn_modificar_usuario.Text = "Generar excel";
+            btn_modificar_usuario.UseVisualStyleBackColor = false;
+            // 
             // GerenteViewReporteV
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveCaption;
             ClientSize = new Size(1341, 759);
+            Controls.Add(btn_modificar_usuario);
             Controls.Add(label5);
             Controls.Add(cmb_vendedor);
             Controls.Add(dateTimePicker2);
@@ -179,5 +192,6 @@
         private DataGridView dataGridView1;
         private ComboBox cmb_vendedor;
         private Label label5;
+        private Button btn_modificar_usuario;
     }
 }
