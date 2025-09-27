@@ -362,3 +362,7 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 /VocesDePapelV1.1/Properties/Resources.Designer.cs
+/VocesDePapelV1.1/Properties/Settings.Designer.cs
+/.gitignore
+/.gitignore
+/VocesDePapelV1.1/Properties/Settings.settings

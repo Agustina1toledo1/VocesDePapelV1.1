@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using VocesDePapelV1._1.Models;
+using VocesDePapelV1._1.Repositories;
 
 namespace VocesDePapelV1._1.Servicios
 {
-    public class AuthService
+    public class AuthService : IAuthService
     {
         private readonly IUsuarioRepository _usuarioRepository;
         private readonly IContraseniaHasher _contraseniaHasher;
@@ -18,9 +18,9 @@ namespace VocesDePapelV1._1.Servicios
             _contraseniaHasher = contraseniaHasher;
         }
 
-        public UsuarioModel Autenticar(string cuit, string contraseniaPlana)
+        public UsuarioModel Autenticar(string cuit, string contrasenia)
         {
-            if (string.IsNullOrWhiteSpace(cuit) || string.IsNullOrWhiteSpace(contraseniaPlana))
+            if (string.IsNullOrWhiteSpace(cuit) || string.IsNullOrWhiteSpace(contrasenia))
                 return null;
 
             // Buscar usuario por CUIT
@@ -30,7 +30,7 @@ namespace VocesDePapelV1._1.Servicios
                 return null;
 
             // Verificar contraseña (compara el hash)
-            bool contraseniaValida = _contraseniaHasher.Verify(contraseniaPlana, usuario.Contraseña);
+            bool contraseniaValida = _contraseniaHasher.Verify(contrasenia, usuario.Contraseña);
 
             return contraseniaValida ? usuario : null;
         }

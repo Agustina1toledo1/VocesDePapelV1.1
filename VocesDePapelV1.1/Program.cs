@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Configuration;
-using VocesDePapelV1._1.Models;
-using VocesDePapelV1._1.Models;
+using System.Windows.Forms;
+using VocesDePapelV1._1.Repositories;
 using VocesDePapelV1._1.Presenters;
 using VocesDePapelV1._1.Servicios;
 using VocesDePapelV1._1.Views;
@@ -17,7 +17,10 @@ namespace VocesDePapelV1._1
         {
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
+
             ApplicationConfiguration.Initialize();
+
+            //  Obtener connection string
             string connectionString = ConfigurationManager.ConnectionStrings["SqlConnection2"].ConnectionString;
 
             //probamos el presenter de usuario
@@ -32,15 +35,15 @@ namespace VocesDePapelV1._1
             // Application.Run((Form)view);
 
             // dependencias para el login
-            var usuarioRepository = new UsuarioRepository(connectionString);
-            var contraseniaHasher = new pbkdf2ContraseniaHasher();
-            var authService = new AuthService(usuarioRepository, contraseniaHasher);
+            IUsuarioRepository usuarioRepository = new UsuarioRepository(connectionString);
+            IContraseniaHasher contraseniaHasher = new pbkdf2ContraseniaHasher();
+            IAuthService authService = new AuthService(usuarioRepository, contraseniaHasher);
 
-           // AbrirVistaGerente(connectionString);
-       // }
-          //Mostrar login primero
-         using (var loginView = new LoginView(authService))
-         {
+             AbrirVistaGerente(connectionString);
+             }
+            //Mostrar login primero
+           /* using (var loginView = new LoginView(authService))
+            {
              if (loginView.ShowDialog() == DialogResult.OK && loginView.AutenticacionExitosa)
              {
                  var usuario = loginView.UsuarioAutenticado;
@@ -81,7 +84,7 @@ namespace VocesDePapelV1._1
          // IAdministradorView view = new AdministradorView();
          // new AdministradorPresenter(view, connectionString);
          // Application.Run((Form)view);
-     }
+     }*/
 
         private static void AbrirVistaGerente(string connectionString)
         {

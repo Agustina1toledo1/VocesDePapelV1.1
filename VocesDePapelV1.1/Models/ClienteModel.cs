@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VocesDePapelV1._1.Models
+namespace VocesDePapelV1._1.Repositories
 {
     internal class ClienteModel
     {

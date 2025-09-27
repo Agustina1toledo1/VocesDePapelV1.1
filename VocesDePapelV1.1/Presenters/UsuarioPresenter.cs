@@ -4,14 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using VocesDePapelV1._1.Models;
+using VocesDePapelV1._1.Repositories;
 using VocesDePapelV1._1.Presenters.Common;
-using VocesDePapelV1._1.Models;
 using VocesDePapelV1._1.Servicios;
 using VocesDePapelV1._1.Views;
 namespace VocesDePapelV1._1.Presenters
 {
-    public class UsuarioPresenter
+    public class UsuarioPresenter 
     {
         //campos        
         private IGerenteViewUsuario view; //campo privado para la vista usando la interfaz
@@ -82,6 +81,8 @@ namespace VocesDePapelV1._1.Presenters
             usuarioBindingSource.DataSource = usuarioList; //establecemos la lista de usuarios como el origen de datos del enlace
             
         }
+        
+
         private void SearchUsuario(object? sender, EventArgs e)
         {
             //si es vacio, nulo, espacio en blanco
@@ -161,11 +162,14 @@ namespace VocesDePapelV1._1.Presenters
 
         private void CleanviewFields()
         {
-            
             view.UsuarioNombre = "";
             view.UsuarioApellido = "";
-            view.Contraseña = "00000000";
+            view.Contraseña = ""; // Dejar vacío en lugar de "00000000"
             view.CuitUsuario = "";
+
+            // Usar los nuevos métodos de la interfaz
+            view.SetDefaultEstado("0"); // Activo por defecto
+            view.SetDefaultRol("2"); // Gerente por defecto
         }
 
         private void DeleteUsuario(object? sender, EventArgs e)
@@ -199,45 +203,55 @@ namespace VocesDePapelV1._1.Presenters
              view.NombreRol = usuario.Nombre_rol;
              this.view.IsEdit = true; //establecemos la vista en modo edicion
         }
-       
+
         private void AddNewUsuario(object? sender, EventArgs e)
         {
+            // Validar que la contraseña no esté vacía
+            if (string.IsNullOrWhiteSpace(view.Contraseña) || view.Contraseña == "00000000")
+            {
+                view.IsSuccessful = false;
+                view.Message = "La clave del usuario es requerida";
+                return;
+            }
 
-            var usuario = new UsuarioModel(); //creamos una nueva instancia del modelo de usuario
-                                              //  Hashear contraseña
+            var usuario = new UsuarioModel();
+
+            // Validar longitud mínima de contraseña
+            if (view.Contraseña.Length < 4)
+            {
+                view.IsSuccessful = false;
+                view.Message = "La contraseña debe tener al menos 4 caracteres";
+                return;
+            }
+
+            // Hashear contraseña solo si es válida
             string hashedPwd = hasher.Hash(view.Contraseña);
-            //asignamos los valores de la vista a las propiedades del modelo y el modelo con hash en lugar de texto plano
-            usuario.Id_usuario = Convert.ToInt32(view.UsuarioId);
+
+            // Asignar valores
+            usuario.Id_usuario = 0; // Para nuevo usuario, ID debe ser 0
             usuario.Nombre = view.UsuarioNombre;
             usuario.Apellido = view.UsuarioApellido;
             usuario.Contraseña = hashedPwd;
             usuario.Cuit_usuario = view.CuitUsuario;
-            usuario.Baja = Convert.ToInt32(view.Baja);
+            usuario.Baja = 0; // Por defecto activo
             usuario.Id_rol = Convert.ToInt32(view.UsuarioIdRol);
 
-            //capturamos los posible errores 
             try
             {
-                //validamos el modelo
                 new Common.ModelDataValidation().Validate(usuario);
-                
-                    repository.Add(usuario); //agregamos el nuevo usuario
-                    view.Message = "Usuario agregado exitosamente";
-                
+                repository.Add(usuario);
+                view.Message = "Usuario agregado exitosamente";
                 view.IsSuccessful = true;
-                LoadAllUsuarioList(); //recargamos la lista de usuarios
+                LoadAllUsuarioList();
+                CleanviewFields(); // Limpiar campos después de guardar
             }
             catch (Exception ex)
             {
-                this.view.IsSuccessful = false;
-                this.view.Message = ex.Message;
-                return;
-
+                view.IsSuccessful = false;
+                view.Message = ex.Message;
             }
-            //this.view.IsEdit = false; //establecemos la vista en modo no edicion
-            //SaveUsuario(sender, e);
         }
+      
 
-        
     }
 }
