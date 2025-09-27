@@ -32,9 +32,9 @@
             usuarioItemMenu = new ToolStripMenuItem();
             backupItemMenu = new ToolStripMenuItem();
             reporteVentaGerenteItemMenu = new ToolStripMenuItem();
-            toolStripMenuItem4 = new ToolStripMenuItem();
-            pocoStockToolStripMenuItem = new ToolStripMenuItem();
-            másVendidosToolStripMenuItem = new ToolStripMenuItem();
+            reporteLGerenteItemMenu = new ToolStripMenuItem();
+            reporteLSGerenteItemMenu = new ToolStripMenuItem();
+            reporteLMVGerenteItemMenu = new ToolStripMenuItem();
             toolStripMenuItem1 = new ToolStripMenuItem();
             menu.SuspendLayout();
             SuspendLayout();
@@ -44,7 +44,7 @@
             menu.AutoSize = false;
             menu.BackColor = Color.FromArgb(255, 192, 128);
             menu.ImageScalingSize = new Size(20, 20);
-            menu.Items.AddRange(new ToolStripItem[] { usuarioItemMenu, backupItemMenu, reporteVentaGerenteItemMenu, toolStripMenuItem4, toolStripMenuItem1 });
+            menu.Items.AddRange(new ToolStripItem[] { usuarioItemMenu, backupItemMenu, reporteVentaGerenteItemMenu, reporteLGerenteItemMenu, toolStripMenuItem1 });
             menu.Location = new Point(0, 0);
             menu.Name = "menu";
             menu.Size = new Size(1549, 90);
@@ -87,30 +87,30 @@
             reporteVentaGerenteItemMenu.Text = "Reporte Venta";
             reporteVentaGerenteItemMenu.TextImageRelation = TextImageRelation.ImageAboveText;
             // 
-            // toolStripMenuItem4
+            // reporteLGerenteItemMenu
             // 
-            toolStripMenuItem4.AutoSize = false;
-            toolStripMenuItem4.DropDownItems.AddRange(new ToolStripItem[] { pocoStockToolStripMenuItem, másVendidosToolStripMenuItem });
-            toolStripMenuItem4.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            toolStripMenuItem4.Image = Properties.Resources.aumentar;
-            toolStripMenuItem4.ImageAlign = ContentAlignment.BottomCenter;
-            toolStripMenuItem4.ImageScaling = ToolStripItemImageScaling.None;
-            toolStripMenuItem4.Name = "toolStripMenuItem4";
-            toolStripMenuItem4.Size = new Size(150, 110);
-            toolStripMenuItem4.Text = "Reporte Libro";
-            toolStripMenuItem4.TextImageRelation = TextImageRelation.ImageAboveText;
+            reporteLGerenteItemMenu.AutoSize = false;
+            reporteLGerenteItemMenu.DropDownItems.AddRange(new ToolStripItem[] { reporteLSGerenteItemMenu, reporteLMVGerenteItemMenu });
+            reporteLGerenteItemMenu.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            reporteLGerenteItemMenu.Image = Properties.Resources.aumentar;
+            reporteLGerenteItemMenu.ImageAlign = ContentAlignment.BottomCenter;
+            reporteLGerenteItemMenu.ImageScaling = ToolStripItemImageScaling.None;
+            reporteLGerenteItemMenu.Name = "reporteLGerenteItemMenu";
+            reporteLGerenteItemMenu.Size = new Size(150, 110);
+            reporteLGerenteItemMenu.Text = "Reporte Libro";
+            reporteLGerenteItemMenu.TextImageRelation = TextImageRelation.ImageAboveText;
             // 
-            // pocoStockToolStripMenuItem
+            // reporteLSGerenteItemMenu
             // 
-            pocoStockToolStripMenuItem.Name = "pocoStockToolStripMenuItem";
-            pocoStockToolStripMenuItem.Size = new Size(244, 36);
-            pocoStockToolStripMenuItem.Text = "Stock";
+            reporteLSGerenteItemMenu.Name = "reporteLSGerenteItemMenu";
+            reporteLSGerenteItemMenu.Size = new Size(244, 36);
+            reporteLSGerenteItemMenu.Text = "Stock";
             // 
-            // másVendidosToolStripMenuItem
+            // reporteLMVGerenteItemMenu
             // 
-            másVendidosToolStripMenuItem.Name = "másVendidosToolStripMenuItem";
-            másVendidosToolStripMenuItem.Size = new Size(244, 36);
-            másVendidosToolStripMenuItem.Text = "Más vendidos";
+            reporteLMVGerenteItemMenu.Name = "reporteLMVGerenteItemMenu";
+            reporteLMVGerenteItemMenu.Size = new Size(244, 36);
+            reporteLMVGerenteItemMenu.Text = "Más vendidos";
             // 
             // toolStripMenuItem1
             // 
@@ -146,9 +146,9 @@
         private ToolStripMenuItem usuarioItemMenu;
         private ToolStripMenuItem backupItemMenu;
         private ToolStripMenuItem reporteVentaGerenteItemMenu;
-        private ToolStripMenuItem toolStripMenuItem4;
-        private ToolStripMenuItem pocoStockToolStripMenuItem;
-        private ToolStripMenuItem másVendidosToolStripMenuItem;
+        private ToolStripMenuItem reporteLGerenteItemMenu;
+        private ToolStripMenuItem reporteLSGerenteItemMenu;
+        private ToolStripMenuItem reporteLMVGerenteItemMenu;
         private ToolStripMenuItem toolStripMenuItem1;
     }
 }
