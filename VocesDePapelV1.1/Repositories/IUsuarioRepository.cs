@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 //define comportamiento
-namespace VocesDePapelV1._1.Models
+namespace VocesDePapelV1._1.Repositories
 {
     public interface IUsuarioRepository
     {

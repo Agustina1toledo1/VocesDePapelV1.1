@@ -38,5 +38,8 @@ namespace VocesDePapelV1._1.Views
         void SetEstadoListBindingSource(BindingSource estadoList);
         void SetRolListBindingSource(BindingSource rolList);
         void Show(); //mostrar formulario
+
+        void SetDefaultEstado(string estadoId);
+        void SetDefaultRol(string rolId);
     }
 }

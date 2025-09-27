@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using VocesDePapelV1._1.Models;
+using VocesDePapelV1._1.Repositories;
 using VocesDePapelV1._1.Servicios;
 
 namespace VocesDePapelV1._1.Views
@@ -15,12 +15,12 @@ namespace VocesDePapelV1._1.Views
     public partial class LoginView : Form
     {
        
-        private readonly AuthService _authService;
+        private readonly IAuthService _authService;
 
         public UsuarioModel? UsuarioAutenticado { get; private set; }
         public bool AutenticacionExitosa { get; private set; }
 
-        // ✅ Constructor vacio 
+        // Constructor vacio 
         public LoginView()
         {
             InitializeComponent();
@@ -28,12 +28,12 @@ namespace VocesDePapelV1._1.Views
         }
 
         // Constructor que recibe el AuthService
-        public LoginView(AuthService authService)
+        public LoginView(IAuthService authService) 
         {
             InitializeComponent();
             _authService = authService;
-            
             this.StartPosition = FormStartPosition.CenterScreen;
+
             // Inicializa propiedades
             UsuarioAutenticado = null;
             AutenticacionExitosa = false;

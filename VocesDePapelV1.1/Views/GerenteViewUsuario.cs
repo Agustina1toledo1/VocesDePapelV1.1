@@ -221,5 +221,39 @@ namespace VocesDePapelV1._1.Views
             cmb_rol_usuario.DisplayMember = "Nombre_rol";
             cmb_rol_usuario.ValueMember = "Id_rol";
         }
+
+        public void SetDefaultEstado(string estadoId)
+        {
+            if (cmb_estado_usuario.Items.Count > 0)
+            {
+                try
+                {
+                    cmb_estado_usuario.SelectedValue = estadoId;
+                }
+                catch
+                {
+                    // Si falla la selección por valor, seleccionar el primer item
+                    if (cmb_estado_usuario.Items.Count > 0)
+                        cmb_estado_usuario.SelectedIndex = 0;
+                }
+            }
+        }
+
+        public void SetDefaultRol(string rolId)
+        {
+            if (cmb_rol_usuario.Items.Count > 0)
+            {
+                try
+                {
+                    cmb_rol_usuario.SelectedValue = rolId;
+                }
+                catch
+                {
+                    // Si falla la selección por valor, seleccionar el primer item
+                    if (cmb_rol_usuario.Items.Count > 0)
+                        cmb_rol_usuario.SelectedIndex = 0;
+                }
+            }
+        }
     }
 }

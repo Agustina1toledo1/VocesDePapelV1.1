@@ -8,15 +8,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Transactions;
 using System.Windows.Forms;
-using VocesDePapelV1._1.Models;
+using VocesDePapelV1._1.Repositories;
 
-namespace VocesDePapelV1._1.Models
+namespace VocesDePapelV1._1.Repositories
 {
     public class UsuarioRepository : BaseRepository, IUsuarioRepository
     {
 
         //constructor que recibe la cadena de conexion y la pasa a la clase base
-        public UsuarioRepository(string connectionString)
+        public UsuarioRepository(string connectionString) : base(connectionString)
         {
             this.connectionString = connectionString;
         
