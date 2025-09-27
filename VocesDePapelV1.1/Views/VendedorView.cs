@@ -10,11 +10,16 @@ using System.Windows.Forms;
 
 namespace VocesDePapelV1._1.Views
 {
-    public partial class VendedorView : Form
+    public partial class VendedorView : Form, IVendedorView
     {
         public VendedorView()
         {
             InitializeComponent();
+            ventaVendedorItemMenu.Click += delegate { ShowVentaView?.Invoke(this, EventArgs.Empty); };
         }
+
+        public event EventHandler ShowVentaView;
+        public event EventHandler ShowClienteView;
+        public event EventHandler ShowReporteVentaView;
     }
 }

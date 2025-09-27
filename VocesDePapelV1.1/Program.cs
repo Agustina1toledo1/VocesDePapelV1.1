@@ -30,9 +30,13 @@ namespace VocesDePapelV1._1
             /*IGerenteView view = new GerenteView();
             new GerentePresenter(view, connectionString);
             Application.Run((Form)view);*/
-            //probamos el presenter de administrador
+            /*probamos el presenter de administrador
             IAdministradorView view = new AdministradorView();
             new AdministradorPresenter(view, connectionString);
+            Application.Run((Form)view);*/
+            //probamos el presenter de vendedor
+            IVendedorView view = new VendedorView();
+            new VendedorPresenter(view, connectionString);
             Application.Run((Form)view);
 
             // dependencias para el login
