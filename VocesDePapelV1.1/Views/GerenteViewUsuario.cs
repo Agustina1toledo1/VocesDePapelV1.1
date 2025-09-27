@@ -183,10 +183,16 @@ namespace VocesDePapelV1._1.Views
             dataGridView1.Columns["Id_rol"].Visible = false;
             dataGridView1.Columns["Baja"].Visible = false;
 <<<<<<< HEAD
+<<<<<<< HEAD
            // dataGridView1.Columns["Contraseña"].Visible = false;
 =======
             //dataGridView1.Columns["Contraseña"].Visible = false;
 >>>>>>> crudUsuario3
+=======
+
+            //dataGridView1.Columns["Contraseña"].Visible = false;
+
+>>>>>>> f6e63a3c421fd8eb69fb39553e80579e6a978d6b
 
         }
         //singleton patron (abre una sola instancia del formulario) 
