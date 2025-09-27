@@ -182,7 +182,7 @@ namespace VocesDePapelV1._1.Views
             //ocultar los ids de estado, rol y contraseña
             dataGridView1.Columns["Id_rol"].Visible = false;
             dataGridView1.Columns["Baja"].Visible = false;
-            dataGridView1.Columns["Contraseña"].Visible = false;
+           // dataGridView1.Columns["Contraseña"].Visible = false;
 
         }
         //singleton patron (abre una sola instancia del formulario) 
