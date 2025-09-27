@@ -17,6 +17,7 @@ namespace VocesDePapelV1._1.Views {
             InitializeComponent();
             usuarioItemMenu.Click += delegate { ShowUsuarioView?.Invoke(this, EventArgs.Empty); };
             backupItemMenu.Click += delegate { ShowBackupView?.Invoke(this, EventArgs.Empty); };
+            reporteVentaGerenteItemMenu.Click += delegate { ShowReporteVentaView?.Invoke(this, EventArgs.Empty); };
         }
 
         public event EventHandler ShowUsuarioView;

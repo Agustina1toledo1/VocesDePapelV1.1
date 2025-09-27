@@ -25,8 +25,17 @@ namespace VocesDePapelV1._1.Presenters
             //suscribirse a los eventos de la vista
             this.view.ShowUsuarioView += ShowUsuariosView;
             this.view.ShowBackupView += ShowBackupView;
+            this.view.ShowReporteVentaView += ShowReporteVentaView;
 
         }
+
+        private void ShowReporteVentaView(object? sender, EventArgs e)
+        {
+            IGerenteViewReporteV backupView = GerenteViewReporteV.GetInstance((GerenteView)this.view); // muestra solo una instancia de la vista de usuario
+
+            new ReporteVentaGerentePresenter(backupView);
+        }
+
         private void ShowUsuariosView(object? sender, EventArgs e)
         {
             IGerenteViewUsuario usuarioView = GerenteViewUsuario.GetInstance((GerenteView)this.view); // muestra solo una instancia de la vista de usuario
@@ -40,6 +49,7 @@ namespace VocesDePapelV1._1.Presenters
             
             new BackupPresenter(backupView);
         }
+
 
     }
 }
