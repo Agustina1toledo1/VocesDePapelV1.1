@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             LDetalleCliente = new Label();
             label2 = new Label();
             l_nombre_razonSocial = new Label();
@@ -44,8 +44,6 @@
             btn_modificar_cliente = new Button();
             btn_eliminar_cliente = new Button();
             l_lista_cliente = new Label();
-            l_buscar_cliente = new Label();
-            cmb_buscar_por = new ComboBox();
             text_buscar_cliente = new TextBox();
             btn_buscar_cliente = new Button();
             DGVListCliente = new DataGridView();
@@ -199,33 +197,12 @@
             l_lista_cliente.Text = "Lista de clientes";
             l_lista_cliente.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // l_buscar_cliente
-            // 
-            l_buscar_cliente.AutoSize = true;
-            l_buscar_cliente.BackColor = Color.White;
-            l_buscar_cliente.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            l_buscar_cliente.Location = new Point(684, 32);
-            l_buscar_cliente.Name = "l_buscar_cliente";
-            l_buscar_cliente.Size = new Size(96, 25);
-            l_buscar_cliente.TabIndex = 32;
-            l_buscar_cliente.Text = "Buscar por";
-            // 
-            // cmb_buscar_por
-            // 
-            cmb_buscar_por.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmb_buscar_por.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            cmb_buscar_por.FormattingEnabled = true;
-            cmb_buscar_por.Location = new Point(786, 31);
-            cmb_buscar_por.Name = "cmb_buscar_por";
-            cmb_buscar_por.Size = new Size(158, 33);
-            cmb_buscar_por.TabIndex = 33;
-            // 
             // text_buscar_cliente
             // 
             text_buscar_cliente.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            text_buscar_cliente.Location = new Point(950, 31);
+            text_buscar_cliente.Location = new Point(726, 31);
             text_buscar_cliente.Name = "text_buscar_cliente";
-            text_buscar_cliente.Size = new Size(269, 31);
+            text_buscar_cliente.Size = new Size(493, 31);
             text_buscar_cliente.TabIndex = 34;
             // 
             // btn_buscar_cliente
@@ -242,15 +219,15 @@
             // DGVListCliente
             // 
             DGVListCliente.AllowUserToAddRows = false;
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = SystemColors.Control;
-            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle3.Padding = new Padding(2);
-            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
-            DGVListCliente.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.Padding = new Padding(2);
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            DGVListCliente.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             DGVListCliente.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             DGVListCliente.Columns.AddRange(new DataGridViewColumn[] { btn_seleccionar, id_cliente, nombre_razonSocial, CUIT_CUIL, email, Telefono });
             DGVListCliente.Location = new Point(425, 105);
@@ -258,9 +235,9 @@
             DGVListCliente.Name = "DGVListCliente";
             DGVListCliente.ReadOnly = true;
             DGVListCliente.RowHeadersWidth = 51;
-            dataGridViewCellStyle4.SelectionBackColor = Color.White;
-            dataGridViewCellStyle4.SelectionForeColor = Color.Black;
-            DGVListCliente.RowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.SelectionBackColor = Color.White;
+            dataGridViewCellStyle2.SelectionForeColor = Color.Black;
+            DGVListCliente.RowsDefaultCellStyle = dataGridViewCellStyle2;
             DGVListCliente.Size = new Size(903, 564);
             DGVListCliente.TabIndex = 36;
             // 
@@ -322,8 +299,6 @@
             Controls.Add(DGVListCliente);
             Controls.Add(btn_buscar_cliente);
             Controls.Add(text_buscar_cliente);
-            Controls.Add(cmb_buscar_por);
-            Controls.Add(l_buscar_cliente);
             Controls.Add(l_lista_cliente);
             Controls.Add(btn_eliminar_cliente);
             Controls.Add(btn_modificar_cliente);
@@ -361,8 +336,6 @@
         private Button btn_modificar_cliente;
         private Button btn_eliminar_cliente;
         private Label l_lista_cliente;
-        private Label l_buscar_cliente;
-        private ComboBox cmb_buscar_por;
         private TextBox text_buscar_cliente;
         private Button btn_buscar_cliente;
         private DataGridView DGVListCliente;

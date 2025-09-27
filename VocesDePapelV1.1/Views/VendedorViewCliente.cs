@@ -10,11 +10,35 @@ using System.Windows.Forms;
 
 namespace VocesDePapelV1._1.Views
 {
-    public partial class VendedorViewCliente : Form
+    public partial class VendedorViewCliente : Form, IVendedorCliente
     {
         public VendedorViewCliente()
         {
             InitializeComponent();
+        }
+        //singleton patron (abre una sola instancia del formulario) 
+        private static VendedorViewCliente instance;
+
+
+        public static VendedorViewCliente GetInstance(Form parentConteiner)
+        {
+            if (instance == null || instance.IsDisposed) //si es nulo o esta desechado
+            {
+                instance = new VendedorViewCliente();
+                instance.MdiParent = parentConteiner; //establecer el formulario padre
+                instance.FormBorderStyle = FormBorderStyle.None; //sin bordes
+                instance.Dock = DockStyle.Fill; //llenar el contenedor
+            }
+            else
+            {
+                if (instance.WindowState == FormWindowState.Minimized)//si esta minimizado, restaurar
+                {
+                    instance.WindowState = FormWindowState.Normal;
+                }
+                instance.BringToFront();//si ya existe, traer al frente
+
+            }
+            return instance;
         }
     }
 }

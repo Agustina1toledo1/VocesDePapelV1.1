@@ -31,8 +31,8 @@
             menuVendedor = new MenuStrip();
             ventaToolStripMenuItem = new ToolStripMenuItem();
             ventaVendedorItemMenu = new ToolStripMenuItem();
-            usuariosToolStripMenuItem = new ToolStripMenuItem();
-            reportesToolStripMenuItem = new ToolStripMenuItem();
+            clienteVendedorItemMenu = new ToolStripMenuItem();
+            reporteVentaVendedorItemMenu = new ToolStripMenuItem();
             toolStripMenuItem2 = new ToolStripMenuItem();
             menuVendedor.SuspendLayout();
             SuspendLayout();
@@ -42,7 +42,7 @@
             menuVendedor.AutoSize = false;
             menuVendedor.BackColor = Color.FromArgb(255, 192, 128);
             menuVendedor.ImageScalingSize = new Size(20, 20);
-            menuVendedor.Items.AddRange(new ToolStripItem[] { ventaToolStripMenuItem, ventaVendedorItemMenu, usuariosToolStripMenuItem, reportesToolStripMenuItem, toolStripMenuItem2 });
+            menuVendedor.Items.AddRange(new ToolStripItem[] { ventaToolStripMenuItem, ventaVendedorItemMenu, clienteVendedorItemMenu, reporteVentaVendedorItemMenu, toolStripMenuItem2 });
             menuVendedor.Location = new Point(0, 0);
             menuVendedor.Name = "menuVendedor";
             menuVendedor.Size = new Size(1188, 90);
@@ -66,29 +66,29 @@
             ventaVendedorItemMenu.Text = "Venta";
             ventaVendedorItemMenu.TextImageRelation = TextImageRelation.ImageAboveText;
             // 
-            // usuariosToolStripMenuItem
+            // clienteVendedorItemMenu
             // 
-            usuariosToolStripMenuItem.AutoSize = false;
-            usuariosToolStripMenuItem.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            usuariosToolStripMenuItem.Image = Properties.Resources.usuario;
-            usuariosToolStripMenuItem.ImageAlign = ContentAlignment.BottomCenter;
-            usuariosToolStripMenuItem.ImageScaling = ToolStripItemImageScaling.None;
-            usuariosToolStripMenuItem.Name = "usuariosToolStripMenuItem";
-            usuariosToolStripMenuItem.Size = new Size(109, 86);
-            usuariosToolStripMenuItem.Text = "Clientes";
-            usuariosToolStripMenuItem.TextImageRelation = TextImageRelation.ImageAboveText;
+            clienteVendedorItemMenu.AutoSize = false;
+            clienteVendedorItemMenu.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            clienteVendedorItemMenu.Image = Properties.Resources.usuario;
+            clienteVendedorItemMenu.ImageAlign = ContentAlignment.BottomCenter;
+            clienteVendedorItemMenu.ImageScaling = ToolStripItemImageScaling.None;
+            clienteVendedorItemMenu.Name = "clienteVendedorItemMenu";
+            clienteVendedorItemMenu.Size = new Size(109, 86);
+            clienteVendedorItemMenu.Text = "Clientes";
+            clienteVendedorItemMenu.TextImageRelation = TextImageRelation.ImageAboveText;
             // 
-            // reportesToolStripMenuItem
+            // reporteVentaVendedorItemMenu
             // 
-            reportesToolStripMenuItem.AutoSize = false;
-            reportesToolStripMenuItem.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            reportesToolStripMenuItem.Image = Properties.Resources.aumentar;
-            reportesToolStripMenuItem.ImageAlign = ContentAlignment.BottomCenter;
-            reportesToolStripMenuItem.ImageScaling = ToolStripItemImageScaling.None;
-            reportesToolStripMenuItem.Name = "reportesToolStripMenuItem";
-            reportesToolStripMenuItem.Size = new Size(180, 86);
-            reportesToolStripMenuItem.Text = "Reporte de Venta";
-            reportesToolStripMenuItem.TextImageRelation = TextImageRelation.ImageAboveText;
+            reporteVentaVendedorItemMenu.AutoSize = false;
+            reporteVentaVendedorItemMenu.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            reporteVentaVendedorItemMenu.Image = Properties.Resources.aumentar;
+            reporteVentaVendedorItemMenu.ImageAlign = ContentAlignment.BottomCenter;
+            reporteVentaVendedorItemMenu.ImageScaling = ToolStripItemImageScaling.None;
+            reporteVentaVendedorItemMenu.Name = "reporteVentaVendedorItemMenu";
+            reporteVentaVendedorItemMenu.Size = new Size(180, 86);
+            reporteVentaVendedorItemMenu.Text = "Reporte de Venta";
+            reporteVentaVendedorItemMenu.TextImageRelation = TextImageRelation.ImageAboveText;
             // 
             // toolStripMenuItem2
             // 
@@ -122,8 +122,8 @@
 
         private MenuStrip menuVendedor;
         private ToolStripMenuItem ventaToolStripMenuItem;
-        private ToolStripMenuItem usuariosToolStripMenuItem;
-        private ToolStripMenuItem reportesToolStripMenuItem;
+        private ToolStripMenuItem clienteVendedorItemMenu;
+        private ToolStripMenuItem reporteVentaVendedorItemMenu;
         private ToolStripMenuItem ventaVendedorItemMenu;
         private ToolStripMenuItem toolStripMenuItem2;
     }

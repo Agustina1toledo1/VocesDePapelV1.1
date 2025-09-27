@@ -24,7 +24,20 @@ namespace VocesDePapelV1._1.Presenters
 
             //suscribirse a los eventos de la vista
             this.view.ShowVentaView += ShowVentaView;
+            this.view.ShowClienteView += ShowClienteView;
+            this.view.ShowReporteVentaView += ShowReporteVentaView;
 
+        }
+
+        private void ShowClienteView(object? sender, EventArgs e)
+        {
+            IVendedorCliente backupView = VendedorViewCliente.GetInstance((VendedorView)this.view); // muestra solo una instancia de la vista de usuario
+            new VendedorClientePresenter(backupView);
+        }
+
+        private void ShowReporteVentaView(object? sender, EventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         private void ShowVentaView(object? sender, EventArgs e)
