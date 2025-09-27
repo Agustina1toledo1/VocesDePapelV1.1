@@ -45,7 +45,7 @@
             menuVendedor.Items.AddRange(new ToolStripItem[] { ventaToolStripMenuItem, ventaVendedorItemMenu, clienteVendedorItemMenu, reporteVentaVendedorItemMenu, toolStripMenuItem2 });
             menuVendedor.Location = new Point(0, 0);
             menuVendedor.Name = "menuVendedor";
-            menuVendedor.Size = new Size(1188, 90);
+            menuVendedor.Size = new Size(1382, 90);
             menuVendedor.TabIndex = 1;
             menuVendedor.Text = "menuVendedorView";
             // 
@@ -107,7 +107,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1188, 639);
+            ClientSize = new Size(1382, 703);
             Controls.Add(menuVendedor);
             IsMdiContainer = true;
             MainMenuStrip = menuVendedor;

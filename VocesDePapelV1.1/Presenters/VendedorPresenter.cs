@@ -37,7 +37,8 @@ namespace VocesDePapelV1._1.Presenters
 
         private void ShowReporteVentaView(object? sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            IGerenteViewReporteV backupView = GerenteViewReporteV.GetInstance((VendedorView)this.view); // muestra solo una instancia de la vista de usuario
+            new ReporteVentaGerentePresenter(backupView);
         }
 
         private void ShowVentaView(object? sender, EventArgs e)
