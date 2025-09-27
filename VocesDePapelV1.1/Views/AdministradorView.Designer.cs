@@ -150,6 +150,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1256, 660);
             Controls.Add(menu);
+            IsMdiContainer = true;
             Name = "AdministradorView";
             Text = "AdministradorView";
             menu.ResumeLayout(false);

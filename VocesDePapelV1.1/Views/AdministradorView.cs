@@ -10,11 +10,17 @@ using System.Windows.Forms;
 
 namespace VocesDePapelV1._1.Views
 {
-    public partial class AdministradorView : Form
+    public partial class AdministradorView : Form, IAdministradorView
     {
         public AdministradorView()
         {
             InitializeComponent();
         }
+
+        public event EventHandler ShowProductoView;
+        public event EventHandler ShowReporteLibroStockView;
+        public event EventHandler ShowReporteLibroMasVendidosView;
+        public event EventHandler ShowAutoresView;
+        public event EventHandler ShowCategoriasView;
     }
 }

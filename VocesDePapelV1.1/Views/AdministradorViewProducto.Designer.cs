@@ -271,7 +271,7 @@
             l_buscar_producto.AutoSize = true;
             l_buscar_producto.BackColor = Color.White;
             l_buscar_producto.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            l_buscar_producto.Location = new Point(705, 69);
+            l_buscar_producto.Location = new Point(705, 67);
             l_buscar_producto.Name = "l_buscar_producto";
             l_buscar_producto.Size = new Size(96, 25);
             l_buscar_producto.TabIndex = 40;
