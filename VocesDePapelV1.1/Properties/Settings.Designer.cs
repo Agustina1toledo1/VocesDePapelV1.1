@@ -34,5 +34,16 @@ namespace VocesDePapelV1._1.Properties {
                 return ((string)(this["SqlConnection"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=VANESA\\SQLEXPRESS01;Initial Catalog=VocesDePapelBDD;Integrated Securi" +
+            "ty=True;TrustServerCertificate=True")]
+        public string SqlConection2 {
+            get {
+                return ((string)(this["SqlConection2"]));
+            }
+        }
     }
 }

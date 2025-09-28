@@ -84,6 +84,7 @@ namespace VocesDePapelV1._1.Views
             }
 
             // Valida formato CUIT
+            cuit = cuit.Trim();
             if (cuit.Length != 11 || !cuit.All(char.IsDigit))
             {
                 lblMensaje_login.Text = "El CUIT debe tener exactamente 11 dígitos.";

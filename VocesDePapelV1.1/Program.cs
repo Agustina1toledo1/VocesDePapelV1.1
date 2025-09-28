@@ -3,6 +3,7 @@ using System.Configuration;
 using VocesDePapelV1._1.Models;
 using VocesDePapelV1._1.Models;
 using VocesDePapelV1._1.Presenters;
+using VocesDePapelV1._1.Repositories;
 using VocesDePapelV1._1.Servicios;
 using VocesDePapelV1._1.Views;
 namespace VocesDePapelV1._1
@@ -35,9 +36,9 @@ namespace VocesDePapelV1._1
             new AdministradorPresenter(view, connectionString);
             Application.Run((Form)view);*/
             //probamos el presenter de vendedor
-            IVendedorView view = new VendedorView();
-            new VendedorPresenter(view, connectionString);
-            Application.Run((Form)view);
+            /* IVendedorView view = new VendedorView();
+             new VendedorPresenter(view, connectionString);
+             Application.Run((Form)view);*/
 
             // dependencias para el login
             /*
@@ -62,6 +63,24 @@ namespace VocesDePapelV1._1
                  Application.Exit();
              }
          }*/
+
+            //probamos el login con usuario estatico
+            var usuarioRepository = new UsuarioStaticoRepository();
+            var contraseniaHasher = new pbkdf2ContraseniaHasher();
+            var authService = new AuthService(usuarioRepository, contraseniaHasher);
+
+            using (var loginView = new LoginView(authService))
+            {
+                if (loginView.ShowDialog() == DialogResult.OK && loginView.AutenticacionExitosa)
+                {
+                    var usuario = loginView.UsuarioAutenticado;
+                    RedirigirSegunRol(usuario, connectionString);
+                }
+                else
+                {
+                    Application.Exit();
+                }
+            }
         }
 
      private static void RedirigirSegunRol(UsuarioModel usuario, string connectionString)
