@@ -28,7 +28,14 @@ namespace VocesDePapelV1._1.Presenters
             this.view.ShowReporteVentaView += ShowReporteVentaView;
             this.view.ShowReporteLibroStockView += ShowReporteLibroStockView;
             this.view.ShowReporteLibroMasVendidosView += ShowReporteLibroMasVendidosView;
+            this.view.LogoutEvent += LogoutEvent;
+        }
 
+        private void LogoutEvent(object? sender, EventArgs e)
+        {
+            view.Ocultar(); 
+            Program.IniciarAplicacion(); 
+            view.Cerrar();
         }
 
         private void ShowReporteLibroMasVendidosView(object? sender, EventArgs e)

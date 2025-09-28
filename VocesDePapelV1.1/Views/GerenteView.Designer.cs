@@ -35,7 +35,7 @@
             reporteLGerenteItemMenu = new ToolStripMenuItem();
             reporteLSGerenteItemMenu = new ToolStripMenuItem();
             reporteLMVGerenteItemMenu = new ToolStripMenuItem();
-            toolStripMenuItem1 = new ToolStripMenuItem();
+            cerrarSGerenteItemMenu = new ToolStripMenuItem();
             menu.SuspendLayout();
             SuspendLayout();
             // 
@@ -44,7 +44,7 @@
             menu.AutoSize = false;
             menu.BackColor = Color.FromArgb(255, 192, 128);
             menu.ImageScalingSize = new Size(20, 20);
-            menu.Items.AddRange(new ToolStripItem[] { usuarioItemMenu, backupItemMenu, reporteVentaGerenteItemMenu, reporteLGerenteItemMenu, toolStripMenuItem1 });
+            menu.Items.AddRange(new ToolStripItem[] { usuarioItemMenu, backupItemMenu, reporteVentaGerenteItemMenu, reporteLGerenteItemMenu, cerrarSGerenteItemMenu });
             menu.Location = new Point(0, 0);
             menu.Name = "menu";
             menu.Size = new Size(1382, 90);
@@ -112,18 +112,18 @@
             reporteLMVGerenteItemMenu.Size = new Size(244, 36);
             reporteLMVGerenteItemMenu.Text = "Más vendidos";
             // 
-            // toolStripMenuItem1
+            // cerrarSGerenteItemMenu
             // 
-            toolStripMenuItem1.AutoSize = false;
-            toolStripMenuItem1.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            toolStripMenuItem1.Image = Properties.Resources.salida;
-            toolStripMenuItem1.ImageAlign = ContentAlignment.BottomCenter;
-            toolStripMenuItem1.ImageScaling = ToolStripItemImageScaling.None;
-            toolStripMenuItem1.Name = "toolStripMenuItem1";
-            toolStripMenuItem1.RightToLeft = RightToLeft.No;
-            toolStripMenuItem1.Size = new Size(152, 110);
-            toolStripMenuItem1.Text = "Cerrar Sesión";
-            toolStripMenuItem1.TextImageRelation = TextImageRelation.ImageAboveText;
+            cerrarSGerenteItemMenu.AutoSize = false;
+            cerrarSGerenteItemMenu.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            cerrarSGerenteItemMenu.Image = Properties.Resources.salida;
+            cerrarSGerenteItemMenu.ImageAlign = ContentAlignment.BottomCenter;
+            cerrarSGerenteItemMenu.ImageScaling = ToolStripItemImageScaling.None;
+            cerrarSGerenteItemMenu.Name = "cerrarSGerenteItemMenu";
+            cerrarSGerenteItemMenu.RightToLeft = RightToLeft.No;
+            cerrarSGerenteItemMenu.Size = new Size(152, 110);
+            cerrarSGerenteItemMenu.Text = "Cerrar Sesión";
+            cerrarSGerenteItemMenu.TextImageRelation = TextImageRelation.ImageAboveText;
             // 
             // GerenteView
             // 
@@ -149,6 +149,6 @@
         private ToolStripMenuItem reporteLGerenteItemMenu;
         private ToolStripMenuItem reporteLSGerenteItemMenu;
         private ToolStripMenuItem reporteLMVGerenteItemMenu;
-        private ToolStripMenuItem toolStripMenuItem1;
+        private ToolStripMenuItem cerrarSGerenteItemMenu;
     }
 }

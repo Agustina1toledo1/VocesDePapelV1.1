@@ -14,5 +14,9 @@ namespace VocesDePapelV1._1.Views
         event EventHandler ShowReporteVentaView;
         event EventHandler ShowReporteLibroStockView;
         event EventHandler ShowReporteLibroMasVendidosView;
+        event EventHandler LogoutEvent;
+
+        void Ocultar();
+        void Cerrar();
     }
 }

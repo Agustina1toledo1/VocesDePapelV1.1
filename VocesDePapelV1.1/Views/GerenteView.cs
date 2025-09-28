@@ -20,6 +20,7 @@ namespace VocesDePapelV1._1.Views {
             reporteVentaGerenteItemMenu.Click += delegate { ShowReporteVentaView?.Invoke(this, EventArgs.Empty); };
             reporteLSGerenteItemMenu.Click += delegate { ShowReporteLibroStockView?.Invoke(this, EventArgs.Empty); };
             reporteLMVGerenteItemMenu.Click += delegate { ShowReporteLibroMasVendidosView?.Invoke(this, EventArgs.Empty); };
+            cerrarSGerenteItemMenu.Click += delegate { LogoutEvent?.Invoke(this, EventArgs.Empty); };
         }
 
         public event EventHandler ShowUsuarioView;
@@ -27,6 +28,17 @@ namespace VocesDePapelV1._1.Views {
         public event EventHandler ShowReporteVentaView;
         public event EventHandler ShowReporteLibroStockView;
         public event EventHandler ShowReporteLibroMasVendidosView;
+        public event EventHandler LogoutEvent;
+
+        public void Cerrar()
+        {
+            this.Close();   
+        }
+
+        public void Ocultar()
+        {
+            this.Hide();
+        }
     }
     
 }
