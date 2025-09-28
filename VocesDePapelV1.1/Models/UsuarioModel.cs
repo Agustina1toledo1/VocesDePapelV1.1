@@ -31,7 +31,7 @@ namespace VocesDePapelV1._1.Models
         }
         [DisplayName("Nombre")]
         [Required(ErrorMessage = "El nombre de usuario es requerido")]
-        [RegularExpression(@"^[a-zA-Z]{3,50}$", ErrorMessage = "El nombre solo se permiten letras y  debe tener entre 3 y 50 caracteres.")]
+        [RegularExpression(@"^[a-zA-Z\s]{3,50}$", ErrorMessage = "El nombre solo se permiten letras y  debe tener entre 3 y 50 caracteres.")]
         public string Nombre 
         { 
             get { return nombre; }
@@ -39,7 +39,7 @@ namespace VocesDePapelV1._1.Models
         }
         [DisplayName("Apellido")]
         [Required(ErrorMessage = "El apellido de usuario es requerido")]
-        [RegularExpression(@"^[a-zA-Z]{3,50}$", ErrorMessage = "El apellido solo se permiten letras y  debe tener entre 3 y 50 caracteres.")]
+        [RegularExpression(@"^[a-zA-Z\s]{3,50}$", ErrorMessage = "El apellido solo se permiten letras y  debe tener entre 3 y 50 caracteres.")]
         public string Apellido 
         { 
             get { return apellido; }            
@@ -55,11 +55,11 @@ namespace VocesDePapelV1._1.Models
         }
 
         // SOLO para formularios (no se mapea a la BD)
-        [DisplayName("Contraseña")]
+        /*[DisplayName("Contraseña")]
         [Required(ErrorMessage = "La clave del usuario es requerida")]
         [MinLength(8, ErrorMessage = "La clave debe contener al menos 8 caracteres")]
         [Browsable(false)]
-        public string ContraseñaPlana { get; set; } 
+        public string ContraseñaPlana { get; set; } */
         
         [DisplayName("Cuit")]
         [Required(ErrorMessage = "El cuit del usuario es requerido")]

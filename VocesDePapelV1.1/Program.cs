@@ -19,7 +19,7 @@ namespace VocesDePapelV1._1
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            string connectionString = ConfigurationManager.ConnectionStrings["SqlConnection"].ConnectionString;
+            string connectionString = ConfigurationManager.ConnectionStrings["SqlConnectionAgus"].ConnectionString;
 
             //probamos el presenter de usuario
             //IGerenteViewUsuario view = new GerenteViewUsuario();

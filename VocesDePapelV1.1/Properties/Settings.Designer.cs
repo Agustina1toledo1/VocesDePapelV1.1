@@ -29,9 +29,9 @@ namespace VocesDePapelV1._1.Properties {
         [global::System.Configuration.DefaultSettingValueAttribute("Data Source=DESKTOP-VF1BFT6\\SQLEXPRESS;Initial Catalog=VocesDePapelBDD;Integrated" +
             " Security=True;Connect Timeout=30;Encrypt=True;TrustServerCertificate=True;Appli" +
             "cation Intent=ReadWrite;Multi Subnet Failover=False")]
-        public string SqlConnection {
+        public string SqlConnectionAgus {
             get {
-                return ((string)(this["SqlConnection"]));
+                return ((string)(this["SqlConnectionAgus"]));
             }
         }
         
