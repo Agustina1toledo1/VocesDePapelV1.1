@@ -26,7 +26,15 @@ namespace VocesDePapelV1._1.Presenters
             this.view.ShowVentaView += ShowVentaView;
             this.view.ShowClienteView += ShowClienteView;
             this.view.ShowReporteVentaView += ShowReporteVentaView;
+            this.view.LogoutEvent += LogoutEvent;
 
+        }
+
+        private void LogoutEvent(object? sender, EventArgs e)
+        {
+            view.Ocultar(); // Oculta la vista actual
+            Program.IniciarAplicacion(); 
+            view.Cerrar(); // Se cierra la vista actual después de que el login termine
         }
 
         private void ShowClienteView(object? sender, EventArgs e)
