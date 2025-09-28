@@ -19,7 +19,8 @@ namespace VocesDePapelV1._1
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            string connectionString = ConfigurationManager.ConnectionStrings["SqlConnectionAgus"].ConnectionString;
+            //string connectionString = ConfigurationManager.ConnectionStrings["SqlConnectionAgus"].ConnectionString;
+            IniciarAplicacion();
 
             //probamos el presenter de usuario
             //IGerenteViewUsuario view = new GerenteViewUsuario();
@@ -64,7 +65,29 @@ namespace VocesDePapelV1._1
              }
          }*/
 
-            //probamos el login con usuario estatico
+            /*probamos el login con usuario estatico
+            var usuarioRepository = new UsuarioStaticoRepository();
+            var contraseniaHasher = new pbkdf2ContraseniaHasher();
+            var authService = new AuthService(usuarioRepository, contraseniaHasher);
+
+            using (var loginView = new LoginView(authService))
+            {
+                if (loginView.ShowDialog() == DialogResult.OK && loginView.AutenticacionExitosa)
+                {
+                    var usuario = loginView.UsuarioAutenticado;
+                    RedirigirSegunRol(usuario, connectionString);
+                }
+                else
+                {
+                    Application.Exit();
+                }
+            }*/
+        }
+        //Metodo para mostrar el login al abrir la aplicacion
+        public static void IniciarAplicacion()
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["SqlConnectionAgus"].ConnectionString;
+
             var usuarioRepository = new UsuarioStaticoRepository();
             var contraseniaHasher = new pbkdf2ContraseniaHasher();
             var authService = new AuthService(usuarioRepository, contraseniaHasher);
@@ -81,9 +104,9 @@ namespace VocesDePapelV1._1
                     Application.Exit();
                 }
             }
-        }
+        }  
 
-     private static void RedirigirSegunRol(UsuarioModel usuario, string connectionString)
+        private static void RedirigirSegunRol(UsuarioModel usuario, string connectionString)
      {
          switch (usuario.Id_rol)
          {
@@ -106,17 +129,18 @@ namespace VocesDePapelV1._1
      {
           MessageBox.Show("Bienvenido Administrador");
 
-         // IAdministradorView view = new AdministradorView();
-         // new AdministradorPresenter(view, connectionString);
-         // Application.Run((Form)view);
-     }
+          IAdministradorView view = new AdministradorView();
+          new AdministradorPresenter(view, connectionString);
+          //Application.Run((Form)view);
+          ((Form)view).ShowDialog();
+        }
 
         private static void AbrirVistaGerente(string connectionString)
         {
             MessageBox.Show("Bienvenido Gerente");
             IGerenteView view = new GerenteView();
             new GerentePresenter(view, connectionString);
-            Application.Run((Form)view);
+            ((Form)view).ShowDialog();
         }
 
         private static void AbrirVistaVendedor(string connectionString, UsuarioModel usuario)
@@ -124,9 +148,10 @@ namespace VocesDePapelV1._1
             
             MessageBox.Show($"Bienvenido Vendedor: {usuario.Nombre}");
             
-            // IVendedorView view = new VendedorView();
-            // new VendedorPresenter(view, connectionString, usuario);
-            // Application.Run((Form)view);
+             IVendedorView view = new VendedorView();
+             new VendedorPresenter(view, connectionString);
+            //Application.Run((Form)view);
+            ((Form)view).ShowDialog();
         }
     }
 

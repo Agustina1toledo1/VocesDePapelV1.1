@@ -36,7 +36,7 @@
             ReporteMasVendidoLibroItemMenuAdmin = new ToolStripMenuItem();
             autor_item_menu_admin = new ToolStripMenuItem();
             categorias_menu_item_admin = new ToolStripMenuItem();
-            toolStripMenuItem1 = new ToolStripMenuItem();
+            cerrarSAdminItemMenu = new ToolStripMenuItem();
             menu.SuspendLayout();
             SuspendLayout();
             // 
@@ -45,7 +45,7 @@
             menu.AutoSize = false;
             menu.BackColor = Color.FromArgb(255, 192, 128);
             menu.ImageScalingSize = new Size(20, 20);
-            menu.Items.AddRange(new ToolStripItem[] { producto_item_menu_admin, reporte_venta_item_menu_admin, reporte_libro_item_menu_admin, autor_item_menu_admin, categorias_menu_item_admin, toolStripMenuItem1 });
+            menu.Items.AddRange(new ToolStripItem[] { producto_item_menu_admin, reporte_venta_item_menu_admin, reporte_libro_item_menu_admin, autor_item_menu_admin, categorias_menu_item_admin, cerrarSAdminItemMenu });
             menu.Location = new Point(0, 0);
             menu.Name = "menu";
             menu.Size = new Size(1382, 90);
@@ -125,17 +125,17 @@
             categorias_menu_item_admin.Text = "Categorias";
             categorias_menu_item_admin.TextImageRelation = TextImageRelation.ImageAboveText;
             // 
-            // toolStripMenuItem1
+            // cerrarSAdminItemMenu
             // 
-            toolStripMenuItem1.AutoSize = false;
-            toolStripMenuItem1.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            toolStripMenuItem1.Image = Properties.Resources.salida;
-            toolStripMenuItem1.ImageAlign = ContentAlignment.BottomCenter;
-            toolStripMenuItem1.ImageScaling = ToolStripItemImageScaling.None;
-            toolStripMenuItem1.Name = "toolStripMenuItem1";
-            toolStripMenuItem1.Size = new Size(150, 110);
-            toolStripMenuItem1.Text = "Cerrar Sesión";
-            toolStripMenuItem1.TextImageRelation = TextImageRelation.ImageAboveText;
+            cerrarSAdminItemMenu.AutoSize = false;
+            cerrarSAdminItemMenu.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            cerrarSAdminItemMenu.Image = Properties.Resources.salida;
+            cerrarSAdminItemMenu.ImageAlign = ContentAlignment.BottomCenter;
+            cerrarSAdminItemMenu.ImageScaling = ToolStripItemImageScaling.None;
+            cerrarSAdminItemMenu.Name = "cerrarSAdminItemMenu";
+            cerrarSAdminItemMenu.Size = new Size(150, 110);
+            cerrarSAdminItemMenu.Text = "Cerrar Sesión";
+            cerrarSAdminItemMenu.TextImageRelation = TextImageRelation.ImageAboveText;
             // 
             // AdministradorView
             // 
@@ -161,6 +161,6 @@
         private ToolStripMenuItem categorias_menu_item_admin;
         private ToolStripMenuItem reporteLibroSAdminItemMenu;
         private ToolStripMenuItem ReporteMasVendidoLibroItemMenuAdmin;
-        private ToolStripMenuItem toolStripMenuItem1;
+        private ToolStripMenuItem cerrarSAdminItemMenu;
     }
 }

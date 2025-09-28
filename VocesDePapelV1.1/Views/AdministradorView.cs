@@ -22,6 +22,7 @@ namespace VocesDePapelV1._1.Views
             ReporteMasVendidoLibroItemMenuAdmin.Click += delegate { ShowReporteLibroMasVendidosView?.Invoke(this, EventArgs.Empty); };
             autor_item_menu_admin.Click += delegate { ShowAutoresView?.Invoke(this, EventArgs.Empty); };
             categorias_menu_item_admin.Click += delegate { ShowCategoriasView?.Invoke(this, EventArgs.Empty); };
+            cerrarSAdminItemMenu.Click += delegate { LogoutEvent?.Invoke(this, EventArgs.Empty); };
 
         }
 
@@ -31,5 +32,16 @@ namespace VocesDePapelV1._1.Views
         public event EventHandler ShowAutoresView;
         public event EventHandler ShowCategoriasView;
         public event EventHandler ShowReporteVentaView;
+        public event EventHandler LogoutEvent;
+
+        public void Cerrar()
+        {
+            this.Close();
+        }
+
+        public void Ocultar()
+        {
+            this.Hide();
+        }
     }
 }
