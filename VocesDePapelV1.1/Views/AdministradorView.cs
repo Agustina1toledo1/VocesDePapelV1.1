@@ -26,6 +26,9 @@ namespace VocesDePapelV1._1.Views
 
         }
 
+        public bool LogoutSolicitado => throw new NotImplementedException();
+        
+
         public event EventHandler ShowProductoView;
         public event EventHandler ShowReporteLibroStockView;
         public event EventHandler ShowReporteLibroMasVendidosView;
@@ -33,6 +36,7 @@ namespace VocesDePapelV1._1.Views
         public event EventHandler ShowCategoriasView;
         public event EventHandler ShowReporteVentaView;
         public event EventHandler LogoutEvent;
+
 
         public void Cerrar()
         {

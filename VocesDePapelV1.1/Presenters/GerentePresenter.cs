@@ -33,8 +33,8 @@ namespace VocesDePapelV1._1.Presenters
 
         private void LogoutEvent(object? sender, EventArgs e)
         {
-            view.Ocultar(); 
-            Program.IniciarAplicacion(); 
+            //view.Ocultar(); 
+            //Program.IniciarAplicacion(); 
             view.Cerrar();
         }
 

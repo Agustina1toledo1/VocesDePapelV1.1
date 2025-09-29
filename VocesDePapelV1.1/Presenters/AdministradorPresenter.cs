@@ -34,8 +34,8 @@ namespace VocesDePapelV1._1.Presenters
         private void LogoutEvent(object? sender, EventArgs e)
         {
 
-            view.Ocultar(); // Oculta la vista actual
-            Program.IniciarAplicacion(); // Volvés al login
+            //view.Ocultar(); // Oculta la vista actual
+            //Program.IniciarAplicacion(); // Volvés al login
             view.Cerrar(); // Cerrás la vista actual después de que el login termine
         }
 
