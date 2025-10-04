@@ -3,5 +3,7 @@ Proyecto propuesto para la materia Taller II de la carrera Licenciatura en Siste
 
 
 **Integrantes**
+
+
 Aranda Vera, Vanesa Samanta
 Toledo, Agustina Ines
