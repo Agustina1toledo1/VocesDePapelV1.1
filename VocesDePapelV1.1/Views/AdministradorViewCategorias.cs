@@ -22,7 +22,9 @@ namespace VocesDePapelV1._1.Views
 
         private void AssociateAndRaiseViewEvents()
         {
-            throw new NotImplementedException();
+            btn_registrar_categoria.Click += delegate { AddNewEvent?.Invoke(this, EventArgs.Empty);
+                MessageBox.Show(Message);
+            };
         }
 
         //singleton patron (abre una sola instancia del formulario) 
@@ -35,13 +37,39 @@ namespace VocesDePapelV1._1.Views
         public event EventHandler SaveEvent;
         public event EventHandler CancelEvent;
 
-        public string CategoriaId { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public string NombreCategoria { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public string Estado { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public string NombreEstado { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public string SearchValue { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public bool IsSuccessful { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public string Message { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public string CategoriaId {
+            get
+            {
+                if (dataGridView1.CurrentRow != null)
+                    return dataGridView1.CurrentRow.Cells["Id_categoria"].Value?.ToString();
+                return "0";
+            } //ver que pasa con esto
+            set { }
+        }
+        public string NombreCategoria { 
+            get { return text_nombre_categoria_admin.Text; }
+            set { text_nombre_categoria_admin.Text = value; }
+        }
+        public string Estado { 
+            get {return cmb_estado_categoria.SelectedValue?.ToString(); }
+            set { cmb_estado_categoria.SelectedValue = value; }
+        }
+        public string NombreEstado {
+            get { return cmb_estado_categoria.Text; }
+            set { cmb_estado_categoria.Text= value; }
+        }
+        public string SearchValue {
+            get { return text_buscar_categoria.Text; }
+            set { text_buscar_categoria.Text = value; }
+        }
+        public bool IsSuccessful {
+            get { return isSuccessful; }
+            set { isSuccessful = value; }
+        }
+        public string Message {
+            get { return message; }
+            set { message = value; }
+        }
 
         public static AdministradorViewCategorias GetInstance(Form parentConteiner)
         {

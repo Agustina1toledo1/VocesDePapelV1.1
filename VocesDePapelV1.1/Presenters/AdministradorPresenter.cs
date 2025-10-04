@@ -7,6 +7,7 @@ using VocesDePapelV1._1.Views;
 using VocesDePapelV1._1.Models;
 using VocesDePapelV1._1.Servicios;
 using System.Windows.Forms;
+using VocesDePapelV1._1.Repositories;
 
 namespace VocesDePapelV1._1.Presenters
 {
@@ -43,7 +44,8 @@ namespace VocesDePapelV1._1.Presenters
         {
             
             IAdministradorCategoria backupView = AdministradorViewCategorias.GetInstance((AdministradorView)this.view); // muestra solo una instancia de la vista de usuario
-            new CategoriaAmdinPresenter(backupView);
+            ICategoriaRepository repository = new CategoriaRepository(connectionString);
+            new CategoriaAmdinPresenter(backupView, repository);
         }
 
         private void ShowAutoresView(object? sender, EventArgs e)
