@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace VocesDePapelV1._1.Models
 {
-    internal class ClienteModel
+    public class ClienteModel
     {
         private int id_cliente;
         private string nombre_razonSocial;
