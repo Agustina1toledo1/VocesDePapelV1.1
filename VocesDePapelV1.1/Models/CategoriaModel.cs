@@ -16,15 +16,16 @@ namespace VocesDePapelV1._1.Models
         private int id_estado;
 
         //accesors y mutators. Validaciones
-        [DisplayName("Usuario ID")]
+        [DisplayName("Categoria_id")]
         public int Id_categoria
         {
             get { return id_categoria; }
             set { id_categoria = value; }
         }
         [DisplayName("Nombre")]
-        [Required(ErrorMessage = "El nombre de usuario es requerido")]
-        [RegularExpression(@"^[a-zA-Z\s]{3,50}$", ErrorMessage = "El nombre solo se permiten letras y  debe tener entre 3 y 50 caracteres.")]
+        [Required(ErrorMessage = "El nombre de la categoria es requerido")]
+        [RegularExpression(@"^[\p{L}\s]{3,50}$", ErrorMessage = "El nombre debe contener solo letras y espacios, entre 3 y 50 caracteres.")]
+
         public string Nombre_categoria
         {
             get { return nombre_categoria; }
@@ -38,5 +39,8 @@ namespace VocesDePapelV1._1.Models
             get { return id_estado; }
             set { id_estado = value; }
         }
+
+        [DisplayName("Estado nombre ")] //se asocia al nombre del encabezado de la columna en el datagridview
+        public string Nombre_estado { get; set; }
     }
 }

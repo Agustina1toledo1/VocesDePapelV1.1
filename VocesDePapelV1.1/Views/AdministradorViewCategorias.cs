@@ -25,7 +25,55 @@ namespace VocesDePapelV1._1.Views
             btn_registrar_categoria.Click += delegate { AddNewEvent?.Invoke(this, EventArgs.Empty);
                 MessageBox.Show(Message);
             };
+            //buscar categoria
+            btn_buscar_categoria.Click += delegate { SearchEvent?.Invoke(this, EventArgs.Empty); }; //al hacer clic (formulario, argumento de evento vacio)
+            text_buscar_categoria.KeyDown += (s, e) =>
+            {
+                if (e.KeyCode == Keys.Enter)
+                {
+                    SearchEvent?.Invoke(this, EventArgs.Empty);
+                }
+            };
+            //eliminar categoria
+            btn_eliminar_categoria.Click += delegate {
+                if (datgridCategorias.SelectedCells.Count > 0)
+                {
+                    var result = MessageBox.Show("Estas seguro de eliminar el usuario seleccionado?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    if (result == DialogResult.Yes)
+                    {
+                        DeleteEvent?.Invoke(this, EventArgs.Empty);
+                        MessageBox.Show(Message);
+
+                    }
+                }
+
+            };
+            btn_modificar_categoria.Click += delegate {
+                if (datgridCategorias.SelectedCells.Count > 0)
+                {
+                    SaveEvent?.Invoke(this, EventArgs.Empty);
+                    MessageBox.Show(Message);
+                }
+            };
+
+        
+            datgridCategorias.SelectionChanged += delegate
+            {
+                if (datgridCategorias.SelectedCells.Count > 0)
+                {
+                    EditEvent?.Invoke(this, EventArgs.Empty);
+                }
+                else
+                {
+                    CancelEvent?.Invoke(this, EventArgs.Empty);
+                }
+
+            };
+            text_nombre_categoria_admin.KeyPress += TextBoxSoloLetras_KeyPress;
         }
+
+
+
 
         //singleton patron (abre una sola instancia del formulario) 
         private static AdministradorViewCategorias instance;
@@ -40,8 +88,8 @@ namespace VocesDePapelV1._1.Views
         public string CategoriaId {
             get
             {
-                if (dataGridView1.CurrentRow != null)
-                    return dataGridView1.CurrentRow.Cells["Id_categoria"].Value?.ToString();
+                if (datgridCategorias.CurrentRow != null)
+                    return datgridCategorias.CurrentRow.Cells["Id_categoria"].Value?.ToString();
                 return "0";
             } //ver que pasa con esto
             set { }
@@ -50,7 +98,7 @@ namespace VocesDePapelV1._1.Views
             get { return text_nombre_categoria_admin.Text; }
             set { text_nombre_categoria_admin.Text = value; }
         }
-        public string Estado { 
+        public string Estado_id { 
             get {return cmb_estado_categoria.SelectedValue?.ToString(); }
             set { cmb_estado_categoria.SelectedValue = value; }
         }
@@ -92,14 +140,36 @@ namespace VocesDePapelV1._1.Views
             return instance;
         }
 
-        public void SetCategoriaListBindingSource(BindingSource usuarioList)
+        private void TextBoxSoloLetras_KeyPress(object? sender, KeyPressEventArgs e)
         {
-            throw new NotImplementedException();
+            // si es: 
+            //  - Espacios, caracteres especiales char.IsControl
+            //  - Letras y letras con acento => char.IsLetter
+            //  - Espacio => e.KeyChar == ' '
+            if (!char.IsControl(e.KeyChar)
+                && !char.IsLetter(e.KeyChar)
+                && e.KeyChar != ' ')
+            {
+                // Bloquea la tecla
+                e.Handled = true;
+            }
+        }
+        public void SetCategoriaListBindingSource(BindingSource categoriaList)
+        {
+            datgridCategorias.DataSource = categoriaList;
+            //ocultar los ids de estado, rol y contraseña
+            datgridCategorias.Columns["Id_categoria"].Visible = false;
+            datgridCategorias.Columns["Estado_id"].Visible = false;
+
+            // dataGridView1.Columns["Contraseña"].Visible = false;
         }
 
         public void SetEstadoListBindingSource(BindingSource estadoList)
         {
-            throw new NotImplementedException();
+            cmb_estado_categoria.DataSource = estadoList;
+            cmb_estado_categoria.DisplayMember = "Nombre_estado";
+            cmb_estado_categoria.ValueMember = "Id_estado";
+
         }
     }
 }

@@ -11,7 +11,7 @@ namespace VocesDePapelV1._1.Views
         //propiedades
         string CategoriaId { get; set; }
         string NombreCategoria { get; set; }
-        string Estado { get; set; }
+        string Estado_id { get; set; }
         string NombreEstado { get; set; }
         string SearchValue { get; set; }
         //bool IsEdit { get; set; }
