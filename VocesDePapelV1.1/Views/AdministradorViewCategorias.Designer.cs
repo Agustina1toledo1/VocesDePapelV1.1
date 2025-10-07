@@ -28,12 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             l_detalle_categoria = new Label();
-            btn_eliminar_autor = new Button();
-            btn_modificar_autor = new Button();
-            btn_registrar_autor = new Button();
+            btn_eliminar_categoria = new Button();
+            btn_modificar_categoria = new Button();
+            btn_registrar_categoria = new Button();
             cmb_estado_categoria = new ComboBox();
             text_nombre_categoria_admin = new TextBox();
             l_estado_categoria = new Label();
@@ -43,11 +43,8 @@
             text_buscar_categoria = new TextBox();
             l_buscar_categoria = new Label();
             l_lista_categorias = new Label();
-            dataGridView1 = new DataGridView();
-            btn_seleccionar = new DataGridViewButtonColumn();
-            nombre = new DataGridViewTextBoxColumn();
-            estado = new DataGridViewTextBoxColumn();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            datgridCategorias = new DataGridView();
+            ((System.ComponentModel.ISupportInitialize)datgridCategorias).BeginInit();
             SuspendLayout();
             // 
             // l_detalle_categoria
@@ -61,38 +58,38 @@
             l_detalle_categoria.TabIndex = 63;
             l_detalle_categoria.Text = "Detalle de la Categoria";
             // 
-            // btn_eliminar_autor
+            // btn_eliminar_categoria
             // 
-            btn_eliminar_autor.BackColor = Color.FromArgb(255, 128, 128);
-            btn_eliminar_autor.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btn_eliminar_autor.Location = new Point(61, 372);
-            btn_eliminar_autor.Name = "btn_eliminar_autor";
-            btn_eliminar_autor.Size = new Size(269, 43);
-            btn_eliminar_autor.TabIndex = 62;
-            btn_eliminar_autor.Text = "Eliminar";
-            btn_eliminar_autor.UseVisualStyleBackColor = false;
+            btn_eliminar_categoria.BackColor = Color.FromArgb(255, 128, 128);
+            btn_eliminar_categoria.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btn_eliminar_categoria.Location = new Point(61, 372);
+            btn_eliminar_categoria.Name = "btn_eliminar_categoria";
+            btn_eliminar_categoria.Size = new Size(269, 43);
+            btn_eliminar_categoria.TabIndex = 62;
+            btn_eliminar_categoria.Text = "Eliminar";
+            btn_eliminar_categoria.UseVisualStyleBackColor = false;
             // 
-            // btn_modificar_autor
+            // btn_modificar_categoria
             // 
-            btn_modificar_autor.BackColor = Color.FromArgb(255, 192, 128);
-            btn_modificar_autor.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btn_modificar_autor.Location = new Point(61, 310);
-            btn_modificar_autor.Name = "btn_modificar_autor";
-            btn_modificar_autor.Size = new Size(269, 43);
-            btn_modificar_autor.TabIndex = 61;
-            btn_modificar_autor.Text = "Modificar";
-            btn_modificar_autor.UseVisualStyleBackColor = false;
+            btn_modificar_categoria.BackColor = Color.FromArgb(255, 192, 128);
+            btn_modificar_categoria.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btn_modificar_categoria.Location = new Point(61, 310);
+            btn_modificar_categoria.Name = "btn_modificar_categoria";
+            btn_modificar_categoria.Size = new Size(269, 43);
+            btn_modificar_categoria.TabIndex = 61;
+            btn_modificar_categoria.Text = "Modificar";
+            btn_modificar_categoria.UseVisualStyleBackColor = false;
             // 
-            // btn_registrar_autor
+            // btn_registrar_categoria
             // 
-            btn_registrar_autor.BackColor = SystemColors.GradientActiveCaption;
-            btn_registrar_autor.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btn_registrar_autor.Location = new Point(62, 250);
-            btn_registrar_autor.Name = "btn_registrar_autor";
-            btn_registrar_autor.Size = new Size(269, 43);
-            btn_registrar_autor.TabIndex = 60;
-            btn_registrar_autor.Text = "Registrar";
-            btn_registrar_autor.UseVisualStyleBackColor = false;
+            btn_registrar_categoria.BackColor = SystemColors.GradientActiveCaption;
+            btn_registrar_categoria.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btn_registrar_categoria.Location = new Point(62, 250);
+            btn_registrar_categoria.Name = "btn_registrar_categoria";
+            btn_registrar_categoria.Size = new Size(269, 43);
+            btn_registrar_categoria.TabIndex = 60;
+            btn_registrar_categoria.Text = "Registrar";
+            btn_registrar_categoria.UseVisualStyleBackColor = false;
             // 
             // cmb_estado_categoria
             // 
@@ -149,7 +146,7 @@
             btn_buscar_categoria.BackColor = SystemColors.GradientActiveCaption;
             btn_buscar_categoria.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btn_buscar_categoria.Image = Properties.Resources.lupa;
-            btn_buscar_categoria.Location = new Point(1249, 35);
+            btn_buscar_categoria.Location = new Point(1240, 35);
             btn_buscar_categoria.Name = "btn_buscar_categoria";
             btn_buscar_categoria.Size = new Size(66, 43);
             btn_buscar_categoria.TabIndex = 68;
@@ -185,69 +182,45 @@
             l_lista_categorias.Text = "Lista de categorias";
             l_lista_categorias.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // dataGridView1
+            // datgridCategorias
             // 
-            dataGridView1.AllowUserToAddRows = false;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = SystemColors.Control;
-            dataGridViewCellStyle1.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle1.Padding = new Padding(2);
-            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { btn_seleccionar, nombre, estado });
-            dataGridView1.Location = new Point(414, 116);
-            dataGridView1.MultiSelect = false;
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.ReadOnly = true;
-            dataGridView1.RowHeadersWidth = 51;
-            dataGridViewCellStyle2.SelectionBackColor = Color.White;
-            dataGridViewCellStyle2.SelectionForeColor = Color.Black;
-            dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle2;
-            dataGridView1.Size = new Size(903, 304);
-            dataGridView1.TabIndex = 64;
-            // 
-            // btn_seleccionar
-            // 
-            btn_seleccionar.HeaderText = "";
-            btn_seleccionar.MinimumWidth = 6;
-            btn_seleccionar.Name = "btn_seleccionar";
-            btn_seleccionar.ReadOnly = true;
-            btn_seleccionar.Width = 30;
-            // 
-            // nombre
-            // 
-            nombre.HeaderText = "Nombre";
-            nombre.MinimumWidth = 6;
-            nombre.Name = "nombre";
-            nombre.ReadOnly = true;
-            nombre.Width = 125;
-            // 
-            // estado
-            // 
-            estado.HeaderText = "Estado";
-            estado.MinimumWidth = 6;
-            estado.Name = "estado";
-            estado.ReadOnly = true;
-            estado.Width = 125;
+            datgridCategorias.AllowUserToAddRows = false;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = SystemColors.Control;
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle3.Padding = new Padding(2);
+            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            datgridCategorias.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            datgridCategorias.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            datgridCategorias.Location = new Point(414, 116);
+            datgridCategorias.MultiSelect = false;
+            datgridCategorias.Name = "datgridCategorias";
+            datgridCategorias.ReadOnly = true;
+            datgridCategorias.RowHeadersWidth = 51;
+            dataGridViewCellStyle4.SelectionBackColor = Color.White;
+            dataGridViewCellStyle4.SelectionForeColor = Color.Black;
+            datgridCategorias.RowsDefaultCellStyle = dataGridViewCellStyle4;
+            datgridCategorias.Size = new Size(903, 304);
+            datgridCategorias.TabIndex = 64;
             // 
             // AdministradorViewCategorias
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = SystemColors.ActiveCaption;
             ClientSize = new Size(1340, 464);
             Controls.Add(btn_buscar_categoria);
             Controls.Add(text_buscar_categoria);
             Controls.Add(l_buscar_categoria);
             Controls.Add(l_lista_categorias);
-            Controls.Add(dataGridView1);
+            Controls.Add(datgridCategorias);
             Controls.Add(l_detalle_categoria);
-            Controls.Add(btn_eliminar_autor);
-            Controls.Add(btn_modificar_autor);
-            Controls.Add(btn_registrar_autor);
+            Controls.Add(btn_eliminar_categoria);
+            Controls.Add(btn_modificar_categoria);
+            Controls.Add(btn_registrar_categoria);
             Controls.Add(cmb_estado_categoria);
             Controls.Add(text_nombre_categoria_admin);
             Controls.Add(l_estado_categoria);
@@ -255,7 +228,7 @@
             Controls.Add(label1);
             Name = "AdministradorViewCategorias";
             Text = "AdministradorViewCategorias";
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)datgridCategorias).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -263,9 +236,9 @@
         #endregion
 
         private Label l_detalle_categoria;
-        private Button btn_eliminar_autor;
-        private Button btn_modificar_autor;
-        private Button btn_registrar_autor;
+        private Button btn_eliminar_categoria;
+        private Button btn_modificar_categoria;
+        private Button btn_registrar_categoria;
         private ComboBox cmb_estado_categoria;
         private TextBox text_nombre_categoria_admin;
         private Label l_estado_categoria;
@@ -275,9 +248,6 @@
         private TextBox text_buscar_categoria;
         private Label l_buscar_categoria;
         private Label l_lista_categorias;
-        private DataGridView dataGridView1;
-        private DataGridViewButtonColumn btn_seleccionar;
-        private DataGridViewTextBoxColumn nombre;
-        private DataGridViewTextBoxColumn estado;
+        private DataGridView datgridCategorias;
     }
 }
