@@ -23,9 +23,10 @@ namespace VocesDePapelV1._1
             bool continuar = true;
             while (continuar)
             {
-                string connectionString = ConfigurationManager.ConnectionStrings["SqlConnectionAgus"].ConnectionString;
+                string connectionString = ConfigurationManager.ConnectionStrings["SqlConection2"].ConnectionString;
 
-                var usuarioRepository = new UsuarioStaticoRepository();
+                // var usuarioRepository = new UsuarioStaticoRepository();
+                var usuarioRepository = new UsuarioRepository(connectionString);
                 var contraseniaHasher = new pbkdf2ContraseniaHasher();
                 var authService = new AuthService(usuarioRepository, contraseniaHasher);
 
@@ -107,12 +108,13 @@ namespace VocesDePapelV1._1
             }*/
         }
         //Metodo para mostrar el login al abrir la aplicacion
-        /*
+        
         public static void IniciarAplicacion()
         {
-            string connectionString = ConfigurationManager.ConnectionStrings["SqlConnectionAgus"].ConnectionString;
+            //string connectionString = ConfigurationManager.ConnectionStrings["SqlConnectionAgus"].ConnectionString;
+            string connectionString = ConfigurationManager.ConnectionStrings["SqlConnection2"].ConnectionString;
 
-            var usuarioRepository = new UsuarioStaticoRepository();
+            var usuarioRepository = new UsuarioRepository(connectionString);
             var contraseniaHasher = new pbkdf2ContraseniaHasher();
             var authService = new AuthService(usuarioRepository, contraseniaHasher);
 
@@ -129,17 +131,19 @@ namespace VocesDePapelV1._1
                 }
             }
         }  
-        */
+        
         private static void RedirigirSegunRol(UsuarioModel usuario, string connectionString)
      {
          switch (usuario.Id_rol)
+
          {
-             case 1: // Administrador
+                case 1: // Gerente
+                    AbrirVistaGerente(connectionString);
+                    break;
+                case 2: // Administrador
                  AbrirVistaAdministrador(connectionString);
                  break;
-             case 2: // Gerente
-                 AbrirVistaGerente(connectionString);
-                 break;
+             
              case 3: // Vendedor
                  AbrirVistaVendedor(connectionString, usuario);
                  break;
