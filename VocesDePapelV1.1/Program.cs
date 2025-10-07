@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Configuration;
 using VocesDePapelV1._1.Models;
-using VocesDePapelV1._1.Models;
 using VocesDePapelV1._1.Presenters;
 using VocesDePapelV1._1.Repositories;
 using VocesDePapelV1._1.Servicios;
