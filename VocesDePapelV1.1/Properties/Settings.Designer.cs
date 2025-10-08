@@ -29,9 +29,9 @@ namespace VocesDePapelV1._1.Properties {
         [global::System.Configuration.DefaultSettingValueAttribute("Data Source=DESKTOP-VF1BFT6\\SQLEXPRESS;Initial Catalog=VocesDePapelBDD;Integrated" +
             " Security=True;Connect Timeout=30;Encrypt=True;TrustServerCertificate=True;Appli" +
             "cation Intent=ReadWrite;Multi Subnet Failover=False")]
-        public string SqlConnectionAgus {
+        public string SqlConnection {
             get {
-                return ((string)(this["SqlConnectionAgus"]));
+                return ((string)(this["SqlConnection"]));
             }
         }
         
@@ -43,6 +43,18 @@ namespace VocesDePapelV1._1.Properties {
         public string SqlConection2 {
             get {
                 return ((string)(this["SqlConection2"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=DESKTOP-VF1BFT6\\SQLEXPRESS;Initial Catalog=VocesDePapelBDD;Integrated" +
+            " Security=True;Connect Timeout=30;Encrypt=True;TrustServerCertificate=True;Appli" +
+            "cation Intent=ReadWrite;Multi Subnet Failover=False")]
+        public string SqlConnectionAgus {
+            get {
+                return ((string)(this["SqlConnectionAgus"]));
             }
         }
     }
