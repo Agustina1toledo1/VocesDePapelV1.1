@@ -15,7 +15,6 @@ namespace VocesDePapelV1._1.Views
         public VentaView()
         {
             InitializeComponent();
-            this.AutoScroll = true;
         }
         //singleton patron (abre una sola instancia del formulario) 
         private static VentaView instance;
@@ -44,9 +43,8 @@ namespace VocesDePapelV1._1.Views
 
         private void BAgregarCliente_Click(object sender, EventArgs e)
         {
-            // Instancia del formulario de cliente
-            var clienteForm = VendedorViewCliente.GetInstance(this); // si usás patrón singleton
-            clienteForm.Show(); // o ShowDialog() si querés bloquear la venta hasta que se cierre
+             var clienteForm = new VendedorViewCliente();
+            clienteForm.Show(); // Abre el formulario 
         }
     }
 }

@@ -29,25 +29,30 @@ namespace VocesDePapelV1._1.Views
         public event EventHandler CancelEvent;
 
         //propiedades
-        public string ClienteId { 
-            get => throw new NotImplementedException(); 
-            set => throw new NotImplementedException(); 
+        public string ClienteId
+        {
+            get => throw new NotImplementedException();
+            set => throw new NotImplementedException();
         }
-        public string NombreRazonSocial { 
-            get => throw new NotImplementedException(); 
-            set => throw new NotImplementedException(); 
+        public string NombreRazonSocial
+        {
+            get => throw new NotImplementedException();
+            set => throw new NotImplementedException();
         }
-        public string CuitCuil { 
-            get => throw new NotImplementedException(); 
-            set => throw new NotImplementedException(); 
+        public string CuitCuil
+        {
+            get => throw new NotImplementedException();
+            set => throw new NotImplementedException();
         }
-        string IVendedorCliente.Telefono { 
-            get => throw new NotImplementedException(); 
-            set => throw new NotImplementedException(); 
+        string IVendedorCliente.Telefono
+        {
+            get => throw new NotImplementedException();
+            set => throw new NotImplementedException();
         }
-        public string Email { 
-            get => throw new NotImplementedException(); 
-            set => throw new NotImplementedException(); 
+        public string Email
+        {
+            get => throw new NotImplementedException();
+            set => throw new NotImplementedException();
         }
 
         public string SearchValue => throw new NotImplementedException();
@@ -77,16 +82,44 @@ namespace VocesDePapelV1._1.Views
             return instance;
         }
 
-        
+
         private void AsociarEventos()
         {
-            //BBuscarCliente.Click += (s, e) => SearchEvent?.Invoke(s, e);
-            //BAgregarCliente.Click += (s, e) => AddNewEvent?.Invoke(s, e);
-           
+            
         }
         public void SetClienteListBindingSource(BindingSource clienteList)
         {
             throw new NotImplementedException();
+        }
+
+        private void btn_guardar_cliente_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btn_limpiar_cliente_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btn_eliminar_cliente_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btn_volver_cliente_Click(object sender, EventArgs e)
+        {
+            // Cierra el formulario actual
+            this.Close();
+
+            // Muestra el formulario de ventas
+            var ventasForm =VentaView.GetInstance(this.MdiParent);
+            ventasForm.Show();
         }
     }
 }

@@ -54,7 +54,7 @@
             email = new DataGridViewTextBoxColumn();
             Telefono = new DataGridViewTextBoxColumn();
             button1 = new Button();
-            btn_volver_cliente = new Button();
+            btn_ir_venta_cliente = new Button();
             ((System.ComponentModel.ISupportInitialize)DGVListCliente).BeginInit();
             SuspendLayout();
             // 
@@ -165,6 +165,7 @@
             btn_guardar_cliente.TabIndex = 28;
             btn_guardar_cliente.Text = "Guardar";
             btn_guardar_cliente.UseVisualStyleBackColor = false;
+            btn_guardar_cliente.Click += btn_guardar_cliente_Click;
             // 
             // btn_limpiar_cliente
             // 
@@ -176,6 +177,7 @@
             btn_limpiar_cliente.TabIndex = 29;
             btn_limpiar_cliente.Text = "Limpiar";
             btn_limpiar_cliente.UseVisualStyleBackColor = false;
+            btn_limpiar_cliente.Click += btn_limpiar_cliente_Click;
             // 
             // btn_eliminar_cliente
             // 
@@ -187,6 +189,7 @@
             btn_eliminar_cliente.TabIndex = 30;
             btn_eliminar_cliente.Text = "Eliminar";
             btn_eliminar_cliente.UseVisualStyleBackColor = false;
+            btn_eliminar_cliente.Click += btn_eliminar_cliente_Click;
             // 
             // l_lista_cliente
             // 
@@ -302,18 +305,20 @@
             button1.TabIndex = 37;
             button1.Text = "Modificar";
             button1.UseVisualStyleBackColor = false;
+            button1.Click += button1_Click;
             // 
-            // btn_volver_cliente
+            // btn_ir_venta_cliente
             // 
-            btn_volver_cliente.BackColor = SystemColors.Highlight;
-            btn_volver_cliente.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btn_volver_cliente.ForeColor = Color.Snow;
-            btn_volver_cliente.Location = new Point(1168, 699);
-            btn_volver_cliente.Name = "btn_volver_cliente";
-            btn_volver_cliente.Size = new Size(160, 43);
-            btn_volver_cliente.TabIndex = 38;
-            btn_volver_cliente.Text = "Volver";
-            btn_volver_cliente.UseVisualStyleBackColor = false;
+            btn_ir_venta_cliente.BackColor = SystemColors.Highlight;
+            btn_ir_venta_cliente.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btn_ir_venta_cliente.ForeColor = Color.Snow;
+            btn_ir_venta_cliente.Location = new Point(1168, 699);
+            btn_ir_venta_cliente.Name = "btn_ir_venta_cliente";
+            btn_ir_venta_cliente.Size = new Size(160, 43);
+            btn_ir_venta_cliente.TabIndex = 38;
+            btn_ir_venta_cliente.Text = "ir a Venta";
+            btn_ir_venta_cliente.UseVisualStyleBackColor = false;
+            btn_ir_venta_cliente.Click += btn_volver_cliente_Click;
             // 
             // VendedorViewCliente
             // 
@@ -321,7 +326,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveCaption;
             ClientSize = new Size(1340, 781);
-            Controls.Add(btn_volver_cliente);
+            Controls.Add(btn_ir_venta_cliente);
             Controls.Add(button1);
             Controls.Add(DGVListCliente);
             Controls.Add(btn_buscar_cliente);
@@ -373,6 +378,6 @@
         private DataGridViewTextBoxColumn email;
         private DataGridViewTextBoxColumn Telefono;
         private Button button1;
-        private Button btn_volver_cliente;
+        private Button btn_ir_venta_cliente;
     }
 }
