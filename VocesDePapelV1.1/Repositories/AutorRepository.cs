@@ -8,16 +8,15 @@ using VocesDePapelV1._1.Models;
 
 namespace VocesDePapelV1._1.Repositories
 {
-    public class CategoriaRepository : BaseRepository, ICategoriaRepository
+    public class AutorRepository: BaseRepository,  IAutorRepository
     {
         //constructor que recibe la cadena de conexion y la pasa a la clase base
-        public CategoriaRepository(string connectionString)
+        public AutorRepository(string connectionString)
         {
             this.connectionString = connectionString;
-
         }
-        //metodos de la interfaz
-        public void Add(CategoriaModel categoria)
+
+        public void Add(AutorModel autor)
         {
             using (var connection = new Microsoft.Data.SqlClient.SqlConnection(connectionString))
             using (var command = connection.CreateCommand())
@@ -27,28 +26,28 @@ namespace VocesDePapelV1._1.Repositories
                 // Verifico existencia del nombre
                 command.CommandText = @"
                                     SELECT COUNT(1)
-                                        FROM dbo.categoria
-                                        WHERE nombre_categoria = @nombre_categoria;                                     
+                                        FROM dbo.autor
+                                        WHERE alias_autor = @alias_autor;                                     
                                         ";
-                command.Parameters.Add("@nombre_categoria", SqlDbType.NVarChar, 50).Value = categoria.Nombre_categoria;
+                command.Parameters.Add("@alias_autor", SqlDbType.NVarChar).Value = autor.Alias_autor;
 
                 int existe = (int)command.ExecuteScalar();
                 if (existe > 0)
                 {
                     // Retiro los parámetros previos y lanzo excepción de negocio
                     command.Parameters.Clear();
-                    throw new InvalidOperationException("El nombre ingresado ya está registrado.");
+                    throw new InvalidOperationException("El autor ingresado ya está registrado.");
                 }
 
                 // Si no existe, hago el INSERT
                 command.Parameters.Clear();
                 command.CommandText = @"
-                    INSERT INTO dbo.categoria
+                    INSERT INTO dbo.autor
                             VALUES
-                            (@nombre_categoria, @id_estado);
+                            (@alias_autor, @id_estado);
                     ";
-                command.Parameters.Add("@nombre_categoria", SqlDbType.NVarChar).Value = categoria.Nombre_categoria;
-                command.Parameters.Add("@id_estado", SqlDbType.Int).Value = categoria.Estado_id;
+                command.Parameters.Add("@nombre_categoria", SqlDbType.NVarChar).Value = autor.Alias_autor;
+                command.Parameters.Add("@id_estado", SqlDbType.Int).Value = autor.Estado_id;
 
                 command.ExecuteNonQuery();
             }
@@ -61,81 +60,78 @@ namespace VocesDePapelV1._1.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "UPDATE categoria SET id_estado =1 WHERE id_categoria = @id"; //modificamos el estado a 1 (baja logica)
+                command.CommandText = "UPDATE autor SET id_estado =1 WHERE id_autor = @id"; //modificamos el estado a 1 (baja logica)
                 command.Parameters.Add("@id", SqlDbType.Int).Value = id;
                 command.ExecuteNonQuery(); //ejecuta la consulta
 
             }
         }
 
-        public IEnumerable<CategoriaModel> GetAll()
+        public IEnumerable<AutorModel> GetAll()
         {
-            //lista de categorias
-            var categoriaList = new List<CategoriaModel>();
+            //lista de autores
+            var autorList = new List<AutorModel>();
             //consultas sql
             using (var connection = new Microsoft.Data.SqlClient.SqlConnection(connectionString))
             using (var command = new Microsoft.Data.SqlClient.SqlCommand())
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "SELECT id_categoria, nombre_categoria, id_estado  FROM Categoria ORDER BY id_categoria DESC";
+                command.CommandText = "SELECT id_autor, alias_autor, id_estado  FROM autor ORDER BY id_autor DESC";
                 using (var reader = command.ExecuteReader())
                 {
 
                     while (reader.Read())
                     {
-                        var categoria = new CategoriaModel
+                        var autor = new AutorModel
                         {
-                            Id_categoria = Convert.ToInt32(reader["id_categoria"]),
-                            Nombre_categoria = reader["nombre_categoria"].ToString(),
+                            Id_autor = Convert.ToInt32(reader["id_autor"]),
+                            Alias_autor = reader["alias_autor"].ToString(),
                             Estado_id = Convert.ToInt32(reader["id_estado"])
                         };
-                        categoriaList.Add(categoria);
+                        autorList.Add(autor);
                     }
 
                 }
             }
-            return categoriaList;
+            return autorList;
         }
 
-        public IEnumerable<CategoriaModel> GetByValue(string value)
+        public IEnumerable<AutorModel> GetByValue(string value)
         {
             //lista de usuarios
-            var categoriaList = new List<CategoriaModel>();
-        
-            string categoria_nombre = value;
+            var autorList = new List<AutorModel>();
+            //string autor_alias = value;
             //consultas sql
             using (var connection = new Microsoft.Data.SqlClient.SqlConnection(connectionString))
             using (var command = new Microsoft.Data.SqlClient.SqlCommand())
             {
                 connection.Open();
                 command.Connection = connection;
-                //command.CommandText = "SELECT * FROM Usuario ORDER BY id_usuario DESC"; video
-                command.CommandText = @"SELECT *FROM categoria
-                                    WHERE nombre_categoria like @nombre+'%' 
-                                    ORDER BY id_categoria DESC";
+                command.CommandText = @"SELECT *FROM autor
+                                    WHERE alias_autor like @alias+'%' 
+                                    ORDER BY id_autor DESC";
 
-                command.Parameters.Add("@nombre", SqlDbType.NVarChar).Value = categoria_nombre;
+                command.Parameters.Add("@alias", SqlDbType.NVarChar).Value = value;
 
                 using (var reader = command.ExecuteReader())
                 {
 
                     while (reader.Read())
                     {
-                        var usuario = new CategoriaModel
+                        var usuario = new AutorModel
                         {
-                            Id_categoria = Convert.ToInt32(reader["id_categoria"]),
-                            Nombre_categoria = reader["nombre_categoria"].ToString(),
+                            Id_autor = Convert.ToInt32(reader["id_autor"]),
+                            Alias_autor = reader["alias_autor"].ToString(),
                             Estado_id = Convert.ToInt32(reader["id_estado"])
                         };
-                        categoriaList.Add(usuario);
+                        autorList.Add(usuario);
                     }
 
                 }
             }
-            return categoriaList;
+            return autorList;
         }
-
         public IEnumerable<EstadoModel> GetEstado()
         {
             //lista de estados
@@ -166,31 +162,27 @@ namespace VocesDePapelV1._1.Repositories
             return estadoList;
         }
 
-        public void Modificar(CategoriaModel categoria)
+        public void Modificar(AutorModel autor)
         {
-            using (var connection = new Microsoft.Data.SqlClient.SqlConnection(connectionString))
-            using (var command = new Microsoft.Data.SqlClient.SqlCommand())
+            using (var connection = new Microsoft.Data.SqlClient.SqlConnection(connectionString)) 
+            using (var command = new Microsoft.Data.SqlClient.SqlCommand()) 
             {
                 connection.Open();
                 command.Connection = connection;
 
-                // consulta sql
+                //consulta sql
                 var sql_consulta = new StringBuilder();
-                sql_consulta.Append("UPDATE categoria SET ");
-                sql_consulta.Append("nombre_categoria = @nombre_categoria, ");
-                sql_consulta.Append("id_estado = @id_estado");
-
-               
-                sql_consulta.Append(" WHERE id_categoria = @id_categoria");
+                sql_consulta.Append("UPDATE autor SET ");
+                sql_consulta.Append("alias_autor = @alias_autor, ");
+                sql_consulta.Append("id_estado = @id_estado ");
+                sql_consulta.Append("WHERE id_autor = @id_autor");
 
                 command.CommandText = sql_consulta.ToString();
+                command.Parameters.Add("@alias_autor", SqlDbType.NVarChar).Value = autor.Alias_autor;
+                command.Parameters.Add("@id_estado", SqlDbType.Int).Value = autor.Estado_id;
+                command.Parameters.Add("@id_autor", SqlDbType.Int).Value = autor.Id_autor;
 
-                command.Parameters.Add("@id_categoria", SqlDbType.Int).Value = categoria.Id_categoria;
-                command.Parameters.Add("@nombre_categoria", SqlDbType.NVarChar).Value = categoria.Nombre_categoria;
-                command.Parameters.Add("@id_estado", SqlDbType.Int).Value = categoria.Estado_id;
-                command.ExecuteNonQuery(); //ejecuta la consulta
-
-
+                command.ExecuteNonQuery();
             }
         }
     }
