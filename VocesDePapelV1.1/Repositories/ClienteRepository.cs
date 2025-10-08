@@ -2,13 +2,17 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using VocesDePapelV1._1.Models;
+using VocesDePapelV1._1.Repositories;
 
 namespace VocesDePapelV1._1.Models
 {
-    public class ClienteRepository : BaseRepository
+    public class ClienteRepository : IClienteRepository
     {
+        private readonly string connectionString;
         public ClienteRepository(string connectionString)
         {
             this.connectionString = connectionString;

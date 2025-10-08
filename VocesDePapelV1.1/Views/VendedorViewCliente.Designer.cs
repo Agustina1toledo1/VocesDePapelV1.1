@@ -1,4 +1,5 @@
-﻿namespace VocesDePapelV1._1.Views
+﻿
+namespace VocesDePapelV1._1.Views
 {
     partial class VendedorViewCliente
     {
@@ -53,7 +54,7 @@
             CUIT_CUIL = new DataGridViewTextBoxColumn();
             email = new DataGridViewTextBoxColumn();
             Telefono = new DataGridViewTextBoxColumn();
-            button1 = new Button();
+            btn_modificar_cliente = new Button();
             btn_ir_venta_cliente = new Button();
             ((System.ComponentModel.ISupportInitialize)DGVListCliente).BeginInit();
             SuspendLayout();
@@ -295,17 +296,17 @@
             Telefono.ReadOnly = true;
             Telefono.Width = 125;
             // 
-            // button1
+            // btn_modificar_cliente
             // 
-            button1.BackColor = SystemColors.GradientActiveCaption;
-            button1.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button1.Location = new Point(36, 586);
-            button1.Name = "button1";
-            button1.Size = new Size(269, 43);
-            button1.TabIndex = 37;
-            button1.Text = "Modificar";
-            button1.UseVisualStyleBackColor = false;
-            button1.Click += button1_Click;
+            btn_modificar_cliente.BackColor = SystemColors.GradientActiveCaption;
+            btn_modificar_cliente.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btn_modificar_cliente.Location = new Point(36, 586);
+            btn_modificar_cliente.Name = "btn_modificar_cliente";
+            btn_modificar_cliente.Size = new Size(269, 43);
+            btn_modificar_cliente.TabIndex = 37;
+            btn_modificar_cliente.Text = "Modificar";
+            btn_modificar_cliente.UseVisualStyleBackColor = false;
+           
             // 
             // btn_ir_venta_cliente
             // 
@@ -327,7 +328,7 @@
             BackColor = SystemColors.ActiveCaption;
             ClientSize = new Size(1340, 781);
             Controls.Add(btn_ir_venta_cliente);
-            Controls.Add(button1);
+            Controls.Add(btn_modificar_cliente);
             Controls.Add(DGVListCliente);
             Controls.Add(btn_buscar_cliente);
             Controls.Add(text_buscar_cliente);
@@ -350,6 +351,21 @@
             ((System.ComponentModel.ISupportInitialize)DGVListCliente).EndInit();
             ResumeLayout(false);
             PerformLayout();
+        }
+
+        private void btn_eliminar_cliente_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void btn_limpiar_cliente_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void btn_guardar_cliente_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         #endregion
@@ -377,7 +393,7 @@
         private DataGridViewTextBoxColumn CUIT_CUIL;
         private DataGridViewTextBoxColumn email;
         private DataGridViewTextBoxColumn Telefono;
-        private Button button1;
+        private Button btn_modificar_cliente;
         private Button btn_ir_venta_cliente;
     }
 }

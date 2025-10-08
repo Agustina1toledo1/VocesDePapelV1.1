@@ -16,7 +16,7 @@ namespace VocesDePapelV1._1.Views
         {
             InitializeComponent();
             this.AutoScroll = true;
-            AsociarEventos(); //asociar y generar los eventos de vistas
+            AssociateAndRaiseViewEvents(); //asociar y generar los eventos de vistas
         }
         //singleton patron (abre una sola instancia del formulario) 
         private static VendedorViewCliente instance;
@@ -28,39 +28,77 @@ namespace VocesDePapelV1._1.Views
         public event EventHandler SaveEvent;
         public event EventHandler CancelEvent;
 
+        private void AssociateAndRaiseViewEvents()
+        {
+            
+            btn_buscar_cliente.Click += delegate { SearchEvent?.Invoke(this, EventArgs.Empty); };
+            btn_guardar_cliente.Click += delegate { AddNewEvent?.Invoke(this, EventArgs.Empty); };
+            btn_modificar_cliente.Click += delegate { EditEvent?.Invoke(this, EventArgs.Empty); };
+            btn_eliminar_cliente.Click += delegate { DeleteEvent?.Invoke(this, EventArgs.Empty); };            
+            btn_limpiar_cliente.Click += delegate { CancelEvent?.Invoke(this, EventArgs.Empty); };
+
+            
+            if (btn_guardar_cliente != null) btn_guardar_cliente.Click += delegate { AddNewEvent?.Invoke(this, EventArgs.Empty); };
+            if (btn_modificar_cliente != null) btn_modificar_cliente.Click += delegate { EditEvent?.Invoke(this, EventArgs.Empty); };
+            if (btn_eliminar_cliente != null) btn_eliminar_cliente.Click += delegate {
+                var result = MessageBox.Show("¿Está seguro de eliminar el cliente seleccionado?", "Advertencia",
+                                            MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (result == DialogResult.Yes)
+                {
+                    DeleteEvent?.Invoke(this, EventArgs.Empty);
+                    MessageBox.Show(this.Message); // Muestra el resultado de la operación
+                }
+            };
+            if (btn_guardar_cliente != null) btn_guardar_cliente.Click += delegate {
+                SaveEvent?.Invoke(this, EventArgs.Empty);
+                if (IsSuccessful) MessageBox.Show(this.Message, "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                else MessageBox.Show(this.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            };
+             if (btn_buscar_cliente != null) btn_buscar_cliente.Click += delegate { SearchEvent?.Invoke(this, EventArgs.Empty); };
+        }
         //propiedades
         public string ClienteId
         {
-            get => throw new NotImplementedException();
-            set => throw new NotImplementedException();
+            get
+            {
+                if (DGVListCliente.CurrentRow != null)
+                    return DGVListCliente.CurrentRow.Cells["Id_cliente"].Value?.ToString();
+                return "0";
+            } 
+            set { }
         }
         public string NombreRazonSocial
         {
-            get => throw new NotImplementedException();
-            set => throw new NotImplementedException();
+            get { return TBCliente.Text; }
+            set { TBCliente.Text = value; }
         }
         public string CuitCuil
         {
-            get => throw new NotImplementedException();
-            set => throw new NotImplementedException();
+            get { return TBCuitCuil.Text; }
+            set { TBCuitCuil.Text = value; }
         }
         string IVendedorCliente.Telefono
         {
-            get => throw new NotImplementedException();
-            set => throw new NotImplementedException();
+            get { return TBTelefonoCliente.Text; }
+            set { TBTelefonoCliente.Text = value; }
         }
         public string Email
         {
-            get => throw new NotImplementedException();
-            set => throw new NotImplementedException();
+            get { return TBEmailCliente.Text; }
+            set { TBEmailCliente.Text = value; }
         }
 
-        public string SearchValue => throw new NotImplementedException();
+        public string SearchValue
+        {
+            get { return btn_buscar_cliente.Text; }
+            set { btn_buscar_cliente.Text = value; }
+        }
 
-        public bool IsEdit { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public bool IsSuccessful { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public string Message { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
+        // Propiedades de estado de la operación
+        public bool IsEdit { get; set; }
+        public bool IsSuccessful { get; set; }
+        public string Message { get; set; }
         public static VendedorViewCliente GetInstance(Form parentConteiner)
         {
             if (instance == null || instance.IsDisposed) //si es nulo o esta desechado
@@ -82,36 +120,13 @@ namespace VocesDePapelV1._1.Views
             return instance;
         }
 
-
-        private void AsociarEventos()
-        {
-            
-        }
+        // Método para enlazar el DataGridView
         public void SetClienteListBindingSource(BindingSource clienteList)
         {
-            throw new NotImplementedException();
+            DGVListCliente.DataSource = clienteList;
         }
 
-        private void btn_guardar_cliente_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btn_limpiar_cliente_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btn_eliminar_cliente_Click(object sender, EventArgs e)
-        {
-
-        }
-
+        
         private void btn_volver_cliente_Click(object sender, EventArgs e)
         {
             // Cierra el formulario actual

@@ -8,7 +8,7 @@ namespace VocesDePapelV1._1.Views
 {
     public interface IVendedorCliente
     {
-        //propiedades
+        //propiedades para enlazar los datos de los controles de la vista
         string ClienteId { get; set; }
         string NombreRazonSocial { get; set; }
         string CuitCuil { get; set; }
@@ -20,7 +20,7 @@ namespace VocesDePapelV1._1.Views
         bool IsSuccessful { get; set; }
         string Message { get; set; }
 
-        //Eventos
+        //Eventos que la vista expone al Presenter
         event EventHandler SearchEvent;
         event EventHandler AddNewEvent;
         event EventHandler EditEvent;
