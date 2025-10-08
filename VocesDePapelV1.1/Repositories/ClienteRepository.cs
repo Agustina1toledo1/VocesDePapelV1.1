@@ -106,6 +106,29 @@ namespace VocesDePapelV1._1.Models
         }
 
         //  Buscar cliente por nombre o CUIT-CUIL
+        public ClienteModel ObtenerPorCuit(string cuit)
+        {
+            using var connection = new SqlConnection(connectionString);
+            using var command = connection.CreateCommand();
+            connection.Open();
+
+            command.CommandText = "SELECT * FROM cliente WHERE cuit_cuil = @cuit AND baja = 0";
+            command.Parameters.Add("@cuit", SqlDbType.NVarChar).Value = cuit;
+
+            using var reader = command.ExecuteReader();
+            if (reader.Read())
+            {
+                return new ClienteModel
+                {
+                    Id_cliente = (int)reader["id_cliente"],
+                    Nombre_razonSocial = reader["nombre_razonSocial"].ToString(),
+                    Cuit_cuil = reader["cuit_cuil"].ToString(),
+                    Telefono = reader["telefono"].ToString(),
+                    Email = reader["email"].ToString()
+                };
+            }
+            return null;
+        }
         public IEnumerable<ClienteModel> GetByValue(string value)
         {
             var lista = new List<ClienteModel>();

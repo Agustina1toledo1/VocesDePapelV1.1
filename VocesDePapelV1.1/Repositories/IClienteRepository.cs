@@ -15,5 +15,6 @@ namespace VocesDePapelV1._1.Repositories
         void Eliminar(int id);
         IEnumerable<ClienteModel> GetAll();
         IEnumerable<ClienteModel> GetByValue(string value);
+        ClienteModel ObtenerPorCuit(string cuit);
     }
 }

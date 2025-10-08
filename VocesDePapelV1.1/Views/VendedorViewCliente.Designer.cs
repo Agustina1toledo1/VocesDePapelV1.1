@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             LDetalleCliente = new Label();
             label2 = new Label();
             l_nombre_razonSocial = new Label();
@@ -41,7 +41,7 @@
             TBEmailCliente = new TextBox();
             TBTelefonoCliente = new TextBox();
             btn_guardar_cliente = new Button();
-            btn_modificar_cliente = new Button();
+            btn_limpiar_cliente = new Button();
             btn_eliminar_cliente = new Button();
             l_lista_cliente = new Label();
             text_buscar_cliente = new TextBox();
@@ -53,6 +53,8 @@
             CUIT_CUIL = new DataGridViewTextBoxColumn();
             email = new DataGridViewTextBoxColumn();
             Telefono = new DataGridViewTextBoxColumn();
+            button1 = new Button();
+            btn_volver_cliente = new Button();
             ((System.ComponentModel.ISupportInitialize)DGVListCliente).BeginInit();
             SuspendLayout();
             // 
@@ -155,25 +157,25 @@
             // 
             // btn_guardar_cliente
             // 
-            btn_guardar_cliente.BackColor = SystemColors.GradientActiveCaption;
+            btn_guardar_cliente.BackColor = Color.LightGreen;
             btn_guardar_cliente.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btn_guardar_cliente.Location = new Point(36, 551);
+            btn_guardar_cliente.Location = new Point(36, 537);
             btn_guardar_cliente.Name = "btn_guardar_cliente";
             btn_guardar_cliente.Size = new Size(269, 43);
             btn_guardar_cliente.TabIndex = 28;
             btn_guardar_cliente.Text = "Guardar";
             btn_guardar_cliente.UseVisualStyleBackColor = false;
             // 
-            // btn_modificar_cliente
+            // btn_limpiar_cliente
             // 
-            btn_modificar_cliente.BackColor = Color.FromArgb(255, 192, 128);
-            btn_modificar_cliente.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btn_modificar_cliente.Location = new Point(36, 626);
-            btn_modificar_cliente.Name = "btn_modificar_cliente";
-            btn_modificar_cliente.Size = new Size(269, 43);
-            btn_modificar_cliente.TabIndex = 29;
-            btn_modificar_cliente.Text = "Modificar";
-            btn_modificar_cliente.UseVisualStyleBackColor = false;
+            btn_limpiar_cliente.BackColor = Color.FromArgb(255, 192, 128);
+            btn_limpiar_cliente.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btn_limpiar_cliente.Location = new Point(36, 649);
+            btn_limpiar_cliente.Name = "btn_limpiar_cliente";
+            btn_limpiar_cliente.Size = new Size(269, 43);
+            btn_limpiar_cliente.TabIndex = 29;
+            btn_limpiar_cliente.Text = "Limpiar";
+            btn_limpiar_cliente.UseVisualStyleBackColor = false;
             // 
             // btn_eliminar_cliente
             // 
@@ -219,15 +221,15 @@
             // DGVListCliente
             // 
             DGVListCliente.AllowUserToAddRows = false;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = SystemColors.Control;
-            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle1.Padding = new Padding(2);
-            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            DGVListCliente.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = SystemColors.Control;
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle3.Padding = new Padding(2);
+            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            DGVListCliente.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             DGVListCliente.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             DGVListCliente.Columns.AddRange(new DataGridViewColumn[] { btn_seleccionar, id_cliente, nombre_razonSocial, CUIT_CUIL, email, Telefono });
             DGVListCliente.Location = new Point(425, 105);
@@ -235,9 +237,9 @@
             DGVListCliente.Name = "DGVListCliente";
             DGVListCliente.ReadOnly = true;
             DGVListCliente.RowHeadersWidth = 51;
-            dataGridViewCellStyle2.SelectionBackColor = Color.White;
-            dataGridViewCellStyle2.SelectionForeColor = Color.Black;
-            DGVListCliente.RowsDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.SelectionBackColor = Color.White;
+            dataGridViewCellStyle4.SelectionForeColor = Color.Black;
+            DGVListCliente.RowsDefaultCellStyle = dataGridViewCellStyle4;
             DGVListCliente.Size = new Size(903, 564);
             DGVListCliente.TabIndex = 36;
             // 
@@ -290,18 +292,43 @@
             Telefono.ReadOnly = true;
             Telefono.Width = 125;
             // 
+            // button1
+            // 
+            button1.BackColor = SystemColors.GradientActiveCaption;
+            button1.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button1.Location = new Point(36, 586);
+            button1.Name = "button1";
+            button1.Size = new Size(269, 43);
+            button1.TabIndex = 37;
+            button1.Text = "Modificar";
+            button1.UseVisualStyleBackColor = false;
+            // 
+            // btn_volver_cliente
+            // 
+            btn_volver_cliente.BackColor = SystemColors.Highlight;
+            btn_volver_cliente.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btn_volver_cliente.ForeColor = Color.Snow;
+            btn_volver_cliente.Location = new Point(1168, 699);
+            btn_volver_cliente.Name = "btn_volver_cliente";
+            btn_volver_cliente.Size = new Size(160, 43);
+            btn_volver_cliente.TabIndex = 38;
+            btn_volver_cliente.Text = "Volver";
+            btn_volver_cliente.UseVisualStyleBackColor = false;
+            // 
             // VendedorViewCliente
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveCaption;
             ClientSize = new Size(1340, 781);
+            Controls.Add(btn_volver_cliente);
+            Controls.Add(button1);
             Controls.Add(DGVListCliente);
             Controls.Add(btn_buscar_cliente);
             Controls.Add(text_buscar_cliente);
             Controls.Add(l_lista_cliente);
             Controls.Add(btn_eliminar_cliente);
-            Controls.Add(btn_modificar_cliente);
+            Controls.Add(btn_limpiar_cliente);
             Controls.Add(btn_guardar_cliente);
             Controls.Add(TBTelefonoCliente);
             Controls.Add(TBEmailCliente);
@@ -333,7 +360,7 @@
         private TextBox TBEmailCliente;
         private TextBox TBTelefonoCliente;
         private Button btn_guardar_cliente;
-        private Button btn_modificar_cliente;
+        private Button btn_limpiar_cliente;
         private Button btn_eliminar_cliente;
         private Label l_lista_cliente;
         private TextBox text_buscar_cliente;
@@ -345,5 +372,7 @@
         private DataGridViewTextBoxColumn CUIT_CUIL;
         private DataGridViewTextBoxColumn email;
         private DataGridViewTextBoxColumn Telefono;
+        private Button button1;
+        private Button btn_volver_cliente;
     }
 }

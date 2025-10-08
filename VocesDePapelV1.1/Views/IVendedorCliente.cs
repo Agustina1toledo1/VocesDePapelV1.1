@@ -8,6 +8,7 @@ namespace VocesDePapelV1._1.Views
 {
     public interface IVendedorCliente
     {
+        //propiedades
         string ClienteId { get; set; }
         string NombreRazonSocial { get; set; }
         string CuitCuil { get; set; }
@@ -19,6 +20,7 @@ namespace VocesDePapelV1._1.Views
         bool IsSuccessful { get; set; }
         string Message { get; set; }
 
+        //Eventos
         event EventHandler SearchEvent;
         event EventHandler AddNewEvent;
         event EventHandler EditEvent;
@@ -26,7 +28,9 @@ namespace VocesDePapelV1._1.Views
         event EventHandler SaveEvent;
         event EventHandler CancelEvent;
 
+        //Metodos
+        //enlace a la lista de usuarios
         void SetClienteListBindingSource(BindingSource clienteList);
-        void Show();
+        void Show();  //mostrar formulario
     }
 }

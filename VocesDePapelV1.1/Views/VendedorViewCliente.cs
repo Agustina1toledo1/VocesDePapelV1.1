@@ -15,10 +15,46 @@ namespace VocesDePapelV1._1.Views
         public VendedorViewCliente()
         {
             InitializeComponent();
+            this.AutoScroll = true;
+            AsociarEventos(); //asociar y generar los eventos de vistas
         }
         //singleton patron (abre una sola instancia del formulario) 
         private static VendedorViewCliente instance;
 
+        public event EventHandler SearchEvent;
+        public event EventHandler AddNewEvent;
+        public event EventHandler EditEvent;
+        public event EventHandler DeleteEvent;
+        public event EventHandler SaveEvent;
+        public event EventHandler CancelEvent;
+
+        //propiedades
+        public string ClienteId { 
+            get => throw new NotImplementedException(); 
+            set => throw new NotImplementedException(); 
+        }
+        public string NombreRazonSocial { 
+            get => throw new NotImplementedException(); 
+            set => throw new NotImplementedException(); 
+        }
+        public string CuitCuil { 
+            get => throw new NotImplementedException(); 
+            set => throw new NotImplementedException(); 
+        }
+        string IVendedorCliente.Telefono { 
+            get => throw new NotImplementedException(); 
+            set => throw new NotImplementedException(); 
+        }
+        public string Email { 
+            get => throw new NotImplementedException(); 
+            set => throw new NotImplementedException(); 
+        }
+
+        public string SearchValue => throw new NotImplementedException();
+
+        public bool IsEdit { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public bool IsSuccessful { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public string Message { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public static VendedorViewCliente GetInstance(Form parentConteiner)
         {
@@ -39,6 +75,18 @@ namespace VocesDePapelV1._1.Views
 
             }
             return instance;
+        }
+
+        
+        private void AsociarEventos()
+        {
+            //BBuscarCliente.Click += (s, e) => SearchEvent?.Invoke(s, e);
+            //BAgregarCliente.Click += (s, e) => AddNewEvent?.Invoke(s, e);
+           
+        }
+        public void SetClienteListBindingSource(BindingSource clienteList)
+        {
+            throw new NotImplementedException();
         }
     }
 }
