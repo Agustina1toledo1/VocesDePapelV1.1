@@ -105,7 +105,7 @@ namespace VocesDePapelV1._1.Models
             return lista;
         }
 
-        //  Buscar cliente por nombre o CUIT
+        //  Buscar cliente por nombre o CUIT-CUIL
         public IEnumerable<ClienteModel> GetByValue(string value)
         {
             var lista = new List<ClienteModel>();
