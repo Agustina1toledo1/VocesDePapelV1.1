@@ -22,9 +22,9 @@ namespace VocesDePapelV1._1
 
             //string connectionString = ConfigurationManager.ConnectionStrings["SqlConnectionAgus"].ConnectionString;
             bool continuar = true;
-            while (continuar)
+           while (continuar)
             {
-                string connectionString = ConfigurationManager.ConnectionStrings["SqlConection2"].ConnectionString;
+                string connectionString = ConfigurationManager.ConnectionStrings["SqlConnectionAgus"].ConnectionString;
 
                 // var usuarioRepository = new UsuarioStaticoRepository();
                 var usuarioRepository = new UsuarioRepository(connectionString);
@@ -55,6 +55,7 @@ namespace VocesDePapelV1._1
 
             //probamos el presenter de gerente
             /*IGerenteView view = new GerenteView();
+            string connectionString = ConfigurationManager.ConnectionStrings["SqlConnectionAgus"].ConnectionString;
             new GerentePresenter(view, connectionString);
             Application.Run((Form)view);*/
             /*probamos el presenter de administrador
