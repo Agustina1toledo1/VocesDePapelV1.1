@@ -39,12 +39,13 @@ namespace VocesDePapelV1._1.Models
             // Insertar nuevo cliente
             command.Parameters.Clear();
             command.CommandText = @"
-                INSERT INTO cliente (nombre_razonSocial, cuit_cuil, telefono, email)
-                VALUES (@nombre, @cuit, @telefono, @email)";
-            command.Parameters.Add("@nombre", SqlDbType.NVarChar).Value = cliente.Nombre_razonSocial;
+                INSERT INTO cliente (nombre_razon_social, cuit_cuil, email, telefono)
+                VALUES (@nombre, @cuit,  @email, @telefono)";
+            command.Parameters.Add("@nombre", SqlDbType.NVarChar).Value = cliente.Nombre_razon_social;
             command.Parameters.Add("@cuit", SqlDbType.NVarChar).Value = cliente.Cuit_cuil;
-            command.Parameters.Add("@telefono", SqlDbType.NVarChar).Value = cliente.Telefono;
             command.Parameters.Add("@email", SqlDbType.NVarChar).Value = cliente.Email;
+            command.Parameters.Add("@telefono", SqlDbType.NVarChar).Value = cliente.Telefono;
+            
 
             command.ExecuteNonQuery();
         }
@@ -58,16 +59,18 @@ namespace VocesDePapelV1._1.Models
 
             command.CommandText = @"
                 UPDATE cliente SET 
-                    nombre_razonSocial = @nombre,
+                    nombre_razon_social = @nombre,
                     cuit_cuil = @cuit,
-                    telefono = @telefono,
-                    email = @email
+                    email = @email,
+                    telefono = @telefono
+                    
                 WHERE id_cliente = @id";
             command.Parameters.Add("@id", SqlDbType.Int).Value = cliente.Id_cliente;
-            command.Parameters.Add("@nombre", SqlDbType.NVarChar).Value = cliente.Nombre_razonSocial;
+            command.Parameters.Add("@nombre", SqlDbType.NVarChar).Value = cliente.Nombre_razon_social;
             command.Parameters.Add("@cuit", SqlDbType.NVarChar).Value = cliente.Cuit_cuil;
-            command.Parameters.Add("@telefono", SqlDbType.NVarChar).Value = cliente.Telefono;
             command.Parameters.Add("@email", SqlDbType.NVarChar).Value = cliente.Email;
+            command.Parameters.Add("@telefono", SqlDbType.NVarChar).Value = cliente.Telefono;
+            
 
             command.ExecuteNonQuery();
         }
@@ -100,10 +103,11 @@ namespace VocesDePapelV1._1.Models
                 lista.Add(new ClienteModel
                 {
                     Id_cliente = (int)reader["id_cliente"],
-                    Nombre_razonSocial = reader["nombre_razonSocial"].ToString(),
+                    Nombre_razon_social = reader["nombre_razon_social"].ToString(),
                     Cuit_cuil = reader["cuit_cuil"].ToString(),
-                    Telefono = reader["telefono"].ToString(),
-                    Email = reader["email"].ToString()
+                    Email = reader["email"].ToString(),
+                    Telefono = reader["telefono"].ToString()
+                    
                 });
             }
             return lista;
@@ -116,7 +120,7 @@ namespace VocesDePapelV1._1.Models
             using var command = connection.CreateCommand();
             connection.Open();
 
-            command.CommandText = "SELECT * FROM cliente WHERE cuit_cuil = @cuit AND baja = 0";
+            command.CommandText = "SELECT * FROM cliente WHERE cuit_cuil = @cuit ";
             command.Parameters.Add("@cuit", SqlDbType.NVarChar).Value = cuit;
 
             using var reader = command.ExecuteReader();
@@ -125,14 +129,16 @@ namespace VocesDePapelV1._1.Models
                 return new ClienteModel
                 {
                     Id_cliente = (int)reader["id_cliente"],
-                    Nombre_razonSocial = reader["nombre_razonSocial"].ToString(),
+                    Nombre_razon_social = reader["nombre_razon_social"].ToString(),
                     Cuit_cuil = reader["cuit_cuil"].ToString(),
-                    Telefono = reader["telefono"].ToString(),
-                    Email = reader["email"].ToString()
+                    Email = reader["email"].ToString(),
+                    Telefono = reader["telefono"].ToString()
+                    
                 };
             }
             return null;
         }
+        
         public IEnumerable<ClienteModel> GetByValue(string value)
         {
             var lista = new List<ClienteModel>();
@@ -142,7 +148,7 @@ namespace VocesDePapelV1._1.Models
 
             command.CommandText = @"
                 SELECT * FROM cliente
-                WHERE nombre_razonSocial LIKE @value + '%' OR cuit_cuil LIKE @value + '%'
+                WHERE nombre_razon_social LIKE @value + '%' OR cuit_cuil LIKE @value + '%'
                 ORDER BY id_cliente DESC";
             command.Parameters.Add("@value", SqlDbType.NVarChar).Value = value;
 
@@ -152,10 +158,11 @@ namespace VocesDePapelV1._1.Models
                 lista.Add(new ClienteModel
                 {
                     Id_cliente = (int)reader["id_cliente"],
-                    Nombre_razonSocial = reader["nombre_razonSocial"].ToString(),
+                    Nombre_razon_social = reader["nombre_razon_social"].ToString(),
                     Cuit_cuil = reader["cuit_cuil"].ToString(),
+                    Email = reader["email"].ToString(),
                     Telefono = reader["telefono"].ToString(),
-                    Email = reader["email"].ToString()
+                    
                 });
             }
             return lista;

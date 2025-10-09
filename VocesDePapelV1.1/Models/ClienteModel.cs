@@ -11,10 +11,11 @@ namespace VocesDePapelV1._1.Models
     public class ClienteModel
     {
         private int id_cliente;
-        private string nombre_razonSocial;
+        private string nombre_razon_social;
         private string cuit_cuil;
-        private string telefono;
         private string email;
+        private string telefono;
+       
 
 
         [DisplayName("ID Cliente")]
@@ -25,10 +26,10 @@ namespace VocesDePapelV1._1.Models
 
         [DisplayName("Nombre o Razón Social")]
         [Required(ErrorMessage = "El nombre o razón social es obligatorio")]
-        public string Nombre_razonSocial {
-            get { return nombre_razonSocial;}
+        public string Nombre_razon_social {
+            get { return nombre_razon_social;}
 
-            set{ nombre_razonSocial = value;} 
+            set{ nombre_razon_social = value;} 
         }
 
         [DisplayName("CUIT/CUIL")]
@@ -39,18 +40,19 @@ namespace VocesDePapelV1._1.Models
             set { cuit_cuil = value;} 
         }
 
-        [DisplayName("Teléfono")]
-        public string Telefono {
-            get{ return telefono;}
-            set { telefono = value;} 
-        }
-
+        
         [DisplayName("Email")]
         [EmailAddress(ErrorMessage = "Formato de email inválido")]
         public string Email {
             get { return email;}
             set { email = value;} 
         }
-        
+
+        [DisplayName("Teléfono")]
+        public string Telefono
+        {
+            get { return telefono; }
+            set { telefono = value; }
+        }
     }
 }

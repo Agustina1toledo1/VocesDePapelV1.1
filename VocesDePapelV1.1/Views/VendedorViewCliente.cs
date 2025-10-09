@@ -12,49 +12,56 @@ namespace VocesDePapelV1._1.Views
 {
     public partial class VendedorViewCliente : Form, IVendedorCliente
     {
-        public VendedorViewCliente()
-        {
-            InitializeComponent();
-            this.AutoScroll = true;
-            AssociateAndRaiseViewEvents(); //asociar y generar los eventos de vistas
-        }
+       
         //singleton patron (abre una sola instancia del formulario) 
         private static VendedorViewCliente instance;
-
+        // Eventos
         public event EventHandler SearchEvent;
         public event EventHandler AddNewEvent;
         public event EventHandler EditEvent;
         public event EventHandler DeleteEvent;
         public event EventHandler SaveEvent;
         public event EventHandler CancelEvent;
-
+        public VendedorViewCliente()
+        {
+            InitializeComponent();
+            this.AutoScroll = true;
+            AssociateAndRaiseViewEvents(); //asociar y generar los eventos de vistas
+        }
         private void AssociateAndRaiseViewEvents()
         {
-            
-            btn_buscar_cliente.Click += delegate { SearchEvent?.Invoke(this, EventArgs.Empty); };
-            btn_guardar_cliente.Click += delegate { AddNewEvent?.Invoke(this, EventArgs.Empty); };
-            btn_modificar_cliente.Click += delegate { EditEvent?.Invoke(this, EventArgs.Empty); };
-            btn_eliminar_cliente.Click += delegate { DeleteEvent?.Invoke(this, EventArgs.Empty); };            
-            btn_limpiar_cliente.Click += delegate { CancelEvent?.Invoke(this, EventArgs.Empty); };
 
-            
-            if (btn_guardar_cliente != null) btn_guardar_cliente.Click += delegate { AddNewEvent?.Invoke(this, EventArgs.Empty); };
-            if (btn_modificar_cliente != null) btn_modificar_cliente.Click += delegate { EditEvent?.Invoke(this, EventArgs.Empty); };
-            if (btn_eliminar_cliente != null) btn_eliminar_cliente.Click += delegate {
+            // Buscar
+            btn_buscar_cliente.Click += delegate { SearchEvent?.Invoke(this, EventArgs.Empty); };
+
+            // Nuevo cliente (prepara el formulario)
+            btn_guardar_cliente.Click += delegate {
+                SaveEvent?.Invoke(this, EventArgs.Empty);
+                if (IsSuccessful)
+                    MessageBox.Show(this.Message, "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                else
+                    MessageBox.Show(this.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            };
+
+            // Modificar cliente (carga datos en el formulario)
+            btn_modificar_cliente.Click += delegate { EditEvent?.Invoke(this, EventArgs.Empty); };
+
+            // Eliminar cliente con confirmación
+            btn_eliminar_cliente.Click += delegate {
                 var result = MessageBox.Show("¿Está seguro de eliminar el cliente seleccionado?", "Advertencia",
-                                            MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                                             MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (result == DialogResult.Yes)
                 {
                     DeleteEvent?.Invoke(this, EventArgs.Empty);
                     MessageBox.Show(this.Message); // Muestra el resultado de la operación
                 }
             };
-            if (btn_guardar_cliente != null) btn_guardar_cliente.Click += delegate {
-                SaveEvent?.Invoke(this, EventArgs.Empty);
-                if (IsSuccessful) MessageBox.Show(this.Message, "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                else MessageBox.Show(this.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            };
-             if (btn_buscar_cliente != null) btn_buscar_cliente.Click += delegate { SearchEvent?.Invoke(this, EventArgs.Empty); };
+
+            // Limpiar formulario
+            btn_limpiar_cliente.Click += delegate { CancelEvent?.Invoke(this, EventArgs.Empty); };
+
+            // Nuevo cliente (opcional si tenés un botón específico para "Nuevo")
+            // btn_nuevo_cliente.Click += delegate { AddNewEvent?.Invoke(this, EventArgs.Empty); };
         }
         //propiedades
         public string ClienteId
@@ -126,7 +133,10 @@ namespace VocesDePapelV1._1.Views
             DGVListCliente.DataSource = clienteList;
         }
 
-        
+        public void Show()
+        {
+            base.Show();
+        }
         private void btn_volver_cliente_Click(object sender, EventArgs e)
         {
             // Cierra el formulario actual

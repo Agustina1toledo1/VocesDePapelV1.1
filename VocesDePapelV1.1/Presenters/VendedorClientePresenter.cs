@@ -3,26 +3,35 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using VocesDePapelV1._1.Models;
-using VocesDePapelV1._1.Repositories;
+using VocesDePapelV1._1.Presenters.Common;
+using VocesDePapelV1._1.Models;
+using VocesDePapelV1._1.Servicios;
 using VocesDePapelV1._1.Views;
+using VocesDePapelV1._1.Repositories;
 
 namespace VocesDePapelV1._1.Presenters
 {
     public class VendedorClientePresenter
     {
+        //campos  
         private IVendedorCliente view; //campo privado para la vista usando la interfaz
-        private readonly IClienteRepository repository;
-        private readonly BindingSource clienteBindingSource;
-        private IEnumerable<ClienteModel> clienteList;
+        private IClienteRepository repository;  //campo privado para el repositorio usando la interfaz
+        private BindingSource clienteBindingSource; //origen de datos para el enlace
+        private IEnumerable<ClienteModel> clienteList; //lista de clientes 
+        //private IVendedorCliente backupView;
+       
 
-        public VendedorClientePresenter(IVendedorCliente view, string connectionString)
+        public VendedorClientePresenter(IVendedorCliente view, IClienteRepository repository)
         {
+            //inicializamos los campos
             this.clienteBindingSource = new BindingSource();
             this.view = view;
-            this.repository = new ClienteRepository(connectionString);
+            this.repository = repository; //  Recibir e inyectar el repositorio
+            this.clienteList = new List<ClienteModel>(); //Inicializar como lista vacia
 
-            // Suscribir métodos de manejo de eventos de la vista
+            // Suscribir eventos
             this.view.SearchEvent += SearchCliente;
             this.view.AddNewEvent += AddNewCliente;
             this.view.EditEvent += EditCliente;
@@ -30,22 +39,33 @@ namespace VocesDePapelV1._1.Presenters
             this.view.SaveEvent += SaveCliente;
             this.view.CancelEvent += CancelAction;
 
-            // Establecer el enlace de datos
+            
+            // Enlazar datos
             this.view.SetClienteListBindingSource(clienteBindingSource);
-
-            // Cargar la lista de clientes al iniciar
+            // Cargar datos iniciales
             LoadAllClienteList();
 
-            // Mostrar la vista
+            // Mostrar vista
             this.view.Show();
         }
 
+        
         // --- Métodos de Ayuda ---
 
         private void LoadAllClienteList()
         {
-            clienteList = repository.GetAll();
-            clienteBindingSource.DataSource = clienteList; // Actualiza el DataGridView
+            try
+            {
+                clienteList = repository.GetAll();
+               // MessageBox.Show($"Clientes cargados: {clienteList.Count()}");
+
+                clienteBindingSource.DataSource = clienteList; // Actualizar BindingSource
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cargar clientes: {ex.Message}", "Error",
+                               MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void CleanViewFields()
@@ -69,7 +89,7 @@ namespace VocesDePapelV1._1.Presenters
             return new ClienteModel
             {
                 Id_cliente = id,
-                Nombre_razonSocial = view.NombreRazonSocial,
+                Nombre_razon_social = view.NombreRazonSocial,
                 Cuit_cuil = view.CuitCuil,
                 Telefono = view.Telefono,
                 Email = view.Email
@@ -107,7 +127,7 @@ namespace VocesDePapelV1._1.Presenters
 
                 // Cargar datos del cliente en los campos de la vista para edición
                 view.ClienteId = cliente.Id_cliente.ToString();
-                view.NombreRazonSocial = cliente.Nombre_razonSocial;
+                view.NombreRazonSocial = cliente.Nombre_razon_social;
                 view.CuitCuil = cliente.Cuit_cuil;
                 view.Telefono = cliente.Telefono;
                 view.Email = cliente.Email;
@@ -121,7 +141,7 @@ namespace VocesDePapelV1._1.Presenters
                 if (clienteBindingSource.Current != null)
                 {
                     var cliente = (ClienteModel)clienteBindingSource.Current;
-                    repository.Delete(cliente.Id_cliente);
+                    repository.Eliminar(cliente.Id_cliente);
                     view.IsSuccessful = true;
                     view.Message = "Cliente eliminado exitosamente.";
                     LoadAllClienteList(); // Recargar la lista
@@ -138,30 +158,34 @@ namespace VocesDePapelV1._1.Presenters
         {
             try
             {
-                // 1. Obtener y validar los datos
+                // Obtener y validar los datos
                 var cliente = GetClienteDataFromView();
                 new Common.ModelDataValidation().Validate(cliente);
 
-                // 2. Determinar la operación (Add o Edit)
+                // Determinar la operación (Add o Edit)
                 if (view.IsEdit)
                 {
-                    repository.Edit(cliente);
+                    repository.Modificar(cliente);
                     view.Message = "Cliente modificado exitosamente.";
+                    view.IsSuccessful = true;
                 }
                 else
                 {
                     repository.Add(cliente);
                     view.Message = "Cliente agregado exitosamente.";
+                    view.IsSuccessful = true;
                 }
-                view.IsSuccessful = true;
+                
                 LoadAllClienteList(); // Recargar la lista
                 CleanViewFields(); // Limpiar campos después de guardar
+                MessageBox.Show(view.Message, "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
                 view.IsSuccessful = false;
                 // Muestra el error de validación o de base de datos
                 view.Message = ex.Message;
+                MessageBox.Show(view.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -171,5 +195,5 @@ namespace VocesDePapelV1._1.Presenters
             view.IsEdit = false; // Vuelve al modo "agregar" por defecto
         }
     }
-    
+
 }

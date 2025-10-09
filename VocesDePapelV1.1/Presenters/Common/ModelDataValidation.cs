@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
+using VocesDePapelV1._1.Models;
 
 namespace VocesDePapelV1._1.Presenters.Common
 {

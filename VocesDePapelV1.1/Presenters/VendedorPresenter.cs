@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using VocesDePapelV1._1.Views;
+﻿using VocesDePapelV1._1.Repositories;
 using VocesDePapelV1._1.Models;
-using VocesDePapelV1._1.Servicios;
-using System.Windows.Forms;
+using VocesDePapelV1._1.Views;
 
 
 namespace VocesDePapelV1._1.Presenters
@@ -39,8 +33,35 @@ namespace VocesDePapelV1._1.Presenters
 
         private void ShowClienteView(object? sender, EventArgs e)
         {
-            IVendedorCliente backupView = VendedorViewCliente.GetInstance((VendedorView)this.view); // muestra solo una instancia de la vista de usuario
-            new VendedorClientePresenter(backupView);
+            try
+            {
+                // Obtener la vista
+                IVendedorCliente clienteView = VendedorViewCliente.GetInstance((VendedorView)this.view);
+
+                // VERIFICAR conexión
+                if (string.IsNullOrEmpty(this.connectionString))
+                {
+                    MessageBox.Show("Error: Cadena de conexión no configurada");
+                    return;
+                }
+
+                // CREAR REPOSITORIO
+                IClienteRepository clienteRepository = new ClienteRepository(this.connectionString);
+
+                // VERIFICAR que el repositorio no sea null
+                if (clienteRepository == null)
+                {
+                    MessageBox.Show("Error: No se pudo crear el repositorio de clientes");
+                    return;
+                }
+
+                // Instanciar el Presenter
+                new VendedorClientePresenter(clienteView, clienteRepository);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al abrir vista de clientes: {ex.Message}");
+            }
         }
 
         private void ShowReporteVentaView(object? sender, EventArgs e)
