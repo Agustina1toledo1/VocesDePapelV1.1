@@ -30,11 +30,7 @@
             // Nuevo cliente (prepara el formulario)
             btn_guardar_cliente.Click += delegate
             {
-                SaveEvent?.Invoke(this, EventArgs.Empty);
-                if (IsSuccessful)
-                    MessageBox.Show(this.Message, "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                else
-                    MessageBox.Show(this.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                SaveEvent?.Invoke(this, EventArgs.Empty);                
             };
 
             // Modificar cliente (carga datos en el formulario)
@@ -48,15 +44,11 @@
                 if (result == DialogResult.Yes)
                 {
                     DeleteEvent?.Invoke(this, EventArgs.Empty);
-                    MessageBox.Show(this.Message); // Muestra el resultado de la operación
                 }
             };
 
             // Limpiar formulario
             btn_limpiar_cliente.Click += delegate { CancelEvent?.Invoke(this, EventArgs.Empty); };
-
-            // Nuevo cliente (opcional si tenés un botón específico para "Nuevo")
-            // btn_nuevo_cliente.Click += delegate { AddNewEvent?.Invoke(this, EventArgs.Empty); };
         }
         //propiedades
         public string ClienteId
