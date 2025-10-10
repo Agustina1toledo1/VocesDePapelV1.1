@@ -1,20 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
-namespace VocesDePapelV1._1.Views
+﻿namespace VocesDePapelV1._1.Views
 {
     public partial class VendedorViewCliente : Form, IVendedorCliente
     {
-       
+
         //singleton patron (abre una sola instancia del formulario) 
         private static VendedorViewCliente instance;
+        //  Implementar propiedad de la interfaz
+        public Form FormInstance => this;
+
         // Eventos
         public event EventHandler SearchEvent;
         public event EventHandler AddNewEvent;
@@ -35,7 +28,8 @@ namespace VocesDePapelV1._1.Views
             btn_buscar_cliente.Click += delegate { SearchEvent?.Invoke(this, EventArgs.Empty); };
 
             // Nuevo cliente (prepara el formulario)
-            btn_guardar_cliente.Click += delegate {
+            btn_guardar_cliente.Click += delegate
+            {
                 SaveEvent?.Invoke(this, EventArgs.Empty);
                 if (IsSuccessful)
                     MessageBox.Show(this.Message, "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -47,7 +41,8 @@ namespace VocesDePapelV1._1.Views
             btn_modificar_cliente.Click += delegate { EditEvent?.Invoke(this, EventArgs.Empty); };
 
             // Eliminar cliente con confirmación
-            btn_eliminar_cliente.Click += delegate {
+            btn_eliminar_cliente.Click += delegate
+            {
                 var result = MessageBox.Show("¿Está seguro de eliminar el cliente seleccionado?", "Advertencia",
                                              MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (result == DialogResult.Yes)
@@ -71,7 +66,7 @@ namespace VocesDePapelV1._1.Views
                 if (DGVListCliente.CurrentRow != null)
                     return DGVListCliente.CurrentRow.Cells["Id_cliente"].Value?.ToString();
                 return "0";
-            } 
+            }
             set { }
         }
         public string NombreRazonSocial
@@ -106,6 +101,7 @@ namespace VocesDePapelV1._1.Views
         public bool IsEdit { get; set; }
         public bool IsSuccessful { get; set; }
         public string Message { get; set; }
+        
         public static VendedorViewCliente GetInstance(Form parentConteiner)
         {
             if (instance == null || instance.IsDisposed) //si es nulo o esta desechado
@@ -114,6 +110,7 @@ namespace VocesDePapelV1._1.Views
                 instance.MdiParent = parentConteiner; //establecer el formulario padre
                 instance.FormBorderStyle = FormBorderStyle.None; //sin bordes
                 instance.Dock = DockStyle.Fill; //llenar el contenedor
+                instance.AssociateAndRaiseViewEvents(); // Asegurar que los eventos se asocien
             }
             else
             {
@@ -132,7 +129,10 @@ namespace VocesDePapelV1._1.Views
         {
             DGVListCliente.DataSource = clienteList;
         }
-
+        void IVendedorCliente.Show()
+        {
+            base.Show();
+        }
         public void Show()
         {
             base.Show();
@@ -143,8 +143,8 @@ namespace VocesDePapelV1._1.Views
             this.Close();
 
             // Muestra el formulario de ventas
-            var ventasForm =VentaView.GetInstance(this.MdiParent);
-            ventasForm.Show();
+            //var ventasForm = VentaView.GetInstance(this.MdiParent);
+           
         }
     }
 }

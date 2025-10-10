@@ -368,7 +368,7 @@
             BAgregarCliente.TabIndex = 11;
             BAgregarCliente.Text = "Agregar";
             BAgregarCliente.UseVisualStyleBackColor = false;
-            BAgregarCliente.Click += BAgregarCliente_Click;
+           
             // 
             // PVendedor
             // 

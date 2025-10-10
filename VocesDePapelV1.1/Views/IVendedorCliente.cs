@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace VocesDePapelV1._1.Views
 {
     public interface IVendedorCliente
     {
+        //propiedad para el patron singleton
+        Form FormInstance { get; }
         //propiedades para enlazar los datos de los controles de la vista
         string ClienteId { get; set; }
         string NombreRazonSocial { get; set; }

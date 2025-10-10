@@ -1,33 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
-namespace VocesDePapelV1._1.Views
+﻿namespace VocesDePapelV1._1.Views
 {
     public partial class VentaView : Form, IVendedorVenta
     {
-        public VentaView()
+        private readonly string connectionString;
+        public VentaView(string connectionString)
         {
             InitializeComponent();
+            this.connectionString = connectionString;
+            AssociateAndRaiseViewEvents();
         }
         //singleton patron (abre una sola instancia del formulario) 
         private static VentaView instance;
 
+        public event EventHandler AddNewClienteEvent;
+        public Form FormInstance => this; // Devuelve la instancia actual del formulario
+        private void AssociateAndRaiseViewEvents()
+        {
 
-        public static VentaView GetInstance(Form parentConteiner)
+            BAgregarCliente.Click += delegate { AddNewClienteEvent?.Invoke(this, EventArgs.Empty); };
+        }
+
+        public static VentaView GetInstance(Form parentConteiner, string connectionString)
         {
             if (instance == null || instance.IsDisposed) //si es nulo o esta desechado
             {
-                instance = new VentaView();
-                instance.MdiParent = parentConteiner; //establecer el formulario padre
-                instance.FormBorderStyle = FormBorderStyle.None; //sin bordes
-                instance.Dock = DockStyle.Fill; //llenar el contenedor
+                instance = new VentaView(connectionString); // PASAR LA CONEXIÓN
+                instance.MdiParent = parentConteiner;
+                instance.FormBorderStyle = FormBorderStyle.None;
+                instance.Dock = DockStyle.Fill;
+                //instance.AssociateAndRaiseViewEvents();
             }
             else
             {
@@ -40,11 +41,10 @@ namespace VocesDePapelV1._1.Views
             }
             return instance;
         }
-
-        private void BAgregarCliente_Click(object sender, EventArgs e)
+        void IVendedorVenta.Show()
         {
-             var clienteForm = new VendedorViewCliente();
-            clienteForm.Show(); // Abre el formulario 
+            base.Show();
         }
+
     }
 }
