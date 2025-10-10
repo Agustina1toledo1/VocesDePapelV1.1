@@ -82,13 +82,9 @@ namespace VocesDePapelV1._1.Presenters
             {
                 //validamos el modelo
                 new Common.ModelDataValidation().Validate(categoria);
-                //if (view.IsEdit) //si estamos en modo edicion
-                //{
-
+                
                 repository.Modificar(categoria); //modificamos el usuario
                 view.Message = "Categoria modificado exitosamente";
-                //}
-
                 view.IsSuccessful = true;
                 LoadAllCategoriaList(); //recargamos la lista de categoria
             }
@@ -116,9 +112,7 @@ namespace VocesDePapelV1._1.Presenters
         }
         private void CleanviewFields()
         {
-
             view.NombreCategoria = "";
-
         }
 
         private void DeleteCategoria(object? sender, EventArgs e)
@@ -143,7 +137,7 @@ namespace VocesDePapelV1._1.Presenters
             var categoria = new CategoriaModel(); //creamos una nueva instancia del modelo de usuario
                                               
             //asignamos los valores de la vista a las propiedades del modelo y el modelo con hash en lugar de texto plano
-           // categoria.Id_categoria = Convert.ToInt32(view.CategoriaId );
+           
             categoria.Nombre_categoria = view.NombreCategoria;
             categoria.Estado_id = Convert.ToInt32(view.Estado_id);
 
@@ -183,6 +177,7 @@ namespace VocesDePapelV1._1.Presenters
             {
                 categoriaList = repository.GetAll(); //si es vacio, obtenemos todos los usuarios
             }
+            //asignamos el nombre del estado a cada categoria
             foreach (var categoria in categoriaList)
             {
                 var estado = estadoList.FirstOrDefault(e => e.Id_estado == categoria.Estado_id);
