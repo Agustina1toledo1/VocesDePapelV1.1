@@ -13,11 +13,40 @@
         private static VentaView instance;
 
         public event EventHandler AddNewClienteEvent;
+        public event EventHandler EditarClienteEvent;
+        public event EventHandler SearchClienteByCuitEvent;
         public Form FormInstance => this; // Devuelve la instancia actual del formulario
+
+        public string ClienteCuit
+        {
+            get { return TBCuilCuit.Text; } // Reemplaza con el nombre real de tu TextBox
+            set { TBCuilCuit.Text = value; }
+        }
+
+        public string ClienteNombre
+        {
+            get { return TBNombreCliente.Text; } // Reemplaza con el nombre real de tu TextBox
+            set { TBNombreCliente.Text = value; }
+        }
+
+        public string ClienteEmail
+        {
+            get { return TBEmail.Text; } 
+            set { TBEmail.Text = value; }
+        }
+
+        public string ClienteTelefono
+        {
+            get { return TBTelefono.Text; } 
+            set { TBTelefono.Text = value; }
+        }
+
         private void AssociateAndRaiseViewEvents()
         {
 
             BAgregarCliente.Click += delegate { AddNewClienteEvent?.Invoke(this, EventArgs.Empty); };
+            BBuscarCliente.Click += delegate { EditarClienteEvent?.Invoke(this, EventArgs.Empty); };
+            TBCuilCuit.TextChanged += delegate { SearchClienteByCuitEvent?.Invoke(this, EventArgs.Empty); };
         }
 
         public static VentaView GetInstance(Form parentConteiner, string connectionString)

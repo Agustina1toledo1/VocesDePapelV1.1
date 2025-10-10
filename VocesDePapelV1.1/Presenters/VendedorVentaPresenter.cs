@@ -14,13 +14,15 @@ namespace VocesDePapelV1._1.Presenters
     {
         private IVendedorVenta view; //campo privado para la vista usando la interfaz
         private readonly string connectionString; // Almacena la cadena de conexión
-
+        private IClienteRepository clienteRepository; // Repositorio de Cliente para la busqueda
         // Constructor
         public VendedorVentaPresenter(IVendedorVenta view, string connectionString)
         {
             this.view = view;
             this.connectionString = connectionString;
+            this.clienteRepository = new ClienteRepository(connectionString);
             this.view.AddNewClienteEvent += AbrirVistaCliente;
+            this.view.SearchClienteByCuitEvent += BuscarClientePorCuit;
             this.view.Show();  //mostramos la vista
         }
 
@@ -47,16 +49,59 @@ namespace VocesDePapelV1._1.Presenters
             }
         }
 
-       /* private void ShowVentaView(object? sender, EventArgs e)
+        private void BuscarClientePorCuit(object sender, EventArgs e)
         {
-            // Asumo que tienes la cadena de conexión almacenada en 'this.connectionString'
-            string connStr = this.connectionString;
-            Form parentContainer = (VendedorView)this.view; // El contenedor MDI
-            // Pasar la cadena de conexión
-            IVendedorVenta backupView = VentaView.GetInstance(parentContainer, connStr);
+            try
+            {
+                // VERIFICAR que el repositorio no sea null
+                if (clienteRepository == null)
+                {
+                    MessageBox.Show("Error: Repositorio de clientes no inicializado", "Error",
+                                  MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
 
-            // Pasar la conexión al VendedorVentaPresenter
-            new VendedorVentaPresenter(backupView, connStr);
-        }*/
+                string cuit = view.ClienteCuit?.Trim();
+
+                // Solo buscar si el CUIT tiene al menos 8 caracteres (para evitar búsquedas prematuras)
+                if (string.IsNullOrEmpty(cuit) || cuit.Length < 8)
+                {
+                    LimpiarDatosCliente();
+                    return;
+                }
+
+                // Buscar cliente en la base de datos
+                var cliente = clienteRepository.ObtenerPorCuit(cuit);
+
+                if (cliente != null)
+                {
+                    // Autocompletar los datos del cliente
+                    view.ClienteNombre = cliente.Nombre_razon_social;
+                    view.ClienteEmail = cliente.Email;
+                    view.ClienteTelefono = cliente.Telefono;
+                }
+                else
+                {
+                    // Cliente no encontrado, limpiar campos
+                    LimpiarDatosCliente();
+                    MessageBox.Show("Cliente no encontrado", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al buscar cliente: {ex.Message}", "Error",
+                              MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void LimpiarDatosCliente()
+        {
+            view.ClienteNombre = string.Empty;
+            view.ClienteEmail = string.Empty;
+            view.ClienteTelefono = string.Empty;
+        }
+
+
+        
     }
 }
