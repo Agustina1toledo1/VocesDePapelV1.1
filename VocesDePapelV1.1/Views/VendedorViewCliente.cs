@@ -84,8 +84,8 @@
 
         public string SearchValue
         {
-            get { return btn_buscar_cliente.Text; }
-            set { btn_buscar_cliente.Text = value; }
+            get { return text_buscar_cliente.Text; }
+            set { text_buscar_cliente.Text = value; }
         }
 
 

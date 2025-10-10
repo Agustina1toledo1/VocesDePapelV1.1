@@ -45,7 +45,6 @@
         {
 
             BAgregarCliente.Click += delegate { AddNewClienteEvent?.Invoke(this, EventArgs.Empty); };
-            BBuscarCliente.Click += delegate { EditarClienteEvent?.Invoke(this, EventArgs.Empty); };
             TBCuilCuit.TextChanged += delegate { SearchClienteByCuitEvent?.Invoke(this, EventArgs.Empty); };
         }
 

@@ -54,7 +54,6 @@
             LCodProducto = new Label();
             LProducto = new Label();
             PCliente = new Panel();
-            BBuscarCliente = new Button();
             BAgregarCliente = new Button();
             PVendedor = new Panel();
             TBNombreApellidoVendedor = new TextBox();
@@ -332,7 +331,6 @@
             // 
             // PCliente
             // 
-            PCliente.Controls.Add(BBuscarCliente);
             PCliente.Controls.Add(BAgregarCliente);
             PCliente.Controls.Add(LCliente);
             PCliente.Controls.Add(label1);
@@ -347,17 +345,6 @@
             PCliente.Name = "PCliente";
             PCliente.Size = new Size(468, 153);
             PCliente.TabIndex = 12;
-            // 
-            // BBuscarCliente
-            // 
-            BBuscarCliente.BackColor = SystemColors.GradientInactiveCaption;
-            BBuscarCliente.ForeColor = SystemColors.ActiveCaptionText;
-            BBuscarCliente.Location = new Point(363, 110);
-            BBuscarCliente.Name = "BBuscarCliente";
-            BBuscarCliente.Size = new Size(86, 31);
-            BBuscarCliente.TabIndex = 12;
-            BBuscarCliente.Text = "Buscar";
-            BBuscarCliente.UseVisualStyleBackColor = false;
             // 
             // BAgregarCliente
             // 
@@ -626,7 +613,6 @@
         private Panel PCliente;
         private Panel PVendedor;
         private Button BAgregarCliente;
-        private Button BBuscarCliente;
         private Label LVendedor;
         private Label LNombeYApellidoV;
         private Label LCuitVendedor;

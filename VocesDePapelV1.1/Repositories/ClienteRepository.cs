@@ -147,9 +147,10 @@ namespace VocesDePapelV1._1.Models
             connection.Open();
 
             command.CommandText = @"
-                SELECT * FROM cliente
-                WHERE nombre_razon_social LIKE @value + '%' OR cuit_cuil LIKE @value + '%'
-                ORDER BY id_cliente DESC";
+                    SELECT * FROM cliente
+                    WHERE nombre_razon_social LIKE '%' + @value + '%' 
+                       OR cuit_cuil LIKE '%' + @value + '%'
+                    ORDER BY id_cliente DESC";
             command.Parameters.Add("@value", SqlDbType.NVarChar).Value = value;
 
             using var reader = command.ExecuteReader();
