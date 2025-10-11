@@ -54,7 +54,6 @@
             LCodProducto = new Label();
             LProducto = new Label();
             PCliente = new Panel();
-            BBuscarCliente = new Button();
             BAgregarCliente = new Button();
             PVendedor = new Panel();
             TBNombreApellidoVendedor = new TextBox();
@@ -77,6 +76,8 @@
             TBPrecioTotal = new TextBox();
             BGuardar = new Button();
             BCancelar = new Button();
+            btn_limpiar_Venta = new Button();
+            BLimpiarCliente = new Button();
             PProducto.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)NUDCantidadProducto).BeginInit();
             PCliente.SuspendLayout();
@@ -331,7 +332,7 @@
             // 
             // PCliente
             // 
-            PCliente.Controls.Add(BBuscarCliente);
+            PCliente.Controls.Add(BLimpiarCliente);
             PCliente.Controls.Add(BAgregarCliente);
             PCliente.Controls.Add(LCliente);
             PCliente.Controls.Add(label1);
@@ -346,17 +347,6 @@
             PCliente.Name = "PCliente";
             PCliente.Size = new Size(468, 153);
             PCliente.TabIndex = 12;
-            // 
-            // BBuscarCliente
-            // 
-            BBuscarCliente.BackColor = SystemColors.GradientInactiveCaption;
-            BBuscarCliente.ForeColor = SystemColors.ActiveCaptionText;
-            BBuscarCliente.Location = new Point(363, 110);
-            BBuscarCliente.Name = "BBuscarCliente";
-            BBuscarCliente.Size = new Size(86, 31);
-            BBuscarCliente.TabIndex = 12;
-            BBuscarCliente.Text = "Buscar";
-            BBuscarCliente.UseVisualStyleBackColor = false;
             // 
             // BAgregarCliente
             // 
@@ -564,11 +554,34 @@
             BCancelar.Text = "Cancelar";
             BCancelar.UseVisualStyleBackColor = false;
             // 
+            // btn_limpiar_Venta
+            // 
+            btn_limpiar_Venta.BackColor = Color.FromArgb(255, 192, 128);
+            btn_limpiar_Venta.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btn_limpiar_Venta.Location = new Point(729, 465);
+            btn_limpiar_Venta.Name = "btn_limpiar_Venta";
+            btn_limpiar_Venta.Size = new Size(151, 43);
+            btn_limpiar_Venta.TabIndex = 30;
+            btn_limpiar_Venta.Text = "Limpiar";
+            btn_limpiar_Venta.UseVisualStyleBackColor = false;
+            // 
+            // BLimpiarCliente
+            // 
+            BLimpiarCliente.BackColor = Color.FromArgb(255, 192, 128);
+            BLimpiarCliente.ForeColor = SystemColors.ActiveCaptionText;
+            BLimpiarCliente.Location = new Point(361, 101);
+            BLimpiarCliente.Name = "BLimpiarCliente";
+            BLimpiarCliente.Size = new Size(90, 33);
+            BLimpiarCliente.TabIndex = 12;
+            BLimpiarCliente.Text = "Limpiar";
+            BLimpiarCliente.UseVisualStyleBackColor = false;
+            // 
             // VentaView
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(930, 535);
+            Controls.Add(btn_limpiar_Venta);
             Controls.Add(BCancelar);
             Controls.Add(BGuardar);
             Controls.Add(TBPrecioTotal);
@@ -613,7 +626,6 @@
         private Panel PCliente;
         private Panel PVendedor;
         private Button BAgregarCliente;
-        private Button BBuscarCliente;
         private Label LVendedor;
         private Label LNombeYApellidoV;
         private Label LCuitVendedor;
@@ -646,5 +658,7 @@
         private TextBox TBPrecioTotal;
         private Button BGuardar;
         private Button BCancelar;
+        private Button btn_limpiar_Venta;
+        private Button BLimpiarCliente;
     }
 }

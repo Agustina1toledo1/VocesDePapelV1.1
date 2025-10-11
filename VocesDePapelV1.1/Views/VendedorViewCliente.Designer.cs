@@ -1,4 +1,5 @@
-﻿namespace VocesDePapelV1._1.Views
+﻿
+namespace VocesDePapelV1._1.Views
 {
     partial class VendedorViewCliente
     {
@@ -41,18 +42,15 @@
             TBEmailCliente = new TextBox();
             TBTelefonoCliente = new TextBox();
             btn_guardar_cliente = new Button();
-            btn_modificar_cliente = new Button();
+            btn_limpiar_cliente = new Button();
             btn_eliminar_cliente = new Button();
             l_lista_cliente = new Label();
             text_buscar_cliente = new TextBox();
             btn_buscar_cliente = new Button();
             DGVListCliente = new DataGridView();
+            btn_modificar_cliente = new Button();
+            btn_ir_venta_cliente = new Button();
             btn_seleccionar = new DataGridViewButtonColumn();
-            id_cliente = new DataGridViewTextBoxColumn();
-            nombre_razonSocial = new DataGridViewTextBoxColumn();
-            CUIT_CUIL = new DataGridViewTextBoxColumn();
-            email = new DataGridViewTextBoxColumn();
-            Telefono = new DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)DGVListCliente).BeginInit();
             SuspendLayout();
             // 
@@ -155,25 +153,25 @@
             // 
             // btn_guardar_cliente
             // 
-            btn_guardar_cliente.BackColor = SystemColors.GradientActiveCaption;
+            btn_guardar_cliente.BackColor = Color.LightGreen;
             btn_guardar_cliente.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btn_guardar_cliente.Location = new Point(36, 551);
+            btn_guardar_cliente.Location = new Point(36, 537);
             btn_guardar_cliente.Name = "btn_guardar_cliente";
             btn_guardar_cliente.Size = new Size(269, 43);
             btn_guardar_cliente.TabIndex = 28;
             btn_guardar_cliente.Text = "Guardar";
             btn_guardar_cliente.UseVisualStyleBackColor = false;
             // 
-            // btn_modificar_cliente
+            // btn_limpiar_cliente
             // 
-            btn_modificar_cliente.BackColor = Color.FromArgb(255, 192, 128);
-            btn_modificar_cliente.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btn_modificar_cliente.Location = new Point(36, 626);
-            btn_modificar_cliente.Name = "btn_modificar_cliente";
-            btn_modificar_cliente.Size = new Size(269, 43);
-            btn_modificar_cliente.TabIndex = 29;
-            btn_modificar_cliente.Text = "Modificar";
-            btn_modificar_cliente.UseVisualStyleBackColor = false;
+            btn_limpiar_cliente.BackColor = Color.FromArgb(255, 192, 128);
+            btn_limpiar_cliente.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btn_limpiar_cliente.Location = new Point(36, 649);
+            btn_limpiar_cliente.Name = "btn_limpiar_cliente";
+            btn_limpiar_cliente.Size = new Size(269, 43);
+            btn_limpiar_cliente.TabIndex = 29;
+            btn_limpiar_cliente.Text = "Limpiar";
+            btn_limpiar_cliente.UseVisualStyleBackColor = false;
             // 
             // btn_eliminar_cliente
             // 
@@ -229,7 +227,7 @@
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
             DGVListCliente.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             DGVListCliente.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            DGVListCliente.Columns.AddRange(new DataGridViewColumn[] { btn_seleccionar, id_cliente, nombre_razonSocial, CUIT_CUIL, email, Telefono });
+            DGVListCliente.Columns.AddRange(new DataGridViewColumn[] { btn_seleccionar });
             DGVListCliente.Location = new Point(425, 105);
             DGVListCliente.MultiSelect = false;
             DGVListCliente.Name = "DGVListCliente";
@@ -241,6 +239,30 @@
             DGVListCliente.Size = new Size(903, 564);
             DGVListCliente.TabIndex = 36;
             // 
+            // btn_modificar_cliente
+            // 
+            btn_modificar_cliente.BackColor = SystemColors.GradientActiveCaption;
+            btn_modificar_cliente.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btn_modificar_cliente.Location = new Point(36, 586);
+            btn_modificar_cliente.Name = "btn_modificar_cliente";
+            btn_modificar_cliente.Size = new Size(269, 43);
+            btn_modificar_cliente.TabIndex = 37;
+            btn_modificar_cliente.Text = "Modificar";
+            btn_modificar_cliente.UseVisualStyleBackColor = false;
+            // 
+            // btn_ir_venta_cliente
+            // 
+            btn_ir_venta_cliente.BackColor = SystemColors.Highlight;
+            btn_ir_venta_cliente.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btn_ir_venta_cliente.ForeColor = Color.Snow;
+            btn_ir_venta_cliente.Location = new Point(1168, 699);
+            btn_ir_venta_cliente.Name = "btn_ir_venta_cliente";
+            btn_ir_venta_cliente.Size = new Size(160, 43);
+            btn_ir_venta_cliente.TabIndex = 38;
+            btn_ir_venta_cliente.Text = "ir a Venta";
+            btn_ir_venta_cliente.UseVisualStyleBackColor = false;
+            btn_ir_venta_cliente.Click += btn_volver_cliente_Click;
+            // 
             // btn_seleccionar
             // 
             btn_seleccionar.HeaderText = "";
@@ -249,59 +271,20 @@
             btn_seleccionar.ReadOnly = true;
             btn_seleccionar.Width = 30;
             // 
-            // id_cliente
-            // 
-            id_cliente.HeaderText = "id_cliente";
-            id_cliente.MinimumWidth = 6;
-            id_cliente.Name = "id_cliente";
-            id_cliente.ReadOnly = true;
-            id_cliente.Visible = false;
-            id_cliente.Width = 125;
-            // 
-            // nombre_razonSocial
-            // 
-            nombre_razonSocial.HeaderText = "nombre_razonSocial";
-            nombre_razonSocial.MinimumWidth = 6;
-            nombre_razonSocial.Name = "nombre_razonSocial";
-            nombre_razonSocial.ReadOnly = true;
-            nombre_razonSocial.Width = 125;
-            // 
-            // CUIT_CUIL
-            // 
-            CUIT_CUIL.HeaderText = "CUIT_CUIL";
-            CUIT_CUIL.MinimumWidth = 6;
-            CUIT_CUIL.Name = "CUIT_CUIL";
-            CUIT_CUIL.ReadOnly = true;
-            CUIT_CUIL.Width = 125;
-            // 
-            // email
-            // 
-            email.HeaderText = "Email";
-            email.MinimumWidth = 6;
-            email.Name = "email";
-            email.ReadOnly = true;
-            email.Width = 125;
-            // 
-            // Telefono
-            // 
-            Telefono.HeaderText = "Telefono";
-            Telefono.MinimumWidth = 6;
-            Telefono.Name = "Telefono";
-            Telefono.ReadOnly = true;
-            Telefono.Width = 125;
-            // 
             // VendedorViewCliente
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveCaption;
             ClientSize = new Size(1340, 781);
+            Controls.Add(btn_ir_venta_cliente);
+            Controls.Add(btn_modificar_cliente);
             Controls.Add(DGVListCliente);
             Controls.Add(btn_buscar_cliente);
             Controls.Add(text_buscar_cliente);
             Controls.Add(l_lista_cliente);
             Controls.Add(btn_eliminar_cliente);
-            Controls.Add(btn_modificar_cliente);
+            Controls.Add(btn_limpiar_cliente);
             Controls.Add(btn_guardar_cliente);
             Controls.Add(TBTelefonoCliente);
             Controls.Add(TBEmailCliente);
@@ -320,6 +303,21 @@
             PerformLayout();
         }
 
+        /*private void btn_eliminar_cliente_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void btn_limpiar_cliente_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void btn_guardar_cliente_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }*/
+
         #endregion
 
         private Label LDetalleCliente;
@@ -333,17 +331,14 @@
         private TextBox TBEmailCliente;
         private TextBox TBTelefonoCliente;
         private Button btn_guardar_cliente;
-        private Button btn_modificar_cliente;
+        private Button btn_limpiar_cliente;
         private Button btn_eliminar_cliente;
         private Label l_lista_cliente;
         private TextBox text_buscar_cliente;
         private Button btn_buscar_cliente;
         private DataGridView DGVListCliente;
+        private Button btn_modificar_cliente;
+        private Button btn_ir_venta_cliente;
         private DataGridViewButtonColumn btn_seleccionar;
-        private DataGridViewTextBoxColumn id_cliente;
-        private DataGridViewTextBoxColumn nombre_razonSocial;
-        private DataGridViewTextBoxColumn CUIT_CUIL;
-        private DataGridViewTextBoxColumn email;
-        private DataGridViewTextBoxColumn Telefono;
     }
 }
