@@ -46,7 +46,7 @@ namespace VocesDePapelV1._1.Repositories
                             VALUES
                             (@alias_autor, @id_estado);
                     ";
-                command.Parameters.Add("@nombre_categoria", SqlDbType.NVarChar).Value = autor.Alias_autor;
+                command.Parameters.Add("@alias_autor", SqlDbType.NVarChar).Value = autor.Alias_autor;
                 command.Parameters.Add("@id_estado", SqlDbType.Int).Value = autor.Estado_id;
 
                 command.ExecuteNonQuery();

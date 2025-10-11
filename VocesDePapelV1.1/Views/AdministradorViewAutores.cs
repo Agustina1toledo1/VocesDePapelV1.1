@@ -18,7 +18,7 @@ namespace VocesDePapelV1._1.Views
         {
             InitializeComponent();
             AssociateAndRaiseViewEvents(); //asociar y generar los eventos de vistas
-        };
+        }
 
         private void AssociateAndRaiseViewEvents()
         {
@@ -67,6 +67,7 @@ namespace VocesDePapelV1._1.Views
                     CancelEvent?.Invoke(this, EventArgs.Empty);
                 }
             };
+            text_nombre_autor_admin.KeyPress += TextBoxSoloLetras_KeyPress;
         }
 
         //singleton patron (abre una sola instancia del formulario) 
@@ -134,6 +135,20 @@ namespace VocesDePapelV1._1.Views
             return instance;
         }
 
+        private void TextBoxSoloLetras_KeyPress(object? sender, KeyPressEventArgs e)
+        {
+            // si es: 
+            //  - Espacios, caracteres especiales char.IsControl
+            //  - Letras y letras con acento => char.IsLetter
+            //  - Espacio => e.KeyChar == ' '
+            if (!char.IsControl(e.KeyChar)
+                && !char.IsLetter(e.KeyChar)
+                && e.KeyChar != ' ')
+            {
+                // Bloquea la tecla
+                e.Handled = true;
+            }
+        }
         public void SetAutorListBindingSource(BindingSource autorList)
         {
             dataGridAutorAdmin.DataSource = autorList;

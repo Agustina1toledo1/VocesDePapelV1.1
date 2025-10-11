@@ -72,7 +72,7 @@ namespace VocesDePapelV1._1.Presenters
         private void SaveAutor(object? sender, EventArgs e) //modificar autor
         {
             var autor = new AutorModel();
-            autor.Alias_autor = Convert.ToString(view.AliasAutor);
+            autor.Id_autor = Convert.ToInt32(view.AutorId);
             autor.Alias_autor = view.AliasAutor;
             autor.Estado_id = Convert.ToInt32(view.Estado_id);
 
@@ -82,7 +82,7 @@ namespace VocesDePapelV1._1.Presenters
                 repository.Modificar(autor);
                 view.Message = "Autor modificado exitosamente";
                 view.IsSuccessful = true;
-                //LoadAllAutorList(); //recargamos la lista de autores
+                LoadAllAutoresList(); //recargamos la lista de autores
             }
             catch (Exception ex)
             {
@@ -98,9 +98,10 @@ namespace VocesDePapelV1._1.Presenters
             {
                 var autor = (AutorModel)autorBindingSource.Current;
                 repository.Eliminar(autor.Id_autor);
-                view.Message = "Autor eliminado exitosamente";
                 view.IsSuccessful = true;
-                //LoadAllAutorList(); //recargamos la lista de autores
+                view.Message = "Autor eliminado exitosamente";
+                
+                LoadAllAutoresList(); //recargamos la lista de autores
             }
             catch (Exception ex)
             {
@@ -117,6 +118,7 @@ namespace VocesDePapelV1._1.Presenters
             view.AutorId = autor.Id_autor.ToString();
             view.AliasAutor = autor.Alias_autor;
             view.Estado_id = autor.Estado_id.ToString();
+            view.NombreEstado = autor.Nombre_estado.ToString();
         }
 
         private void AddNewAutor(object? sender, EventArgs e)
@@ -131,7 +133,7 @@ namespace VocesDePapelV1._1.Presenters
                 repository.Add(autor);
                 view.Message = "Autor agregado exitosamente";
                 view.IsSuccessful = true;
-                //LoadAllAutorList(); //recargamos la lista de autores
+                LoadAllAutoresList(); //recargamos la lista de autores
             }
             catch (Exception ex)
             {
