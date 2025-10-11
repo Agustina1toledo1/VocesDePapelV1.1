@@ -12,11 +12,16 @@ namespace VocesDePapelV1._1.Views
         event EventHandler EditarClienteEvent;
         event EventHandler SearchClienteByCuitEvent;
         event EventHandler ClearClienteEvent;
+        event EventHandler SearchVendedorByCuitEvent;
         Form FormInstance { get; }
+        //propiedades del cliente
         string ClienteCuit { get; set; }
         string ClienteNombre { get; set; }
         string ClienteEmail { get; set; }
         string ClienteTelefono { get; set; }
+        // propiedades del vendedor
+        string VendedorCuit { get; set; }
+        string VendedorNombre { get; set; }
         void Show();
     }
 }

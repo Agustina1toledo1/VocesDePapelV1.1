@@ -15,15 +15,21 @@ namespace VocesDePapelV1._1.Presenters
         private IVendedorVenta view; //campo privado para la vista usando la interfaz
         private readonly string connectionString; // Almacena la cadena de conexión
         private IClienteRepository clienteRepository; // Repositorio de Cliente para la busqueda
+        private IUsuarioRepository usuarioRepository; // Repositorio para usuarios/vendedores
+
+
         // Constructor
         public VendedorVentaPresenter(IVendedorVenta view, string connectionString)
         {
             this.view = view;
             this.connectionString = connectionString;
             this.clienteRepository = new ClienteRepository(connectionString);
+            this.usuarioRepository = new UsuarioRepository(connectionString);
+
             this.view.AddNewClienteEvent += AbrirVistaCliente;
             this.view.SearchClienteByCuitEvent += BuscarClientePorCuit;
             this.view.ClearClienteEvent += LimpiarCliente;
+            this.view.SearchVendedorByCuitEvent += BuscarVendedorPorCuit;
             this.view.Show();  //mostramos la vista
         }
 
@@ -114,6 +120,7 @@ namespace VocesDePapelV1._1.Presenters
                               MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        // Limpiar datos del cliente
         private void LimpiarDatosCliente()
         {
             view.ClienteNombre = string.Empty;
@@ -121,7 +128,56 @@ namespace VocesDePapelV1._1.Presenters
             view.ClienteTelefono = string.Empty;
         }
 
+        private void BuscarVendedorPorCuit(object sender, EventArgs e)
+        {
+            try
+            {
+                string cuit = view.VendedorCuit?.Trim();
 
-        
+                // Solo buscar si el CUIT tiene al menos 8 caracteres
+                if (string.IsNullOrEmpty(cuit) || cuit.Length < 8)
+                {
+                    LimpiarDatosVendedor();
+                    return;
+                }
+
+                // Buscar vendedor en la base de datos
+                var vendedor = usuarioRepository.ObtenerPorCuit(cuit);
+
+                if (vendedor != null && vendedor.EstaActivo) // Verificar que esté activo
+                {
+                    // Autocompletar los datos del vendedor
+                    view.VendedorNombre = $"{vendedor.Nombre} {vendedor.Apellido}";
+                }
+                else
+                {
+                    // Vendedor no encontrado o inactivo, limpiar campos
+                    LimpiarDatosVendedor();
+                    if (vendedor != null && !vendedor.EstaActivo)
+                    {
+                        MessageBox.Show("El vendedor está inactivo", "Información",
+                                      MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Vendedor no encontrado", "Información",
+                                      MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al buscar vendedor: {ex.Message}", "Error",
+                              MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        // Limpiar datos del vendedor
+        private void LimpiarDatosVendedor()
+        {
+            view.VendedorNombre = string.Empty;
+        }
+
+
     }
 }
