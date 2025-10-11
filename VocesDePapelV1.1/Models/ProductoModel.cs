@@ -1,0 +1,79 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace VocesDePapelV1._1.Models
+{
+    public class ProductoModel
+    {
+        /*precio numeric(11,2) not null,
+			stock int not null,
+			elinido int not null,
+			id_categoria int not null,*/
+        //atributos de la tabla Producto
+        private int id_libro;
+        private string titulo;
+        private string editorial;
+        private float precio;
+        private int stock;
+        private int eliminado;
+        private int id_categoria;
+
+        //accesors y mutators. Validaciones
+        [DisplayName("ID Libro")]
+        public int Id_libro
+        {
+            get { return id_libro; }
+            set { id_libro = value; }
+        }
+
+        [DisplayName("Titulo Libro")]
+        [Required(ErrorMessage = "El nombre de usuario es requerido")]
+        [RegularExpression(@"^{3,50}$", ErrorMessage = "El titulo solo debe tener entre 3 y 50 caracteres.")]
+        public string Titulo { 
+            get { return titulo; } 
+            set { titulo = value; } 
+        }
+        [DisplayName("Editorial")]
+        [Required(ErrorMessage = "La editorial es requerido")]
+        public string Editorial { 
+            get { return editorial; } 
+            set { editorial = value; }
+        }
+        [DisplayName("Precio")]
+        [Required(ErrorMessage = "El precio es requerido")]
+        public float Precio { 
+            get { return precio; } 
+            set { precio = value; }
+        }
+        [DisplayName("Stock")]
+        [Required(ErrorMessage = "El stock es requerido")]
+        public int Stock { 
+            get { return stock; } 
+            set { stock = value; }
+        }
+        [DisplayName("Eliminado_id")]
+        [Required(ErrorMessage = "El stock es requerido")]
+        public int Eliminado_id { 
+            get { return eliminado; }
+            set { eliminado = value; }
+        }
+        [DisplayName("Id categoria")]
+        [Required(ErrorMessage = "La categoria es requerido")]
+        public int Id_categoria { 
+            get { return id_categoria; } 
+            set { id_categoria = value; }
+        }
+        //propiedades adicionales para mostrar el nombre del estado y rol en la vista
+        [DisplayName("Nombre estado ")] //se asocia al nombre del encabezado de la columna en el datagridview
+        public string Nombre_estado { get; set; }
+
+        [DisplayName("Nombre categoria ")]
+        public string Nombre_categoria { get; set; }
+
+    }
+}
