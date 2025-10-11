@@ -17,6 +17,7 @@
         public event EventHandler SearchClienteByCuitEvent;
         public event EventHandler ClearClienteEvent;
         public event EventHandler SearchVendedorByCuitEvent;
+        public event EventHandler ClearVentaEvent;
         public Form FormInstance => this; // Devuelve la instancia actual del formulario
 
         // Propiedades del CLIENTE
@@ -56,7 +57,9 @@
             get { return TBNombreApellidoVendedor.Text; } 
             set { TBNombreApellidoVendedor.Text = value; }
         }
+        //propiedades del producto 
 
+        
         private void AssociateAndRaiseViewEvents()
         {
 
@@ -64,6 +67,8 @@
             TBCuilCuit.TextChanged += delegate { SearchClienteByCuitEvent?.Invoke(this, EventArgs.Empty); };
             BLimpiarCliente.Click += delegate { ClearClienteEvent?.Invoke(this, EventArgs.Empty); };
             TBCuitVendedor.TextChanged += delegate { SearchVendedorByCuitEvent?.Invoke(this, EventArgs.Empty); };
+            btn_limpiar_Venta.Click += delegate { ClearVentaEvent?.Invoke(this, EventArgs.Empty); };
+        
 
         }
 
@@ -92,6 +97,15 @@
         {
             base.Show();
         }
-
+        public object ProductosDataSource
+        {
+            get { return DGVProductos.DataSource; }
+            set { DGVProductos.DataSource = value; }
+        }
+        public void LimpiarListaProductos()
+        {
+            DGVProductos.Rows.Clear();
+            DGVProductos.DataSource = null;
+        }
     }
 }

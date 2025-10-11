@@ -13,6 +13,7 @@ namespace VocesDePapelV1._1.Views
         event EventHandler SearchClienteByCuitEvent;
         event EventHandler ClearClienteEvent;
         event EventHandler SearchVendedorByCuitEvent;
+        event EventHandler ClearVentaEvent;
         Form FormInstance { get; }
         //propiedades del cliente
         string ClienteCuit { get; set; }
@@ -22,6 +23,16 @@ namespace VocesDePapelV1._1.Views
         // propiedades del vendedor
         string VendedorCuit { get; set; }
         string VendedorNombre { get; set; }
+        // propiedades de producto
+        /*string CodigoProducto { get; set; }
+        string PrecioProducto { get; set; }
+        string StockProducto { get; set; }
+        string CantidadProducto { get; set; }
+        string PrecioTotal { get; set; }*/
+
+        void LimpiarListaProductos();
+        object ProductosDataSource { get; set; }
+
         void Show();
     }
 }

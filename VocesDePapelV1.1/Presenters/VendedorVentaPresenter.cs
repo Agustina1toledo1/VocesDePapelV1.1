@@ -30,6 +30,8 @@ namespace VocesDePapelV1._1.Presenters
             this.view.SearchClienteByCuitEvent += BuscarClientePorCuit;
             this.view.ClearClienteEvent += LimpiarCliente;
             this.view.SearchVendedorByCuitEvent += BuscarVendedorPorCuit;
+            this.view.ClearVentaEvent += LimpiarVentaCompleta;
+
             this.view.Show();  //mostramos la vista
         }
 
@@ -176,6 +178,49 @@ namespace VocesDePapelV1._1.Presenters
         private void LimpiarDatosVendedor()
         {
             view.VendedorNombre = string.Empty;
+        }
+
+        // NUEVO MÉTODO: Limpiar toda la venta
+        private void LimpiarVentaCompleta(object sender, EventArgs e)
+        {
+            try
+            {
+                var result = MessageBox.Show("¿Está seguro de limpiar toda la venta? Se perderán todos los datos ingresados.",
+                                           "Confirmar Limpieza",
+                                           MessageBoxButtons.YesNo,
+                                           MessageBoxIcon.Question);
+
+                if (result == DialogResult.Yes)
+                {
+                    // Limpiar datos del CLIENTE
+                    view.ClienteNombre = string.Empty;
+                    view.ClienteCuit = string.Empty;
+                    view.ClienteEmail = string.Empty;
+                    view.ClienteTelefono = string.Empty;
+
+                    // Limpiar datos del VENDEDOR
+                    view.VendedorNombre = string.Empty;
+                    view.VendedorCuit = string.Empty;
+
+                    // Limpiar datos de PRODUCTOS
+                    /*view.CodigoProducto = string.Empty;
+                    view.PrecioProducto = string.Empty;
+                    view.StockProducto = string.Empty;
+                    view.CantidadProducto = string.Empty;
+                    view.PrecioTotal = string.Empty;*/
+
+                    // Limpiar DataGridView de productos 
+                    view.ProductosDataSource = null;
+
+                    MessageBox.Show("Venta limpiada correctamente", "Éxito",
+                                  MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al limpiar la venta: {ex.Message}", "Error",
+                              MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
 

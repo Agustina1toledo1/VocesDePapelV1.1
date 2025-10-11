@@ -54,6 +54,7 @@
             LCodProducto = new Label();
             LProducto = new Label();
             PCliente = new Panel();
+            BLimpiarCliente = new Button();
             BAgregarCliente = new Button();
             PVendedor = new Panel();
             TBNombreApellidoVendedor = new TextBox();
@@ -65,7 +66,7 @@
             TBNUmFactura = new TextBox();
             LNUmFACTura = new Label();
             LFactura = new Label();
-            dataGridView1 = new DataGridView();
+            DGVProductos = new DataGridView();
             idProducto = new DataGridViewTextBoxColumn();
             descripcion = new DataGridViewTextBoxColumn();
             Cantidad = new DataGridViewTextBoxColumn();
@@ -77,13 +78,12 @@
             BGuardar = new Button();
             BCancelar = new Button();
             btn_limpiar_Venta = new Button();
-            BLimpiarCliente = new Button();
             PProducto.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)NUDCantidadProducto).BeginInit();
             PCliente.SuspendLayout();
             PVendedor.SuspendLayout();
             PFactura.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)DGVProductos).BeginInit();
             SuspendLayout();
             // 
             // LFecha
@@ -348,6 +348,17 @@
             PCliente.Size = new Size(468, 153);
             PCliente.TabIndex = 12;
             // 
+            // BLimpiarCliente
+            // 
+            BLimpiarCliente.BackColor = Color.FromArgb(255, 192, 128);
+            BLimpiarCliente.ForeColor = SystemColors.ActiveCaptionText;
+            BLimpiarCliente.Location = new Point(361, 101);
+            BLimpiarCliente.Name = "BLimpiarCliente";
+            BLimpiarCliente.Size = new Size(90, 33);
+            BLimpiarCliente.TabIndex = 12;
+            BLimpiarCliente.Text = "Limpiar";
+            BLimpiarCliente.UseVisualStyleBackColor = false;
+            // 
             // BAgregarCliente
             // 
             BAgregarCliente.BackColor = Color.FromArgb(192, 255, 192);
@@ -457,16 +468,16 @@
             LFactura.TabIndex = 1;
             LFactura.Text = "Factura:";
             // 
-            // dataGridView1
+            // DGVProductos
             // 
-            dataGridView1.BackgroundColor = Color.FromArgb(255, 224, 192);
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { idProducto, descripcion, Cantidad, Sub_Total, Eliminar });
-            dataGridView1.Location = new Point(12, 288);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(671, 220);
-            dataGridView1.TabIndex = 15;
+            DGVProductos.BackgroundColor = Color.FromArgb(255, 224, 192);
+            DGVProductos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            DGVProductos.Columns.AddRange(new DataGridViewColumn[] { idProducto, descripcion, Cantidad, Sub_Total, Eliminar });
+            DGVProductos.Location = new Point(12, 288);
+            DGVProductos.Name = "DGVProductos";
+            DGVProductos.RowHeadersWidth = 51;
+            DGVProductos.Size = new Size(671, 220);
+            DGVProductos.TabIndex = 15;
             // 
             // idProducto
             // 
@@ -565,17 +576,6 @@
             btn_limpiar_Venta.Text = "Limpiar";
             btn_limpiar_Venta.UseVisualStyleBackColor = false;
             // 
-            // BLimpiarCliente
-            // 
-            BLimpiarCliente.BackColor = Color.FromArgb(255, 192, 128);
-            BLimpiarCliente.ForeColor = SystemColors.ActiveCaptionText;
-            BLimpiarCliente.Location = new Point(361, 101);
-            BLimpiarCliente.Name = "BLimpiarCliente";
-            BLimpiarCliente.Size = new Size(90, 33);
-            BLimpiarCliente.TabIndex = 12;
-            BLimpiarCliente.Text = "Limpiar";
-            BLimpiarCliente.UseVisualStyleBackColor = false;
-            // 
             // VentaView
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -587,7 +587,7 @@
             Controls.Add(TBPrecioTotal);
             Controls.Add(LPrecioTotal);
             Controls.Add(label3);
-            Controls.Add(dataGridView1);
+            Controls.Add(DGVProductos);
             Controls.Add(PFactura);
             Controls.Add(PVendedor);
             Controls.Add(PCliente);
@@ -603,7 +603,7 @@
             PVendedor.PerformLayout();
             PFactura.ResumeLayout(false);
             PFactura.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)DGVProductos).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -647,7 +647,7 @@
         private TextBox TBPrecio;
         private NumericUpDown NUDCantidadProducto;
         private Button BAgregarP;
-        private DataGridView dataGridView1;
+        private DataGridView DGVProductos;
         private DataGridViewTextBoxColumn idProducto;
         private DataGridViewTextBoxColumn descripcion;
         private DataGridViewTextBoxColumn Cantidad;
