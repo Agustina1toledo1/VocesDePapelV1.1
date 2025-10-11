@@ -48,6 +48,7 @@ namespace VocesDePapelV1._1.Views
                 }
 
             };
+            //modificar categoria
             btn_modificar_categoria.Click += delegate {
                 if (datgridCategorias.SelectedCells.Count > 0)
                 {
@@ -56,7 +57,7 @@ namespace VocesDePapelV1._1.Views
                 }
             };
 
-        
+            //mostrar datos en los textbox al seleccionar una fila del datagrid
             datgridCategorias.SelectionChanged += delegate
             {
                 if (datgridCategorias.SelectedCells.Count > 0)

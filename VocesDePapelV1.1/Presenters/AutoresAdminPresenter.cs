@@ -20,10 +20,11 @@ namespace VocesDePapelV1._1.Presenters
 
         public AutoresAdminPresenter(IAdministradorAutor view, IAutorRepository repository)
         {
-            this.view = view;
-            this.repository = repository;
             this.autorBindingSource = new BindingSource();
             this.estadoBindingSource = new BindingSource();
+            this.view = view;
+            this.repository = repository;
+            
 
             //suscribimos los eventos del controlador a los eventos de la vista
             this.view.SearchEvent += SearchAutor;
@@ -33,8 +34,34 @@ namespace VocesDePapelV1._1.Presenters
             this.view.SaveEvent += SaveAutor;
             this.view.CancelEvent += CancelAction;
 
+            //cargar los datos de estado 
+            CargarAllEstado();
+            //cargamos los datos de usuario a  la lista de usuarios
+            LoadAllAutoresList();
+            //Establecemos el origen de datos del enlace, fuente vinculante
+            this.view.SetAutorListBindingSource(autorBindingSource);
+            this.view.SetEstadoListBindingSource(estadoBindingSource);
+            
             //mostramos la vista
             this.view.Show();
+        }
+
+        private void LoadAllAutoresList()
+        {
+            autorList = repository.GetAll(); //obtenemos todos las categorias del repositorio
+            foreach (var categoria in autorList)
+            {
+                var estado = estadoList.FirstOrDefault(e => e.Id_estado == categoria.Estado_id);
+
+                categoria.Nombre_estado = estado?.Nombre_estado ?? "Desconocido";
+            }
+            autorBindingSource.DataSource = autorList;
+        }
+
+        private void CargarAllEstado()
+        {
+            estadoList = repository.GetEstado();
+            estadoBindingSource.DataSource = estadoList;
         }
 
         private void CancelAction(object? sender, EventArgs e)
@@ -135,6 +162,8 @@ namespace VocesDePapelV1._1.Presenters
                 autor.Nombre_estado = estado?.Nombre_estado?? "Desconocido";
                 
             }
+            //actualizamos el origen de datos del enlace
+            autorBindingSource.DataSource = autorList;
         }
         private void CleanviewFields()
         {

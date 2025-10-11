@@ -101,18 +101,18 @@ namespace VocesDePapelV1._1.Repositories
         {
             //lista de usuarios
             var autorList = new List<AutorModel>();
-            //string autor_alias = value;
+            string autor_alias = value;
             //consultas sql
             using (var connection = new Microsoft.Data.SqlClient.SqlConnection(connectionString))
             using (var command = new Microsoft.Data.SqlClient.SqlCommand())
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = @"SELECT *FROM autor
+                command.CommandText = @"SELECT * FROM autor
                                     WHERE alias_autor like @alias+'%' 
                                     ORDER BY id_autor DESC";
 
-                command.Parameters.Add("@alias", SqlDbType.NVarChar).Value = value;
+                command.Parameters.Add("@alias", SqlDbType.NVarChar).Value = autor_alias;
 
                 using (var reader = command.ExecuteReader())
                 {

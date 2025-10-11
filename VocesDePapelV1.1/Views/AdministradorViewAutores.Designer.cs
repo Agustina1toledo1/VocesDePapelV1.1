@@ -34,20 +34,17 @@
             btn_eliminar_autor = new Button();
             btn_modificar_autor = new Button();
             btn_registrar_autor = new Button();
-            cmb_estado_producto = new ComboBox();
+            cmb_estado_autor = new ComboBox();
             text_nombre_autor_admin = new TextBox();
             l_estado_producto = new Label();
             l_nombre_autor = new Label();
             label1 = new Label();
             l_lista_autores = new Label();
-            dataGridView1 = new DataGridView();
-            btn_seleccionar = new DataGridViewButtonColumn();
-            nombre = new DataGridViewTextBoxColumn();
-            estado = new DataGridViewTextBoxColumn();
+            dataGridAutorAdmin = new DataGridView();
             btn_buscar_autor = new Button();
             text_buscar_autor = new TextBox();
             l_buscar_autor = new Label();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridAutorAdmin).BeginInit();
             SuspendLayout();
             // 
             // l_detalle_producto
@@ -94,15 +91,15 @@
             btn_registrar_autor.Text = "Registrar";
             btn_registrar_autor.UseVisualStyleBackColor = false;
             // 
-            // cmb_estado_producto
+            // cmb_estado_autor
             // 
-            cmb_estado_producto.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmb_estado_producto.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            cmb_estado_producto.FormattingEnabled = true;
-            cmb_estado_producto.Location = new Point(69, 188);
-            cmb_estado_producto.Name = "cmb_estado_producto";
-            cmb_estado_producto.Size = new Size(269, 36);
-            cmb_estado_producto.TabIndex = 49;
+            cmb_estado_autor.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmb_estado_autor.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            cmb_estado_autor.FormattingEnabled = true;
+            cmb_estado_autor.Location = new Point(69, 188);
+            cmb_estado_autor.Name = "cmb_estado_autor";
+            cmb_estado_autor.Size = new Size(269, 36);
+            cmb_estado_autor.TabIndex = 49;
             // 
             // text_nombre_autor_admin
             // 
@@ -155,9 +152,9 @@
             l_lista_autores.Text = "Lista de autores";
             l_lista_autores.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // dataGridView1
+            // dataGridAutorAdmin
             // 
-            dataGridView1.AllowUserToAddRows = false;
+            dataGridAutorAdmin.AllowUserToAddRows = false;
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = SystemColors.Control;
             dataGridViewCellStyle1.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -166,43 +163,18 @@
             dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { btn_seleccionar, nombre, estado });
-            dataGridView1.Location = new Point(416, 106);
-            dataGridView1.MultiSelect = false;
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.ReadOnly = true;
-            dataGridView1.RowHeadersWidth = 51;
+            dataGridAutorAdmin.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridAutorAdmin.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridAutorAdmin.Location = new Point(416, 106);
+            dataGridAutorAdmin.MultiSelect = false;
+            dataGridAutorAdmin.Name = "dataGridAutorAdmin";
+            dataGridAutorAdmin.ReadOnly = true;
+            dataGridAutorAdmin.RowHeadersWidth = 51;
             dataGridViewCellStyle2.SelectionBackColor = Color.White;
             dataGridViewCellStyle2.SelectionForeColor = Color.Black;
-            dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle2;
-            dataGridView1.Size = new Size(903, 304);
-            dataGridView1.TabIndex = 55;
-            // 
-            // btn_seleccionar
-            // 
-            btn_seleccionar.HeaderText = "";
-            btn_seleccionar.MinimumWidth = 6;
-            btn_seleccionar.Name = "btn_seleccionar";
-            btn_seleccionar.ReadOnly = true;
-            btn_seleccionar.Width = 30;
-            // 
-            // nombre
-            // 
-            nombre.HeaderText = "Nombre";
-            nombre.MinimumWidth = 6;
-            nombre.Name = "nombre";
-            nombre.ReadOnly = true;
-            nombre.Width = 125;
-            // 
-            // estado
-            // 
-            estado.HeaderText = "Estado";
-            estado.MinimumWidth = 6;
-            estado.Name = "estado";
-            estado.ReadOnly = true;
-            estado.Width = 125;
+            dataGridAutorAdmin.RowsDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridAutorAdmin.Size = new Size(903, 304);
+            dataGridAutorAdmin.TabIndex = 55;
             // 
             // btn_buscar_autor
             // 
@@ -238,24 +210,25 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = SystemColors.ActiveCaption;
             ClientSize = new Size(1340, 464);
             Controls.Add(btn_buscar_autor);
             Controls.Add(text_buscar_autor);
             Controls.Add(l_buscar_autor);
             Controls.Add(l_lista_autores);
-            Controls.Add(dataGridView1);
+            Controls.Add(dataGridAutorAdmin);
             Controls.Add(l_detalle_producto);
             Controls.Add(btn_eliminar_autor);
             Controls.Add(btn_modificar_autor);
             Controls.Add(btn_registrar_autor);
-            Controls.Add(cmb_estado_producto);
+            Controls.Add(cmb_estado_autor);
             Controls.Add(text_nombre_autor_admin);
             Controls.Add(l_estado_producto);
             Controls.Add(l_nombre_autor);
             Controls.Add(label1);
             Name = "AdministradorViewAutores";
             Text = "AdministradorViewAutores";
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridAutorAdmin).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -266,7 +239,7 @@
         private Button btn_eliminar_autor;
         private Button btn_modificar_autor;
         private Button btn_registrar_autor;
-        private ComboBox cmb_estado_producto;
+        private ComboBox cmb_estado_autor;
         private TextBox text_nombre_autor_admin;
         private Label l_estado_producto;
         private Label l_nombre_autor;
@@ -276,10 +249,7 @@
         private ComboBox cmb_buscar_por_producto;
         private Label l_buscar_producto;
         private Label l_lista_autores;
-        private DataGridView dataGridView1;
-        private DataGridViewButtonColumn btn_seleccionar;
-        private DataGridViewTextBoxColumn nombre;
-        private DataGridViewTextBoxColumn estado;
+        private DataGridView dataGridAutorAdmin;
         private Button btn_buscar_autor;
         private TextBox text_buscar_autor;
         private Label l_buscar_autor;
