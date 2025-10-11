@@ -51,7 +51,8 @@ namespace VocesDePapelV1._1.Presenters
         private void ShowAutoresView(object? sender, EventArgs e)
         {
             IAdministradorAutor backupView = AdministradorViewAutores.GetInstance((AdministradorView)this.view); // muestra solo una instancia de la vista de usuario
-            new AutoresAdminPresenter(backupView);
+            IAutorRepository repository = new AutorRepository(connectionString);
+            new AutoresAdminPresenter(backupView, repository);
         }
 
         private void ShowReporteLibroMasVendidosView(object? sender, EventArgs e)
