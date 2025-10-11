@@ -35,7 +35,7 @@ namespace VocesDePapelV1._1.Models
                                         FROM dbo.usuario
                                      WHERE cuit = @cuit;
                                         ";
-                command.Parameters.Add("@cuit", SqlDbType.NVarChar, 20).Value = usuario.Cuit_usuario;
+                command.Parameters.Add("@cuit", SqlDbType.NVarChar).Value = usuario.Cuit_usuario;
 
                 int existe = (int)command.ExecuteScalar();
                 if (existe > 0)
