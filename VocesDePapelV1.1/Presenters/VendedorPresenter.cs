@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using VocesDePapelV1._1.Views;
+﻿using VocesDePapelV1._1.Repositories;
 using VocesDePapelV1._1.Models;
-using VocesDePapelV1._1.Servicios;
+using VocesDePapelV1._1.Views;
 using System.Windows.Forms;
 
 
@@ -39,21 +34,65 @@ namespace VocesDePapelV1._1.Presenters
 
         private void ShowClienteView(object? sender, EventArgs e)
         {
-            IVendedorCliente backupView = VendedorViewCliente.GetInstance((VendedorView)this.view); // muestra solo una instancia de la vista de usuario
-            new VendedorClientePresenter(backupView);
+            try
+            {
+                // Obtener la vista
+                Form parentContainer = this.view.FormInstance;
+                IVendedorCliente clienteView = VendedorViewCliente.GetInstance(parentContainer);
+
+                // VERIFICAR conexión
+                if (string.IsNullOrEmpty(this.connectionString))
+                {
+                    MessageBox.Show("Error: Cadena de conexión no configurada");
+                    return;
+                }
+
+                // CREAR REPOSITORIO
+                IClienteRepository clienteRepository = new ClienteRepository(this.connectionString);
+
+                // VERIFICAR que el repositorio no sea null
+                if (clienteRepository == null)
+                {
+                    MessageBox.Show("Error: No se pudo crear el repositorio de clientes");
+                    return;
+                }
+
+                // Instanciar el Presenter
+                new VendedorClientePresenter(clienteView, clienteRepository);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al abrir vista de clientes: {ex.Message}");
+            }
         }
 
         private void ShowReporteVentaView(object? sender, EventArgs e)
         {
-            IGerenteViewReporteV backupView = GerenteViewReporteV.GetInstance((VendedorView)this.view); // muestra solo una instancia de la vista de usuario
-            new ReporteVentaGerentePresenter(backupView);
+            // Obtener el contenedor padre (ya corregido en A)
+           // Form parentContainer = this.view.FormInstance;
+
+            // 2. Obtener la vista, PASANDO LA CONEXIÓN (CS0121)
+            // Asumimos que GerenteViewReporteV.GetInstance acepta ahora la conexión
+           // IGerenteViewReporteV backupView = GerenteViewReporteV.GetInstance(parentContainer, this.connectionString);
+
+            // 3. Crear el Presenter, PASANDO LA CONEXIÓN (Missing Constructor)
+            // Asumimos que ReporteVentaGerentePresenter acepta ahora la conexión
+           //new ReporteVentaGerentePresenter(backupView, this.connectionString);
+
         }
 
         private void ShowVentaView(object? sender, EventArgs e)
         {
-            IVendedorVenta backupView = VentaView.GetInstance((VendedorView)this.view); // muestra solo una instancia de la vista de usuario
+            string connStr = this.connectionString; // Asumiendo que VendedorPresenter tiene la conexión
 
-            new VendedorVentaPresenter(backupView);
+            // Obtener el contenedor padre (asumiendo que this.view es VendedorView, el MDI parent)
+            Form parentContainer = (Form)this.view;
+
+             //  Pasar la cadena de conexión
+            IVendedorVenta backupView = VentaView.GetInstance(parentContainer, connStr);
+
+            // Crear el Presenter de Venta, pasando la conexión
+            new VendedorVentaPresenter(backupView, connStr);
         }
     }
 }

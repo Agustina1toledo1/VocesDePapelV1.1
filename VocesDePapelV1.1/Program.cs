@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Configuration;
 using VocesDePapelV1._1.Models;
-using VocesDePapelV1._1.Models;
 using VocesDePapelV1._1.Presenters;
 using VocesDePapelV1._1.Repositories;
 using VocesDePapelV1._1.Servicios;
@@ -19,6 +18,8 @@ namespace VocesDePapelV1._1
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
+            
+
             //string connectionString = ConfigurationManager.ConnectionStrings["SqlConnectionAgus"].ConnectionString;
             bool continuar = true;
             while (continuar)
@@ -132,6 +133,7 @@ namespace VocesDePapelV1._1
             }
         }  
         
+
         private static void RedirigirSegunRol(UsuarioModel usuario, string connectionString)
      {
          switch (usuario.Id_rol)
