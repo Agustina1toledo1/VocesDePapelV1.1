@@ -101,7 +101,7 @@
             // 
             dateTimePicker1.CalendarFont = new Font("Segoe UI", 10F);
             dateTimePicker1.Format = DateTimePickerFormat.Custom;
-            dateTimePicker1.Location = new Point(51, 98);
+            dateTimePicker1.Location = new Point(51, 107);
             dateTimePicker1.Name = "dateTimePicker1";
             dateTimePicker1.Size = new Size(128, 27);
             dateTimePicker1.TabIndex = 1;
@@ -118,7 +118,7 @@
             // 
             // TBNombreCliente
             // 
-            TBNombreCliente.Location = new Point(193, 23);
+            TBNombreCliente.Location = new Point(193, 18);
             TBNombreCliente.Name = "TBNombreCliente";
             TBNombreCliente.Size = new Size(270, 27);
             TBNombreCliente.TabIndex = 3;
@@ -315,9 +315,9 @@
             LCodProducto.ImageAlign = ContentAlignment.BottomCenter;
             LCodProducto.Location = new Point(16, 20);
             LCodProducto.Name = "LCodProducto";
-            LCodProducto.Size = new Size(114, 20);
+            LCodProducto.Size = new Size(66, 20);
             LCodProducto.TabIndex = 6;
-            LCodProducto.Text = "Cod. Producto:";
+            LCodProducto.Text = "Titulo :";
             LCodProducto.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // LProducto
@@ -435,9 +435,9 @@
             PFactura.Controls.Add(LFactura);
             PFactura.Controls.Add(LFecha);
             PFactura.Controls.Add(dateTimePicker1);
-            PFactura.Location = new Point(12, 23);
+            PFactura.Location = new Point(12, 7);
             PFactura.Name = "PFactura";
-            PFactura.Size = new Size(182, 137);
+            PFactura.Size = new Size(182, 153);
             PFactura.TabIndex = 14;
             // 
             // TBNUmFactura
