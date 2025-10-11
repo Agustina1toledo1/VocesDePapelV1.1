@@ -76,7 +76,8 @@
             TBPrecioTotal = new TextBox();
             BGuardar = new Button();
             BCancelar = new Button();
-            btn_limpiar_cliente = new Button();
+            btn_limpiar_Venta = new Button();
+            BLimpiarCliente = new Button();
             PProducto.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)NUDCantidadProducto).BeginInit();
             PCliente.SuspendLayout();
@@ -331,6 +332,7 @@
             // 
             // PCliente
             // 
+            PCliente.Controls.Add(BLimpiarCliente);
             PCliente.Controls.Add(BAgregarCliente);
             PCliente.Controls.Add(LCliente);
             PCliente.Controls.Add(label1);
@@ -552,23 +554,34 @@
             BCancelar.Text = "Cancelar";
             BCancelar.UseVisualStyleBackColor = false;
             // 
-            // btn_limpiar_cliente
+            // btn_limpiar_Venta
             // 
-            btn_limpiar_cliente.BackColor = Color.FromArgb(255, 192, 128);
-            btn_limpiar_cliente.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btn_limpiar_cliente.Location = new Point(729, 465);
-            btn_limpiar_cliente.Name = "btn_limpiar_cliente";
-            btn_limpiar_cliente.Size = new Size(151, 43);
-            btn_limpiar_cliente.TabIndex = 30;
-            btn_limpiar_cliente.Text = "Limpiar";
-            btn_limpiar_cliente.UseVisualStyleBackColor = false;
+            btn_limpiar_Venta.BackColor = Color.FromArgb(255, 192, 128);
+            btn_limpiar_Venta.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btn_limpiar_Venta.Location = new Point(729, 465);
+            btn_limpiar_Venta.Name = "btn_limpiar_Venta";
+            btn_limpiar_Venta.Size = new Size(151, 43);
+            btn_limpiar_Venta.TabIndex = 30;
+            btn_limpiar_Venta.Text = "Limpiar";
+            btn_limpiar_Venta.UseVisualStyleBackColor = false;
+            // 
+            // BLimpiarCliente
+            // 
+            BLimpiarCliente.BackColor = Color.FromArgb(255, 192, 128);
+            BLimpiarCliente.ForeColor = SystemColors.ActiveCaptionText;
+            BLimpiarCliente.Location = new Point(361, 101);
+            BLimpiarCliente.Name = "BLimpiarCliente";
+            BLimpiarCliente.Size = new Size(90, 33);
+            BLimpiarCliente.TabIndex = 12;
+            BLimpiarCliente.Text = "Limpiar";
+            BLimpiarCliente.UseVisualStyleBackColor = false;
             // 
             // VentaView
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(930, 535);
-            Controls.Add(btn_limpiar_cliente);
+            Controls.Add(btn_limpiar_Venta);
             Controls.Add(BCancelar);
             Controls.Add(BGuardar);
             Controls.Add(TBPrecioTotal);
@@ -645,6 +658,7 @@
         private TextBox TBPrecioTotal;
         private Button BGuardar;
         private Button BCancelar;
-        private Button btn_limpiar_cliente;
+        private Button btn_limpiar_Venta;
+        private Button BLimpiarCliente;
     }
 }

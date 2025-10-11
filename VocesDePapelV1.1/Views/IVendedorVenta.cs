@@ -11,6 +11,7 @@ namespace VocesDePapelV1._1.Views
         event EventHandler AddNewClienteEvent;
         event EventHandler EditarClienteEvent;
         event EventHandler SearchClienteByCuitEvent;
+        event EventHandler ClearClienteEvent;
         Form FormInstance { get; }
         string ClienteCuit { get; set; }
         string ClienteNombre { get; set; }

@@ -15,6 +15,7 @@
         public event EventHandler AddNewClienteEvent;
         public event EventHandler EditarClienteEvent;
         public event EventHandler SearchClienteByCuitEvent;
+        public event EventHandler ClearClienteEvent;
         public Form FormInstance => this; // Devuelve la instancia actual del formulario
 
         public string ClienteCuit
@@ -46,6 +47,7 @@
 
             BAgregarCliente.Click += delegate { AddNewClienteEvent?.Invoke(this, EventArgs.Empty); };
             TBCuilCuit.TextChanged += delegate { SearchClienteByCuitEvent?.Invoke(this, EventArgs.Empty); };
+            BLimpiarCliente.Click += delegate { ClearClienteEvent?.Invoke(this, EventArgs.Empty); };
         }
 
         public static VentaView GetInstance(Form parentConteiner, string connectionString)

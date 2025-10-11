@@ -23,6 +23,7 @@ namespace VocesDePapelV1._1.Presenters
             this.clienteRepository = new ClienteRepository(connectionString);
             this.view.AddNewClienteEvent += AbrirVistaCliente;
             this.view.SearchClienteByCuitEvent += BuscarClientePorCuit;
+            this.view.ClearClienteEvent += LimpiarCliente;
             this.view.Show();  //mostramos la vista
         }
 
@@ -93,7 +94,26 @@ namespace VocesDePapelV1._1.Presenters
                               MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        private void LimpiarCliente(object sender, EventArgs e)
+        {
+            try
+            {
+                // Limpiar todos los campos del cliente
+                view.ClienteNombre = string.Empty;
+                view.ClienteCuit = string.Empty;
+                view.ClienteEmail = string.Empty;
+                view.ClienteTelefono = string.Empty;
 
+                // Opcional: Mostrar mensaje de confirmación
+                MessageBox.Show("Datos del cliente limpiados correctamente", "Información",
+                              MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al limpiar datos del cliente: {ex.Message}", "Error",
+                              MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
         private void LimpiarDatosCliente()
         {
             view.ClienteNombre = string.Empty;
