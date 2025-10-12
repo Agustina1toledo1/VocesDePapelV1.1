@@ -10,11 +10,6 @@ namespace VocesDePapelV1._1.Models
 {
     public class ProductoModel
     {
-        /*precio numeric(11,2) not null,
-			stock int not null,
-			elinido int not null,
-			id_categoria int not null,*/
-        //atributos de la tabla Producto
         private int id_libro;
         private string titulo;
         private string editorial;
