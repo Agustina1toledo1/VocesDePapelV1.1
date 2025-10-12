@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using VocesDePapelV1._1.Views;
-using VocesDePapelV1._1.Servicios;
-using VocesDePapelV1._1.Presenters.Common;
-using VocesDePapelV1._1.Repositories;
+using System.Windows.Forms;
 using VocesDePapelV1._1.Models;
+using VocesDePapelV1._1.Presenters.Common;
+using VocesDePapelV1._1.Servicios;
+using VocesDePapelV1._1.Views;
+using VocesDePapelV1._1.Repositories;
 
 namespace VocesDePapelV1._1.Presenters
 {
@@ -60,17 +61,13 @@ namespace VocesDePapelV1._1.Presenters
 
             foreach (var producto in productoList)
             {
-                var categoria = repository.GetCategoria().FirstOrDefault(c => c.Id_categoria == producto.Id_categoria);
-                if (categoria != null)
-                {
-                    producto.Nombre_categoria= categoria.Nombre_categoria;
-                }
-                var estado = repository.GetEstado().FirstOrDefault(e => e.Id_estado == producto.Eliminado_id);
-                if (estado != null)
-                {
-                    producto.Nombre_estado= estado.Nombre_estado;
-                }
+                var categoria = categoriaList.FirstOrDefault(c => c.Id_categoria == producto.Id_categoria);
+                var estado = estadoList.FirstOrDefault(e => e.Id_estado == producto.Eliminado_id);
+                
+                producto.Nombre_categoria = categoria?.Nombre_categoria ?? "Desconocida";
+                producto.Nombre_estado = estado?.Nombre_estado ?? "Desconocido";
             }
+            productoBindingSource.DataSource = productoList;
         }
 
         private void CargarAllCategoria()
@@ -104,8 +101,8 @@ namespace VocesDePapelV1._1.Presenters
             var producto = new ProductoModel();
 
             producto.Id_libro = Convert.ToInt32(view.ProductoId);
-            producto.Titulo = view.ProductoTitulo.ToString();
-            producto.Editorial = view.ProductoEditorial.ToString();
+            producto.Titulo = view.ProductoTitulo;
+            producto.Editorial = view.ProductoEditorial;
             producto.Precio = Convert.ToSingle(view.ProductoPrecio);
             producto.Stock = Convert.ToInt32(view.ProductoStock);
             producto.Eliminado_id = Convert.ToInt32(view.ProductoEliminado);
@@ -116,12 +113,12 @@ namespace VocesDePapelV1._1.Presenters
                 new Common.ModelDataValidation().Validate(producto);
                 repository.Modificar(producto);
                 view.Message = "Producto modificado correctamente";
-                view.IsSuccessful = "True";
+                view.IsSuccessful = true;
                 CargarAllProductos();
             }
             catch (Exception ex)
             {
-                view.IsSuccessful = "False";
+                view.IsSuccessful = false;
                 view.Message = ex.Message;
             }
         }
@@ -130,14 +127,14 @@ namespace VocesDePapelV1._1.Presenters
         {
             try
             {
-                var producto = new ProductoModel();
+                var producto = (ProductoModel)productoBindingSource.Current;//obtenemos el usuario actual del origen de datos del enlace
                 repository.Eliminar(producto.Id_libro);
-                view.IsSuccessful = "True";
+                view.IsSuccessful = true;
                 view.Message = "Producto eliminado correctamente";
                 CargarAllProductos();
             }catch (Exception ex)
             {
-                view.IsSuccessful = "False";
+                view.IsSuccessful = false;
                 view.Message = ex.Message;
             }
         }
@@ -161,7 +158,7 @@ namespace VocesDePapelV1._1.Presenters
 
             producto.Titulo = view.ProductoTitulo;
             producto.Editorial = view.ProductoEditorial;
-            producto.Precio = Convert.ToSingle(view.ProductoPrecio);
+            producto.Precio = float.Parse(view.ProductoPrecio);
             producto.Stock = Convert.ToInt32(view.ProductoStock);
             producto.Eliminado_id = Convert.ToInt32(view.ProductoEliminado);
             producto.Id_categoria = Convert.ToInt32(view.ProductoIdCategoria);
@@ -171,11 +168,11 @@ namespace VocesDePapelV1._1.Presenters
                 new Common.ModelDataValidation().Validate(producto);
                 repository.Add(producto);
                 view.Message = "Producto agregado correctamente";
-                view.IsSuccessful = "True";
+                view.IsSuccessful = true;
                 CargarAllProductos();
             }catch (Exception ex)
             {
-                view.IsSuccessful = "False";
+                view.IsSuccessful = false;
                 view.Message = ex.Message;
                 return;
 

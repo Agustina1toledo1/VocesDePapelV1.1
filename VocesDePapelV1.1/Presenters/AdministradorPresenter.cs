@@ -81,8 +81,8 @@ namespace VocesDePapelV1._1.Presenters
         private void ShowProductoView(object? sender, EventArgs e)
         {
             IAdministradorViewProducto backupView = AdministradorViewProducto.GetInstance((AdministradorView)this.view); // muestra solo una instancia de la vista de usuario
-
-            new ProductoPresenter(backupView);
+            IProductoRepository repository = new ProductoRepository(connectionString);
+            new ProductoPresenter(backupView, repository);
         }
     }
 }

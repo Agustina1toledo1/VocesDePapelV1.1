@@ -23,7 +23,7 @@ namespace VocesDePapelV1._1.Repositories
                 // Verifico existencia del producto por su título
                 command.CommandText = @"
                                     SELECT COUNT(1)
-                                        FROM dbo.producto
+                                        FROM libro
                                         WHERE titulo = @titulo;
                                         ";
                 command.Parameters.Add("@titulo", SqlDbType.NVarChar).Value = producto.Titulo;
@@ -37,7 +37,7 @@ namespace VocesDePapelV1._1.Repositories
                 }
                 // Inserto el nuevo producto
                 command.Parameters.Clear();
-                command.CommandText = @"INSERT INTO Producto (titulo, editorial, precio, stock,eliminado, id_categoria) 
+                command.CommandText = @"INSERT INTO libro (titulo, editorial, precio, stock,eliminado, id_categoria) 
                                       VALUES (@titulo, @editorial, @precio,@stock,  @estado,@categoria)";
                 command.Parameters.Add("@titulo", SqlDbType.NVarChar).Value= producto.Titulo;
                 command.Parameters.Add("@editorial", SqlDbType.NVarChar).Value= producto.Editorial;
@@ -52,11 +52,11 @@ namespace VocesDePapelV1._1.Repositories
         public void Eliminar(int id)
         {
             using (var connection = new Microsoft.Data.SqlClient.SqlConnection(connectionString))
-            using (var command = connection.CreateCommand())
+            using (var command = new Microsoft.Data.SqlClient.SqlCommand())
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = @"UPDATE producto SET elimando = 1 WHERE id_producto = @id";
+                command.CommandText = @"UPDATE libro SET eliminado = 1 WHERE id_libro = @id";
                 command.Parameters.Add("@id", SqlDbType.Int).Value = id;
                 command.ExecuteNonQuery();
             }
@@ -71,9 +71,9 @@ namespace VocesDePapelV1._1.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = @"SELECT id_producto, titulo, editorial, precio, stock, 
-                                        eliminado, id_categoria FROM producto 
-                                           ORDER BY id_producto DESC";
+                command.CommandText = @"SELECT id_libro, titulo, editorial, precio, stock, 
+                                        eliminado, id_categoria FROM libro 
+                                           ORDER BY id_libro DESC";
 
                 using (var reader = command.ExecuteReader())
                 {
@@ -81,7 +81,7 @@ namespace VocesDePapelV1._1.Repositories
                     {
                         var producto = new ProductoModel
                         {
-                            Id_libro = Convert.ToInt32(reader["id_producto"]),
+                            Id_libro = Convert.ToInt32(reader["id_libro"]),
                             Titulo = reader["titulo"].ToString(),
                             Editorial = reader["editorial"].ToString(),
                             Precio = Convert.ToSingle(reader["precio"]),
@@ -146,7 +146,7 @@ namespace VocesDePapelV1._1.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = @"SELECT id_categoria, nombre_categoria
+                command.CommandText = @"SELECT id_categoria, nombre_categoria, id_estado
                                         FROM categoria 
                                         ORDER BY id_categoria DESC";
                 using (var reader = command.ExecuteReader())
@@ -198,31 +198,21 @@ namespace VocesDePapelV1._1.Repositories
         public void Modificar(ProductoModel producto)
         {
             using (var connection = new Microsoft.Data.SqlClient.SqlConnection(connectionString))
-            using (var command = connection.CreateCommand())
+            //using (var command = connection.CreateCommand())
+            using (var command = new Microsoft.Data.SqlClient.SqlCommand())
             {
                 connection.Open();
-                command.CommandText = @"
-                                    SELECT COUNT(1)
-                                        FROM producto
-                                        WHERE titulo = @titulo;
-                                        ";
-                command.Parameters.Add("@titulo", SqlDbType.NVarChar).Value = producto.Titulo;
-
-                int existe = (int)command.ExecuteScalar();
-                if (existe > 0)
-                {
-                    // Retiro los parámetros previos y lanzo excepción
-                    command.Parameters.Clear();
-                    throw new InvalidOperationException("El producto ingresado ya está registrado.");
-                }
-                // Inserto el nuevo producto
-                command.Parameters.Clear();
-                command.CommandText = @"UPDATE producto SET titulo =@titulo,
+                command.Connection = connection;
+                
+                command.CommandText = @"UPDATE libro SET titulo =@titulo,
                                         editorial =@editorial,
-                                        precio=@precio
+                                        precio=@precio,
                                         stock=@stock,
                                         eliminado =@estado,
-                                        id_categoria =@categoria";
+                                        id_categoria =@categoria
+                                        WHERE id_libro = @id_libro";
+
+                command.Parameters.Add("@id_libro", SqlDbType.Int).Value = producto.Id_libro;
                 command.Parameters.Add("@titulo", SqlDbType.NVarChar).Value = producto.Titulo;
                 command.Parameters.Add("@editorial", SqlDbType.NVarChar).Value = producto.Editorial;
                 command.Parameters.Add("@stock", SqlDbType.Int).Value = producto.Stock;

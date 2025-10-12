@@ -20,7 +20,7 @@ namespace VocesDePapelV1._1.Views
         string ProductoNombreCategoria { get; set; }    
         string SearchValue { get; set; }
         string Message { get; set; }
-        string IsSuccessful { get; set; }
+        bool IsSuccessful { get; set; }
 
         //eventos
         event EventHandler SearchEvent; //evento para buscar
