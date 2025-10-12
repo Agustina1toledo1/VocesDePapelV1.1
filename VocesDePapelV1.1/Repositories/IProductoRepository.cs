@@ -13,7 +13,8 @@ namespace VocesDePapelV1._1.Repositories
         void Modificar(ProductoModel producto);
         void Eliminar(int id);
         IEnumerable<ProductoModel> GetAll(); //listar todos
-        IEnumerable<ProductoModel> GetByValue(string value); //buscar por valor
+        IEnumerable<ProductoModel> GetByValueCategoria(string value); //buscar por valor de categoria
+        IEnumerable<ProductoModel> GetByValueTitulo(string value); //buscar por valor de titulo
         IEnumerable<CategoriaModel> GetCategoria();
         IEnumerable<EstadoModel> GetEstado();
     }

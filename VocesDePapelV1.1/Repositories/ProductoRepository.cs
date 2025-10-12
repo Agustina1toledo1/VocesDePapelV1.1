@@ -96,25 +96,24 @@ namespace VocesDePapelV1._1.Repositories
             return productoList;
         }
 
-        public IEnumerable<ProductoModel> GetByValue(string value)
+        public IEnumerable<ProductoModel> GetByValueCategoria(string value)
         {
             var productoList = new List<ProductoModel>();
-            string titulo_editoria_categoria = value;
+            string categoria = value;
 
             using (var connection = new Microsoft.Data.SqlClient.SqlConnection(connectionString))
             using (var command = new Microsoft.Data.SqlClient.SqlCommand())
             {
                 connection.Open();
-                command.Connection = connection; //ver esto
+                command.Connection = connection; 
+                command.CommandText = @"SELECT libro.id_libro, libro.titulo, libro.editorial, libro.precio, libro.stock, 
+                                        libro.eliminado, libro.id_categoria 
+                                        FROM libro 
+                                        JOIN categoria ON libro.id_categoria = categoria.id_categoria
+                                        WHERE  categoria.nombre_categoria LIKE @categoria+'%'
+                                        ORDER BY libro.id_libro DESC";
 
-                command.CommandText = @"SELECT id_producto, titulo, editorial, precio, stock, 
-                                        eliminado, id_categoria 
-                                        FROM producto 
-                                        JOIN categoria c ON p.id_categoria = c.id_categoria
-                                        WHERE p.titulo LIKE @valor+'%' OR p.editorial LIKE @valor+'%' OR c.nombre_categoria LIKE @valor+'%'
-                                        ORDER BY p.id_producto DESC";
-
-                command.Parameters.Add("@valor", SqlDbType.NVarChar).Value = titulo_editoria_categoria;
+                command.Parameters.Add("@categoria", SqlDbType.NVarChar).Value = categoria;
 
                 using (var reader = command.ExecuteReader())
                 {
@@ -122,7 +121,7 @@ namespace VocesDePapelV1._1.Repositories
                     {
                         var producto = new ProductoModel
                         {
-                            Id_libro = Convert.ToInt32(reader["id_producto"]),
+                            Id_libro = Convert.ToInt32(reader["id_libro"]),
                             Titulo = reader["titulo"].ToString(),
                             Editorial = reader["editorial"].ToString(),
                             Precio = Convert.ToSingle(reader["precio"]),
@@ -135,6 +134,49 @@ namespace VocesDePapelV1._1.Repositories
                 }
             }
            return productoList;
+        }
+
+        public IEnumerable<ProductoModel> GetByValueTitulo(string value)
+        {
+            //lista de usuarios
+            var productoList = new List<ProductoModel>();
+
+            string titulo = value;
+            //consultas sql
+            using (var connection = new Microsoft.Data.SqlClient.SqlConnection(connectionString))
+            using (var command = new Microsoft.Data.SqlClient.SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                //command.CommandText = "SELECT * FROM Usuario ORDER BY id_usuario DESC"; video
+                command.CommandText = @"SELECT id_libro, titulo, editorial, precio, stock, 
+                                        eliminado, id_categoria  FROM libro
+                                    WHERE titulo like @titulo+'%' 
+                                    ORDER BY id_libro DESC";
+
+                command.Parameters.Add("@titulo", SqlDbType.NVarChar).Value = titulo;
+
+                using (var reader = command.ExecuteReader())
+                {
+
+                    while (reader.Read())
+                    {
+                        var producto = new ProductoModel
+                        {
+                            Id_libro = Convert.ToInt32(reader["id_libro"]),
+                            Titulo = reader["titulo"].ToString(),
+                            Editorial = reader["editorial"].ToString(),
+                            Precio = Convert.ToSingle(reader["precio"]),
+                            Stock = Convert.ToInt32(reader["stock"]),
+                            Eliminado_id = Convert.ToInt32(reader["eliminado"]),
+                            Id_categoria = Convert.ToInt32(reader["id_categoria"])
+                        };
+                        productoList.Add(producto);
+                    }
+
+                }
+            }
+            return productoList; 
         }
 
         public IEnumerable<CategoriaModel> GetCategoria()

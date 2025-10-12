@@ -23,12 +23,24 @@ namespace VocesDePapelV1._1.Views
 
         private void AssociateAndRaiseViewEvents()
         {
+            AddSearchItems(new string[] { "Titulo", "Categoria" });
             btn_registrar_usuario.Click += delegate
             {
                 AddNewEvent?.Invoke(this, EventArgs.Empty);
                 MessageBox.Show(Message);
             };
             //buscar producto
+            btn_buscar_producto.Click += delegate
+            {
+                SearchEvent?.Invoke(this, EventArgs.Empty);
+            };
+            text_buscar_producto.KeyDown += (s, e) =>
+            {
+                if (e.KeyCode == Keys.Enter)
+                {
+                    SearchEvent?.Invoke(this, EventArgs.Empty);
+                }
+            };
             //eliminar producto
             btn_eliminar_producto.Click += delegate
             {
@@ -68,6 +80,9 @@ namespace VocesDePapelV1._1.Views
 
                 }
             };
+
+
+            
         }
         
         public string ProductoId {
@@ -124,6 +139,11 @@ namespace VocesDePapelV1._1.Views
             set { isSuccessful = value; }
         }
 
+        public string SearchBy {
+            get { return cmb_buscar_por_producto.Text; }
+            set { cmb_buscar_por_producto.Text = value; }
+        }
+
         public event EventHandler SearchEvent;
         public event EventHandler AddNewEvent;
         public event EventHandler EditEvent;
@@ -158,6 +178,9 @@ namespace VocesDePapelV1._1.Views
         public void SetProductoListBindingSource(object productoList)
         {
             dataGridProducto.DataSource = productoList;
+            //ocultar columnas no necesarias
+            dataGridProducto.Columns["Id_categoria"].Visible = false;
+            dataGridProducto.Columns["Eliminado_id"].Visible = false;
         }
 
         public void SetCategoriaListBindingSource(object categoriaList)
@@ -172,6 +195,14 @@ namespace VocesDePapelV1._1.Views
             cmb_estado_producto.DataSource = estadoList;
             cmb_estado_producto.DisplayMember = "Nombre_estado";
             cmb_estado_producto.ValueMember = "Id_estado";
+        }
+        //metodo para agregar los items al combobox de buscar 
+        public void AddSearchItems(string[] items)
+        {
+
+            cmb_buscar_por_producto.Items.Clear();
+            cmb_buscar_por_producto.Items.AddRange(items);
+            cmb_buscar_por_producto.SelectedIndex = 0; //seleccionar el primer item por defecto
         }
     }
 }

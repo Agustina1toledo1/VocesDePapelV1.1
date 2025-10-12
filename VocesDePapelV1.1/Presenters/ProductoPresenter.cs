@@ -181,7 +181,38 @@ namespace VocesDePapelV1._1.Presenters
 
         private void SearchProducto(object? sender, EventArgs e)
         {
-            
+            string searchBy = this.view.SearchBy;
+            string searchValue = this.view.SearchValue;
+            bool emptyValue = string.IsNullOrWhiteSpace(this.view.SearchValue);
+
+            if (emptyValue == false )
+            {
+                switch (searchBy)
+                {
+                    case "Titulo":
+                        productoList = repository.GetByValueTitulo(searchValue);
+                        break;
+                    case "Categoria":
+                        productoList = repository.GetByValueCategoria(searchValue);
+                        break;
+                    default:
+                        productoList = repository.GetAll();
+                        break;
+                }
+            }
+            else
+            {
+                productoList = repository.GetAll();
+            }
+            foreach (var producto in productoList)
+            {
+                var categoria = categoriaList.FirstOrDefault(c => c.Id_categoria == producto.Id_categoria);
+                var estado = estadoList.FirstOrDefault(e => e.Id_estado == producto.Eliminado_id);
+                producto.Nombre_categoria = categoria?.Nombre_categoria ?? "Desconocida";
+                producto.Nombre_estado = estado?.Nombre_estado ?? "Desconocido";
+            }
+            productoBindingSource.DataSource = productoList;
+
         }
     }
 }

@@ -18,6 +18,7 @@ namespace VocesDePapelV1._1.Views
         string ProductoNombreEstado { get; set; }
         string ProductoIdCategoria { get; set; }
         string ProductoNombreCategoria { get; set; }    
+        string SearchBy { get; set; }
         string SearchValue { get; set; }
         string Message { get; set; }
         bool IsSuccessful { get; set; }
