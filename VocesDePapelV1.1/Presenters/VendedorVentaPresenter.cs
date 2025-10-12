@@ -146,7 +146,7 @@ namespace VocesDePapelV1._1.Presenters
                 // Buscar vendedor en la base de datos
                 var vendedor = usuarioRepository.ObtenerPorCuit(cuit);
 
-                if (vendedor != null && vendedor.EstaActivo) // Verificar que esté activo
+                if (vendedor != null && vendedor.EstaActivo && vendedor.Id_rol == 3) // Verificar que esté activo y rol vendedor
                 {
                     // Autocompletar los datos del vendedor
                     view.VendedorNombre = $"{vendedor.Nombre} {vendedor.Apellido}";
