@@ -59,7 +59,12 @@
         }
         //propiedades del producto 
 
-        
+        // propiedad para el número de factura
+        public string NumeroFactura
+        {
+            get { return TBNUmFactura.Text; } // Asumiendo que tienes un TextBox para esto
+            set { TBNUmFactura.Text = value; }
+        }
         private void AssociateAndRaiseViewEvents()
         {
 

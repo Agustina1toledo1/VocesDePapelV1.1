@@ -23,12 +23,17 @@ namespace VocesDePapelV1._1.Views
         // propiedades del vendedor
         string VendedorCuit { get; set; }
         string VendedorNombre { get; set; }
+
         // propiedades de producto
         /*string CodigoProducto { get; set; }
         string PrecioProducto { get; set; }
         string StockProducto { get; set; }
         string CantidadProducto { get; set; }
         string PrecioTotal { get; set; }*/
+
+        // propiedad para el número de factura
+        string NumeroFactura { get; set; }
+
 
         void LimpiarListaProductos();
         object ProductosDataSource { get; set; }

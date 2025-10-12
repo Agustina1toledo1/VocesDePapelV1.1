@@ -16,6 +16,7 @@ namespace VocesDePapelV1._1.Presenters
         private readonly string connectionString; // Almacena la cadena de conexión
         private IClienteRepository clienteRepository; // Repositorio de Cliente para la busqueda
         private IUsuarioRepository usuarioRepository; // Repositorio para usuarios/vendedores
+        private IVentaCabeceraRepository ventaCabeceraRepository; // Repositorio para la venta
 
 
         // Constructor
@@ -25,13 +26,14 @@ namespace VocesDePapelV1._1.Presenters
             this.connectionString = connectionString;
             this.clienteRepository = new ClienteRepository(connectionString);
             this.usuarioRepository = new UsuarioRepository(connectionString);
-
+            this.ventaCabeceraRepository = new VentaCabeceraRepository(connectionString);
             this.view.AddNewClienteEvent += AbrirVistaCliente;
             this.view.SearchClienteByCuitEvent += BuscarClientePorCuit;
             this.view.ClearClienteEvent += LimpiarCliente;
             this.view.SearchVendedorByCuitEvent += BuscarVendedorPorCuit;
             this.view.ClearVentaEvent += LimpiarVentaCompleta;
 
+            CargarProximoNumeroFactura(); // Cargar el próximo número de factura al iniciar
             this.view.Show();  //mostramos la vista
         }
 
@@ -179,7 +181,21 @@ namespace VocesDePapelV1._1.Presenters
         {
             view.VendedorNombre = string.Empty;
         }
-
+        // Cargar el próximo número de factura
+        private void CargarProximoNumeroFactura()
+        {
+            try
+            {
+                int proximoNumero = ventaCabeceraRepository.ObtenerProximoNumeroFactura();
+                view.NumeroFactura = proximoNumero.ToString("D8"); // Formato de 8 dígitos
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cargar número de factura: {ex.Message}", "Error",
+                              MessageBoxButtons.OK, MessageBoxIcon.Error);
+                view.NumeroFactura = "1";
+            }
+        }
         // NUEVO MÉTODO: Limpiar toda la venta
         private void LimpiarVentaCompleta(object sender, EventArgs e)
         {
@@ -211,6 +227,10 @@ namespace VocesDePapelV1._1.Presenters
 
                     // Limpiar DataGridView de productos 
                     view.ProductosDataSource = null;
+
+                    // Cargar nuevo número de factura
+                    CargarProximoNumeroFactura();
+
 
                     MessageBox.Show("Venta limpiada correctamente", "Éxito",
                                   MessageBoxButtons.OK, MessageBoxIcon.Information);
