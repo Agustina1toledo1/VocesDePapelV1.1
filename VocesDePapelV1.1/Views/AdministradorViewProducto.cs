@@ -12,12 +12,128 @@ namespace VocesDePapelV1._1.Views
 {
     public partial class AdministradorViewProducto : Form, IAdministradorViewProducto
     {
+        private string message;
+        private bool isSuccessful;
         public AdministradorViewProducto()
         {
             InitializeComponent();
+            AssociateAndRaiseViewEvents();
+
         }
+
+        private void AssociateAndRaiseViewEvents()
+        {
+            btn_registrar_usuario.Click += delegate
+            {
+                AddNewEvent?.Invoke(this, EventArgs.Empty);
+                MessageBox.Show(Message);
+            };
+            //buscar producto
+            //eliminar producto
+            btn_eliminar_producto.Click += delegate
+            {
+                if (dataGridProducto.SelectedCells.Count > 0)
+                {
+                    var result = MessageBox.Show("Estas seguro de eliminar el producto seleccionado?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    if (result == DialogResult.Yes)
+                    {
+                        DeleteEvent?.Invoke(this, EventArgs.Empty);
+                        MessageBox.Show(Message);
+                    }
+                }
+            };
+            //modificar producto
+            btn_modificar_producto.Click += delegate
+            {
+                if (dataGridProducto.SelectedCells.Count > 0)
+                {
+                    SaveEvent?.Invoke(this, EventArgs.Empty);
+                    MessageBox.Show(Message);
+                }
+            };
+
+            //mostrar datos en los textbox al seleccionar una fila del datagrid
+            dataGridProducto.SelectionChanged += delegate
+            {
+                if (dataGridProducto.SelectedCells.Count > 0)
+                {
+                    if (dataGridProducto.SelectedCells.Count > 0)
+                    {
+                        EditEvent?.Invoke(this, EventArgs.Empty);
+                    }
+                    else
+                    {
+                        CancelEvent?.Invoke(this, EventArgs.Empty);
+                    }
+
+                }
+            };
+        }
+        
+        public string ProductoId {
+            get
+            {
+                if (dataGridProducto.CurrentRow != null)
+                    return dataGridProducto.CurrentRow.Cells["Id_libro"].Value?.ToString();
+                return "0";
+            } //ver que pasa con esto
+            set { }
+        }
+        public string ProductoTitulo {
+            get { return text_titulo_admin.Text; }
+            set { text_titulo_admin.Text = value; }
+        }
+        public string ProductoEditorial {
+            get { return text_editorial_admin.Text; }
+            set { text_editorial_admin.Text = value; }
+        }
+        public string ProductoPrecio {
+            get { return text_precio_admin.Text; }
+            set { text_precio_admin.Text = value; }
+        }
+        public string ProductoStock {
+            get { return text_stock_admin.Text; }
+            set { text_stock_admin.Text = value; }
+        }
+        public string ProductoEliminado {
+            get { return cmb_estado_producto.SelectedValue?.ToString(); }
+            set { cmb_estado_producto.SelectedValue = value; }
+        }
+        public string ProductoNombreEstado {
+            get { return cmb_estado_producto.Text; }
+            set { cmb_estado_producto.Text = value; }
+        }
+        public string ProductoIdCategoria {
+            get { return cmb_categoria_producto.SelectedValue?.ToString(); }
+            set { cmb_categoria_producto.SelectedValue = value; }
+        }
+        public string ProductoNombreCategoria {
+            get { return cmb_categoria_producto.Text; }
+            set { cmb_categoria_producto.Text = value; }
+        }
+        public string SearchValue {
+            get { return text_buscar_producto.Text; }
+            set { text_buscar_producto.Text = value; }
+        }
+        public string Message {
+            get { return message; }
+            set { message = value; }
+        }
+        public bool IsSuccessful {
+            get { return isSuccessful; }
+            set { isSuccessful = value; }
+        }
+
+        public event EventHandler SearchEvent;
+        public event EventHandler AddNewEvent;
+        public event EventHandler EditEvent;
+        public event EventHandler DeleteEvent;
+        public event EventHandler SaveEvent;
+        public event EventHandler CancelEvent;
+
         //singleton patron (abre una sola instancia del formulario) 
         private static AdministradorViewProducto instance;
+
         public static AdministradorViewProducto GetInstance(Form parentConteiner)
         {
             if (instance == null || instance.IsDisposed) //si es nulo o esta desechado
@@ -37,6 +153,25 @@ namespace VocesDePapelV1._1.Views
 
             }
             return instance;
+        }
+
+        public void SetProductoListBindingSource(object productoList)
+        {
+            dataGridProducto.DataSource = productoList;
+        }
+
+        public void SetCategoriaListBindingSource(object categoriaList)
+        {
+            cmb_categoria_producto.DataSource = categoriaList;
+            cmb_categoria_producto.DisplayMember = "Nombre_categoria";
+            cmb_categoria_producto.ValueMember = "Id_categoria";
+        }
+
+        public void SetEstadoListBindingSource(object estadoList)
+        {
+            cmb_estado_producto.DataSource = estadoList;
+            cmb_estado_producto.DisplayMember = "Nombre_estado";
+            cmb_estado_producto.ValueMember = "Id_estado";
         }
     }
 }

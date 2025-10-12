@@ -28,12 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             l_detalle_producto = new Label();
-            btn_eliminar_usuario = new Button();
-            btn_modificar_usuario = new Button();
-            btn_guardar_usuario = new Button();
+            btn_eliminar_producto = new Button();
+            btn_modificar_producto = new Button();
+            btn_registrar_usuario = new Button();
             cmb_categoria_producto = new ComboBox();
             cmb_estado_producto = new ComboBox();
             text_editorial_admin = new TextBox();
@@ -52,17 +52,9 @@
             cmb_buscar_por_producto = new ComboBox();
             l_buscar_producto = new Label();
             l_lista_productos = new Label();
-            dataGridView1 = new DataGridView();
-            btn_seleccionar = new DataGridViewButtonColumn();
-            titulo = new DataGridViewTextBoxColumn();
-            editorial = new DataGridViewTextBoxColumn();
-            id_libro = new DataGridViewTextBoxColumn();
-            precio = new DataGridViewTextBoxColumn();
-            stock = new DataGridViewTextBoxColumn();
-            estado = new DataGridViewTextBoxColumn();
-            categoria = new DataGridViewTextBoxColumn();
+            dataGridProducto = new DataGridView();
             btn_agregar_autor = new Button();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridProducto).BeginInit();
             SuspendLayout();
             // 
             // l_detalle_producto
@@ -76,38 +68,38 @@
             l_detalle_producto.TabIndex = 37;
             l_detalle_producto.Text = "Detalle del Producto";
             // 
-            // btn_eliminar_usuario
+            // btn_eliminar_producto
             // 
-            btn_eliminar_usuario.BackColor = Color.FromArgb(255, 128, 128);
-            btn_eliminar_usuario.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btn_eliminar_usuario.Location = new Point(63, 706);
-            btn_eliminar_usuario.Name = "btn_eliminar_usuario";
-            btn_eliminar_usuario.Size = new Size(269, 43);
-            btn_eliminar_usuario.TabIndex = 36;
-            btn_eliminar_usuario.Text = "Eliminar";
-            btn_eliminar_usuario.UseVisualStyleBackColor = false;
+            btn_eliminar_producto.BackColor = Color.FromArgb(255, 128, 128);
+            btn_eliminar_producto.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btn_eliminar_producto.Location = new Point(63, 706);
+            btn_eliminar_producto.Name = "btn_eliminar_producto";
+            btn_eliminar_producto.Size = new Size(269, 43);
+            btn_eliminar_producto.TabIndex = 36;
+            btn_eliminar_producto.Text = "Eliminar";
+            btn_eliminar_producto.UseVisualStyleBackColor = false;
             // 
-            // btn_modificar_usuario
+            // btn_modificar_producto
             // 
-            btn_modificar_usuario.BackColor = Color.FromArgb(255, 192, 128);
-            btn_modificar_usuario.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btn_modificar_usuario.Location = new Point(63, 651);
-            btn_modificar_usuario.Name = "btn_modificar_usuario";
-            btn_modificar_usuario.Size = new Size(269, 43);
-            btn_modificar_usuario.TabIndex = 35;
-            btn_modificar_usuario.Text = "Modificar";
-            btn_modificar_usuario.UseVisualStyleBackColor = false;
+            btn_modificar_producto.BackColor = Color.FromArgb(255, 192, 128);
+            btn_modificar_producto.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btn_modificar_producto.Location = new Point(63, 651);
+            btn_modificar_producto.Name = "btn_modificar_producto";
+            btn_modificar_producto.Size = new Size(269, 43);
+            btn_modificar_producto.TabIndex = 35;
+            btn_modificar_producto.Text = "Modificar";
+            btn_modificar_producto.UseVisualStyleBackColor = false;
             // 
-            // btn_guardar_usuario
+            // btn_registrar_usuario
             // 
-            btn_guardar_usuario.BackColor = SystemColors.GradientActiveCaption;
-            btn_guardar_usuario.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btn_guardar_usuario.Location = new Point(63, 548);
-            btn_guardar_usuario.Name = "btn_guardar_usuario";
-            btn_guardar_usuario.Size = new Size(269, 43);
-            btn_guardar_usuario.TabIndex = 34;
-            btn_guardar_usuario.Text = "Guardar";
-            btn_guardar_usuario.UseVisualStyleBackColor = false;
+            btn_registrar_usuario.BackColor = SystemColors.GradientActiveCaption;
+            btn_registrar_usuario.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btn_registrar_usuario.Location = new Point(63, 548);
+            btn_registrar_usuario.Name = "btn_registrar_usuario";
+            btn_registrar_usuario.Size = new Size(269, 43);
+            btn_registrar_usuario.TabIndex = 34;
+            btn_registrar_usuario.Text = "Registrar";
+            btn_registrar_usuario.UseVisualStyleBackColor = false;
             // 
             // cmb_categoria_producto
             // 
@@ -288,95 +280,29 @@
             l_lista_productos.Text = "Lista de productos";
             l_lista_productos.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // dataGridView1
+            // dataGridProducto
             // 
-            dataGridView1.AllowUserToAddRows = false;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = SystemColors.Control;
-            dataGridViewCellStyle1.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle1.Padding = new Padding(2);
-            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { btn_seleccionar, titulo, editorial, id_libro, precio, stock, estado, categoria });
-            dataGridView1.Location = new Point(415, 142);
-            dataGridView1.MultiSelect = false;
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.ReadOnly = true;
-            dataGridView1.RowHeadersWidth = 51;
-            dataGridViewCellStyle2.SelectionBackColor = Color.White;
-            dataGridViewCellStyle2.SelectionForeColor = Color.Black;
-            dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle2;
-            dataGridView1.Size = new Size(903, 564);
-            dataGridView1.TabIndex = 38;
-            // 
-            // btn_seleccionar
-            // 
-            btn_seleccionar.HeaderText = "";
-            btn_seleccionar.MinimumWidth = 6;
-            btn_seleccionar.Name = "btn_seleccionar";
-            btn_seleccionar.ReadOnly = true;
-            btn_seleccionar.Width = 30;
-            // 
-            // titulo
-            // 
-            titulo.HeaderText = "Título";
-            titulo.MinimumWidth = 6;
-            titulo.Name = "titulo";
-            titulo.ReadOnly = true;
-            titulo.Width = 125;
-            // 
-            // editorial
-            // 
-            editorial.HeaderText = "Editorial";
-            editorial.MinimumWidth = 6;
-            editorial.Name = "editorial";
-            editorial.ReadOnly = true;
-            editorial.Width = 125;
-            // 
-            // id_libro
-            // 
-            id_libro.HeaderText = "id_libro";
-            id_libro.MinimumWidth = 6;
-            id_libro.Name = "id_libro";
-            id_libro.ReadOnly = true;
-            id_libro.Visible = false;
-            id_libro.Width = 125;
-            // 
-            // precio
-            // 
-            precio.HeaderText = "Precio";
-            precio.MinimumWidth = 6;
-            precio.Name = "precio";
-            precio.ReadOnly = true;
-            precio.Width = 125;
-            // 
-            // stock
-            // 
-            stock.HeaderText = "Stock";
-            stock.MinimumWidth = 6;
-            stock.Name = "stock";
-            stock.ReadOnly = true;
-            stock.Width = 125;
-            // 
-            // estado
-            // 
-            estado.HeaderText = "Estado";
-            estado.MinimumWidth = 6;
-            estado.Name = "estado";
-            estado.ReadOnly = true;
-            estado.Width = 125;
-            // 
-            // categoria
-            // 
-            categoria.HeaderText = "Categoria";
-            categoria.MinimumWidth = 6;
-            categoria.Name = "categoria";
-            categoria.ReadOnly = true;
-            categoria.Width = 125;
+            dataGridProducto.AllowUserToAddRows = false;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = SystemColors.Control;
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle3.Padding = new Padding(2);
+            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            dataGridProducto.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridProducto.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridProducto.Location = new Point(415, 142);
+            dataGridProducto.MultiSelect = false;
+            dataGridProducto.Name = "dataGridProducto";
+            dataGridProducto.ReadOnly = true;
+            dataGridProducto.RowHeadersWidth = 51;
+            dataGridViewCellStyle4.SelectionBackColor = Color.White;
+            dataGridViewCellStyle4.SelectionForeColor = Color.Black;
+            dataGridProducto.RowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridProducto.Size = new Size(903, 564);
+            dataGridProducto.TabIndex = 38;
             // 
             // btn_agregar_autor
             // 
@@ -401,11 +327,11 @@
             Controls.Add(cmb_buscar_por_producto);
             Controls.Add(l_buscar_producto);
             Controls.Add(l_lista_productos);
-            Controls.Add(dataGridView1);
+            Controls.Add(dataGridProducto);
             Controls.Add(l_detalle_producto);
-            Controls.Add(btn_eliminar_usuario);
-            Controls.Add(btn_modificar_usuario);
-            Controls.Add(btn_guardar_usuario);
+            Controls.Add(btn_eliminar_producto);
+            Controls.Add(btn_modificar_producto);
+            Controls.Add(btn_registrar_usuario);
             Controls.Add(cmb_categoria_producto);
             Controls.Add(cmb_estado_producto);
             Controls.Add(text_editorial_admin);
@@ -421,7 +347,7 @@
             Controls.Add(label1);
             Name = "AdministradorViewProducto";
             Text = "AdministradorViewProducto";
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridProducto).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -429,9 +355,9 @@
         #endregion
 
         private Label l_detalle_producto;
-        private Button btn_eliminar_usuario;
-        private Button btn_modificar_usuario;
-        private Button btn_guardar_usuario;
+        private Button btn_eliminar_producto;
+        private Button btn_modificar_producto;
+        private Button btn_registrar_usuario;
         private ComboBox cmb_categoria_producto;
         private ComboBox cmb_estado_producto;
         private TextBox text_editorial_admin;
@@ -452,15 +378,7 @@
         private ComboBox cmb_buscar_por_producto;
         private Label l_buscar_producto;
         private Label l_lista_productos;
-        private DataGridView dataGridView1;
+        private DataGridView dataGridProducto;
         private Button btn_agregar_autor;
-        private DataGridViewButtonColumn btn_seleccionar;
-        private DataGridViewTextBoxColumn titulo;
-        private DataGridViewTextBoxColumn editorial;
-        private DataGridViewTextBoxColumn id_libro;
-        private DataGridViewTextBoxColumn precio;
-        private DataGridViewTextBoxColumn stock;
-        private DataGridViewTextBoxColumn estado;
-        private DataGridViewTextBoxColumn categoria;
     }
 }

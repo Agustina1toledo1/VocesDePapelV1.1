@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.Contracts;
 using System.Linq;
+using System.Numerics;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -28,7 +31,8 @@ namespace VocesDePapelV1._1.Models
 
         [DisplayName("Titulo Libro")]
         [Required(ErrorMessage = "El nombre de usuario es requerido")]
-        [RegularExpression(@"^{3,50}$", ErrorMessage = "El titulo solo debe tener entre 3 y 50 caracteres.")]
+        [RegularExpression(@"^.{3,50}$", ErrorMessage = "El título solo debe tener entre 3 y 50 caracteres.")]
+
         public string Titulo { 
             get { return titulo; } 
             set { titulo = value; } 
@@ -52,7 +56,7 @@ namespace VocesDePapelV1._1.Models
             set { stock = value; }
         }
         [DisplayName("Eliminado_id")]
-        [Required(ErrorMessage = "El stock es requerido")]
+        [Required(ErrorMessage = "El estado es requerido")]
         public int Eliminado_id { 
             get { return eliminado; }
             set { eliminado = value; }
