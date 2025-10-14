@@ -80,9 +80,15 @@ namespace VocesDePapelV1._1.Views
 
                 }
             };
+            //limpiar campos 
+            btn_limpiar_producto.Click += delegate
+            {
+                CancelEvent?.Invoke(this, EventArgs.Empty);
+            };
 
 
-            
+
+
         }
         
         public string ProductoId {

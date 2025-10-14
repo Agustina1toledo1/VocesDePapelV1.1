@@ -53,7 +53,9 @@
             l_buscar_producto = new Label();
             l_lista_productos = new Label();
             dataGridProducto = new DataGridView();
-            btn_agregar_autor = new Button();
+            btn_limpiar_producto = new Button();
+            cmb_autor = new ComboBox();
+            label2 = new Label();
             ((System.ComponentModel.ISupportInitialize)dataGridProducto).BeginInit();
             SuspendLayout();
             // 
@@ -72,7 +74,7 @@
             // 
             btn_eliminar_producto.BackColor = Color.FromArgb(255, 128, 128);
             btn_eliminar_producto.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btn_eliminar_producto.Location = new Point(63, 706);
+            btn_eliminar_producto.Location = new Point(63, 788);
             btn_eliminar_producto.Name = "btn_eliminar_producto";
             btn_eliminar_producto.Size = new Size(269, 43);
             btn_eliminar_producto.TabIndex = 36;
@@ -83,7 +85,7 @@
             // 
             btn_modificar_producto.BackColor = Color.FromArgb(255, 192, 128);
             btn_modificar_producto.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btn_modificar_producto.Location = new Point(63, 651);
+            btn_modificar_producto.Location = new Point(63, 727);
             btn_modificar_producto.Name = "btn_modificar_producto";
             btn_modificar_producto.Size = new Size(269, 43);
             btn_modificar_producto.TabIndex = 35;
@@ -94,7 +96,7 @@
             // 
             btn_registrar_usuario.BackColor = SystemColors.GradientActiveCaption;
             btn_registrar_usuario.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btn_registrar_usuario.Location = new Point(63, 548);
+            btn_registrar_usuario.Location = new Point(63, 616);
             btn_registrar_usuario.Name = "btn_registrar_usuario";
             btn_registrar_usuario.Size = new Size(269, 43);
             btn_registrar_usuario.TabIndex = 34;
@@ -226,7 +228,7 @@
             label1.Dock = DockStyle.Left;
             label1.Location = new Point(0, 0);
             label1.Name = "label1";
-            label1.Size = new Size(399, 781);
+            label1.Size = new Size(399, 900);
             label1.TabIndex = 19;
             // 
             // btn_buscar_producto
@@ -304,24 +306,47 @@
             dataGridProducto.Size = new Size(903, 564);
             dataGridProducto.TabIndex = 38;
             // 
-            // btn_agregar_autor
+            // btn_limpiar_producto
             // 
-            btn_agregar_autor.BackColor = Color.FromArgb(128, 255, 128);
-            btn_agregar_autor.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btn_agregar_autor.Location = new Point(64, 602);
-            btn_agregar_autor.Name = "btn_agregar_autor";
-            btn_agregar_autor.Size = new Size(269, 43);
-            btn_agregar_autor.TabIndex = 44;
-            btn_agregar_autor.Text = "Agregar autor";
-            btn_agregar_autor.UseVisualStyleBackColor = false;
+            btn_limpiar_producto.BackColor = Color.FromArgb(128, 255, 128);
+            btn_limpiar_producto.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btn_limpiar_producto.Location = new Point(64, 670);
+            btn_limpiar_producto.Name = "btn_limpiar_producto";
+            btn_limpiar_producto.Size = new Size(269, 43);
+            btn_limpiar_producto.TabIndex = 44;
+            btn_limpiar_producto.Text = "Limpiar";
+            btn_limpiar_producto.UseVisualStyleBackColor = false;
+            // 
+            // cmb_autor
+            // 
+            cmb_autor.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmb_autor.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            cmb_autor.FormattingEnabled = true;
+            cmb_autor.Location = new Point(61, 557);
+            cmb_autor.Name = "cmb_autor";
+            cmb_autor.Size = new Size(269, 36);
+            cmb_autor.TabIndex = 46;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.BackColor = Color.White;
+            label2.Font = new Font("Segoe UI", 12F);
+            label2.Location = new Point(63, 523);
+            label2.Name = "label2";
+            label2.Size = new Size(62, 28);
+            label2.TabIndex = 45;
+            label2.Text = "Autor";
             // 
             // AdministradorViewProducto
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveCaption;
-            ClientSize = new Size(1340, 781);
-            Controls.Add(btn_agregar_autor);
+            ClientSize = new Size(1340, 900);
+            Controls.Add(cmb_autor);
+            Controls.Add(label2);
+            Controls.Add(btn_limpiar_producto);
             Controls.Add(btn_buscar_producto);
             Controls.Add(text_buscar_producto);
             Controls.Add(cmb_buscar_por_producto);
@@ -379,6 +404,8 @@
         private Label l_buscar_producto;
         private Label l_lista_productos;
         private DataGridView dataGridProducto;
-        private Button btn_agregar_autor;
+        private Button btn_limpiar_producto;
+        private ComboBox cmb_autor;
+        private Label label2;
     }
 }
