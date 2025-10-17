@@ -16,10 +16,11 @@ namespace VocesDePapelV1._1.Models
         private int id_libro;
         private string titulo;
         private string editorial;
-        private float precio;
+        private decimal precio;
         private int stock;
         private int eliminado;
         private int id_categoria;
+        private int id_autor;
 
         //accesors y mutators. Validaciones
         [DisplayName("ID Libro")]
@@ -45,7 +46,7 @@ namespace VocesDePapelV1._1.Models
         }
         [DisplayName("Precio")]
         [Required(ErrorMessage = "El precio es requerido")]
-        public float Precio { 
+        public decimal Precio { 
             get { return precio; } 
             set { precio = value; }
         }
@@ -67,6 +68,10 @@ namespace VocesDePapelV1._1.Models
             get { return id_categoria; } 
             set { id_categoria = value; }
         }
+        public int Id_autor { 
+            get { return id_autor; } 
+            set { id_autor = value; }
+        }
         //propiedades adicionales para mostrar el nombre del estado y rol en la vista
         [DisplayName("Nombre estado ")] //se asocia al nombre del encabezado de la columna en el datagridview
         public string Nombre_estado { get; set; }
@@ -74,5 +79,7 @@ namespace VocesDePapelV1._1.Models
         [DisplayName("Nombre categoria ")]
         public string Nombre_categoria { get; set; }
 
+        [DisplayName("Nombre autor ")]
+        public string Nombre_autor { get; set; }
     }
 }

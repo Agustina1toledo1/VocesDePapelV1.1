@@ -150,6 +150,15 @@ namespace VocesDePapelV1._1.Views
             set { cmb_buscar_por_producto.Text = value; }
         }
 
+        public string ProductoIdAutor {
+            get { return cmb_autor.SelectedValue?.ToString(); }
+            set { cmb_autor.SelectedValue = value; }
+        }
+        public string ProductoNombreAutor {
+            get { return cmb_autor.Text; }
+            set { cmb_autor.Text = value; }
+        }
+
         public event EventHandler SearchEvent;
         public event EventHandler AddNewEvent;
         public event EventHandler EditEvent;
@@ -201,6 +210,12 @@ namespace VocesDePapelV1._1.Views
             cmb_estado_producto.DataSource = estadoList;
             cmb_estado_producto.DisplayMember = "Nombre_estado";
             cmb_estado_producto.ValueMember = "Id_estado";
+        }
+        public void SetAutorListBindingSource(object autorList)
+        {
+            cmb_autor.DataSource = autorList;
+            cmb_autor.DisplayMember = "Alias_autor";
+            cmb_autor.ValueMember = "Id_autor";
         }
         //metodo para agregar los items al combobox de buscar 
         public void AddSearchItems(string[] items)

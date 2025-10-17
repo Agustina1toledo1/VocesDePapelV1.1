@@ -20,9 +20,11 @@ namespace VocesDePapelV1._1.Presenters
         private BindingSource productoBindingSource;
         private BindingSource categoriaBindingSource;
         private BindingSource estadoBindingSource;
+        private BindingSource autorBindingSource;
         private IEnumerable<ProductoModel> productoList;
         private IEnumerable<CategoriaModel> categoriaList;
         private IEnumerable<EstadoModel> estadoList;
+        private IEnumerable<AutorModel> autorList;
 
 
         public ProductoPresenter(IAdministradorViewProducto view, IProductoRepository repository)
@@ -31,6 +33,7 @@ namespace VocesDePapelV1._1.Presenters
             this.productoBindingSource = new BindingSource();
             this.categoriaBindingSource = new BindingSource();
             this.estadoBindingSource = new BindingSource();
+            this.autorBindingSource = new BindingSource();
             this.view = view;
             this.repository = repository;
 
@@ -45,14 +48,22 @@ namespace VocesDePapelV1._1.Presenters
             //cargar los datos
             CargarAllEstado();
             CargarAllCategoria();
+            CargarAllAutor();
             CargarAllProductos();
 
             //enlazamos los datos
             this.view.SetProductoListBindingSource(productoBindingSource);
             this.view.SetCategoriaListBindingSource(categoriaBindingSource);
             this.view.SetEstadoListBindingSource(estadoBindingSource);
+            this.view.SetAutorListBindingSource(autorBindingSource);
             //mostramos la vista
             this.view.Show();
+        }
+
+        private void CargarAllAutor()
+        {
+            autorList = repository.GetAutor();
+            autorBindingSource.DataSource =autorList;
         }
 
         private void CargarAllProductos()
@@ -63,9 +74,11 @@ namespace VocesDePapelV1._1.Presenters
             {
                 var categoria = categoriaList.FirstOrDefault(c => c.Id_categoria == producto.Id_categoria);
                 var estado = estadoList.FirstOrDefault(e => e.Id_estado == producto.Eliminado_id);
-                
+                var autor = autorList.FirstOrDefault(a => a.Id_autor == producto.Id_autor);
+
                 producto.Nombre_categoria = categoria?.Nombre_categoria ?? "Desconocida";
                 producto.Nombre_estado = estado?.Nombre_estado ?? "Desconocido";
+                producto.Nombre_autor = autor?.Alias_autor ?? "Desconocido";
             }
             productoBindingSource.DataSource = productoList;
         }
@@ -99,14 +112,24 @@ namespace VocesDePapelV1._1.Presenters
         private void SaveProducto(object? sender, EventArgs e)
         {
             var producto = new ProductoModel();
-
+            if (string.IsNullOrWhiteSpace(view.ProductoPrecio) || !decimal.TryParse(view.ProductoPrecio, out var precio))
+            {
+                view.Message = "Por favor ingrese un precio válido.";
+                view.IsSuccessful = false;
+                return;
+            }
+            else
+            {
+                producto.Precio = Convert.ToDecimal(view.ProductoPrecio);
+            }
             producto.Id_libro = Convert.ToInt32(view.ProductoId);
             producto.Titulo = view.ProductoTitulo;
             producto.Editorial = view.ProductoEditorial;
-            producto.Precio = Convert.ToSingle(view.ProductoPrecio);
+            //producto.Precio = Convert.ToDecimal(view.ProductoPrecio);
             producto.Stock = Convert.ToInt32(view.ProductoStock);
             producto.Eliminado_id = Convert.ToInt32(view.ProductoEliminado);
             producto.Id_categoria = Convert.ToInt32(view.ProductoIdCategoria);
+            producto.Id_autor = Convert.ToInt32(view.ProductoIdCategoria);
 
             try
             {
@@ -150,6 +173,7 @@ namespace VocesDePapelV1._1.Presenters
             view.ProductoStock = producto.Stock.ToString();
             view.ProductoNombreEstado = producto.Nombre_estado;
             view.ProductoNombreCategoria = producto.Nombre_categoria;
+            view.ProductoNombreAutor = producto.Nombre_autor;
         }
 
         private void AddNewProducto(object? sender, EventArgs e)
@@ -158,10 +182,22 @@ namespace VocesDePapelV1._1.Presenters
 
             producto.Titulo = view.ProductoTitulo;
             producto.Editorial = view.ProductoEditorial;
-            producto.Precio = float.Parse(view.ProductoPrecio);
+            
             producto.Stock = Convert.ToInt32(view.ProductoStock);
             producto.Eliminado_id = Convert.ToInt32(view.ProductoEliminado);
             producto.Id_categoria = Convert.ToInt32(view.ProductoIdCategoria);
+            producto.Id_autor = Convert.ToInt32(view.ProductoIdCategoria);
+            if (string.IsNullOrWhiteSpace(view.ProductoPrecio) || !decimal.TryParse(view.ProductoPrecio, out var precio))
+            {
+                view.Message = "Por favor ingrese un precio válido.";
+                view.IsSuccessful = false;
+                return;
+            }
+            else
+            {
+                producto.Precio = Convert.ToDecimal(view.ProductoPrecio);
+            }
+                //producto.Precio = precio;
 
             try
             {
