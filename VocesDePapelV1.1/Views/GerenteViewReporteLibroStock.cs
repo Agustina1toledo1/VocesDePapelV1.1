@@ -19,6 +19,16 @@ namespace VocesDePapelV1._1.Views
 
         //singleton patron (abre una sola instancia del formulario) 
         private static GerenteViewReporteLibroStock instance;
+
+        public string FiltroCantidad {
+            get { return text_cantidad_libro_reporte_gerente.Text; }
+            set { text_cantidad_libro_reporte_gerente.Text = value; }
+        }
+        public string CantidadTotalLibros {
+            get { return l_resultadoTotalProductoStock.Text; }
+            set { l_resultadoTotalProductoStock.Text = value; }
+        }
+
         public static GerenteViewReporteLibroStock GetInstance(Form parentConteiner)
         {
             if (instance == null || instance.IsDisposed) //si es nulo o esta desechado

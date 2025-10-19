@@ -36,14 +36,9 @@
             label5 = new Label();
             text_cantidad_libro_reporte_gerente = new TextBox();
             dataGridView1 = new DataGridView();
-            titulo = new DataGridViewTextBoxColumn();
-            editorial = new DataGridViewTextBoxColumn();
-            id_libro = new DataGridViewTextBoxColumn();
-            precio = new DataGridViewTextBoxColumn();
-            stock = new DataGridViewTextBoxColumn();
-            estado = new DataGridViewTextBoxColumn();
-            categoria = new DataGridViewTextBoxColumn();
             btn_modificar_usuario = new Button();
+            l_totalProductosStock = new Label();
+            l_resultadoTotalProductoStock = new Label();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -100,6 +95,7 @@
             // dataGridView1
             // 
             dataGridView1.AllowUserToAddRows = false;
+            dataGridView1.AllowUserToDeleteRows = false;
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = SystemColors.Control;
             dataGridViewCellStyle1.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -110,7 +106,6 @@
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
             dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { titulo, editorial, id_libro, precio, stock, estado, categoria });
             dataGridView1.Location = new Point(219, 133);
             dataGridView1.MultiSelect = false;
             dataGridView1.Name = "dataGridView1";
@@ -121,63 +116,6 @@
             dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle2;
             dataGridView1.Size = new Size(903, 564);
             dataGridView1.TabIndex = 79;
-            // 
-            // titulo
-            // 
-            titulo.HeaderText = "Título";
-            titulo.MinimumWidth = 6;
-            titulo.Name = "titulo";
-            titulo.ReadOnly = true;
-            titulo.Width = 125;
-            // 
-            // editorial
-            // 
-            editorial.HeaderText = "Editorial";
-            editorial.MinimumWidth = 6;
-            editorial.Name = "editorial";
-            editorial.ReadOnly = true;
-            editorial.Width = 125;
-            // 
-            // id_libro
-            // 
-            id_libro.HeaderText = "id_libro";
-            id_libro.MinimumWidth = 6;
-            id_libro.Name = "id_libro";
-            id_libro.ReadOnly = true;
-            id_libro.Visible = false;
-            id_libro.Width = 125;
-            // 
-            // precio
-            // 
-            precio.HeaderText = "Precio";
-            precio.MinimumWidth = 6;
-            precio.Name = "precio";
-            precio.ReadOnly = true;
-            precio.Width = 125;
-            // 
-            // stock
-            // 
-            stock.HeaderText = "Stock";
-            stock.MinimumWidth = 6;
-            stock.Name = "stock";
-            stock.ReadOnly = true;
-            stock.Width = 125;
-            // 
-            // estado
-            // 
-            estado.HeaderText = "Estado";
-            estado.MinimumWidth = 6;
-            estado.Name = "estado";
-            estado.ReadOnly = true;
-            estado.Width = 125;
-            // 
-            // categoria
-            // 
-            categoria.HeaderText = "Categoria";
-            categoria.MinimumWidth = 6;
-            categoria.Name = "categoria";
-            categoria.ReadOnly = true;
-            categoria.Width = 125;
             // 
             // btn_modificar_usuario
             // 
@@ -190,12 +128,34 @@
             btn_modificar_usuario.Text = "Generar excel";
             btn_modificar_usuario.UseVisualStyleBackColor = false;
             // 
+            // l_totalProductosStock
+            // 
+            l_totalProductosStock.AutoSize = true;
+            l_totalProductosStock.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            l_totalProductosStock.Location = new Point(219, 714);
+            l_totalProductosStock.Name = "l_totalProductosStock";
+            l_totalProductosStock.Size = new Size(73, 31);
+            l_totalProductosStock.TabIndex = 92;
+            l_totalProductosStock.Text = "Total:";
+            // 
+            // l_resultadoTotalProductoStock
+            // 
+            l_resultadoTotalProductoStock.AutoSize = true;
+            l_resultadoTotalProductoStock.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            l_resultadoTotalProductoStock.Location = new Point(298, 714);
+            l_resultadoTotalProductoStock.Name = "l_resultadoTotalProductoStock";
+            l_resultadoTotalProductoStock.Size = new Size(67, 31);
+            l_resultadoTotalProductoStock.TabIndex = 93;
+            l_resultadoTotalProductoStock.Text = "Total";
+            // 
             // GerenteViewReporteLibroStock
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveCaption;
             ClientSize = new Size(1340, 781);
+            Controls.Add(l_resultadoTotalProductoStock);
+            Controls.Add(l_totalProductosStock);
             Controls.Add(btn_modificar_usuario);
             Controls.Add(dataGridView1);
             Controls.Add(text_cantidad_libro_reporte_gerente);
@@ -218,13 +178,8 @@
         private Label label5;
         private TextBox text_cantidad_libro_reporte_gerente;
         private DataGridView dataGridView1;
-        private DataGridViewTextBoxColumn titulo;
-        private DataGridViewTextBoxColumn editorial;
-        private DataGridViewTextBoxColumn id_libro;
-        private DataGridViewTextBoxColumn precio;
-        private DataGridViewTextBoxColumn stock;
-        private DataGridViewTextBoxColumn estado;
-        private DataGridViewTextBoxColumn categoria;
         private Button btn_modificar_usuario;
+        private Label l_totalProductosStock;
+        private Label l_resultadoTotalProductoStock;
     }
 }
