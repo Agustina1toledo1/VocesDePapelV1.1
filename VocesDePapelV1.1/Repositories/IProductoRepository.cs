@@ -17,5 +17,6 @@ namespace VocesDePapelV1._1.Repositories
         IEnumerable<ProductoModel> GetByValueTitulo(string value); //buscar por valor de titulo
         IEnumerable<CategoriaModel> GetCategoria();
         IEnumerable<EstadoModel> GetEstado();
+        IEnumerable<AutorModel> GetAutor();
     }
 }

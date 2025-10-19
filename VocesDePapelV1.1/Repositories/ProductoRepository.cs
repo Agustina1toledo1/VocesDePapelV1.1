@@ -21,10 +21,11 @@ namespace VocesDePapelV1._1.Repositories
             {
                 connection.Open();
                 // Verifico existencia del producto por su título
+                /*
                 command.CommandText = @"
                                     SELECT COUNT(1)
                                         FROM libro
-                                        WHERE titulo = @titulo;
+                                        WHERE titulo = @titulo ;
                                         ";
                 command.Parameters.Add("@titulo", SqlDbType.NVarChar).Value = producto.Titulo;
 
@@ -32,20 +33,32 @@ namespace VocesDePapelV1._1.Repositories
                 if (existe > 0)
                 {
                     // Retiro los parámetros previos y lanzo excepción
-                    command.Parameters.Clear();
+                    //command.Parameters.Clear();
                     throw new InvalidOperationException("El producto ingresado ya está registrado.");
                 }
-                // Inserto el nuevo producto
-                command.Parameters.Clear();
-                command.CommandText = @"INSERT INTO libro (titulo, editorial, precio, stock,eliminado, id_categoria) 
-                                      VALUES (@titulo, @editorial, @precio,@stock,  @estado,@categoria)";
-                command.Parameters.Add("@titulo", SqlDbType.NVarChar).Value= producto.Titulo;
-                command.Parameters.Add("@editorial", SqlDbType.NVarChar).Value= producto.Editorial;
-                command.Parameters.Add("@stock", SqlDbType.Int).Value= producto.Stock;
-                command.Parameters.Add("@precio", SqlDbType.Decimal).Value= producto.Precio;
-                command.Parameters.Add("@estado", SqlDbType.Int).Value= producto.Eliminado_id;
-                command.Parameters.Add("@categoria", SqlDbType.Int).Value= producto.Id_categoria;
-                command.ExecuteNonQuery();
+                    // Inserto el nuevo producto
+                    command.Parameters.Clear();*/
+                    command.CommandText = @"INSERT 
+                                            INTO libro 
+                                                (titulo, 
+                                                editorial, 
+                                                precio, 
+                                                 stock,
+                                                eliminado, 
+                                                id_categoria, 
+                                                id_autor) 
+                                      VALUES (@titulo, @editorial, @precio,@stock,  @estado,@categoria, @autor);";
+                    command.Parameters.Add("@titulo", SqlDbType.NVarChar).Value = producto.Titulo;
+                    command.Parameters.Add("@editorial", SqlDbType.NVarChar).Value = producto.Editorial;
+                    command.Parameters.Add("@precio", SqlDbType.Decimal).Value = producto.Precio;
+                    command.Parameters.Add("@stock", SqlDbType.Int).Value = producto.Stock;
+                    command.Parameters.Add("@estado", SqlDbType.Int).Value = producto.Eliminado_id;
+                    command.Parameters.Add("@categoria", SqlDbType.Int).Value = producto.Id_categoria;
+                    command.Parameters.Add("@autor", SqlDbType.Int).Value = producto.Id_autor;
+                    command.ExecuteNonQuery();
+                   
+                
+                    
             }
         }
 
@@ -61,19 +74,32 @@ namespace VocesDePapelV1._1.Repositories
                 command.ExecuteNonQuery();
             }
         }
-
         public IEnumerable<ProductoModel> GetAll()
         {
             var productoList = new List<ProductoModel>();
 
-            using (var connection = new Microsoft.Data.SqlClient.SqlConnection(connectionString)) 
+            using (var connection = new Microsoft.Data.SqlClient.SqlConnection(connectionString))
             using (var command = new Microsoft.Data.SqlClient.SqlCommand())
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = @"SELECT id_libro, titulo, editorial, precio, stock, 
-                                        eliminado, id_categoria FROM libro 
-                                           ORDER BY id_libro DESC";
+                command.CommandText = @"SELECT l.id_libro, 
+                                        l.titulo, 
+                                        l.editorial, 
+                                        l.precio,
+                                        l.stock, 
+                                        l.eliminado,
+                                        l.id_categoria,         
+                                        l.id_autor,
+                                        e.nombre_estado, 
+                                        c.nombre_categoria, 
+                                        a.alias_autor 
+                                FROM libro as l
+                                inner join estado as e on l.eliminado = e.id_estado
+                                inner join categoria as c on l.id_categoria = c.id_categoria
+                                inner join autor as a on l.id_autor = a.id_autor
+                                ORDER BY 
+                                id_libro DESC;";
 
                 using (var reader = command.ExecuteReader())
                 {
@@ -84,16 +110,52 @@ namespace VocesDePapelV1._1.Repositories
                             Id_libro = Convert.ToInt32(reader["id_libro"]),
                             Titulo = reader["titulo"].ToString(),
                             Editorial = reader["editorial"].ToString(),
-                            Precio = Convert.ToSingle(reader["precio"]),
+                            Precio = Convert.ToDecimal(reader["precio"]),
                             Stock = Convert.ToInt32(reader["stock"]),
                             Eliminado_id = Convert.ToInt32(reader["eliminado"]),
-                            Id_categoria = Convert.ToInt32(reader["id_categoria"])
+                            Id_categoria = Convert.ToInt32(reader["id_categoria"]),
+                            Id_autor = Convert.ToInt32(reader["id_autor"]),
+                            Nombre_autor = reader["alias_autor"].ToString(),
+                            Nombre_categoria = reader["nombre_categoria"].ToString(),
+                            Nombre_estado = reader["nombre_estado"].ToString()
                         };
                         productoList.Add(producto);
                     }
                 }
             }
             return productoList;
+        }
+
+        public IEnumerable<AutorModel> GetAutor()
+        {
+            //lista de estados
+            var autorList = new List<AutorModel>();
+            //consultas sql
+            using (var connection = new Microsoft.Data.SqlClient.SqlConnection(connectionString))
+            using (var command = new Microsoft.Data.SqlClient.SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = @"SELECT *  FROM autor  
+                                            WHERE id_estado = 0
+                                        ORDER BY id_autor DESC";
+                using (var reader = command.ExecuteReader())
+                {
+
+                    while (reader.Read())
+                    {
+                        var autor = new AutorModel
+                        {
+                            Id_autor = Convert.ToInt32(reader["id_autor"]),
+                            Alias_autor = reader["alias_autor"].ToString(),
+                            Estado_id = Convert.ToInt32(reader["id_estado"])
+                        };
+                        autorList.Add(autor);
+                    }
+
+                }
+            }
+            return autorList;
         }
 
         public IEnumerable<ProductoModel> GetByValueCategoria(string value)
@@ -105,13 +167,25 @@ namespace VocesDePapelV1._1.Repositories
             using (var command = new Microsoft.Data.SqlClient.SqlCommand())
             {
                 connection.Open();
-                command.Connection = connection; 
-                command.CommandText = @"SELECT libro.id_libro, libro.titulo, libro.editorial, libro.precio, libro.stock, 
-                                        libro.eliminado, libro.id_categoria 
-                                        FROM libro 
-                                        JOIN categoria ON libro.id_categoria = categoria.id_categoria
-                                        WHERE  categoria.nombre_categoria LIKE @categoria+'%'
-                                        ORDER BY libro.id_libro DESC";
+                command.Connection = connection;
+                
+                command.CommandText = @"SELECT l.id_libro, 
+                                                l.titulo, 
+                                                l.editorial, 
+                                                l.precio, 
+                                                l.stock, 
+                                                l.eliminado, 
+                                                l.id_categoria ,
+                                                l.id_autor,
+                                                e.nombre_estado,    
+                                                c.nombre_categoria, 
+                                                a.alias_autor   
+                                        FROM libro as l
+                                        INNER JOIN categoria as c ON l.id_categoria = c.id_categoria
+                                        INNER JOIN estado as e ON l.eliminado = e.id_estado   
+                                        INNER JOIN autor as a ON l.id_autor = a.id_autor
+                                        WHERE  c.nombre_categoria LIKE @categoria+'%'
+                                        ORDER BY l.id_libro DESC";
 
                 command.Parameters.Add("@categoria", SqlDbType.NVarChar).Value = categoria;
 
@@ -124,10 +198,15 @@ namespace VocesDePapelV1._1.Repositories
                             Id_libro = Convert.ToInt32(reader["id_libro"]),
                             Titulo = reader["titulo"].ToString(),
                             Editorial = reader["editorial"].ToString(),
-                            Precio = Convert.ToSingle(reader["precio"]),
+                            Precio = Convert.ToDecimal(reader["precio"]),
                             Stock = Convert.ToInt32(reader["stock"]),
                             Eliminado_id = Convert.ToInt32(reader["eliminado"]),
-                            Id_categoria = Convert.ToInt32(reader["id_categoria"])
+                            Id_categoria = Convert.ToInt32(reader["id_categoria"]),
+                            Id_autor = Convert.ToInt32(reader["id_autor"]),
+                            Nombre_autor = reader["alias_autor"].ToString(),
+                            Nombre_categoria = reader["nombre_categoria"].ToString(),   
+                            Nombre_estado = reader["nombre_estado"].ToString()
+
                         };
                         productoList.Add(producto);
                     }
@@ -148,11 +227,24 @@ namespace VocesDePapelV1._1.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                //command.CommandText = "SELECT * FROM Usuario ORDER BY id_usuario DESC"; video
-                command.CommandText = @"SELECT id_libro, titulo, editorial, precio, stock, 
-                                        eliminado, id_categoria  FROM libro
-                                    WHERE titulo like @titulo+'%' 
-                                    ORDER BY id_libro DESC";
+               
+                command.CommandText = @"SELECT l.id_libro, 
+                                                l.titulo, 
+                                                l.editorial, 
+                                                l.precio, 
+                                                l.stock, 
+                                                l.eliminado,    
+                                                l.id_categoria, 
+                                                l.id_autor,
+                                                e.nombre_estado,
+                                                c.nombre_categoria,     
+                                                a.alias_autor
+                                    FROM libro as l
+                                    INNER JOIN categoria as c ON l.id_categoria = c.id_categoria    
+                                    INNER JOIN estado as e ON l.eliminado = e.id_estado
+                                    INNER JOIN autor as a ON l.id_autor = a.id_autor
+                                    WHERE l.titulo like @titulo+'%' 
+                                    ORDER BY l.id_libro DESC";
 
                 command.Parameters.Add("@titulo", SqlDbType.NVarChar).Value = titulo;
 
@@ -166,10 +258,14 @@ namespace VocesDePapelV1._1.Repositories
                             Id_libro = Convert.ToInt32(reader["id_libro"]),
                             Titulo = reader["titulo"].ToString(),
                             Editorial = reader["editorial"].ToString(),
-                            Precio = Convert.ToSingle(reader["precio"]),
+                            Precio = Convert.ToDecimal(reader["precio"]),
                             Stock = Convert.ToInt32(reader["stock"]),
                             Eliminado_id = Convert.ToInt32(reader["eliminado"]),
-                            Id_categoria = Convert.ToInt32(reader["id_categoria"])
+                            Id_categoria = Convert.ToInt32(reader["id_categoria"]),
+                            Id_autor = Convert.ToInt32(reader["id_autor"]),
+                            Nombre_autor = reader["alias_autor"].ToString(),
+                            Nombre_categoria = reader["nombre_categoria"].ToString(),
+                            Nombre_estado = reader["nombre_estado"].ToString()
                         };
                         productoList.Add(producto);
                     }
@@ -190,6 +286,7 @@ namespace VocesDePapelV1._1.Repositories
                 command.Connection = connection;
                 command.CommandText = @"SELECT id_categoria, nombre_categoria, id_estado
                                         FROM categoria 
+                                           WHERE id_estado = 0
                                         ORDER BY id_categoria DESC";
                 using (var reader = command.ExecuteReader())
                 {
@@ -246,13 +343,35 @@ namespace VocesDePapelV1._1.Repositories
                 connection.Open();
                 command.Connection = connection;
                 
+                var sql_consulta = new StringBuilder();
+                sql_consulta.Append("UPDATE libro SET titulo = @titulo,");
+                sql_consulta.Append("editorial =@editorial,");
+                sql_consulta.Append("precio=@precio,");
+                sql_consulta.Append("stock=@stock,");
+                sql_consulta.Append("eliminado =@estado ");
+
+                if (producto.Id_categoria != 99)
+                {
+                    sql_consulta.Append(", id_categoria =@categoria");
+                    command.Parameters.Add("@categoria", SqlDbType.Int).Value = producto.Id_categoria;
+                }
+                if (producto.Id_autor != 99)
+                {
+                    sql_consulta.Append(", id_autor =@autor ");
+                    command.Parameters.Add("@autor", SqlDbType.Int).Value = producto.Id_autor;
+                }
+                sql_consulta.Append("WHERE id_libro = @id_libro");
+                
+                command.CommandText = sql_consulta.ToString();
+                /*
                 command.CommandText = @"UPDATE libro SET titulo =@titulo,
                                         editorial =@editorial,
                                         precio=@precio,
                                         stock=@stock,
                                         eliminado =@estado,
-                                        id_categoria =@categoria
-                                        WHERE id_libro = @id_libro";
+                                        id_categoria =@categoria,
+                                        id_autor =@autor
+                                        WHERE id_libro = @id_libro";*/
 
                 command.Parameters.Add("@id_libro", SqlDbType.Int).Value = producto.Id_libro;
                 command.Parameters.Add("@titulo", SqlDbType.NVarChar).Value = producto.Titulo;
@@ -260,7 +379,8 @@ namespace VocesDePapelV1._1.Repositories
                 command.Parameters.Add("@stock", SqlDbType.Int).Value = producto.Stock;
                 command.Parameters.Add("@precio", SqlDbType.Decimal).Value = producto.Precio;
                 command.Parameters.Add("@estado", SqlDbType.Int).Value = producto.Eliminado_id;
-                command.Parameters.Add("@categoria", SqlDbType.Int).Value = producto.Id_categoria;
+                //command.Parameters.Add("@categoria", SqlDbType.Int).Value = producto.Id_categoria;
+                //command.Parameters.Add("@autor", SqlDbType.Int).Value = producto.Id_autor;
                 command.ExecuteNonQuery();
             }
         }

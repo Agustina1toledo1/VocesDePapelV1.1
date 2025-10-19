@@ -67,22 +67,23 @@ namespace VocesDePapelV1._1.Views
             //mostrar datos en los textbox al seleccionar una fila del datagrid
             dataGridProducto.SelectionChanged += delegate
             {
-                if (dataGridProducto.SelectedCells.Count > 0)
-                {
-                    if (dataGridProducto.SelectedCells.Count > 0)
-                    {
-                        EditEvent?.Invoke(this, EventArgs.Empty);
-                    }
-                    else
-                    {
-                        CancelEvent?.Invoke(this, EventArgs.Empty);
-                    }
-
-                }
+               if (dataGridProducto.SelectedCells.Count > 0)
+               {
+                    EditEvent?.Invoke(this, EventArgs.Empty);
+               }
+               else
+               {
+                    CancelEvent?.Invoke(this, EventArgs.Empty);
+               }
+            };
+            //limpiar campos 
+            btn_limpiar_producto.Click += delegate
+            {
+                CancelEvent?.Invoke(this, EventArgs.Empty);
             };
 
-
-            
+            text_precio_admin.KeyPress += TextBoxSoloNumerosDecimales_KeyPress;
+            text_stock_admin.KeyPress += TextBoxSoloNumeros_KeyPress;
         }
         
         public string ProductoId {
@@ -144,6 +145,15 @@ namespace VocesDePapelV1._1.Views
             set { cmb_buscar_por_producto.Text = value; }
         }
 
+        public string ProductoIdAutor {
+            get { return cmb_autor.SelectedValue?.ToString(); }
+            set { cmb_autor.SelectedValue = value; }
+        }
+        public string ProductoNombreAutor {
+            get { return cmb_autor.Text; }
+            set { cmb_autor.Text = value; }
+        }
+
         public event EventHandler SearchEvent;
         public event EventHandler AddNewEvent;
         public event EventHandler EditEvent;
@@ -174,17 +184,46 @@ namespace VocesDePapelV1._1.Views
             }
             return instance;
         }
+        private void TextBoxSoloNumerosDecimales_KeyPress(object? sender, KeyPressEventArgs e)
+        {
+            var textBox = sender as TextBox;
 
+            // Permitir teclas de control (como backspace)
+            if (char.IsControl(e.KeyChar))
+                return;
+
+            // Permitir dígitos
+            if (char.IsDigit(e.KeyChar))
+                return;
+
+            // Permitir una sola coma, y no como primer carácter
+            if (e.KeyChar == ',' && textBox != null && !textBox.Text.Contains(",") && textBox.Text.Length > 0)
+                return;
+
+            // Bloquear todo lo demás
+            e.Handled = true;
+        }
+
+        private void TextBoxSoloNumeros_KeyPress(object? sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == ' ' || (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar)))
+            {
+                e.Handled = true;
+                return;
+            }
+        }
         public void SetProductoListBindingSource(object productoList)
         {
             dataGridProducto.DataSource = productoList;
             //ocultar columnas no necesarias
             dataGridProducto.Columns["Id_categoria"].Visible = false;
             dataGridProducto.Columns["Eliminado_id"].Visible = false;
+            dataGridProducto.Columns["Id_autor"].Visible = false;
         }
 
         public void SetCategoriaListBindingSource(object categoriaList)
         {
+           
             cmb_categoria_producto.DataSource = categoriaList;
             cmb_categoria_producto.DisplayMember = "Nombre_categoria";
             cmb_categoria_producto.ValueMember = "Id_categoria";
@@ -195,6 +234,12 @@ namespace VocesDePapelV1._1.Views
             cmb_estado_producto.DataSource = estadoList;
             cmb_estado_producto.DisplayMember = "Nombre_estado";
             cmb_estado_producto.ValueMember = "Id_estado";
+        }
+        public void SetAutorListBindingSource(object autorList)
+        {
+            cmb_autor.DataSource = autorList;
+            cmb_autor.DisplayMember = "Alias_autor";
+            cmb_autor.ValueMember = "Id_autor";
         }
         //metodo para agregar los items al combobox de buscar 
         public void AddSearchItems(string[] items)

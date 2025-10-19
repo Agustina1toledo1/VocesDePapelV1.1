@@ -18,6 +18,8 @@ namespace VocesDePapelV1._1.Views
         string ProductoNombreEstado { get; set; }
         string ProductoIdCategoria { get; set; }
         string ProductoNombreCategoria { get; set; }    
+        string ProductoIdAutor { get; set; }
+        string ProductoNombreAutor { get; set; }
         string SearchBy { get; set; }
         string SearchValue { get; set; }
         string Message { get; set; }
@@ -35,6 +37,7 @@ namespace VocesDePapelV1._1.Views
         void SetProductoListBindingSource(object productoList); //metodo para enlazar la lista de productos
         void SetCategoriaListBindingSource(object categoriaList); //metodo para enlazar la lista de categorias
         void SetEstadoListBindingSource(object estadoList); //metodo para enlazar la lista de estados
+        void SetAutorListBindingSource(object autorList); //metodo para enlazar la lista de autores
         void Show(); //metodo para mostrar la vista
     }
 }
