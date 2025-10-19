@@ -46,12 +46,16 @@ namespace VocesDePapelV1._1.Models
         }
         [DisplayName("Precio")]
         [Required(ErrorMessage = "El precio es requerido")]
+        [RegularExpression(@"^[1-9][0-9]*$", ErrorMessage = "Debe ingresar un Precio entero mayor a 0.")]
+
         public decimal Precio { 
             get { return precio; } 
             set { precio = value; }
         }
         [DisplayName("Stock")]
         [Required(ErrorMessage = "El stock es requerido")]
+        [RegularExpression(@"^[1-9][0-9]*$", ErrorMessage = "Debe ingresar un Stock entero mayor a 0.")]
+
         public int Stock { 
             get { return stock; } 
             set { stock = value; }

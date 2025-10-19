@@ -67,18 +67,14 @@ namespace VocesDePapelV1._1.Views
             //mostrar datos en los textbox al seleccionar una fila del datagrid
             dataGridProducto.SelectionChanged += delegate
             {
-                if (dataGridProducto.SelectedCells.Count > 0)
-                {
-                    if (dataGridProducto.SelectedCells.Count > 0)
-                    {
-                        EditEvent?.Invoke(this, EventArgs.Empty);
-                    }
-                    else
-                    {
-                        CancelEvent?.Invoke(this, EventArgs.Empty);
-                    }
-
-                }
+               if (dataGridProducto.SelectedCells.Count > 0)
+               {
+                    EditEvent?.Invoke(this, EventArgs.Empty);
+               }
+               else
+               {
+                    CancelEvent?.Invoke(this, EventArgs.Empty);
+               }
             };
             //limpiar campos 
             btn_limpiar_producto.Click += delegate
@@ -86,9 +82,8 @@ namespace VocesDePapelV1._1.Views
                 CancelEvent?.Invoke(this, EventArgs.Empty);
             };
 
-
-
-
+            text_precio_admin.KeyPress += TextBoxSoloNumeros_KeyPress;
+            text_stock_admin.KeyPress += TextBoxSoloNumeros_KeyPress;
         }
         
         public string ProductoId {
@@ -189,17 +184,26 @@ namespace VocesDePapelV1._1.Views
             }
             return instance;
         }
-
+        private void TextBoxSoloNumeros_KeyPress(object? sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == ' ' || (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar)))
+            {
+                e.Handled = true;
+                return;
+            }
+        }
         public void SetProductoListBindingSource(object productoList)
         {
             dataGridProducto.DataSource = productoList;
             //ocultar columnas no necesarias
             dataGridProducto.Columns["Id_categoria"].Visible = false;
             dataGridProducto.Columns["Eliminado_id"].Visible = false;
+            dataGridProducto.Columns["Id_autor"].Visible = false;
         }
 
         public void SetCategoriaListBindingSource(object categoriaList)
         {
+           
             cmb_categoria_producto.DataSource = categoriaList;
             cmb_categoria_producto.DisplayMember = "Nombre_categoria";
             cmb_categoria_producto.ValueMember = "Id_categoria";

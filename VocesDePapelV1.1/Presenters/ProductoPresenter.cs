@@ -69,7 +69,7 @@ namespace VocesDePapelV1._1.Presenters
         private void CargarAllProductos()
         {
             productoList = repository.GetAll();
-
+            /*
             foreach (var producto in productoList)
             {
                 var categoria = categoriaList.FirstOrDefault(c => c.Id_categoria == producto.Id_categoria);
@@ -79,14 +79,16 @@ namespace VocesDePapelV1._1.Presenters
                 producto.Nombre_categoria = categoria?.Nombre_categoria ?? "Desconocida";
                 producto.Nombre_estado = estado?.Nombre_estado ?? "Desconocido";
                 producto.Nombre_autor = autor?.Alias_autor ?? "Desconocido";
-            }
+            }*/
             productoBindingSource.DataSource = productoList;
         }
 
-        private void CargarAllCategoria()
+        private void CargarAllCategoria() //optimizar
         {
+            
             categoriaList = repository.GetCategoria();
-            categoriaBindingSource.DataSource = categoriaList;
+           
+            categoriaBindingSource.DataSource = categoriaList; //.Where(c => c.Estado_id == 0).ToList()
         }
 
         private void CargarAllEstado()
@@ -112,24 +114,30 @@ namespace VocesDePapelV1._1.Presenters
         private void SaveProducto(object? sender, EventArgs e)
         {
             var producto = new ProductoModel();
+            //tratamiento del campo precio, al ser decimal puede generar errores si el formato no es correcto
+            if (string.IsNullOrWhiteSpace(view.ProductoStock) || !int.TryParse(view.ProductoStock, out var stock))
+            {
+                producto.Stock = 0;
+            }
+            else
+            {
+                producto.Stock = Convert.ToInt32(view.ProductoStock);
+            }
             if (string.IsNullOrWhiteSpace(view.ProductoPrecio) || !decimal.TryParse(view.ProductoPrecio, out var precio))
             {
-                view.Message = "Por favor ingrese un precio válido.";
-                view.IsSuccessful = false;
-                return;
+                producto.Precio = 0;
             }
             else
             {
                 producto.Precio = Convert.ToDecimal(view.ProductoPrecio);
             }
+
             producto.Id_libro = Convert.ToInt32(view.ProductoId);
             producto.Titulo = view.ProductoTitulo;
             producto.Editorial = view.ProductoEditorial;
-            //producto.Precio = Convert.ToDecimal(view.ProductoPrecio);
-            producto.Stock = Convert.ToInt32(view.ProductoStock);
             producto.Eliminado_id = Convert.ToInt32(view.ProductoEliminado);
             producto.Id_categoria = Convert.ToInt32(view.ProductoIdCategoria);
-            producto.Id_autor = Convert.ToInt32(view.ProductoIdCategoria);
+            producto.Id_autor = Convert.ToInt32(view.ProductoIdAutor);
 
             try
             {
@@ -165,6 +173,11 @@ namespace VocesDePapelV1._1.Presenters
         private void EditProducto(object? sender, EventArgs e)
         {
             var producto =(ProductoModel)productoBindingSource.Current;
+            // Verificar si la categoría está eliminada
+            var categoria = categoriaList.FirstOrDefault(c => c.Id_categoria == producto.Id_categoria);
+            var categoriaEliminadaExiste = categoriaList.FirstOrDefault(c => c.Id_categoria == 99);
+            var autor = autorList.FirstOrDefault(a => a.Id_autor == producto.Id_autor);
+            var autorEliminadoExiste = autorList.FirstOrDefault(a => a.Id_autor == 99);
 
             view.ProductoId = producto.Id_libro.ToString();
             view.ProductoTitulo = producto.Titulo;
@@ -172,8 +185,53 @@ namespace VocesDePapelV1._1.Presenters
             view.ProductoPrecio = producto.Precio.ToString();
             view.ProductoStock = producto.Stock.ToString();
             view.ProductoNombreEstado = producto.Nombre_estado;
-            view.ProductoNombreCategoria = producto.Nombre_categoria;
-            view.ProductoNombreAutor = producto.Nombre_autor;
+            //si categoria no esta en la lista de categorias, significa que esta eliminada
+            if (categoria == null && categoriaEliminadaExiste  == null)
+            {
+                var categoriaEliminada = new CategoriaModel()
+                {
+                    Id_categoria = 99,
+                    Nombre_categoria = "Categoría eliminada",
+                    Estado_id = 1
+                };
+                var categoriaextendida = categoriaList.Append(categoriaEliminada).ToList();
+                categoriaBindingSource.DataSource = categoriaextendida;
+                categoriaList = categoriaextendida;
+                view.ProductoNombreCategoria = categoriaEliminada.Nombre_categoria;
+            }else if (categoria == null && categoriaEliminadaExiste != null)
+            {
+                view.ProductoNombreCategoria = categoriaEliminadaExiste.Nombre_categoria;
+            }
+            else
+            {
+                categoriaList = categoriaList.Where(c => c.Id_categoria != 99).ToList();
+                categoriaBindingSource.DataSource = categoriaList;
+                view.ProductoNombreCategoria = producto.Nombre_categoria;
+            }
+            if (autor == null && autorEliminadoExiste == null)
+            {
+                var autorEliminado = new AutorModel()
+                {
+                    Id_autor = 99,
+                    Alias_autor = "Autor eliminado",
+                    Estado_id = 1
+                };
+                var autorextendida = autorList.Append(autorEliminado).ToList();
+                autorBindingSource.DataSource = autorextendida;
+                autorList = autorextendida;
+                view.ProductoNombreAutor = autorEliminado.Alias_autor;
+            }
+            else if (autor == null && autorEliminadoExiste != null)
+            {
+                view.ProductoNombreAutor = autorEliminadoExiste.Alias_autor;
+            }
+            else
+            {
+                autorList = autorList.Where(a => a.Id_autor != 99).ToList();
+                autorBindingSource.DataSource = autorList;
+                view.ProductoNombreAutor = producto.Nombre_autor;
+            }
+
         }
 
         private void AddNewProducto(object? sender, EventArgs e)
@@ -182,22 +240,25 @@ namespace VocesDePapelV1._1.Presenters
 
             producto.Titulo = view.ProductoTitulo;
             producto.Editorial = view.ProductoEditorial;
-            
-            producto.Stock = Convert.ToInt32(view.ProductoStock);
             producto.Eliminado_id = Convert.ToInt32(view.ProductoEliminado);
             producto.Id_categoria = Convert.ToInt32(view.ProductoIdCategoria);
             producto.Id_autor = Convert.ToInt32(view.ProductoIdCategoria);
+            if (string.IsNullOrWhiteSpace(view.ProductoStock) || !int.TryParse(view.ProductoStock, out var stock))
+            {
+                producto.Stock = 0;
+            }
+            else
+            {
+                producto.Stock = Convert.ToInt32(view.ProductoStock);
+            }
             if (string.IsNullOrWhiteSpace(view.ProductoPrecio) || !decimal.TryParse(view.ProductoPrecio, out var precio))
             {
-                view.Message = "Por favor ingrese un precio válido.";
-                view.IsSuccessful = false;
-                return;
+                producto.Precio = 0;
             }
             else
             {
                 producto.Precio = Convert.ToDecimal(view.ProductoPrecio);
             }
-                //producto.Precio = precio;
 
             try
             {
@@ -239,14 +300,16 @@ namespace VocesDePapelV1._1.Presenters
             else
             {
                 productoList = repository.GetAll();
+                
             }
+            /*
             foreach (var producto in productoList)
             {
                 var categoria = categoriaList.FirstOrDefault(c => c.Id_categoria == producto.Id_categoria);
                 var estado = estadoList.FirstOrDefault(e => e.Id_estado == producto.Eliminado_id);
                 producto.Nombre_categoria = categoria?.Nombre_categoria ?? "Desconocida";
                 producto.Nombre_estado = estado?.Nombre_estado ?? "Desconocido";
-            }
+            }*/
             productoBindingSource.DataSource = productoList;
 
         }
