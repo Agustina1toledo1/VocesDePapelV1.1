@@ -82,7 +82,7 @@ namespace VocesDePapelV1._1.Views
                 CancelEvent?.Invoke(this, EventArgs.Empty);
             };
 
-            text_precio_admin.KeyPress += TextBoxSoloNumeros_KeyPress;
+            text_precio_admin.KeyPress += TextBoxSoloNumerosDecimales_KeyPress;
             text_stock_admin.KeyPress += TextBoxSoloNumeros_KeyPress;
         }
         
@@ -184,6 +184,26 @@ namespace VocesDePapelV1._1.Views
             }
             return instance;
         }
+        private void TextBoxSoloNumerosDecimales_KeyPress(object? sender, KeyPressEventArgs e)
+        {
+            var textBox = sender as TextBox;
+
+            // Permitir teclas de control (como backspace)
+            if (char.IsControl(e.KeyChar))
+                return;
+
+            // Permitir dígitos
+            if (char.IsDigit(e.KeyChar))
+                return;
+
+            // Permitir una sola coma, y no como primer carácter
+            if (e.KeyChar == ',' && textBox != null && !textBox.Text.Contains(",") && textBox.Text.Length > 0)
+                return;
+
+            // Bloquear todo lo demás
+            e.Handled = true;
+        }
+
         private void TextBoxSoloNumeros_KeyPress(object? sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == ' ' || (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar)))

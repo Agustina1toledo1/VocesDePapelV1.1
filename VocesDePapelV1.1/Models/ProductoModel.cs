@@ -46,7 +46,7 @@ namespace VocesDePapelV1._1.Models
         }
         [DisplayName("Precio")]
         [Required(ErrorMessage = "El precio es requerido")]
-        [RegularExpression(@"^[1-9][0-9]*$", ErrorMessage = "Debe ingresar un Precio entero mayor a 0.")]
+        [Range(1, int.MaxValue, ErrorMessage = "Debe ingresar un número mayor a 0.")]
 
         public decimal Precio { 
             get { return precio; } 
