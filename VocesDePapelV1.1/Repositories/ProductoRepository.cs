@@ -21,10 +21,11 @@ namespace VocesDePapelV1._1.Repositories
             {
                 connection.Open();
                 // Verifico existencia del producto por su título
+                /*
                 command.CommandText = @"
                                     SELECT COUNT(1)
                                         FROM libro
-                                        WHERE titulo = @titulo;
+                                        WHERE titulo = @titulo ;
                                         ";
                 command.Parameters.Add("@titulo", SqlDbType.NVarChar).Value = producto.Titulo;
 
@@ -32,21 +33,32 @@ namespace VocesDePapelV1._1.Repositories
                 if (existe > 0)
                 {
                     // Retiro los parámetros previos y lanzo excepción
-                    command.Parameters.Clear();
+                    //command.Parameters.Clear();
                     throw new InvalidOperationException("El producto ingresado ya está registrado.");
                 }
-                // Inserto el nuevo producto
-                command.Parameters.Clear();
-                command.CommandText = @"INSERT INTO libro (titulo, editorial, precio, stock,eliminado, id_categoria, id_autor) 
-                                      VALUES (@titulo, @editorial, @precio,@stock,  @estado,@categoria, @autor)";
-                command.Parameters.Add("@titulo", SqlDbType.NVarChar).Value= producto.Titulo;
-                command.Parameters.Add("@editorial", SqlDbType.NVarChar).Value= producto.Editorial;
-                command.Parameters.Add("@stock", SqlDbType.Int).Value= producto.Stock;
-                command.Parameters.Add("@precio", SqlDbType.Decimal).Value= producto.Precio;
-                command.Parameters.Add("@estado", SqlDbType.Int).Value= producto.Eliminado_id;
-                command.Parameters.Add("@categoria", SqlDbType.Int).Value= producto.Id_categoria;
-                command.Parameters.Add("@autor", SqlDbType.Int).Value= producto.Id_autor;
-                command.ExecuteNonQuery();
+                    // Inserto el nuevo producto
+                    command.Parameters.Clear();*/
+                    command.CommandText = @"INSERT 
+                                            INTO libro 
+                                                (titulo, 
+                                                editorial, 
+                                                precio, 
+                                                 stock,
+                                                eliminado, 
+                                                id_categoria, 
+                                                id_autor) 
+                                      VALUES (@titulo, @editorial, @precio,@stock,  @estado,@categoria, @autor);";
+                    command.Parameters.Add("@titulo", SqlDbType.NVarChar).Value = producto.Titulo;
+                    command.Parameters.Add("@editorial", SqlDbType.NVarChar).Value = producto.Editorial;
+                    command.Parameters.Add("@precio", SqlDbType.Decimal).Value = producto.Precio;
+                    command.Parameters.Add("@stock", SqlDbType.Int).Value = producto.Stock;
+                    command.Parameters.Add("@estado", SqlDbType.Int).Value = producto.Eliminado_id;
+                    command.Parameters.Add("@categoria", SqlDbType.Int).Value = producto.Id_categoria;
+                    command.Parameters.Add("@autor", SqlDbType.Int).Value = producto.Id_autor;
+                    command.ExecuteNonQuery();
+                   
+                
+                    
             }
         }
 

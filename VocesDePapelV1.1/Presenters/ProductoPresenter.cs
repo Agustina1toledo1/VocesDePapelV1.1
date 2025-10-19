@@ -19,12 +19,16 @@ namespace VocesDePapelV1._1.Presenters
         private IProductoRepository repository;
         private BindingSource productoBindingSource;
         private BindingSource categoriaBindingSource;
+        private BindingSource categoriaEliminadaBindingSource;
         private BindingSource estadoBindingSource;
         private BindingSource autorBindingSource;
+        private BindingSource autorEliminadoBindingSource;
         private IEnumerable<ProductoModel> productoList;
         private IEnumerable<CategoriaModel> categoriaList;
+        private IEnumerable<CategoriaModel> categoriaEliminadaList;
         private IEnumerable<EstadoModel> estadoList;
         private IEnumerable<AutorModel> autorList;
+        private IEnumerable<AutorModel> autorEliminadoList;
 
 
         public ProductoPresenter(IAdministradorViewProducto view, IProductoRepository repository)
@@ -32,8 +36,10 @@ namespace VocesDePapelV1._1.Presenters
             //inicializamos los campos
             this.productoBindingSource = new BindingSource();
             this.categoriaBindingSource = new BindingSource();
+            this.categoriaEliminadaBindingSource = new BindingSource();
             this.estadoBindingSource = new BindingSource();
             this.autorBindingSource = new BindingSource();
+            this.autorEliminadoBindingSource = new BindingSource();
             this.view = view;
             this.repository = repository;
 
@@ -53,17 +59,25 @@ namespace VocesDePapelV1._1.Presenters
 
             //enlazamos los datos
             this.view.SetProductoListBindingSource(productoBindingSource);
-            this.view.SetCategoriaListBindingSource(categoriaBindingSource);
+            //this.view.SetCategoriaListBindingSource(categoriaBindingSource);
             this.view.SetEstadoListBindingSource(estadoBindingSource);
-            this.view.SetAutorListBindingSource(autorBindingSource);
+            //this.view.SetAutorListBindingSource(autorBindingSource);
             //mostramos la vista
             this.view.Show();
         }
 
         private void CargarAllAutor()
         {
+            var autorEliminado = new AutorModel()
+            {
+                Id_autor = 99,
+                Alias_autor = "Autor eliminado",
+                Estado_id = 0
+            };
             autorList = repository.GetAutor();
             autorBindingSource.DataSource =autorList;
+            autorEliminadoList = repository.GetAutor().Append(autorEliminado);
+            autorEliminadoBindingSource.DataSource = autorEliminadoList;
         }
 
         private void CargarAllProductos()
@@ -83,14 +97,22 @@ namespace VocesDePapelV1._1.Presenters
             productoBindingSource.DataSource = productoList;
         }
 
-        private void CargarAllCategoria() //optimizar
-        {
-            
-            categoriaList = repository.GetCategoria();
-           
-            categoriaBindingSource.DataSource = categoriaList; //.Where(c => c.Estado_id == 0).ToList()
-        }
 
+        private void CargarAllCategoria()
+        {
+            var categoriaEliminada = new CategoriaModel()
+            {
+                Id_categoria = 99,
+                Nombre_categoria = "Categoría eliminada",
+                Estado_id = 0
+            };
+            categoriaList = repository.GetCategoria();
+            categoriaBindingSource.DataSource = categoriaList; //.Where(c => c.Estado_id == 0).ToList()
+            categoriaEliminadaList = repository.GetCategoria().Append(categoriaEliminada);
+            categoriaEliminadaBindingSource.DataSource = categoriaEliminadaList;
+
+        }
+       
         private void CargarAllEstado()
         {
             estadoList = repository.GetEstado();
@@ -146,11 +168,14 @@ namespace VocesDePapelV1._1.Presenters
                 view.Message = "Producto modificado correctamente";
                 view.IsSuccessful = true;
                 CargarAllProductos();
+                this.view.SetProductoListBindingSource(productoBindingSource);
             }
             catch (Exception ex)
             {
                 view.IsSuccessful = false;
                 view.Message = ex.Message;
+                return;
+
             }
         }
 
@@ -175,9 +200,9 @@ namespace VocesDePapelV1._1.Presenters
             var producto =(ProductoModel)productoBindingSource.Current;
             // Verificar si la categoría está eliminada
             var categoria = categoriaList.FirstOrDefault(c => c.Id_categoria == producto.Id_categoria);
-            var categoriaEliminadaExiste = categoriaList.FirstOrDefault(c => c.Id_categoria == 99);
+            //var categoriaEliminadaExiste = categoriaList.FirstOrDefault(c => c.Id_categoria == 99);
             var autor = autorList.FirstOrDefault(a => a.Id_autor == producto.Id_autor);
-            var autorEliminadoExiste = autorList.FirstOrDefault(a => a.Id_autor == 99);
+           // var autorEliminadoExiste = autorList.FirstOrDefault(a => a.Id_autor == 99);
 
             view.ProductoId = producto.Id_libro.ToString();
             view.ProductoTitulo = producto.Titulo;
@@ -186,8 +211,9 @@ namespace VocesDePapelV1._1.Presenters
             view.ProductoStock = producto.Stock.ToString();
             view.ProductoNombreEstado = producto.Nombre_estado;
             //si categoria no esta en la lista de categorias, significa que esta eliminada
-            if (categoria == null && categoriaEliminadaExiste  == null)
+            if (categoria == null)//&& categoriaEliminadaExiste  == null
             {
+                /*
                 var categoriaEliminada = new CategoriaModel()
                 {
                     Id_categoria = 99,
@@ -195,40 +221,46 @@ namespace VocesDePapelV1._1.Presenters
                     Estado_id = 1
                 };
                 var categoriaextendida = categoriaList.Append(categoriaEliminada).ToList();
-                categoriaBindingSource.DataSource = categoriaextendida;
-                categoriaList = categoriaextendida;
+                categoriaBindingSource.DataSource = categoriaextendida;*/
+                //categoriaList = categoriaEliminadaList;
+                var categoriaEliminada = categoriaEliminadaList.FirstOrDefault(c => c.Id_categoria == 99);
+                this.view.SetCategoriaListBindingSource(categoriaEliminadaBindingSource);
                 view.ProductoNombreCategoria = categoriaEliminada.Nombre_categoria;
-            }else if (categoria == null && categoriaEliminadaExiste != null)
+            }/*else if (categoria == null && categoriaEliminadaExiste != null)
             {
                 view.ProductoNombreCategoria = categoriaEliminadaExiste.Nombre_categoria;
-            }
+            }*/
             else
             {
-                categoriaList = categoriaList.Where(c => c.Id_categoria != 99).ToList();
-                categoriaBindingSource.DataSource = categoriaList;
+                //categoriaList = categoriaList.Where(c => c.Id_categoria != 99).ToList();
+                //categoriaBindingSource.DataSource = categoriaList;
+                this.view.SetCategoriaListBindingSource(categoriaBindingSource);
                 view.ProductoNombreCategoria = producto.Nombre_categoria;
             }
-            if (autor == null && autorEliminadoExiste == null)
+            if (autor == null)//&& autorEliminadoExiste == null
             {
-                var autorEliminado = new AutorModel()
-                {
-                    Id_autor = 99,
-                    Alias_autor = "Autor eliminado",
-                    Estado_id = 1
-                };
-                var autorextendida = autorList.Append(autorEliminado).ToList();
-                autorBindingSource.DataSource = autorextendida;
-                autorList = autorextendida;
+                /* var autorEliminado = new AutorModel()
+                 {
+                     Id_autor = 99,
+                     Alias_autor = "Autor eliminado",
+                     Estado_id = 1
+                 };
+                 var autorextendida = autorList.Append(autorEliminado).ToList();
+                 autorBindingSource.DataSource = autorextendida;
+                autorList = autorextendida;*/
+                var autorEliminado = autorEliminadoList.FirstOrDefault(a => a.Id_autor == 99);
+                this.view.SetAutorListBindingSource(autorEliminadoBindingSource);
                 view.ProductoNombreAutor = autorEliminado.Alias_autor;
             }
-            else if (autor == null && autorEliminadoExiste != null)
+            /*else if (autor == null && autorEliminadoExiste != null)//
             {
                 view.ProductoNombreAutor = autorEliminadoExiste.Alias_autor;
-            }
+            }*/
             else
             {
-                autorList = autorList.Where(a => a.Id_autor != 99).ToList();
-                autorBindingSource.DataSource = autorList;
+                //autorList = autorList.Where(a => a.Id_autor != 99).ToList();
+               // autorBindingSource.DataSource = autorList;
+                this.view.SetAutorListBindingSource(autorBindingSource);
                 view.ProductoNombreAutor = producto.Nombre_autor;
             }
 
@@ -237,12 +269,17 @@ namespace VocesDePapelV1._1.Presenters
         private void AddNewProducto(object? sender, EventArgs e)
         {
             var producto = new ProductoModel();
-
             producto.Titulo = view.ProductoTitulo;
-            producto.Editorial = view.ProductoEditorial;
-            producto.Eliminado_id = Convert.ToInt32(view.ProductoEliminado);
-            producto.Id_categoria = Convert.ToInt32(view.ProductoIdCategoria);
-            producto.Id_autor = Convert.ToInt32(view.ProductoIdCategoria);
+            var existe = productoList.Any(p => p.Titulo == producto.Titulo);
+            
+            if (existe)
+            {
+                view.Message = "Ya existe un producto con ese título.";
+                view.IsSuccessful = false;
+                return;
+            }
+
+            
             if (string.IsNullOrWhiteSpace(view.ProductoStock) || !int.TryParse(view.ProductoStock, out var stock))
             {
                 producto.Stock = 0;
@@ -259,7 +296,12 @@ namespace VocesDePapelV1._1.Presenters
             {
                 producto.Precio = Convert.ToDecimal(view.ProductoPrecio);
             }
-
+            
+            producto.Editorial = view.ProductoEditorial;
+            producto.Eliminado_id = Convert.ToInt32(view.ProductoEliminado);
+            producto.Id_categoria = Convert.ToInt32(view.ProductoIdCategoria);
+            producto.Id_autor = Convert.ToInt32(view.ProductoIdAutor);
+         
             try
             {
                 new Common.ModelDataValidation().Validate(producto);
@@ -267,7 +309,10 @@ namespace VocesDePapelV1._1.Presenters
                 view.Message = "Producto agregado correctamente";
                 view.IsSuccessful = true;
                 CargarAllProductos();
-            }catch (Exception ex)
+                this.view.SetProductoListBindingSource(productoBindingSource);
+
+            }
+            catch (Exception ex)
             {
                 view.IsSuccessful = false;
                 view.Message = ex.Message;
