@@ -20,6 +20,9 @@ namespace VocesDePapelV1._1.Views
         //singleton patron (abre una sola instancia del formulario) 
         private static GerenteViewReporteLibroStock instance;
 
+        public event EventHandler SearchEvent;
+        public event EventHandler GenerateReportEvent;
+
         public string FiltroCantidad {
             get { return text_cantidad_libro_reporte_gerente.Text; }
             set { text_cantidad_libro_reporte_gerente.Text = value; }
@@ -48,6 +51,11 @@ namespace VocesDePapelV1._1.Views
 
             }
             return instance;
+        }
+
+        public void SetProductoListBindingSource(object productoList)
+        {
+            throw new NotImplementedException();
         }
     }
 }
