@@ -21,10 +21,10 @@ namespace VocesDePapelV1._1
             
 
             //string connectionString = ConfigurationManager.ConnectionStrings["SqlConnectionAgus"].ConnectionString;
-            bool continuar = true;
+           bool continuar = true;
            while (continuar)
             {
-                string connectionString = ConfigurationManager.ConnectionStrings["SqlConection2"].ConnectionString;
+                string connectionString = ConfigurationManager.ConnectionStrings["Valor"].ConnectionString;
 
                 // var usuarioRepository = new UsuarioStaticoRepository();
                 var usuarioRepository = new UsuarioRepository(connectionString);
@@ -45,7 +45,7 @@ namespace VocesDePapelV1._1
                     }
                 }
             }
-                //IniciarAplicacion();
+            //IniciarAplicacion();
 
             //probamos el presenter de usuario
             //IGerenteViewUsuario view = new GerenteViewUsuario();
@@ -58,7 +58,8 @@ namespace VocesDePapelV1._1
             string connectionString = ConfigurationManager.ConnectionStrings["SqlConnectionAgus"].ConnectionString;
             new GerentePresenter(view, connectionString);
             Application.Run((Form)view);*/
-            /*probamos el presenter de administrador
+            //probamos el presenter de administrador
+            /*string connectionString = ConfigurationManager.ConnectionStrings["Valor"].ConnectionString;
             IAdministradorView view = new AdministradorView();
             new AdministradorPresenter(view, connectionString);
             Application.Run((Form)view);*/

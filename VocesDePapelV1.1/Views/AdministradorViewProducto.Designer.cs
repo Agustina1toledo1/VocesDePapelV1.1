@@ -33,7 +33,7 @@
             l_detalle_producto = new Label();
             btn_eliminar_producto = new Button();
             btn_modificar_producto = new Button();
-            btn_registrar_usuario = new Button();
+            btn_guardar_usuario = new Button();
             cmb_categoria_producto = new ComboBox();
             cmb_estado_producto = new ComboBox();
             text_editorial_admin = new TextBox();
@@ -83,25 +83,25 @@
             // 
             // btn_modificar_producto
             // 
-            btn_modificar_producto.BackColor = Color.FromArgb(255, 192, 128);
+            btn_modificar_producto.BackColor = Color.LightBlue;
             btn_modificar_producto.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btn_modificar_producto.Location = new Point(63, 727);
+            btn_modificar_producto.Location = new Point(63, 673);
             btn_modificar_producto.Name = "btn_modificar_producto";
             btn_modificar_producto.Size = new Size(269, 43);
             btn_modificar_producto.TabIndex = 35;
             btn_modificar_producto.Text = "Modificar";
             btn_modificar_producto.UseVisualStyleBackColor = false;
             // 
-            // btn_registrar_usuario
+            // btn_guardar_usuario
             // 
-            btn_registrar_usuario.BackColor = SystemColors.GradientActiveCaption;
-            btn_registrar_usuario.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btn_registrar_usuario.Location = new Point(63, 616);
-            btn_registrar_usuario.Name = "btn_registrar_usuario";
-            btn_registrar_usuario.Size = new Size(269, 43);
-            btn_registrar_usuario.TabIndex = 34;
-            btn_registrar_usuario.Text = "Registrar";
-            btn_registrar_usuario.UseVisualStyleBackColor = false;
+            btn_guardar_usuario.BackColor = Color.LightGreen;
+            btn_guardar_usuario.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btn_guardar_usuario.Location = new Point(63, 616);
+            btn_guardar_usuario.Name = "btn_guardar_usuario";
+            btn_guardar_usuario.Size = new Size(269, 43);
+            btn_guardar_usuario.TabIndex = 34;
+            btn_guardar_usuario.Text = "Guardar";
+            btn_guardar_usuario.UseVisualStyleBackColor = false;
             // 
             // cmb_categoria_producto
             // 
@@ -303,14 +303,14 @@
             dataGridViewCellStyle2.SelectionBackColor = Color.White;
             dataGridViewCellStyle2.SelectionForeColor = Color.Black;
             dataGridProducto.RowsDefaultCellStyle = dataGridViewCellStyle2;
-            dataGridProducto.Size = new Size(1228, 564);
+            dataGridProducto.Size = new Size(1072, 564);
             dataGridProducto.TabIndex = 38;
             // 
             // btn_limpiar_producto
             // 
-            btn_limpiar_producto.BackColor = Color.FromArgb(128, 255, 128);
+            btn_limpiar_producto.BackColor = Color.FromArgb(255, 192, 128);
             btn_limpiar_producto.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btn_limpiar_producto.Location = new Point(64, 670);
+            btn_limpiar_producto.Location = new Point(63, 728);
             btn_limpiar_producto.Name = "btn_limpiar_producto";
             btn_limpiar_producto.Size = new Size(269, 43);
             btn_limpiar_producto.TabIndex = 44;
@@ -356,7 +356,7 @@
             Controls.Add(l_detalle_producto);
             Controls.Add(btn_eliminar_producto);
             Controls.Add(btn_modificar_producto);
-            Controls.Add(btn_registrar_usuario);
+            Controls.Add(btn_guardar_usuario);
             Controls.Add(cmb_categoria_producto);
             Controls.Add(cmb_estado_producto);
             Controls.Add(text_editorial_admin);
@@ -382,7 +382,7 @@
         private Label l_detalle_producto;
         private Button btn_eliminar_producto;
         private Button btn_modificar_producto;
-        private Button btn_registrar_usuario;
+        private Button btn_guardar_usuario;
         private ComboBox cmb_categoria_producto;
         private ComboBox cmb_estado_producto;
         private TextBox text_editorial_admin;

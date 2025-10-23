@@ -352,7 +352,7 @@ namespace VocesDePapelV1._1.Repositories
 
                 if (producto.Id_categoria != 99)
                 {
-                    sql_consulta.Append(", id_categoria =@categoria");
+                    sql_consulta.Append(", id_categoria =@categoria ");
                     command.Parameters.Add("@categoria", SqlDbType.Int).Value = producto.Id_categoria;
                 }
                 if (producto.Id_autor != 99)

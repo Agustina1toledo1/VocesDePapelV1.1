@@ -46,7 +46,7 @@ namespace VocesDePapelV1._1.Models
         }
         [DisplayName("Precio")]
         [Required(ErrorMessage = "El precio es requerido")]
-        [Range(1, int.MaxValue, ErrorMessage = "Debe ingresar un número mayor a 0.")]
+        [Range(0, int.MaxValue, ErrorMessage = "Debe ingresar un número mayor o igual 0.")]
 
         public decimal Precio { 
             get { return precio; } 
@@ -54,7 +54,7 @@ namespace VocesDePapelV1._1.Models
         }
         [DisplayName("Stock")]
         [Required(ErrorMessage = "El stock es requerido")]
-        [RegularExpression(@"^[1-9][0-9]*$", ErrorMessage = "Debe ingresar un Stock entero mayor a 0.")]
+        [RegularExpression(@"^[0-9][0-9]*$", ErrorMessage = "Debe ingresar un Stock entero mayor o igual a 0.")]
 
         public int Stock { 
             get { return stock; } 

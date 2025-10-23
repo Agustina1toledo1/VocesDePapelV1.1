@@ -22,6 +22,7 @@ namespace VocesDePapelV1._1.Views
         string ProductoNombreAutor { get; set; }
         string SearchBy { get; set; }
         string SearchValue { get; set; }
+        bool IsEdit { get; set; }
         string Message { get; set; }
         bool IsSuccessful { get; set; }
 

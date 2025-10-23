@@ -14,9 +14,11 @@ namespace VocesDePapelV1._1.Views
     {
         private string message;
         private bool isSuccessful;
+        private bool isEdit;
         public AdministradorViewProducto()
         {
             InitializeComponent();
+            this.AutoScroll = true;
             AssociateAndRaiseViewEvents();
 
         }
@@ -24,9 +26,9 @@ namespace VocesDePapelV1._1.Views
         private void AssociateAndRaiseViewEvents()
         {
             AddSearchItems(new string[] { "Titulo", "Categoria" });
-            btn_registrar_usuario.Click += delegate
+            btn_guardar_usuario.Click += delegate
             {
-                AddNewEvent?.Invoke(this, EventArgs.Empty);
+                SaveEvent?.Invoke(this, EventArgs.Empty);
                 MessageBox.Show(Message);
             };
             //buscar producto
@@ -55,26 +57,34 @@ namespace VocesDePapelV1._1.Views
                 }
             };
             //modificar producto
-            btn_modificar_producto.Click += delegate
+            /*btn_modificar_producto.Click += delegate
             {
                 if (dataGridProducto.SelectedCells.Count > 0)
                 {
                     SaveEvent?.Invoke(this, EventArgs.Empty);
                     MessageBox.Show(Message);
                 }
-            };
+            };*/
 
             //mostrar datos en los textbox al seleccionar una fila del datagrid
             dataGridProducto.SelectionChanged += delegate
             {
-               if (dataGridProducto.SelectedCells.Count > 0)
-               {
-                    EditEvent?.Invoke(this, EventArgs.Empty);
-               }
-               else
-               {
-                    CancelEvent?.Invoke(this, EventArgs.Empty);
-               }
+               
+                    btn_modificar_producto.Click += delegate
+                    {
+                        if (dataGridProducto.SelectedCells.Count > 0)
+                        {
+                            EditEvent?.Invoke(this, EventArgs.Empty);
+                        }
+                        else
+                        {
+                            CancelEvent?.Invoke(this, EventArgs.Empty);
+                        }
+                    };
+                
+                
+               
+                   
             };
             //limpiar campos 
             btn_limpiar_producto.Click += delegate
@@ -152,6 +162,11 @@ namespace VocesDePapelV1._1.Views
         public string ProductoNombreAutor {
             get { return cmb_autor.Text; }
             set { cmb_autor.Text = value; }
+        }
+
+        public bool IsEdit {
+            get { return isEdit; }
+            set { isEdit = value; }
         }
 
         public event EventHandler SearchEvent;

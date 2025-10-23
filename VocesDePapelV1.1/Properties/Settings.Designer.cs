@@ -26,6 +26,18 @@ namespace VocesDePapelV1._1.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=DESKTOP-VF1BFT6\\SQLEXPRESS;Integrated Security=True;Connect Timeout=3" +
+            "0;Encrypt=True;Trust Server Certificate=True;Application Intent=ReadWrite;Multi " +
+            "Subnet Failover=False")]
+        public string SqlConnectionAg {
+            get {
+                return ((string)(this["SqlConnectionAg"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
         [global::System.Configuration.DefaultSettingValueAttribute("Data Source=DESKTOP-VF1BFT6\\SQLEXPRESS;Initial Catalog=VocesDePapelBDD;Integrated" +
             " Security=True;Connect Timeout=30;Encrypt=True;TrustServerCertificate=True;Appli" +
             "cation Intent=ReadWrite;Multi Subnet Failover=False")]
@@ -55,6 +67,18 @@ namespace VocesDePapelV1._1.Properties {
         public string SqlConnectionAgus {
             get {
                 return ((string)(this["SqlConnectionAgus"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=DESKTOP-VF1BFT6\\SQLEXPRESS;Initial Catalog=VocesDePapelBDD;Integrated" +
+            " Security=True;Connect Timeout=30;Encrypt=True;TrustServerCertificate=True;Appli" +
+            "cation Intent=ReadWrite;Multi Subnet Failover=False")]
+        public string Valor {
+            get {
+                return ((string)(this["Valor"]));
             }
         }
     }
