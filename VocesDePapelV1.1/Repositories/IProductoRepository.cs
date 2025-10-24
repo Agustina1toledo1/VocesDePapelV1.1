@@ -19,5 +19,6 @@ namespace VocesDePapelV1._1.Repositories
         IEnumerable<CategoriaModel> GetCategoria();
         IEnumerable<EstadoModel> GetEstado();
         IEnumerable<AutorModel> GetAutor();
+        void ActualizarStock(int idProducto, int cantidad);
     }
 }

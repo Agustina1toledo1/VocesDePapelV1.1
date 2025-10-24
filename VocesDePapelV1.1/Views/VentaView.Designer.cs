@@ -40,7 +40,10 @@
             LTelefono = new Label();
             TBTelefono = new TextBox();
             PProducto = new Panel();
-            BAgregarP = new Button();
+            LSubtotal = new Label();
+            textBox1 = new TextBox();
+            BtnLimpiarDetalles = new Button();
+            BtnAgregarDetalle = new Button();
             NUDCantidadProducto = new NumericUpDown();
             LCantidad = new Label();
             TBSTock = new TextBox();
@@ -50,8 +53,8 @@
             BBuscarProducto = new Button();
             TBNomProducto = new TextBox();
             LNomProducto = new Label();
-            TBCodProducto = new TextBox();
-            LCodProducto = new Label();
+            TBSearch = new TextBox();
+            LBusquedaProducto = new Label();
             LProducto = new Label();
             PCliente = new Panel();
             BLimpiarCliente = new Button();
@@ -66,22 +69,19 @@
             TBNUmFactura = new TextBox();
             LNUmFACTura = new Label();
             LFactura = new Label();
-            dataGridView1 = new DataGridView();
+            dataGridViewDetalles = new DataGridView();
             label3 = new Label();
             LPrecioTotal = new Label();
             TBPrecioTotal = new TextBox();
             BGuardar = new Button();
             BCancelar = new Button();
-            btn_limpiar_Venta = new Button();
-            button1 = new Button();
-            textBox1 = new TextBox();
-            LSubtotal = new Label();
+            BtnEliminarDetalle = new Button();
             PProducto.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)NUDCantidadProducto).BeginInit();
             PCliente.SuspendLayout();
             PVendedor.SuspendLayout();
             PFactura.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewDetalles).BeginInit();
             SuspendLayout();
             // 
             // LFecha
@@ -191,8 +191,8 @@
             PProducto.BackColor = SystemColors.GradientInactiveCaption;
             PProducto.Controls.Add(LSubtotal);
             PProducto.Controls.Add(textBox1);
-            PProducto.Controls.Add(button1);
-            PProducto.Controls.Add(BAgregarP);
+            PProducto.Controls.Add(BtnLimpiarDetalles);
+            PProducto.Controls.Add(BtnAgregarDetalle);
             PProducto.Controls.Add(NUDCantidadProducto);
             PProducto.Controls.Add(LCantidad);
             PProducto.Controls.Add(TBSTock);
@@ -202,23 +202,52 @@
             PProducto.Controls.Add(BBuscarProducto);
             PProducto.Controls.Add(TBNomProducto);
             PProducto.Controls.Add(LNomProducto);
-            PProducto.Controls.Add(TBCodProducto);
-            PProducto.Controls.Add(LCodProducto);
+            PProducto.Controls.Add(TBSearch);
+            PProducto.Controls.Add(LBusquedaProducto);
             PProducto.Controls.Add(LProducto);
             PProducto.Location = new Point(12, 166);
             PProducto.Name = "PProducto";
             PProducto.Size = new Size(911, 82);
             PProducto.TabIndex = 11;
             // 
-            // BAgregarP
+            // LSubtotal
             // 
-            BAgregarP.BackColor = Color.FromArgb(192, 255, 192);
-            BAgregarP.Location = new Point(792, 3);
-            BAgregarP.Name = "BAgregarP";
-            BAgregarP.Size = new Size(114, 27);
-            BAgregarP.TabIndex = 15;
-            BAgregarP.Text = "Agregar";
-            BAgregarP.UseVisualStyleBackColor = false;
+            LSubtotal.Font = new Font("Segoe UI", 9F);
+            LSubtotal.ImageAlign = ContentAlignment.BottomCenter;
+            LSubtotal.Location = new Point(665, 10);
+            LSubtotal.Name = "LSubtotal";
+            LSubtotal.Size = new Size(90, 20);
+            LSubtotal.TabIndex = 31;
+            LSubtotal.Text = "Subtotal:";
+            LSubtotal.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // textBox1
+            // 
+            textBox1.Location = new Point(674, 36);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(78, 27);
+            textBox1.TabIndex = 20;
+            // 
+            // BtnLimpiarDetalles
+            // 
+            BtnLimpiarDetalles.BackColor = Color.FromArgb(255, 192, 128);
+            BtnLimpiarDetalles.ForeColor = SystemColors.ActiveCaptionText;
+            BtnLimpiarDetalles.Location = new Point(794, 36);
+            BtnLimpiarDetalles.Name = "BtnLimpiarDetalles";
+            BtnLimpiarDetalles.Size = new Size(112, 34);
+            BtnLimpiarDetalles.TabIndex = 19;
+            BtnLimpiarDetalles.Text = "Limpiar";
+            BtnLimpiarDetalles.UseVisualStyleBackColor = false;
+            // 
+            // BtnAgregarDetalle
+            // 
+            BtnAgregarDetalle.BackColor = Color.FromArgb(192, 255, 192);
+            BtnAgregarDetalle.Location = new Point(792, 3);
+            BtnAgregarDetalle.Name = "BtnAgregarDetalle";
+            BtnAgregarDetalle.Size = new Size(114, 27);
+            BtnAgregarDetalle.TabIndex = 15;
+            BtnAgregarDetalle.Text = "Agregar";
+            BtnAgregarDetalle.UseVisualStyleBackColor = false;
             // 
             // NUDCantidadProducto
             // 
@@ -303,23 +332,24 @@
             LNomProducto.Text = "Producto:";
             LNomProducto.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // TBCodProducto
+            // TBSearch
             // 
-            TBCodProducto.Location = new Point(17, 43);
-            TBCodProducto.Name = "TBCodProducto";
-            TBCodProducto.Size = new Size(125, 27);
-            TBCodProducto.TabIndex = 7;
+            TBSearch.Location = new Point(17, 43);
+            TBSearch.Name = "TBSearch";
+            TBSearch.Size = new Size(125, 27);
+            TBSearch.TabIndex = 7;
             // 
-            // LCodProducto
+            // LBusquedaProducto
             // 
-            LCodProducto.Font = new Font("Segoe UI", 9F);
-            LCodProducto.ImageAlign = ContentAlignment.BottomCenter;
-            LCodProducto.Location = new Point(16, 20);
-            LCodProducto.Name = "LCodProducto";
-            LCodProducto.Size = new Size(114, 20);
-            LCodProducto.TabIndex = 6;
-            LCodProducto.Text = "Cod. Producto:";
-            LCodProducto.TextAlign = ContentAlignment.MiddleCenter;
+            LBusquedaProducto.Font = new Font("Segoe UI", 9F);
+            LBusquedaProducto.ImageAlign = ContentAlignment.BottomCenter;
+            LBusquedaProducto.Location = new Point(16, 20);
+            LBusquedaProducto.Margin = new Padding(0);
+            LBusquedaProducto.Name = "LBusquedaProducto";
+            LBusquedaProducto.Size = new Size(125, 20);
+            LBusquedaProducto.TabIndex = 6;
+            LBusquedaProducto.Text = "Buscar Producto:";
+            LBusquedaProducto.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // LProducto
             // 
@@ -469,15 +499,15 @@
             LFactura.TabIndex = 1;
             LFactura.Text = "Factura:";
             // 
-            // dataGridView1
+            // dataGridViewDetalles
             // 
-            dataGridView1.BackgroundColor = Color.FromArgb(255, 224, 192);
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(12, 288);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(671, 220);
-            dataGridView1.TabIndex = 15;
+            dataGridViewDetalles.BackgroundColor = Color.FromArgb(255, 224, 192);
+            dataGridViewDetalles.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewDetalles.Location = new Point(12, 288);
+            dataGridViewDetalles.Name = "dataGridViewDetalles";
+            dataGridViewDetalles.RowHeadersWidth = 51;
+            dataGridViewDetalles.Size = new Size(671, 220);
+            dataGridViewDetalles.TabIndex = 15;
             // 
             // label3
             // 
@@ -493,7 +523,7 @@
             // 
             LPrecioTotal.AutoSize = true;
             LPrecioTotal.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            LPrecioTotal.Location = new Point(705, 288);
+            LPrecioTotal.Location = new Point(708, 307);
             LPrecioTotal.Name = "LPrecioTotal";
             LPrecioTotal.Size = new Size(95, 20);
             LPrecioTotal.TabIndex = 17;
@@ -501,9 +531,9 @@
             // 
             // TBPrecioTotal
             // 
-            TBPrecioTotal.Location = new Point(806, 281);
+            TBPrecioTotal.Location = new Point(809, 300);
             TBPrecioTotal.Name = "TBPrecioTotal";
-            TBPrecioTotal.Size = new Size(78, 27);
+            TBPrecioTotal.Size = new Size(109, 27);
             TBPrecioTotal.TabIndex = 18;
             // 
             // BGuardar
@@ -530,58 +560,30 @@
             BCancelar.Text = "Cancelar";
             BCancelar.UseVisualStyleBackColor = false;
             // 
-            // btn_limpiar_Venta
+            // BtnEliminarDetalle
             // 
-            btn_limpiar_Venta.BackColor = Color.FromArgb(255, 192, 128);
-            btn_limpiar_Venta.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btn_limpiar_Venta.Location = new Point(729, 465);
-            btn_limpiar_Venta.Name = "btn_limpiar_Venta";
-            btn_limpiar_Venta.Size = new Size(151, 43);
-            btn_limpiar_Venta.TabIndex = 30;
-            btn_limpiar_Venta.Text = "Limpiar Todo";
-            btn_limpiar_Venta.UseVisualStyleBackColor = false;
-            // 
-            // button1
-            // 
-            button1.BackColor = Color.FromArgb(255, 192, 128);
-            button1.ForeColor = SystemColors.ActiveCaptionText;
-            button1.Location = new Point(794, 36);
-            button1.Name = "button1";
-            button1.Size = new Size(112, 34);
-            button1.TabIndex = 19;
-            button1.Text = "Limpiar";
-            button1.UseVisualStyleBackColor = false;
-            // 
-            // textBox1
-            // 
-            textBox1.Location = new Point(674, 36);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(78, 27);
-            textBox1.TabIndex = 20;
-            // 
-            // LSubtotal
-            // 
-            LSubtotal.Font = new Font("Segoe UI", 9F);
-            LSubtotal.ImageAlign = ContentAlignment.BottomCenter;
-            LSubtotal.Location = new Point(665, 10);
-            LSubtotal.Name = "LSubtotal";
-            LSubtotal.Size = new Size(90, 20);
-            LSubtotal.TabIndex = 31;
-            LSubtotal.Text = "Subtotal:";
-            LSubtotal.TextAlign = ContentAlignment.MiddleCenter;
+            BtnEliminarDetalle.BackColor = Color.FromArgb(255, 128, 128);
+            BtnEliminarDetalle.ForeColor = SystemColors.ActiveCaptionText;
+            BtnEliminarDetalle.Location = new Point(700, 254);
+            BtnEliminarDetalle.Margin = new Padding(0);
+            BtnEliminarDetalle.Name = "BtnEliminarDetalle";
+            BtnEliminarDetalle.Size = new Size(103, 34);
+            BtnEliminarDetalle.TabIndex = 21;
+            BtnEliminarDetalle.Text = "eliminar";
+            BtnEliminarDetalle.UseVisualStyleBackColor = false;
             // 
             // VentaView
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(930, 535);
-            Controls.Add(btn_limpiar_Venta);
+            Controls.Add(BtnEliminarDetalle);
             Controls.Add(BCancelar);
             Controls.Add(BGuardar);
             Controls.Add(TBPrecioTotal);
             Controls.Add(LPrecioTotal);
             Controls.Add(label3);
-            Controls.Add(dataGridView1);
+            Controls.Add(dataGridViewDetalles);
             Controls.Add(PFactura);
             Controls.Add(PVendedor);
             Controls.Add(PCliente);
@@ -597,7 +599,7 @@
             PVendedor.PerformLayout();
             PFactura.ResumeLayout(false);
             PFactura.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewDetalles).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -629,8 +631,8 @@
         private Label LFactura;
         private TextBox TBNUmFactura;
         private Label LNUmFACTura;
-        private Label LCodProducto;
-        private TextBox TBCodProducto;
+        private Label LBusquedaProducto;
+        private TextBox TBSearch;
         private Button BBuscarProducto;
         private TextBox TBNomProducto;
         private Label LNomProducto;
@@ -640,17 +642,17 @@
         private Label LStock;
         private TextBox TBPrecio;
         private NumericUpDown NUDCantidadProducto;
-        private Button BAgregarP;
-        private DataGridView dataGridView1;
+        private Button BtnAgregarDetalle;
+        private DataGridView dataGridViewDetalles;
         private Label label3;
         private Label LPrecioTotal;
         private TextBox TBPrecioTotal;
         private Button BGuardar;
         private Button BCancelar;
-        private Button btn_limpiar_Venta;
         private Button BLimpiarCliente;
         private Label LSubtotal;
         private TextBox textBox1;
-        private Button button1;
+        private Button BtnLimpiarDetalles;
+        private Button BtnEliminarDetalle;
     }
 }

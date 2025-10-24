@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
+﻿using System.Data;
+using System.Data.SqlClient;
 using System.Text;
-using System.Threading.Tasks;
 using VocesDePapelV1._1.Models;
 
 namespace VocesDePapelV1._1.Repositories
 {
-    public class ProductoRepository :BaseRepository, IProductoRepository
+    public class ProductoRepository : BaseRepository, IProductoRepository
     {
-        public ProductoRepository(string connectionString) 
+        public ProductoRepository(string connectionString)
         {
             this.connectionString = connectionString;
         }
@@ -38,7 +35,7 @@ namespace VocesDePapelV1._1.Repositories
                 }
                     // Inserto el nuevo producto
                     command.Parameters.Clear();*/
-                    command.CommandText = @"INSERT 
+                command.CommandText = @"INSERT 
                                             INTO libro 
                                                 (titulo, 
                                                 editorial, 
@@ -48,17 +45,17 @@ namespace VocesDePapelV1._1.Repositories
                                                 id_categoria, 
                                                 id_autor) 
                                       VALUES (@titulo, @editorial, @precio,@stock,  @estado,@categoria, @autor);";
-                    command.Parameters.Add("@titulo", SqlDbType.NVarChar).Value = producto.Titulo;
-                    command.Parameters.Add("@editorial", SqlDbType.NVarChar).Value = producto.Editorial;
-                    command.Parameters.Add("@precio", SqlDbType.Decimal).Value = producto.Precio;
-                    command.Parameters.Add("@stock", SqlDbType.Int).Value = producto.Stock;
-                    command.Parameters.Add("@estado", SqlDbType.Int).Value = producto.Eliminado_id;
-                    command.Parameters.Add("@categoria", SqlDbType.Int).Value = producto.Id_categoria;
-                    command.Parameters.Add("@autor", SqlDbType.Int).Value = producto.Id_autor;
-                    command.ExecuteNonQuery();
-                   
-                
-                    
+                command.Parameters.Add("@titulo", SqlDbType.NVarChar).Value = producto.Titulo;
+                command.Parameters.Add("@editorial", SqlDbType.NVarChar).Value = producto.Editorial;
+                command.Parameters.Add("@precio", SqlDbType.Decimal).Value = producto.Precio;
+                command.Parameters.Add("@stock", SqlDbType.Int).Value = producto.Stock;
+                command.Parameters.Add("@estado", SqlDbType.Int).Value = producto.Eliminado_id;
+                command.Parameters.Add("@categoria", SqlDbType.Int).Value = producto.Id_categoria;
+                command.Parameters.Add("@autor", SqlDbType.Int).Value = producto.Id_autor;
+                command.ExecuteNonQuery();
+
+
+
             }
         }
 
@@ -168,7 +165,7 @@ namespace VocesDePapelV1._1.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                
+
                 command.CommandText = @"SELECT l.id_libro, 
                                                 l.titulo, 
                                                 l.editorial, 
@@ -204,7 +201,7 @@ namespace VocesDePapelV1._1.Repositories
                             Id_categoria = Convert.ToInt32(reader["id_categoria"]),
                             Id_autor = Convert.ToInt32(reader["id_autor"]),
                             Nombre_autor = reader["alias_autor"].ToString(),
-                            Nombre_categoria = reader["nombre_categoria"].ToString(),   
+                            Nombre_categoria = reader["nombre_categoria"].ToString(),
                             Nombre_estado = reader["nombre_estado"].ToString()
 
                         };
@@ -212,7 +209,7 @@ namespace VocesDePapelV1._1.Repositories
                     }
                 }
             }
-           return productoList;
+            return productoList;
         }
 
         public IEnumerable<ProductoModel> GetByStockMenorOIgual(int value)
@@ -284,7 +281,7 @@ namespace VocesDePapelV1._1.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-               
+
                 command.CommandText = @"SELECT l.id_libro, 
                                                 l.titulo, 
                                                 l.editorial, 
@@ -329,7 +326,7 @@ namespace VocesDePapelV1._1.Repositories
 
                 }
             }
-            return productoList; 
+            return productoList;
         }
 
         public IEnumerable<CategoriaModel> GetCategoria()
@@ -399,7 +396,7 @@ namespace VocesDePapelV1._1.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                
+
                 var sql_consulta = new StringBuilder();
                 sql_consulta.Append("UPDATE libro SET titulo = @titulo,");
                 sql_consulta.Append("editorial =@editorial,");
@@ -418,7 +415,7 @@ namespace VocesDePapelV1._1.Repositories
                     command.Parameters.Add("@autor", SqlDbType.Int).Value = producto.Id_autor;
                 }
                 sql_consulta.Append("WHERE id_libro = @id_libro");
-                
+
                 command.CommandText = sql_consulta.ToString();
                 /*
                 command.CommandText = @"UPDATE libro SET titulo =@titulo,
@@ -440,6 +437,23 @@ namespace VocesDePapelV1._1.Repositories
                 //command.Parameters.Add("@autor", SqlDbType.Int).Value = producto.Id_autor;
                 command.ExecuteNonQuery();
             }
+        }
+        public void ActualizarStock(int idProducto, int cantidad)
+        {
+            using (var connection = new SqlConnection(connectionString))
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = @"UPDATE libro SET stock = stock + @cantidad 
+                              WHERE id_libro = @id_libro";
+                command.Parameters.Add("@id_libro", SqlDbType.Int).Value = idProducto;
+                command.Parameters.Add("@cantidad", SqlDbType.Int).Value = cantidad;
+                command.ExecuteNonQuery();
+            }
+
+
+
         }
     }
 }

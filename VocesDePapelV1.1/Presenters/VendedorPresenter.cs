@@ -83,16 +83,22 @@ namespace VocesDePapelV1._1.Presenters
 
         private void ShowVentaView(object? sender, EventArgs e)
         {
-            string connStr = this.connectionString; // Asumiendo que VendedorPresenter tiene la conexión
+            try
+            {
+                string connStr = this.connectionString;
+                Form parentContainer = this.view.FormInstance;
 
-            // Obtener el contenedor padre (asumiendo que this.view es VendedorView, el MDI parent)
-            Form parentContainer = (Form)this.view;
+                // Obtener instancia de VentaView
+                IVendedorVenta ventaView = VentaView.GetInstance(parentContainer, connStr);
 
-             //  Pasar la cadena de conexión
-            IVendedorVenta backupView = VentaView.GetInstance(parentContainer, connStr);
-
-            // Crear el Presenter de Venta, pasando la conexión
-            new VendedorVentaPresenter(backupView, connStr);
+                // Crear el Presenter con el constructor corregido
+                new VendedorVentaPresenter(ventaView, connStr);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al abrir vista de ventas: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }
