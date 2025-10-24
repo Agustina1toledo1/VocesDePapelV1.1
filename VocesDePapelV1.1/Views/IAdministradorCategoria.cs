@@ -14,7 +14,7 @@ namespace VocesDePapelV1._1.Views
         string Estado_id { get; set; }
         string NombreEstado { get; set; }
         string SearchValue { get; set; }
-        //bool IsEdit { get; set; }
+        bool IsEdit { get; set; }
         bool IsSuccessful { get; set; }
         string Message { get; set; }
 

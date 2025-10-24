@@ -51,6 +51,7 @@ namespace VocesDePapelV1._1.Presenters
 
         private void CancelAction(object? sender, EventArgs e)
         {
+            this.view.IsEdit = false;
             CleanviewFields();
         }
 
@@ -74,19 +75,29 @@ namespace VocesDePapelV1._1.Presenters
 
         private void SaveCategoria(object? sender, EventArgs e)
         {
-            var categoria = new CategoriaModel(); //creamos una nueva instancia del modelo de usuario 
-            categoria.Id_categoria = Convert.ToInt32(view.CategoriaId); 
-            categoria.Nombre_categoria = view.NombreCategoria;
-            categoria.Estado_id = Convert.ToInt32(view.Estado_id);
             try
             {
-                //validamos el modelo
+                var categoria = new CategoriaModel(); //creamos una nueva instancia del modelo de usuario 
+                categoria.Id_categoria = Convert.ToInt32(view.CategoriaId);
+                categoria.Nombre_categoria = view.NombreCategoria;
+                categoria.Estado_id = Convert.ToInt32(view.Estado_id);
                 new Common.ModelDataValidation().Validate(categoria);
-                
-                repository.Modificar(categoria); //modificamos el usuario
-                view.Message = "Categoria modificado exitosamente";
-                view.IsSuccessful = true;
-                LoadAllCategoriaList(); //recargamos la lista de categoria
+
+                if (this.view.IsEdit)
+                {
+                    repository.Modificar(categoria); //modificamos el usuario
+                    view.Message = "Categoria modificado exitosamente";
+                    view.IsSuccessful = true;
+                    LoadAllCategoriaList(); //recargamos la lista de categoria
+                }
+                else
+                {
+                    repository.Add(categoria); //agregamos la nueva categoria
+                    view.Message = "Categoria agregada exitosamente";
+
+                    view.IsSuccessful = true;
+                    LoadAllCategoriaList(); //recargamos la lista de categoria
+                }
             }
             catch (Exception ex)
             {
@@ -95,11 +106,13 @@ namespace VocesDePapelV1._1.Presenters
                 return;
 
             }
+            
 
         }
 
         private void EditCategoria(object? sender, EventArgs e)
         {
+            this.view.IsEdit = true; //establecemos la vista en modo edicion
             var categoria = (CategoriaModel)categoriaBindingSource.Current; //obtenemos la categoria actual del origen de datos del enlace
                                                                       //asignamos los valores de la vista a las propiedades del modelo
 
@@ -134,7 +147,8 @@ namespace VocesDePapelV1._1.Presenters
 
         private void AddNewCategoria(object? sender, EventArgs e)
         {
-            var categoria = new CategoriaModel(); //creamos una nueva instancia del modelo de usuario
+            this.view.IsEdit = false;
+            /*var categoria = new CategoriaModel(); //creamos una nueva instancia del modelo de usuario
                                               
             //asignamos los valores de la vista a las propiedades del modelo y el modelo con hash en lugar de texto plano
            
@@ -161,7 +175,7 @@ namespace VocesDePapelV1._1.Presenters
 
             }
             //this.view.IsEdit = false; //establecemos la vista en modo no edicion
-            //SaveUsuario(sender, e);
+            //SaveUsuario(sender, e);*/
         }
 
         private void SearchCategoria(object? sender, EventArgs e)

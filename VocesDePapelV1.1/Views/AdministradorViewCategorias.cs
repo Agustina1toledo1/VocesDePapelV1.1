@@ -13,16 +13,18 @@ namespace VocesDePapelV1._1.Views
     public partial class AdministradorViewCategorias : Form, IAdministradorCategoria
     {
         private string message;
+        private bool isEdit;
         private bool isSuccessful;
         public AdministradorViewCategorias()
         {
             InitializeComponent();
+            this.AutoScroll = true;
             AssociateAndRaiseViewEvents(); //asociar y generar los eventos de vistas
         }
 
         private void AssociateAndRaiseViewEvents()
         {
-            btn_registrar_categoria.Click += delegate { AddNewEvent?.Invoke(this, EventArgs.Empty);
+            btn_guardar_categoria.Click += delegate { SaveEvent?.Invoke(this, EventArgs.Empty);
                 MessageBox.Show(Message);
             };
             //buscar categoria
@@ -48,27 +50,25 @@ namespace VocesDePapelV1._1.Views
                 }
 
             };
-            //modificar categoria
-            btn_modificar_categoria.Click += delegate {
-                if (datgridCategorias.SelectedCells.Count > 0)
-                {
-                    SaveEvent?.Invoke(this, EventArgs.Empty);
-                    MessageBox.Show(Message);
-                }
+            //limpiar campos y establecer modo no edicion
+            btn_limpiar_categoria.Click += delegate
+            {
+                CancelEvent?.Invoke(this, EventArgs.Empty);
             };
 
             //mostrar datos en los textbox al seleccionar una fila del datagrid
             datgridCategorias.SelectionChanged += delegate
             {
-                if (datgridCategorias.SelectedCells.Count > 0)
-                {
-                    EditEvent?.Invoke(this, EventArgs.Empty);
-                }
-                else
-                {
-                    CancelEvent?.Invoke(this, EventArgs.Empty);
-                }
-
+                btn_modificar_categoria.Click += delegate {
+                    if (datgridCategorias.SelectedCells.Count > 0)
+                    {
+                        EditEvent?.Invoke(this, EventArgs.Empty);
+                    }
+                    else
+                    {
+                        CancelEvent?.Invoke(this, EventArgs.Empty);
+                    }
+                };
             };
             text_nombre_categoria_admin.KeyPress += TextBoxSoloLetras_KeyPress;
         }
@@ -118,6 +118,11 @@ namespace VocesDePapelV1._1.Views
         public string Message {
             get { return message; }
             set { message = value; }
+        }
+
+        public bool IsEdit {
+            get { return isEdit; }
+            set { isEdit = value; }
         }
 
         public static AdministradorViewCategorias GetInstance(Form parentConteiner)
