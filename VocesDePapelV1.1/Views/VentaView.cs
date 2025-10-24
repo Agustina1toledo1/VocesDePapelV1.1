@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Windows.Forms;
+﻿using System.ComponentModel;
 using VocesDePapelV1._1.Models;
 
 namespace VocesDePapelV1._1.Views
@@ -17,6 +13,12 @@ namespace VocesDePapelV1._1.Views
         private System.Windows.Forms.Button btnSeleccionarProducto;
         private System.Windows.Forms.ComboBox comboBoxTipoBusqueda;
         private System.Windows.Forms.Label labelTipoBusqueda;
+
+        // Campos privados para las nuevas propiedades
+        private string productoSeleccionadoNombre;
+        private string productoSeleccionadoCategoria;
+        private decimal productoSeleccionadoPrecio;
+        private int productoSeleccionadoStock;
         public VentaView(string connectionString)
         {
             InitializeComponent();
@@ -105,7 +107,29 @@ namespace VocesDePapelV1._1.Views
         public int ProductoSeleccionadoId { get; set; }
         public int ProductoCantidad { get; set; }
         public decimal ProductoPrecio { get; set; }
+        public string ProductoSeleccionadoNombre
+        {
+            get { return productoSeleccionadoNombre; }
+            set { productoSeleccionadoNombre = value; }
+        }
 
+        public string ProductoSeleccionadoCategoria
+        {
+            get { return productoSeleccionadoCategoria; }
+            set { productoSeleccionadoCategoria = value; }
+        }
+
+        public decimal ProductoSeleccionadoPrecio
+        {
+            get { return productoSeleccionadoPrecio; }
+            set { productoSeleccionadoPrecio = value; }
+        }
+
+        public int ProductoSeleccionadoStock
+        {
+            get { return productoSeleccionadoStock; }
+            set { productoSeleccionadoStock = value; }
+        }
 
         // Propiedades de venta
         public string NumeroFactura
@@ -144,11 +168,6 @@ namespace VocesDePapelV1._1.Views
             }
         }
 
-        private void btnSeleccionarProducto_Click(object sender, EventArgs e)
-        {
-            SeleccionarProductoDesdeGrid();
-        }
-
         private void SeleccionarProductoDesdeGrid()
         {
             if (dataGridViewProductos.CurrentRow != null)
@@ -161,6 +180,10 @@ namespace VocesDePapelV1._1.Views
                 TBPrecio.Text = producto.Precio.ToString("F2");
                 TBSTock.Text = producto.Stock.ToString();
 
+                ProductoSeleccionadoNombre = producto.Titulo;
+                ProductoSeleccionadoPrecio = producto.Precio;
+                ProductoSeleccionadoStock = producto.Stock;
+                ProductoSeleccionadoCategoria= producto.Nombre_categoria;
                 // Ocultar grid de productos
                 groupBoxProductos.Visible = false;
             }
@@ -207,7 +230,7 @@ namespace VocesDePapelV1._1.Views
         }
         public void AgregarDetalle(VentaDetalleModel detalle)
         {
-            if(detalle == null) return;
+            if (detalle == null) return;
 
             // Verificar si ya existe
             var detalleExistente = detalles.FirstOrDefault(d => d.Id_libro == detalle.Id_libro);
@@ -259,7 +282,18 @@ namespace VocesDePapelV1._1.Views
             ActualizarDataGridView();
             CalcularTotal();
         }
-
+        private void BBuscarProducto_Click(object sender, EventArgs e)
+        {
+            // Verificar que haya texto de búsqueda
+            if (!string.IsNullOrWhiteSpace(ProductoBusqueda))
+            {
+                BuscarProductoEvent?.Invoke(this, EventArgs.Empty);
+            }
+            else
+            {
+                MostrarMensaje("Ingrese un término de búsqueda", false);
+            }
+        }
         // Método auxiliar para calcular el total
         private void ActualizarDataGridView()
         {
@@ -279,19 +313,49 @@ namespace VocesDePapelV1._1.Views
         {
             using (var searchForm = new ProductoSearchView(productos))
             {
+                // Suscribirse al evento de selección
+                searchForm.ProductoSeleccionadoEvent += (sender, e) =>
+                {
+                    var producto = e.Producto;
+                    AsignarProductoSeleccionado(producto);
+                };
+
                 if (searchForm.ShowDialog() == DialogResult.OK && searchForm.ProductoSeleccionado != null)
                 {
                     var producto = searchForm.ProductoSeleccionado;
 
-                    ProductoSeleccionadoId = producto.Id_libro;
-                    TBNomProducto.Text = producto.Titulo;
-                    ProductoPrecio = producto.Precio;
-                    TBPrecio.Text = producto.Precio.ToString("F2");
-
+                    AsignarProductoSeleccionado(producto);
                     MostrarMensaje($"Producto seleccionado: {producto.Titulo}", true);
                 }
             }
         }
+        private void AsignarProductoSeleccionado(ProductoModel producto)
+        {
+            // Actualizar propiedades de la interfaz
+            ProductoSeleccionadoId = producto.Id_libro;
+            ProductoSeleccionadoNombre = producto.Titulo;
+            ProductoSeleccionadoPrecio = producto.Precio;
+            ProductoSeleccionadoStock = producto.Stock;
+
+         /*   // Si tu ProductoModel tiene categoría
+            if (producto.GetType().GetProperty("Categoria") != null)
+            {
+                ProductoSeleccionadoCategoria = producto.Id_categoria;
+            }
+            else
+            {
+                ProductoSeleccionadoCategoria = "Sin categoría"; // Valor por defecto
+            }*/
+
+            // Actualizar controles de la UI
+            TBNomProducto.Text = producto.Titulo;
+            TBPrecio.Text = producto.Precio.ToString("F2");
+            TBSTock.Text = producto.Stock.ToString();
+
+            // También actualizar las propiedades existentes
+            ProductoPrecio = producto.Precio;
+        }
+
         private void ConfigurarDataGridViewProductos()
         {
             // Configurar columnas

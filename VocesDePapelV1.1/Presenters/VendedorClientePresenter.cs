@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using VocesDePapelV1._1.Models;
 using VocesDePapelV1._1.Presenters.Common;
-using VocesDePapelV1._1.Models;
 using VocesDePapelV1._1.Servicios;
 using VocesDePapelV1._1.Views;
 using VocesDePapelV1._1.Repositories;

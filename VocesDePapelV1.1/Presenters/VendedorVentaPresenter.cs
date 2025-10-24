@@ -132,33 +132,7 @@ namespace VocesDePapelV1._1.Presenters
 
         private void OnBuscarProducto(object sender, EventArgs e)
         {
-            try
-            {
-                if (string.IsNullOrWhiteSpace(view.ProductoBusqueda))
-                {
-                    view.MostrarMensaje("Ingrese un término de búsqueda", false);
-                    return;
-                }
-
-                // Buscar productos por título o categoría
-                var productos = productoRepo.GetByValueTitulo(view.ProductoBusqueda)
-                                .Concat(productoRepo.GetByValueCategoria(view.ProductoBusqueda))
-                                .Where(p => p.Stock > 0 && p.Eliminado_id == 0) // Solo productos activos con stock
-                                .Distinct()
-                                .ToList();
-
-                productosEncontrados = productos;
-                view.MostrarProductosEncontrados(productos);
-
-                if (!productos.Any())
-                {
-                    view.MostrarMensaje("No se encontraron productos", false);
-                }
-            }
-            catch (Exception ex)
-            {
-                view.MostrarMensaje($"Error al buscar productos: {ex.Message}", false);
-            }
+            MostrarBusquedaProductos();
         }
 
         private void OnEliminarProducto(object sender, EventArgs e)
@@ -402,6 +376,56 @@ namespace VocesDePapelV1._1.Presenters
                               MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        // Mostrar búsqueda de productos en un diálogo
+        private void MostrarBusquedaProductos()
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(view.ProductoBusqueda))
+                {
+                    view.MostrarMensaje("Ingrese un término de búsqueda", false);
+                    return;
+                }
+
+                // Buscar productos
+                var productos = productoRepo.GetByValueTitulo(view.ProductoBusqueda)
+                                .Concat(productoRepo.GetByValueCategoria(view.ProductoBusqueda))
+                                .Where(p => p.Stock > 0 && p.Eliminado_id == 0)
+                                .Distinct()
+                                .ToList();
+
+                if (!productos.Any())
+                {
+                    view.MostrarMensaje("No se encontraron productos", false);
+                    return;
+                }
+
+                // Mostrar diálogo de selección
+                using (var searchForm = new ProductoSearchView(productos))
+                {
+                    if (searchForm.ShowDialog() == DialogResult.OK && searchForm.ProductoSeleccionado != null)
+                    {
+                        var producto = searchForm.ProductoSeleccionado;
+
+                        // Cargar datos del producto seleccionado en el formulario de venta
+                        view.ProductoSeleccionadoId = producto.Id_libro;
+                        view.ProductoSeleccionadoNombre = producto.Titulo;
+                        view.ProductoSeleccionadoCategoria = producto.Editorial;
+                        view.ProductoSeleccionadoPrecio = producto.Precio;
+                        view.ProductoSeleccionadoStock = producto.Stock;
+
+
+                        view.MostrarMensaje($"Producto '{producto.Titulo}' seleccionado", true);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                view.MostrarMensaje($"Error al buscar productos: {ex.Message}", false);
+            }
+        }
+
+
 
         // Limpiar datos del vendedor
         private void LimpiarDatosVendedor()
