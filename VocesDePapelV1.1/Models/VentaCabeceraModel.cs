@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,7 +13,7 @@ namespace VocesDePapelV1._1.Models
         private int id_venta_cabecera;
         private DateTime fecha_hora;
         private decimal total_venta;
-        private string id_cliente;
+        private int id_cliente;
         private int id_usuario;
         private int id_estado;
 
@@ -24,6 +25,7 @@ namespace VocesDePapelV1._1.Models
         }
 
         [DisplayName("Fecha_hora")]
+        [Required(ErrorMessage = "La fecha y hora son requeridas")]
         public DateTime Fecha_hora
         {
             get { return fecha_hora; }
@@ -31,6 +33,8 @@ namespace VocesDePapelV1._1.Models
         }
 
         [DisplayName("Total_venta")]
+        [Required(ErrorMessage = "El total de la venta es requerido")]
+        [Range(0.01, double.MaxValue, ErrorMessage = "El total debe ser mayor a 0")]
         public decimal Total_venta
         {
             get { return total_venta; }
@@ -38,13 +42,15 @@ namespace VocesDePapelV1._1.Models
         }
 
         [DisplayName("Cliente")]
-        public string Id_cliente
+        [Required(ErrorMessage = "El cliente es requerido")]
+        public int Id_cliente
         {
             get { return id_cliente; }
             set { id_cliente = value; }
         }
 
         [DisplayName("ID Vendedor")]
+        [Required(ErrorMessage = "El vendedor es requerido")]
         public int Id_usuario
         {
             get { return id_usuario; }
@@ -52,6 +58,7 @@ namespace VocesDePapelV1._1.Models
         }
 
         [DisplayName("Estado Venta")]
+        [Required(ErrorMessage = "El estado es requerido")]
         public int Id_estado
         {
             get { return id_estado; }
@@ -60,13 +67,13 @@ namespace VocesDePapelV1._1.Models
 
         // Propiedades adicionales para mostrar información relacionada
         [DisplayName("Cliente")]
-        public string NombreCliente { get; set; }
+        public string Nombre_cliente { get; set; }
 
         [DisplayName("Vendedor")]
-        public string NombreVendedor { get; set; }
+        public string Nombre_vendedor { get; set; }
 
         [DisplayName("Estado")]
-        public string NombreEstado { get; set; }
+        public string Nombre_estado { get; set; }
     }
 
 

@@ -11,7 +11,7 @@ namespace VocesDePapelV1._1.Repositories
     {
         void Add(VentaCabeceraModel ventaCabecera);
         void Modificar(VentaCabeceraModel ventaCabecera);
-        void Eliminar(int id);
+        void eliminar(int id); 
         IEnumerable<VentaCabeceraModel> GetAll();
         IEnumerable<VentaCabeceraModel> GetByValue(string value);
         VentaCabeceraModel ObtenerPorId(int id);
