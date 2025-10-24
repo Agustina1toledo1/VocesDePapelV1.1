@@ -28,12 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             l_detalle_producto = new Label();
             btn_eliminar_autor = new Button();
             btn_modificar_autor = new Button();
-            btn_registrar_autor = new Button();
+            btn_guardar_autor = new Button();
             cmb_estado_autor = new ComboBox();
             text_nombre_autor_admin = new TextBox();
             l_estado_producto = new Label();
@@ -44,6 +44,7 @@
             btn_buscar_autor = new Button();
             text_buscar_autor = new TextBox();
             l_buscar_autor = new Label();
+            btn_limpiar_autor = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridAutorAdmin).BeginInit();
             SuspendLayout();
             // 
@@ -62,7 +63,7 @@
             // 
             btn_eliminar_autor.BackColor = Color.FromArgb(255, 128, 128);
             btn_eliminar_autor.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btn_eliminar_autor.Location = new Point(69, 367);
+            btn_eliminar_autor.Location = new Point(69, 415);
             btn_eliminar_autor.Name = "btn_eliminar_autor";
             btn_eliminar_autor.Size = new Size(269, 43);
             btn_eliminar_autor.TabIndex = 53;
@@ -71,7 +72,7 @@
             // 
             // btn_modificar_autor
             // 
-            btn_modificar_autor.BackColor = Color.FromArgb(255, 192, 128);
+            btn_modificar_autor.BackColor = SystemColors.GradientActiveCaption;
             btn_modificar_autor.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btn_modificar_autor.Location = new Point(69, 305);
             btn_modificar_autor.Name = "btn_modificar_autor";
@@ -80,16 +81,16 @@
             btn_modificar_autor.Text = "Modificar";
             btn_modificar_autor.UseVisualStyleBackColor = false;
             // 
-            // btn_registrar_autor
+            // btn_guardar_autor
             // 
-            btn_registrar_autor.BackColor = SystemColors.GradientActiveCaption;
-            btn_registrar_autor.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btn_registrar_autor.Location = new Point(70, 245);
-            btn_registrar_autor.Name = "btn_registrar_autor";
-            btn_registrar_autor.Size = new Size(269, 43);
-            btn_registrar_autor.TabIndex = 51;
-            btn_registrar_autor.Text = "Registrar";
-            btn_registrar_autor.UseVisualStyleBackColor = false;
+            btn_guardar_autor.BackColor = Color.LightGreen;
+            btn_guardar_autor.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btn_guardar_autor.Location = new Point(70, 245);
+            btn_guardar_autor.Name = "btn_guardar_autor";
+            btn_guardar_autor.Size = new Size(269, 43);
+            btn_guardar_autor.TabIndex = 51;
+            btn_guardar_autor.Text = "Guardar";
+            btn_guardar_autor.UseVisualStyleBackColor = false;
             // 
             // cmb_estado_autor
             // 
@@ -155,24 +156,24 @@
             // dataGridAutorAdmin
             // 
             dataGridAutorAdmin.AllowUserToAddRows = false;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = SystemColors.Control;
-            dataGridViewCellStyle1.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle1.Padding = new Padding(2);
-            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dataGridAutorAdmin.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = SystemColors.Control;
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle3.Padding = new Padding(2);
+            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            dataGridAutorAdmin.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             dataGridAutorAdmin.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridAutorAdmin.Location = new Point(416, 106);
             dataGridAutorAdmin.MultiSelect = false;
             dataGridAutorAdmin.Name = "dataGridAutorAdmin";
             dataGridAutorAdmin.ReadOnly = true;
             dataGridAutorAdmin.RowHeadersWidth = 51;
-            dataGridViewCellStyle2.SelectionBackColor = Color.White;
-            dataGridViewCellStyle2.SelectionForeColor = Color.Black;
-            dataGridAutorAdmin.RowsDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.SelectionBackColor = Color.White;
+            dataGridViewCellStyle4.SelectionForeColor = Color.Black;
+            dataGridAutorAdmin.RowsDefaultCellStyle = dataGridViewCellStyle4;
             dataGridAutorAdmin.Size = new Size(903, 304);
             dataGridAutorAdmin.TabIndex = 55;
             // 
@@ -206,12 +207,24 @@
             l_buscar_autor.TabIndex = 69;
             l_buscar_autor.Text = "Buscar";
             // 
+            // btn_limpiar_autor
+            // 
+            btn_limpiar_autor.BackColor = Color.FromArgb(255, 192, 128);
+            btn_limpiar_autor.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btn_limpiar_autor.Location = new Point(69, 361);
+            btn_limpiar_autor.Name = "btn_limpiar_autor";
+            btn_limpiar_autor.Size = new Size(269, 43);
+            btn_limpiar_autor.TabIndex = 72;
+            btn_limpiar_autor.Text = "Limpiar";
+            btn_limpiar_autor.UseVisualStyleBackColor = false;
+            // 
             // AdministradorViewAutores
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveCaption;
             ClientSize = new Size(1340, 464);
+            Controls.Add(btn_limpiar_autor);
             Controls.Add(btn_buscar_autor);
             Controls.Add(text_buscar_autor);
             Controls.Add(l_buscar_autor);
@@ -220,7 +233,7 @@
             Controls.Add(l_detalle_producto);
             Controls.Add(btn_eliminar_autor);
             Controls.Add(btn_modificar_autor);
-            Controls.Add(btn_registrar_autor);
+            Controls.Add(btn_guardar_autor);
             Controls.Add(cmb_estado_autor);
             Controls.Add(text_nombre_autor_admin);
             Controls.Add(l_estado_producto);
@@ -238,7 +251,7 @@
         private Label l_detalle_producto;
         private Button btn_eliminar_autor;
         private Button btn_modificar_autor;
-        private Button btn_registrar_autor;
+        private Button btn_guardar_autor;
         private ComboBox cmb_estado_autor;
         private TextBox text_nombre_autor_admin;
         private Label l_estado_producto;
@@ -253,5 +266,6 @@
         private Button btn_buscar_autor;
         private TextBox text_buscar_autor;
         private Label l_buscar_autor;
+        private Button btn_limpiar_autor;
     }
 }

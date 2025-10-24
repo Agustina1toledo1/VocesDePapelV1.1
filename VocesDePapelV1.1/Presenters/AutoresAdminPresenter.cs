@@ -66,23 +66,34 @@ namespace VocesDePapelV1._1.Presenters
 
         private void CancelAction(object? sender, EventArgs e)
         {
+            this.view.IsEdit = false;
             CleanviewFields();
         }
 
         private void SaveAutor(object? sender, EventArgs e) //modificar autor
         {
-            var autor = new AutorModel();
-            autor.Id_autor = Convert.ToInt32(view.AutorId);
-            autor.Alias_autor = view.AliasAutor;
-            autor.Estado_id = Convert.ToInt32(view.Estado_id);
-
             try
             {
+                var autor = new AutorModel();
+                autor.Id_autor = Convert.ToInt32(view.AutorId);
+                autor.Alias_autor = view.AliasAutor;
+                autor.Estado_id = Convert.ToInt32(view.Estado_id);
                 new Common.ModelDataValidation().Validate(autor);
-                repository.Modificar(autor);
-                view.Message = "Autor modificado exitosamente";
-                view.IsSuccessful = true;
-                LoadAllAutoresList(); //recargamos la lista de autores
+
+                if (this.view.IsEdit)
+                {
+                    repository.Modificar(autor);
+                    view.Message = "Autor modificado exitosamente";
+                    view.IsSuccessful = true;
+                    LoadAllAutoresList(); //recargamos la lista de autores
+                }
+                else
+                {
+                    repository.Add(autor);
+                    view.Message = "Autor agregado exitosamente";
+                    view.IsSuccessful = true;
+                    LoadAllAutoresList(); //recargamos la lista de autores
+                }
             }
             catch (Exception ex)
             {
@@ -90,6 +101,7 @@ namespace VocesDePapelV1._1.Presenters
                 this.view.Message = ex.Message;
                 return;
             }
+
         }
 
         private void DeleteAutor(object? sender, EventArgs e)
@@ -113,6 +125,7 @@ namespace VocesDePapelV1._1.Presenters
 
         private void EditAutor(object? sender, EventArgs e) //coloca los datos del autor seleccionado en los campos de la vista
         {
+            this.view.IsEdit = true;
             var autor = (AutorModel)autorBindingSource.Current;
 
             view.AutorId = autor.Id_autor.ToString();
@@ -123,24 +136,7 @@ namespace VocesDePapelV1._1.Presenters
 
         private void AddNewAutor(object? sender, EventArgs e)
         {
-            var autor = new AutorModel();
-            autor.Alias_autor = view.AliasAutor;
-            autor.Estado_id = Convert.ToInt32(view.Estado_id);
-
-            try
-            {
-                new Common.ModelDataValidation().Validate(autor);
-                repository.Add(autor);
-                view.Message = "Autor agregado exitosamente";
-                view.IsSuccessful = true;
-                LoadAllAutoresList(); //recargamos la lista de autores
-            }
-            catch (Exception ex)
-            {
-                this.view.IsSuccessful = false;
-                this.view.Message = ex.Message;
-                return;
-            }
+            this.view.IsEdit = false;
         }
 
         private void SearchAutor(object? sender, EventArgs e)

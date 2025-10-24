@@ -13,17 +13,19 @@ namespace VocesDePapelV1._1.Views
     public partial class AdministradorViewAutores : Form, IAdministradorAutor
     {
         private string message;
+        private bool isEdit;
         private bool isSuccessful;
         public AdministradorViewAutores()
         {
             InitializeComponent();
+            this.AutoScroll = true;
             AssociateAndRaiseViewEvents(); //asociar y generar los eventos de vistas
         }
 
         private void AssociateAndRaiseViewEvents()
         {
-            btn_registrar_autor.Click += delegate { 
-                AddNewEvent?.Invoke(this, EventArgs.Empty);
+            btn_guardar_autor.Click += delegate { 
+                SaveEvent?.Invoke(this, EventArgs.Empty);
                 MessageBox.Show(Message);
             };
             //buscar autor
@@ -47,25 +49,24 @@ namespace VocesDePapelV1._1.Views
                     }
                 }
             };
-            //modificar autor
-            btn_modificar_autor.Click += delegate {
-                if (dataGridAutorAdmin.SelectedCells.Count > 0)
-                {
-                    SaveEvent?.Invoke(this, EventArgs.Empty);
-                    MessageBox.Show(Message);
-                }
+            //limpiar campos
+            btn_limpiar_autor.Click += delegate
+            {
+                CancelEvent?.Invoke(this, EventArgs.Empty);
             };
             //mostrar datos en los textbox al seleccionar una fila del datagrid
             dataGridAutorAdmin.SelectionChanged += delegate
             {
-                if (dataGridAutorAdmin.SelectedCells.Count > 0)
-                {
-                    EditEvent?.Invoke(this, EventArgs.Empty);
-                }
-                else
-                {
-                    CancelEvent?.Invoke(this, EventArgs.Empty);
-                }
+                btn_modificar_autor.Click += delegate {
+                    if (dataGridAutorAdmin.SelectedCells.Count > 0)
+                    {
+                        EditEvent?.Invoke(this, EventArgs.Empty);
+                    }
+                    else
+                    {
+                        CancelEvent?.Invoke(this, EventArgs.Empty);
+                    }
+                };
             };
             text_nombre_autor_admin.KeyPress += TextBoxSoloLetras_KeyPress;
         }
@@ -112,6 +113,11 @@ namespace VocesDePapelV1._1.Views
         public string Message {
             get { return message; }
             set { message = value; }
+        }
+
+        public bool IsEdit {
+            get { return isEdit; }
+            set { isEdit = value; }
         }
 
         public static AdministradorViewAutores GetInstance(Form parentConteiner)
