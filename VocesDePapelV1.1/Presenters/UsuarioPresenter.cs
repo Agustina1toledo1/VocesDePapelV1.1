@@ -107,54 +107,143 @@ namespace VocesDePapelV1._1.Presenters
 
         private void CancelAction(object? sender, EventArgs e)
         {
+            this.view.IsEdit = false; //establecemos la vista en modo no edicion
             CleanviewFields();
         }
 
         private void SaveUsuario(object? sender, EventArgs e)
         {
-            var usuario = new UsuarioModel(); //creamos una nueva instancia del modelo de usuario
-            //asignamos los valores de la vista a las propiedades del modelo            
-            usuario.Id_usuario = Convert.ToInt32(view.UsuarioId);
-            usuario.Nombre = view.UsuarioNombre;
-            usuario.Apellido = view.UsuarioApellido;
-            usuario.Cuit_usuario = view.CuitUsuario;
-            usuario.Contraseña = view.Contraseña;
-            usuario.Baja = Convert.ToInt32(view.Baja);
-            usuario.Id_rol = Convert.ToInt32(view.UsuarioIdRol);
-
-            //hashea si es corresponde
-            if (view.Contraseña != "00000000") //si la contraseña no es "00000000"
-            {
-                // Hashear contraseña
-                string hashedPwd = hasher.Hash(view.Contraseña);
-                usuario.Contraseña = hashedPwd;
-            }
-            else
-            {
-            //si la contraseña es nula o vacia, obtenemos el usuario actual y mantenemos su contraseña
-                usuario.Contraseña = view.Contraseña;
-            }
-            //capturamos los posible errores 
             try
             {
-                //validamos el modelo
+                var usuario = new UsuarioModel(); //creamos una nueva instancia del modelo de usuario
+                                                  //asignamos los valores de la vista a las propiedades del modelo
+                string hashedPwd;
+                
+                usuario.Nombre = view.UsuarioNombre;
+                usuario.Apellido = view.UsuarioApellido;
+                usuario.Cuit_usuario = view.CuitUsuario;
+                usuario.Contraseña = view.Contraseña;
+                usuario.Baja = Convert.ToInt32(view.Baja);
+                usuario.Id_rol = Convert.ToInt32(view.UsuarioIdRol);
                 new Common.ModelDataValidation().Validate(usuario);
-                //if (view.IsEdit) //si estamos en modo edicion
-                //{
-                    
+
+                if (this.view.IsEdit)
+                {
+                    usuario.Id_usuario = Convert.ToInt32(view.UsuarioId);
+                    if (view.Contraseña != "00000000") //si la contraseña no es "00000000"
+                    {
+                        // Hashear contraseña
+                       hashedPwd = hasher.Hash(view.Contraseña);
+                        usuario.Contraseña = hashedPwd;
+                    }
+                    else
+                    {
+                        //si la contraseña es nula o vacia, obtenemos el usuario actual y mantenemos su contraseña
+                        usuario.Contraseña = view.Contraseña;
+                    }
                     repository.Modificar(usuario); //modificamos el usuario
-                    view.Message = "Usuario modificado exitosamente";
-                //}
-               
-                view.IsSuccessful = true; 
-                LoadAllUsuarioList(); //recargamos la lista de usuarios
+                    view.Message = "Usuario modificado exitosamente";   
+                    view.IsSuccessful = true;
+                    LoadAllUsuarioList(); //recargamos la lista de usuarios
+                }
+                else
+                {
+                    hashedPwd = hasher.Hash(view.Contraseña);
+                    usuario.Contraseña = hashedPwd;
+                    repository.Add(usuario); //agregamos el nuevo usuario
+                    view.Message = "Usuario agregado exitosamente";
+
+                    view.IsSuccessful = true;
+                    LoadAllUsuarioList();
+
+                }
             }
             catch (Exception ex)
             {
                 this.view.IsSuccessful = false;
-                this.view.Message =  ex.Message;
+                this.view.Message = ex.Message;
                 return;
 
+                /*var usuario = new UsuarioModel(); //creamos una nueva instancia del modelo de usuario
+                //asignamos los valores de la vista a las propiedades del modelo            
+                usuario.Id_usuario = Convert.ToInt32(view.UsuarioId);
+                usuario.Nombre = view.UsuarioNombre;
+                usuario.Apellido = view.UsuarioApellido;
+                usuario.Cuit_usuario = view.CuitUsuario;
+                usuario.Contraseña = view.Contraseña;
+                usuario.Baja = Convert.ToInt32(view.Baja);
+                usuario.Id_rol = Convert.ToInt32(view.UsuarioIdRol);
+
+                //hashea si es corresponde
+                if (view.Contraseña != "00000000") //si la contraseña no es "00000000"
+                {
+                    // Hashear contraseña
+                    string hashedPwd = hasher.Hash(view.Contraseña);
+                    usuario.Contraseña = hashedPwd;
+                }
+                else
+                {
+                //si la contraseña es nula o vacia, obtenemos el usuario actual y mantenemos su contraseña
+                    usuario.Contraseña = view.Contraseña;
+                }
+
+                //capturamos los posible errores 
+                try
+                {
+                    //validamos el modelo
+                    new Common.ModelDataValidation().Validate(usuario);
+                    //if (view.IsEdit) //si estamos en modo edicion
+                    //{
+
+                        repository.Modificar(usuario); //modificamos el usuario
+                        view.Message = "Usuario modificado exitosamente";
+                    //}
+
+                    view.IsSuccessful = true; 
+                    LoadAllUsuarioList(); //recargamos la lista de usuarios
+                }
+                catch (Exception ex)
+                {
+                    this.view.IsSuccessful = false;
+                    this.view.Message =  ex.Message;
+                    return;
+
+                }
+                */
+                /*---*/
+                //var usuario = new UsuarioModel(); //creamos una nueva instancia del modelo de usuario
+                //  Hashear contraseña
+                //string hashedPwd = hasher.Hash(view.Contraseña);
+                //asignamos los valores de la vista a las propiedades del modelo y el modelo con hash en lugar de texto plano
+                /* usuario.Id_usuario = Convert.ToInt32(view.UsuarioId);
+             usuario.Nombre = view.UsuarioNombre;
+             usuario.Apellido = view.UsuarioApellido;
+             usuario.Contraseña = hashedPwd;
+             usuario.Cuit_usuario = view.CuitUsuario;
+             usuario.Baja = Convert.ToInt32(view.Baja);
+             usuario.Id_rol = Convert.ToInt32(view.UsuarioIdRol);
+
+             //capturamos los posible errores 
+             try
+             {
+                 //validamos el modelo
+                 new Common.ModelDataValidation().Validate(usuario);
+
+                 repository.Add(usuario); //agregamos el nuevo usuario
+                 view.Message = "Usuario agregado exitosamente";
+
+                 view.IsSuccessful = true;
+                 LoadAllUsuarioList(); //recargamos la lista de usuarios
+             }
+             catch (Exception ex)
+             {
+                 this.view.IsSuccessful = false;
+                 this.view.Message = ex.Message;
+                 return;
+
+             }*/
+                //this.view.IsEdit = false; //establecemos la vista en modo no edicion
+                //SaveUsuario(sender, e);
             }
         }
 
@@ -186,6 +275,7 @@ namespace VocesDePapelV1._1.Presenters
 
         private void EditUsuario(object? sender, EventArgs e)
         {
+            this.view.IsEdit = true; //establecemos la vista en modo edicion
             var usuario = (UsuarioModel)usuarioBindingSource.Current; //obtenemos el usuario actual del origen de datos del enlace
             //asignamos los valores de la vista a las propiedades del modelo
             
@@ -195,14 +285,13 @@ namespace VocesDePapelV1._1.Presenters
              view.Contraseña = "00000000";
              view.CuitUsuario = usuario.Cuit_usuario;
              view.NombreEstado = usuario.Nombre_estado;
-             view.NombreRol = usuario.Nombre_rol;
-             this.view.IsEdit = true; //establecemos la vista en modo edicion
+             view.NombreRol = usuario.Nombre_rol;             
         }
        
         private void AddNewUsuario(object? sender, EventArgs e)
         {
-
-            var usuario = new UsuarioModel(); //creamos una nueva instancia del modelo de usuario
+            this.view.IsEdit = false; //establecemos la vista en modo no edicion
+            /*var usuario = new UsuarioModel(); //creamos una nueva instancia del modelo de usuario
                                               //  Hashear contraseña
             string hashedPwd = hasher.Hash(view.Contraseña);
             //asignamos los valores de la vista a las propiedades del modelo y el modelo con hash en lugar de texto plano
@@ -234,9 +323,9 @@ namespace VocesDePapelV1._1.Presenters
 
             }
             //this.view.IsEdit = false; //establecemos la vista en modo no edicion
-            //SaveUsuario(sender, e);
+            //SaveUsuario(sender, e);*/
         }
 
-        
+
     }
 }

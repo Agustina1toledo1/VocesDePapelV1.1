@@ -236,18 +236,13 @@ namespace VocesDePapelV1._1.Presenters
                 var categoriaEliminada = categoriaEliminadaList.FirstOrDefault(c => c.Id_categoria == 99);
                 this.view.SetCategoriaListBindingSource(categoriaEliminadaBindingSource);
                 view.ProductoNombreCategoria = categoriaEliminada.Nombre_categoria;
-            }/*else if (categoria == null && categoriaEliminadaExiste != null)
-            {
-                view.ProductoNombreCategoria = categoriaEliminadaExiste.Nombre_categoria;
-            }*/
+            }
             else
             {
-                //categoriaList = categoriaList.Where(c => c.Id_categoria != 99).ToList();
-                //categoriaBindingSource.DataSource = categoriaList;
                 this.view.SetCategoriaListBindingSource(categoriaBindingSource);
                 view.ProductoNombreCategoria = producto.Nombre_categoria;
             }
-            if (autor == null)//&& autorEliminadoExiste == null
+            if (autor == null)
             {
                 var autorEliminado = autorEliminadoList.FirstOrDefault(a => a.Id_autor == 99);
                 this.view.SetAutorListBindingSource(autorEliminadoBindingSource);

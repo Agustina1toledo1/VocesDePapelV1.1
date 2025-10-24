@@ -21,7 +21,7 @@ namespace VocesDePapelV1._1
             
 
             //string connectionString = ConfigurationManager.ConnectionStrings["SqlConnectionAgus"].ConnectionString;
-           bool continuar = true;
+          bool continuar = true;
            while (continuar)
             {
                 string connectionString = ConfigurationManager.ConnectionStrings["Valor"].ConnectionString;
@@ -55,7 +55,7 @@ namespace VocesDePapelV1._1
 
             //probamos el presenter de gerente
             /*IGerenteView view = new GerenteView();
-            string connectionString = ConfigurationManager.ConnectionStrings["SqlConnectionAgus"].ConnectionString;
+            string connectionString = ConfigurationManager.ConnectionStrings["Valor"].ConnectionString;
             new GerentePresenter(view, connectionString);
             Application.Run((Form)view);*/
             //probamos el presenter de administrador

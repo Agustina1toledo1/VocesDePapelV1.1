@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             l_nombre = new Label();
             l_apellido = new Label();
             l_clave = new Label();
@@ -50,6 +50,7 @@
             l_lista_usuarios = new Label();
             text_buscar_usuario = new TextBox();
             btn_buscar_usuario = new Button();
+            btn_limpiar_usuario = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -181,7 +182,7 @@
             // 
             // btn_guardar_usuario
             // 
-            btn_guardar_usuario.BackColor = SystemColors.GradientActiveCaption;
+            btn_guardar_usuario.BackColor = Color.LightGreen;
             btn_guardar_usuario.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btn_guardar_usuario.Location = new Point(59, 551);
             btn_guardar_usuario.Name = "btn_guardar_usuario";
@@ -192,9 +193,9 @@
             // 
             // btn_modificar_usuario
             // 
-            btn_modificar_usuario.BackColor = Color.FromArgb(255, 192, 128);
+            btn_modificar_usuario.BackColor = SystemColors.GradientActiveCaption;
             btn_modificar_usuario.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btn_modificar_usuario.Location = new Point(59, 612);
+            btn_modificar_usuario.Location = new Point(59, 608);
             btn_modificar_usuario.Name = "btn_modificar_usuario";
             btn_modificar_usuario.Size = new Size(269, 43);
             btn_modificar_usuario.TabIndex = 16;
@@ -205,7 +206,7 @@
             // 
             btn_eliminar_usuario.BackColor = Color.FromArgb(255, 128, 128);
             btn_eliminar_usuario.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btn_eliminar_usuario.Location = new Point(59, 672);
+            btn_eliminar_usuario.Location = new Point(59, 714);
             btn_eliminar_usuario.Name = "btn_eliminar_usuario";
             btn_eliminar_usuario.Size = new Size(269, 43);
             btn_eliminar_usuario.TabIndex = 17;
@@ -226,15 +227,15 @@
             // dataGridView1
             // 
             dataGridView1.AllowUserToAddRows = false;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = SystemColors.Control;
-            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle1.Padding = new Padding(2);
-            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = SystemColors.Control;
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle2.Padding = new Padding(2);
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Location = new Point(420, 124);
             dataGridView1.MultiSelect = false;
@@ -274,12 +275,24 @@
             btn_buscar_usuario.TabIndex = 24;
             btn_buscar_usuario.UseVisualStyleBackColor = false;
             // 
+            // btn_limpiar_usuario
+            // 
+            btn_limpiar_usuario.BackColor = Color.FromArgb(255, 192, 128);
+            btn_limpiar_usuario.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btn_limpiar_usuario.Location = new Point(62, 662);
+            btn_limpiar_usuario.Name = "btn_limpiar_usuario";
+            btn_limpiar_usuario.Size = new Size(269, 43);
+            btn_limpiar_usuario.TabIndex = 45;
+            btn_limpiar_usuario.Text = "Limpiar";
+            btn_limpiar_usuario.UseVisualStyleBackColor = false;
+            // 
             // GerenteViewUsuario
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveCaption;
             ClientSize = new Size(1367, 781);
+            Controls.Add(btn_limpiar_usuario);
             Controls.Add(btn_buscar_usuario);
             Controls.Add(text_buscar_usuario);
             Controls.Add(l_lista_usuarios);
@@ -341,5 +354,6 @@
         private ComboBox cmb_buscar_por;
         private TextBox text_buscar_usuario;
         private Button btn_buscar_usuario;
+        private Button btn_limpiar_usuario;
     }
 }

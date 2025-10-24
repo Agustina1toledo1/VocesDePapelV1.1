@@ -19,6 +19,7 @@ namespace VocesDePapelV1._1.Views
         public GerenteViewUsuario()
         {
             InitializeComponent();
+            this.AutoScroll = true;
             AssociateAndRaiseViewEvents(); //asociar y generar los eventos de vistas
         }
         private void AssociateAndRaiseViewEvents()
@@ -34,17 +35,21 @@ namespace VocesDePapelV1._1.Views
                 }
             };
             //Agregar nuevo usuario
-            btn_guardar_usuario.Click += delegate { AddNewEvent?.Invoke(this, EventArgs.Empty);
+            btn_guardar_usuario.Click += delegate { SaveEvent?.Invoke(this, EventArgs.Empty);
                 MessageBox.Show(Message);
             };
-            //editar usuario
+            btn_limpiar_usuario.Click += delegate
+            {
+                CancelEvent?.Invoke(this, EventArgs.Empty);
+            };
+            /*editar usuario
             btn_modificar_usuario.Click += delegate {
                 if (dataGridView1.SelectedCells.Count > 0)
                 {
                     SaveEvent?.Invoke(this, EventArgs.Empty);
                     MessageBox.Show(Message);
                 }
-            };
+            };*/
 
             //eliminar usuario
             btn_eliminar_usuario.Click += delegate {
@@ -62,14 +67,17 @@ namespace VocesDePapelV1._1.Views
             };
             dataGridView1.SelectionChanged += delegate
             {
-                if (dataGridView1.SelectedCells.Count > 0)
+                btn_modificar_usuario.Click += delegate
                 {
-                    EditEvent?.Invoke(this, EventArgs.Empty);
-                }
-                else
-                {
-                    CancelEvent?.Invoke(this, EventArgs.Empty);
-                }
+                    if (dataGridView1.SelectedCells.Count > 0)
+                    {
+                        EditEvent?.Invoke(this, EventArgs.Empty);
+                    }
+                    else
+                    {
+                        CancelEvent?.Invoke(this, EventArgs.Empty);
+                    }
+                };
                     
             };
             // Text box que solo admiten letras

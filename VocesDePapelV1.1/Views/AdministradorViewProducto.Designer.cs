@@ -83,7 +83,7 @@
             // 
             // btn_modificar_producto
             // 
-            btn_modificar_producto.BackColor = Color.LightBlue;
+            btn_modificar_producto.BackColor = SystemColors.GradientActiveCaption;
             btn_modificar_producto.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btn_modificar_producto.Location = new Point(63, 673);
             btn_modificar_producto.Name = "btn_modificar_producto";
