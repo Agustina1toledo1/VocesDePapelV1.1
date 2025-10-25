@@ -15,6 +15,7 @@ namespace VocesDePapelV1._1.Views
         public GerenteViewReporteLibroStock()
         {
             InitializeComponent();
+            this.AutoScroll = true;
         }
 
         //singleton patron (abre una sola instancia del formulario) 

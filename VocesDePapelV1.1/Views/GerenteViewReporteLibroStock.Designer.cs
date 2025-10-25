@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
             label2 = new Label();
             label1 = new Label();
             btn_buscar_poco_stock = new Button();
@@ -44,6 +44,7 @@
             estado = new DataGridViewTextBoxColumn();
             categoria = new DataGridViewTextBoxColumn();
             btn_modificar_usuario = new Button();
+            button1 = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -71,7 +72,7 @@
             // 
             btn_buscar_poco_stock.BackColor = SystemColors.GradientActiveCaption;
             btn_buscar_poco_stock.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btn_buscar_poco_stock.Location = new Point(953, 23);
+            btn_buscar_poco_stock.Location = new Point(953, 29);
             btn_buscar_poco_stock.Name = "btn_buscar_poco_stock";
             btn_buscar_poco_stock.Size = new Size(125, 43);
             btn_buscar_poco_stock.TabIndex = 77;
@@ -100,15 +101,15 @@
             // dataGridView1
             // 
             dataGridView1.AllowUserToAddRows = false;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = SystemColors.Control;
-            dataGridViewCellStyle1.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle1.Padding = new Padding(2);
-            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = SystemColors.Control;
+            dataGridViewCellStyle5.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle5.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle5.Padding = new Padding(2);
+            dataGridViewCellStyle5.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.True;
+            dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Columns.AddRange(new DataGridViewColumn[] { titulo, editorial, id_libro, precio, stock, estado, categoria });
             dataGridView1.Location = new Point(219, 133);
@@ -116,9 +117,9 @@
             dataGridView1.Name = "dataGridView1";
             dataGridView1.ReadOnly = true;
             dataGridView1.RowHeadersWidth = 51;
-            dataGridViewCellStyle2.SelectionBackColor = Color.White;
-            dataGridViewCellStyle2.SelectionForeColor = Color.Black;
-            dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle6.SelectionBackColor = Color.White;
+            dataGridViewCellStyle6.SelectionForeColor = Color.Black;
+            dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle6;
             dataGridView1.Size = new Size(903, 564);
             dataGridView1.TabIndex = 79;
             // 
@@ -181,7 +182,7 @@
             // 
             // btn_modificar_usuario
             // 
-            btn_modificar_usuario.BackColor = Color.FromArgb(255, 192, 128);
+            btn_modificar_usuario.BackColor = Color.LightGreen;
             btn_modificar_usuario.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btn_modificar_usuario.Location = new Point(1128, 133);
             btn_modificar_usuario.Name = "btn_modificar_usuario";
@@ -190,12 +191,24 @@
             btn_modificar_usuario.Text = "Generar excel";
             btn_modificar_usuario.UseVisualStyleBackColor = false;
             // 
+            // button1
+            // 
+            button1.BackColor = SystemColors.GradientActiveCaption;
+            button1.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button1.Location = new Point(1128, 185);
+            button1.Name = "button1";
+            button1.Size = new Size(169, 43);
+            button1.TabIndex = 92;
+            button1.Text = "Historial";
+            button1.UseVisualStyleBackColor = false;
+            // 
             // GerenteViewReporteLibroStock
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveCaption;
             ClientSize = new Size(1340, 781);
+            Controls.Add(button1);
             Controls.Add(btn_modificar_usuario);
             Controls.Add(dataGridView1);
             Controls.Add(text_cantidad_libro_reporte_gerente);
@@ -226,5 +239,6 @@
         private DataGridViewTextBoxColumn estado;
         private DataGridViewTextBoxColumn categoria;
         private Button btn_modificar_usuario;
+        private Button button1;
     }
 }
