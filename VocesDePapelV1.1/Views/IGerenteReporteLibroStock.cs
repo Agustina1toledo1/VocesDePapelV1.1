@@ -20,9 +20,7 @@ namespace VocesDePapelV1._1.Views
 
         //metodos
         void SetProductoFiltradoListBindingSource(object productoList); //metodo para enlazar la lista de productos
-        void SetCategoriaListBindingSource(object categoriaList); //metodo para enlazar la lista de categorias
-        void SetEstadoListBindingSource(object estadoList); //metodo para enlazar la lista de estados
-        void SetAutorListBindingSource(object autorList); //metodo para enlazar la lista de autores
+        
         void Show(); //mostrar formulario
     }
 }

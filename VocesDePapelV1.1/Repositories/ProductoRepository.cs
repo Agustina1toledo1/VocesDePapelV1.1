@@ -241,7 +241,7 @@ namespace VocesDePapelV1._1.Repositories
                                         INNER JOIN categoria as c ON l.id_categoria = c.id_categoria
                                         INNER JOIN estado as e ON l.eliminado = e.id_estado   
                                         INNER JOIN autor as a ON l.id_autor = a.id_autor
-                                        WHERE  l.stock <=  @stock
+                                        WHERE  l.stock <=  @stock and l.eliminado = 0
                                         ORDER BY l.id_libro DESC";
 
                 command.Parameters.Add("@stock", SqlDbType.Int).Value = stockMinimo;

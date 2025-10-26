@@ -25,7 +25,8 @@ namespace VocesDePapelV1._1.Views
         {
             //Buscar libros con stock menor o igual
             btn_buscar_stock.Click += delegate { 
-                SearchEvent?.Invoke(this, EventArgs.Empty); 
+                SearchEvent?.Invoke(this, EventArgs.Empty);
+                MessageBox.Show(Message);
             }; //al hacer clic (formulario, argumento de evento vacio)
             //con la tecla enter
             if (txt_buscar_stock_reporte_producto == null)
@@ -36,8 +37,15 @@ namespace VocesDePapelV1._1.Views
                     if (e.KeyCode == Keys.Enter)
                     {
                         SearchEvent?.Invoke(this, EventArgs.Empty);
+                        MessageBox.Show(Message);
                     }
                 };
+
+            //Generar reporte
+            btn_generar_reporte_stockpdf.Click += delegate {
+                GenerateReportEvent?.Invoke(this, EventArgs.Empty);
+                MessageBox.Show(Message);
+            };
         }
 
         //singleton patron (abre una sola instancia del formulario) 
@@ -86,22 +94,13 @@ namespace VocesDePapelV1._1.Views
         public void SetProductoFiltradoListBindingSource(object productoList)
         {
             dataGridViewReporteStock.DataSource = productoList;
-        }
-        public void SetCategoriaListBindingSource(object categoriaList)
-        {
-            throw new NotImplementedException();
-        }
+            dataGridViewReporteStock.Columns["Id_categoria"].Visible = false;
+            dataGridViewReporteStock.Columns["Id_autor"].Visible = false;
+            dataGridViewReporteStock.Columns["Eliminado_id"].Visible = false;
 
-        public void SetEstadoListBindingSource(object estadoList)
-        {
-            throw new NotImplementedException();
-        }
 
-        public void SetAutorListBindingSource(object autorList)
-        {
-            throw new NotImplementedException();
         }
-
+        
         
     }
 }

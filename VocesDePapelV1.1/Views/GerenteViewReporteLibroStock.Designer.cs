@@ -35,8 +35,7 @@
             btn_buscar_stock = new Button();
             label5 = new Label();
             dataGridViewReporteStock = new DataGridView();
-            btn_modificar_usuario = new Button();
-            button1 = new Button();
+            btn_generar_reporte_stockpdf = new Button();
             txt_buscar_stock_reporte_producto = new TextBox();
             ((System.ComponentModel.ISupportInitialize)dataGridViewReporteStock).BeginInit();
             SuspendLayout();
@@ -108,27 +107,16 @@
             dataGridViewReporteStock.Size = new Size(903, 564);
             dataGridViewReporteStock.TabIndex = 79;
             // 
-            // btn_modificar_usuario
+            // btn_generar_reporte_stockpdf
             // 
-            btn_modificar_usuario.BackColor = Color.LightGreen;
-            btn_modificar_usuario.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btn_modificar_usuario.Location = new Point(1128, 133);
-            btn_modificar_usuario.Name = "btn_modificar_usuario";
-            btn_modificar_usuario.Size = new Size(169, 43);
-            btn_modificar_usuario.TabIndex = 91;
-            btn_modificar_usuario.Text = "Generar excel";
-            btn_modificar_usuario.UseVisualStyleBackColor = false;
-            // 
-            // button1
-            // 
-            button1.BackColor = SystemColors.GradientActiveCaption;
-            button1.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button1.Location = new Point(1128, 185);
-            button1.Name = "button1";
-            button1.Size = new Size(169, 43);
-            button1.TabIndex = 92;
-            button1.Text = "Historial";
-            button1.UseVisualStyleBackColor = false;
+            btn_generar_reporte_stockpdf.BackColor = Color.LightGreen;
+            btn_generar_reporte_stockpdf.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btn_generar_reporte_stockpdf.Location = new Point(1128, 133);
+            btn_generar_reporte_stockpdf.Name = "btn_generar_reporte_stockpdf";
+            btn_generar_reporte_stockpdf.Size = new Size(169, 43);
+            btn_generar_reporte_stockpdf.TabIndex = 91;
+            btn_generar_reporte_stockpdf.Text = "Generar pdf";
+            btn_generar_reporte_stockpdf.UseVisualStyleBackColor = false;
             // 
             // txt_buscar_stock_reporte_producto
             // 
@@ -145,8 +133,7 @@
             BackColor = SystemColors.ActiveCaption;
             ClientSize = new Size(1340, 781);
             Controls.Add(txt_buscar_stock_reporte_producto);
-            Controls.Add(button1);
-            Controls.Add(btn_modificar_usuario);
+            Controls.Add(btn_generar_reporte_stockpdf);
             Controls.Add(dataGridViewReporteStock);
             Controls.Add(btn_buscar_stock);
             Controls.Add(label5);
@@ -166,8 +153,7 @@
         private Button btn_buscar_stock;
         private Label label5;
         private DataGridView dataGridViewReporteStock;
-        private Button btn_modificar_usuario;
-        private Button button1;
+        private Button btn_generar_reporte_stockpdf;
         private TextBox txt_buscar_stock_reporte_producto;
     }
 }
