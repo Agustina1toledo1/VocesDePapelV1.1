@@ -46,6 +46,8 @@ namespace VocesDePapelV1._1.Views
                 GenerateReportEvent?.Invoke(this, EventArgs.Empty);
                 MessageBox.Show(Message);
             };
+
+            txt_buscar_stock_reporte_producto.KeyPress += TextBoxSoloNumeros_KeyPress;
         }
 
         //singleton patron (abre una sola instancia del formulario) 
@@ -69,6 +71,14 @@ namespace VocesDePapelV1._1.Views
         public event EventHandler GenerateReportEvent;
         public event EventHandler SearchEvent;
 
+        private void TextBoxSoloNumeros_KeyPress(object? sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == ' ' || (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar)))
+            {
+                e.Handled = true;
+                return;
+            }
+        }
         public static GerenteViewReporteLibroStock GetInstance(Form parentConteiner)
         {
             if (instance == null || instance.IsDisposed) //si es nulo o esta desechado
