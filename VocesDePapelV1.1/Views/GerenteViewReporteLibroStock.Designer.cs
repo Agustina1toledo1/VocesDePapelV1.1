@@ -28,24 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             label2 = new Label();
             label1 = new Label();
-            btn_buscar_poco_stock = new Button();
+            btn_buscar_stock = new Button();
             label5 = new Label();
-            text_cantidad_libro_reporte_gerente = new TextBox();
-            dataGridView1 = new DataGridView();
-            titulo = new DataGridViewTextBoxColumn();
-            editorial = new DataGridViewTextBoxColumn();
-            id_libro = new DataGridViewTextBoxColumn();
-            precio = new DataGridViewTextBoxColumn();
-            stock = new DataGridViewTextBoxColumn();
-            estado = new DataGridViewTextBoxColumn();
-            categoria = new DataGridViewTextBoxColumn();
+            dataGridViewReporteStock = new DataGridView();
             btn_modificar_usuario = new Button();
             button1 = new Button();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            txt_buscar_stock_reporte_producto = new TextBox();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewReporteStock).BeginInit();
             SuspendLayout();
             // 
             // label2
@@ -68,16 +61,16 @@
             label1.Size = new Size(1340, 106);
             label1.TabIndex = 71;
             // 
-            // btn_buscar_poco_stock
+            // btn_buscar_stock
             // 
-            btn_buscar_poco_stock.BackColor = SystemColors.GradientActiveCaption;
-            btn_buscar_poco_stock.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btn_buscar_poco_stock.Location = new Point(953, 29);
-            btn_buscar_poco_stock.Name = "btn_buscar_poco_stock";
-            btn_buscar_poco_stock.Size = new Size(125, 43);
-            btn_buscar_poco_stock.TabIndex = 77;
-            btn_buscar_poco_stock.Text = "Buscar";
-            btn_buscar_poco_stock.UseVisualStyleBackColor = false;
+            btn_buscar_stock.BackColor = SystemColors.GradientActiveCaption;
+            btn_buscar_stock.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btn_buscar_stock.Location = new Point(953, 29);
+            btn_buscar_stock.Name = "btn_buscar_stock";
+            btn_buscar_stock.Size = new Size(125, 43);
+            btn_buscar_stock.TabIndex = 77;
+            btn_buscar_stock.Text = "Buscar";
+            btn_buscar_stock.UseVisualStyleBackColor = false;
             // 
             // label5
             // 
@@ -90,95 +83,30 @@
             label5.TabIndex = 76;
             label5.Text = "Menor o igual a";
             // 
-            // text_cantidad_libro_reporte_gerente
+            // dataGridViewReporteStock
             // 
-            text_cantidad_libro_reporte_gerente.Font = new Font("Segoe UI", 12F);
-            text_cantidad_libro_reporte_gerente.Location = new Point(656, 32);
-            text_cantidad_libro_reporte_gerente.Name = "text_cantidad_libro_reporte_gerente";
-            text_cantidad_libro_reporte_gerente.Size = new Size(269, 34);
-            text_cantidad_libro_reporte_gerente.TabIndex = 78;
-            // 
-            // dataGridView1
-            // 
-            dataGridView1.AllowUserToAddRows = false;
-            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = SystemColors.Control;
-            dataGridViewCellStyle5.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle5.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle5.Padding = new Padding(2);
-            dataGridViewCellStyle5.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.True;
-            dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { titulo, editorial, id_libro, precio, stock, estado, categoria });
-            dataGridView1.Location = new Point(219, 133);
-            dataGridView1.MultiSelect = false;
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.ReadOnly = true;
-            dataGridView1.RowHeadersWidth = 51;
-            dataGridViewCellStyle6.SelectionBackColor = Color.White;
-            dataGridViewCellStyle6.SelectionForeColor = Color.Black;
-            dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle6;
-            dataGridView1.Size = new Size(903, 564);
-            dataGridView1.TabIndex = 79;
-            // 
-            // titulo
-            // 
-            titulo.HeaderText = "Título";
-            titulo.MinimumWidth = 6;
-            titulo.Name = "titulo";
-            titulo.ReadOnly = true;
-            titulo.Width = 125;
-            // 
-            // editorial
-            // 
-            editorial.HeaderText = "Editorial";
-            editorial.MinimumWidth = 6;
-            editorial.Name = "editorial";
-            editorial.ReadOnly = true;
-            editorial.Width = 125;
-            // 
-            // id_libro
-            // 
-            id_libro.HeaderText = "id_libro";
-            id_libro.MinimumWidth = 6;
-            id_libro.Name = "id_libro";
-            id_libro.ReadOnly = true;
-            id_libro.Visible = false;
-            id_libro.Width = 125;
-            // 
-            // precio
-            // 
-            precio.HeaderText = "Precio";
-            precio.MinimumWidth = 6;
-            precio.Name = "precio";
-            precio.ReadOnly = true;
-            precio.Width = 125;
-            // 
-            // stock
-            // 
-            stock.HeaderText = "Stock";
-            stock.MinimumWidth = 6;
-            stock.Name = "stock";
-            stock.ReadOnly = true;
-            stock.Width = 125;
-            // 
-            // estado
-            // 
-            estado.HeaderText = "Estado";
-            estado.MinimumWidth = 6;
-            estado.Name = "estado";
-            estado.ReadOnly = true;
-            estado.Width = 125;
-            // 
-            // categoria
-            // 
-            categoria.HeaderText = "Categoria";
-            categoria.MinimumWidth = 6;
-            categoria.Name = "categoria";
-            categoria.ReadOnly = true;
-            categoria.Width = 125;
+            dataGridViewReporteStock.AllowUserToAddRows = false;
+            dataGridViewReporteStock.AllowUserToDeleteRows = false;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.Padding = new Padding(2);
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dataGridViewReporteStock.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewReporteStock.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewReporteStock.Location = new Point(219, 133);
+            dataGridViewReporteStock.MultiSelect = false;
+            dataGridViewReporteStock.Name = "dataGridViewReporteStock";
+            dataGridViewReporteStock.ReadOnly = true;
+            dataGridViewReporteStock.RowHeadersWidth = 51;
+            dataGridViewCellStyle2.SelectionBackColor = Color.White;
+            dataGridViewCellStyle2.SelectionForeColor = Color.Black;
+            dataGridViewReporteStock.RowsDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewReporteStock.Size = new Size(903, 564);
+            dataGridViewReporteStock.TabIndex = 79;
             // 
             // btn_modificar_usuario
             // 
@@ -202,23 +130,31 @@
             button1.Text = "Historial";
             button1.UseVisualStyleBackColor = false;
             // 
+            // txt_buscar_stock_reporte_producto
+            // 
+            txt_buscar_stock_reporte_producto.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txt_buscar_stock_reporte_producto.Location = new Point(676, 40);
+            txt_buscar_stock_reporte_producto.Name = "txt_buscar_stock_reporte_producto";
+            txt_buscar_stock_reporte_producto.Size = new Size(202, 34);
+            txt_buscar_stock_reporte_producto.TabIndex = 93;
+            // 
             // GerenteViewReporteLibroStock
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveCaption;
             ClientSize = new Size(1340, 781);
+            Controls.Add(txt_buscar_stock_reporte_producto);
             Controls.Add(button1);
             Controls.Add(btn_modificar_usuario);
-            Controls.Add(dataGridView1);
-            Controls.Add(text_cantidad_libro_reporte_gerente);
-            Controls.Add(btn_buscar_poco_stock);
+            Controls.Add(dataGridViewReporteStock);
+            Controls.Add(btn_buscar_stock);
             Controls.Add(label5);
             Controls.Add(label2);
             Controls.Add(label1);
             Name = "GerenteViewReporteLibroStock";
             Text = "GerenteViewReporteLibro";
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewReporteStock).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -227,18 +163,11 @@
 
         private Label label2;
         private Label label1;
-        private Button btn_buscar_poco_stock;
+        private Button btn_buscar_stock;
         private Label label5;
-        private TextBox text_cantidad_libro_reporte_gerente;
-        private DataGridView dataGridView1;
-        private DataGridViewTextBoxColumn titulo;
-        private DataGridViewTextBoxColumn editorial;
-        private DataGridViewTextBoxColumn id_libro;
-        private DataGridViewTextBoxColumn precio;
-        private DataGridViewTextBoxColumn stock;
-        private DataGridViewTextBoxColumn estado;
-        private DataGridViewTextBoxColumn categoria;
+        private DataGridView dataGridViewReporteStock;
         private Button btn_modificar_usuario;
         private Button button1;
+        private TextBox txt_buscar_stock_reporte_producto;
     }
 }

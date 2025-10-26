@@ -215,6 +215,63 @@ namespace VocesDePapelV1._1.Repositories
            return productoList;
         }
 
+        public IEnumerable<ProductoModel> GetByStockMenorOIgual(int value)
+        {
+            var productoList = new List<ProductoModel>();
+            int stockMinimo = value;
+
+            using (var connection = new Microsoft.Data.SqlClient.SqlConnection(connectionString))
+            using (var command = new Microsoft.Data.SqlClient.SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+
+                command.CommandText = @"SELECT l.id_libro, 
+                                                l.titulo, 
+                                                l.editorial, 
+                                                l.precio, 
+                                                l.stock, 
+                                                l.eliminado, 
+                                                l.id_categoria ,
+                                                l.id_autor,
+                                                e.nombre_estado,    
+                                                c.nombre_categoria, 
+                                                a.alias_autor   
+                                        FROM libro as l
+                                        INNER JOIN categoria as c ON l.id_categoria = c.id_categoria
+                                        INNER JOIN estado as e ON l.eliminado = e.id_estado   
+                                        INNER JOIN autor as a ON l.id_autor = a.id_autor
+                                        WHERE  l.stock <=  @stock
+                                        ORDER BY l.id_libro DESC";
+
+                command.Parameters.Add("@stock", SqlDbType.Int).Value = stockMinimo;
+
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var producto = new ProductoModel
+                        {
+                            Id_libro = Convert.ToInt32(reader["id_libro"]),
+                            Titulo = reader["titulo"].ToString(),
+                            Editorial = reader["editorial"].ToString(),
+                            Precio = Convert.ToDecimal(reader["precio"]),
+                            Stock = Convert.ToInt32(reader["stock"]),
+                            Eliminado_id = Convert.ToInt32(reader["eliminado"]),
+                            Id_categoria = Convert.ToInt32(reader["id_categoria"]),
+                            Id_autor = Convert.ToInt32(reader["id_autor"]),
+                            Nombre_autor = reader["alias_autor"].ToString(),
+                            Nombre_categoria = reader["nombre_categoria"].ToString(),
+                            Nombre_estado = reader["nombre_estado"].ToString()
+
+                        };
+                        productoList.Add(producto);
+                    }
+                }
+            }
+            return productoList;
+        }
+
         public IEnumerable<ProductoModel> GetByValueTitulo(string value)
         {
             //lista de usuarios

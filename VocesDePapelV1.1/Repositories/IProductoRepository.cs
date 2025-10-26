@@ -15,6 +15,7 @@ namespace VocesDePapelV1._1.Repositories
         IEnumerable<ProductoModel> GetAll(); //listar todos
         IEnumerable<ProductoModel> GetByValueCategoria(string value); //buscar por valor de categoria
         IEnumerable<ProductoModel> GetByValueTitulo(string value); //buscar por valor de titulo
+        IEnumerable<ProductoModel> GetByStockMenorOIgual(int value); //buscar por valor de titulo
         IEnumerable<CategoriaModel> GetCategoria();
         IEnumerable<EstadoModel> GetEstado();
         IEnumerable<AutorModel> GetAutor();

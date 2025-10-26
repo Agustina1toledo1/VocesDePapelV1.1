@@ -8,6 +8,7 @@ using VocesDePapelV1._1.Models;
 using VocesDePapelV1._1.Models;
 using VocesDePapelV1._1.Servicios;
 using System.Windows.Forms;
+using VocesDePapelV1._1.Repositories;
 
 namespace VocesDePapelV1._1.Presenters
 {
@@ -48,8 +49,8 @@ namespace VocesDePapelV1._1.Presenters
         private void ShowReporteLibroStockView(object? sender, EventArgs e)
         {
             IGerenteReporteLibroStock backupView = GerenteViewReporteLibroStock.GetInstance((GerenteView)this.view); // muestra solo una instancia de la vista de usuario
-
-            new ReporteLibroStockPresenter(backupView);
+            IProductoRepository repository = new ProductoRepository(connectionString);
+            new ReporteProductoPresenter(backupView, repository);
         }
 
         private void ShowReporteVentaView(object? sender, EventArgs e)
