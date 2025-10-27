@@ -115,7 +115,7 @@ namespace VocesDePapelV1._1
         public static void IniciarAplicacion()
         {
             //string connectionString = ConfigurationManager.ConnectionStrings["SqlConnectionAgus"].ConnectionString;
-            string connectionString = ConfigurationManager.ConnectionStrings["SqlConnection2"].ConnectionString;
+            string connectionString = ConfigurationManager.ConnectionStrings["SqlConection2"].ConnectionString;
 
             var usuarioRepository = new UsuarioRepository(connectionString);
             var contraseniaHasher = new pbkdf2ContraseniaHasher();

@@ -14,7 +14,8 @@ namespace VocesDePapelV1._1.Presenters
 {
     public class VendedorVentaPresenter
     {
-        private readonly IVendedorVenta view; //campo privado para la vista usando la interfaz
+        private readonly IVendedorVenta view; //campo privado para la vista usando la interfa
+        private readonly IProductoSearchView productoSearchView; // 
         private readonly string connectionString; // Almacena la cadena de conexión
         private readonly IClienteRepository clienteRepository; // Repositorio de Cliente para la busqueda
         private readonly IUsuarioRepository usuarioRepository; // Repositorio para usuarios/vendedores
@@ -411,9 +412,9 @@ namespace VocesDePapelV1._1.Presenters
                         view.ProductoSeleccionadoId = producto.Id_libro;
                         view.ProductoSeleccionadoNombre = producto.Titulo;
                         view.ProductoSeleccionadoCategoria = producto.Editorial;
-                        view.ProductoSeleccionadoPrecio = producto.Precio;
-                        view.ProductoSeleccionadoStock = producto.Stock;
-
+                        view.ProductoSeleccionadoPrecio =  producto.Precio.ToString();
+                        view.ProductoSeleccionadoStock = producto.Stock.ToString();
+                        
 
                         view.MostrarMensaje($"Producto '{producto.Titulo}' seleccionado", true);
                     }
@@ -448,7 +449,9 @@ namespace VocesDePapelV1._1.Presenters
             }
         }
 
-        
+        // 
+
+
     }
 }
 
