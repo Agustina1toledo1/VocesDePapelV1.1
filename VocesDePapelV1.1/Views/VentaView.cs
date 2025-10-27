@@ -109,8 +109,8 @@ namespace VocesDePapelV1._1.Views
         public decimal ProductoPrecio { get; set; }
         public string ProductoSeleccionadoNombre
         {
-            get { return productoSeleccionadoNombre; }
-            set { productoSeleccionadoNombre = value; }
+            get { return TBNomProducto.Text; }//productoSeleccionadoNombre
+            set { TBNomProducto.Text = value; }
         }
 
         public string ProductoSeleccionadoCategoria
@@ -119,16 +119,16 @@ namespace VocesDePapelV1._1.Views
             set { productoSeleccionadoCategoria = value; }
         }
 
-        public decimal ProductoSeleccionadoPrecio
+        public string ProductoSeleccionadoPrecio
         {
-            get { return productoSeleccionadoPrecio; }
-            set { productoSeleccionadoPrecio = value; }
+            get { return TBPrecio.Text; }
+            set { TBPrecio.Text = value; }
         }
 
-        public int ProductoSeleccionadoStock
+        public string ProductoSeleccionadoStock
         {
-            get { return productoSeleccionadoStock; }
-            set { productoSeleccionadoStock = value; }
+            get { return TBSTock.Text; }
+            set { TBSTock.Text = value; }
         }
 
         // Propiedades de venta
@@ -181,8 +181,8 @@ namespace VocesDePapelV1._1.Views
                 TBSTock.Text = producto.Stock.ToString();
 
                 ProductoSeleccionadoNombre = producto.Titulo;
-                ProductoSeleccionadoPrecio = producto.Precio;
-                ProductoSeleccionadoStock = producto.Stock;
+                ProductoSeleccionadoPrecio = producto.Precio.ToString();
+                ProductoSeleccionadoStock = producto.Stock.ToString();
                 ProductoSeleccionadoCategoria= producto.Nombre_categoria;
                 // Ocultar grid de productos
                 groupBoxProductos.Visible = false;
@@ -334,8 +334,8 @@ namespace VocesDePapelV1._1.Views
             // Actualizar propiedades de la interfaz
             ProductoSeleccionadoId = producto.Id_libro;
             ProductoSeleccionadoNombre = producto.Titulo;
-            ProductoSeleccionadoPrecio = producto.Precio;
-            ProductoSeleccionadoStock = producto.Stock;
+            ProductoSeleccionadoPrecio = producto.Precio.ToString();
+            ProductoSeleccionadoStock = producto.Stock.ToString();
 
          /*   // Si tu ProductoModel tiene categoría
             if (producto.GetType().GetProperty("Categoria") != null)

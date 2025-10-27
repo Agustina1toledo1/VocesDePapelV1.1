@@ -9,6 +9,7 @@ namespace VocesDePapelV1._1.Views
 {
     public interface IProductoSearchView
     {
+
         ProductoModel ProductoSeleccionado { get; }
         event EventHandler<ProductoSeleccionadoEventArgs> ProductoSeleccionadoEvent;
         void ShowView();

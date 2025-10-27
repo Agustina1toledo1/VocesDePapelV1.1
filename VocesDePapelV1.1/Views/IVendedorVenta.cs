@@ -45,8 +45,8 @@ namespace VocesDePapelV1._1.Views
         decimal ProductoPrecio { get; set; }
         string ProductoSeleccionadoNombre { get; set; }
         string ProductoSeleccionadoCategoria { get; set; }
-        decimal ProductoSeleccionadoPrecio { get; set; }
-        int ProductoSeleccionadoStock { get; set; }
+        string ProductoSeleccionadoPrecio { get; set; }
+        string ProductoSeleccionadoStock { get; set; }
         // propiedades para los datos de la venta
         string NumeroFactura { get; set; }
         DateTime FechaVenta { get; set; }
