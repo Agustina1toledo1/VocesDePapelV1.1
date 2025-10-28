@@ -38,6 +38,7 @@ namespace VocesDePapelV1._1.Presenters
             this.detallesVenta = new List<VentaDetalleModel>();
             this.productosEncontrados = new List<ProductoModel>();
 
+
             // Obtener usuario actual (deberías pasar esto como parámetro o obtenerlo del login)
             this.usuarioActual = new UsuarioModel { Id_usuario = 1 }; // Temporal
 
@@ -56,6 +57,8 @@ namespace VocesDePapelV1._1.Presenters
             this.view.EliminarProductoEvent += OnEliminarProducto;
             this.view.FinalizarVentaEvent += OnFinalizarVenta;
             this.view.CancelarVentaEvent += OnCancelarVenta;
+            this.view.CantidadCambiadaEvent += OnCantidadOPrecioCambiado;
+            this.view.PrecioCambiadoEvent += OnCantidadOPrecioCambiado;
         }
         private void InicializarVista()
         {
@@ -412,10 +415,12 @@ namespace VocesDePapelV1._1.Presenters
                         view.ProductoSeleccionadoId = producto.Id_libro;
                         view.ProductoSeleccionadoNombre = producto.Titulo;
                         view.ProductoSeleccionadoCategoria = producto.Editorial;
-                        view.ProductoSeleccionadoPrecio =  producto.Precio.ToString();
+                        view.ProductoPrecio = producto.Precio; 
                         view.ProductoSeleccionadoStock = producto.Stock.ToString();
-                        
+                        CalcularYActualizarSubtotal();
 
+                        decimal subtotalInicial = view.ProductoCantidad * view.ProductoPrecio;
+                        view.ProductoSeleccionadoSubtotal = subtotalInicial;
                         view.MostrarMensaje($"Producto '{producto.Titulo}' seleccionado", true);
                     }
                 }
@@ -426,7 +431,28 @@ namespace VocesDePapelV1._1.Presenters
             }
         }
 
+        //MÉTODO PARA MANEJAR CAMBIOS
+        private void OnCantidadOPrecioCambiado(object sender, EventArgs e)
+        {
+            CalcularYActualizarSubtotal();
+        }
 
+        // MÉTODO PARA CALCULAR Y ACTUALIZAR AUTOMÁTICAMENTE
+        private void CalcularYActualizarSubtotal()
+        {
+            try
+            {
+                decimal precio = view.ProductoPrecio;
+                int cantidad = view.ProductoCantidad;
+                decimal subtotal = cantidad * precio;
+                view.ProductoSeleccionadoSubtotal = subtotal;
+            }
+            catch (Exception ex)
+            {
+                // No mostrar mensaje para no molestar al usuario durante la escritura
+                view.ProductoSeleccionadoSubtotal = 0;
+            }
+        }
 
         // Limpiar datos del vendedor
         private void LimpiarDatosVendedor()
