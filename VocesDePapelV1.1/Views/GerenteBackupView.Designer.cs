@@ -29,9 +29,10 @@
         private void InitializeComponent()
         {
             LBackup = new Label();
-            BBackup = new Button();
+            Btn_Backup = new Button();
             backup_descripcion = new Label();
             sFD_backup = new SaveFileDialog();
+            label1 = new Label();
             SuspendLayout();
             // 
             // LBackup
@@ -44,16 +45,16 @@
             LBackup.TabIndex = 0;
             LBackup.Text = "Back Up";
             // 
-            // BBackup
+            // Btn_Backup
             // 
-            BBackup.BackColor = SystemColors.GradientActiveCaption;
-            BBackup.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            BBackup.Location = new Point(295, 225);
-            BBackup.Name = "BBackup";
-            BBackup.Size = new Size(162, 66);
-            BBackup.TabIndex = 7;
-            BBackup.Text = "Back Up";
-            BBackup.UseVisualStyleBackColor = false;
+            Btn_Backup.BackColor = SystemColors.GradientActiveCaption;
+            Btn_Backup.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            Btn_Backup.Location = new Point(295, 225);
+            Btn_Backup.Name = "Btn_Backup";
+            Btn_Backup.Size = new Size(162, 66);
+            Btn_Backup.TabIndex = 7;
+            Btn_Backup.Text = "Back Up";
+            Btn_Backup.UseVisualStyleBackColor = false;
             // 
             // backup_descripcion
             // 
@@ -65,13 +66,26 @@
             backup_descripcion.TabIndex = 8;
             backup_descripcion.Text = "Realiza una copia de seguridad";
             // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.BackColor = Color.Firebrick;
+            label1.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.ForeColor = SystemColors.ButtonHighlight;
+            label1.Location = new Point(81, 342);
+            label1.Name = "label1";
+            label1.Size = new Size(641, 28);
+            label1.TabIndex = 9;
+            label1.Text = "Usá una carpeta como C:\\BackupSQL para evitar errores de permisos.";
+            // 
             // GerenteBackupView
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(label1);
             Controls.Add(backup_descripcion);
-            Controls.Add(BBackup);
+            Controls.Add(Btn_Backup);
             Controls.Add(LBackup);
             Name = "GerenteBackupView";
             Text = "Back Up";
@@ -82,8 +96,9 @@
         #endregion
 
         private Label LBackup;
-        private Button BBackup;
+        private Button Btn_Backup;
         private Label backup_descripcion;
         private SaveFileDialog sFD_backup;
+        private Label label1;
     }
 }

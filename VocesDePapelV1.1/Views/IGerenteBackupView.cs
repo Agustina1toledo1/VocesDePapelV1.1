@@ -9,6 +9,7 @@ namespace VocesDePapelV1._1.Views
     public interface IGerenteBackupView
     {
         //propiedades
+        string RutaBackup { get; set; }
         string Message { get; set; }
         bool IsSuccessful { get; set; }
 

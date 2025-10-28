@@ -39,8 +39,9 @@ namespace VocesDePapelV1._1.Servicios
 
                 return true;
             }
-            catch
+            catch (Exception ex)
             {
+                MessageBox.Show($"Error al generar backup: {ex.Message}");
                 return false;
             }
         }

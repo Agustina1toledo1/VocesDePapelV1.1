@@ -17,7 +17,19 @@ namespace VocesDePapelV1._1.Views
         public GerenteBackupView()
         {
             InitializeComponent();
+            this.AutoScroll = true;
+            AssociateAndRaiseViewEvents(); //asociar y generar los eventos de vistas
         }
+
+        private void AssociateAndRaiseViewEvents()
+        {
+            Btn_Backup.Click += delegate
+            {
+                GenerarBackupEvent?.Invoke(this, EventArgs.Empty);
+                MessageBox.Show(Message);
+            };
+        }
+
         //singleton patron (abre una sola instancia del formulario) 
         private static GerenteBackupView instance;
 
@@ -28,9 +40,15 @@ namespace VocesDePapelV1._1.Views
             get { return message; }
             set { message = value; }
         }
-        public bool IsSuccessful {
+        public bool IsSuccessful
+        {
             get { return isSuccessful; }
             set { isSuccessful = value; }
+        }
+
+        public string RutaBackup
+        {
+            get; set;
         }
 
         //singleton patron (abre una sola instancia del formulario)
@@ -42,6 +60,7 @@ namespace VocesDePapelV1._1.Views
                 instance.MdiParent = parentConteiner; //establecer el formulario padre
                 instance.FormBorderStyle = FormBorderStyle.None; //sin bordes
                 instance.Dock = DockStyle.Fill; //llenar el contenedor
+
             }
             else
             {
@@ -54,5 +73,7 @@ namespace VocesDePapelV1._1.Views
             }
             return instance;
         }
+
+        
     }
 }
