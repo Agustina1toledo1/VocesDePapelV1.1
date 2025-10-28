@@ -41,7 +41,7 @@
             TBTelefono = new TextBox();
             PProducto = new Panel();
             LSubtotal = new Label();
-            textBox1 = new TextBox();
+            TBSubTotal = new TextBox();
             BtnLimpiarDetalles = new Button();
             BtnAgregarDetalle = new Button();
             NUDCantidadProducto = new NumericUpDown();
@@ -190,7 +190,7 @@
             // 
             PProducto.BackColor = SystemColors.GradientInactiveCaption;
             PProducto.Controls.Add(LSubtotal);
-            PProducto.Controls.Add(textBox1);
+            PProducto.Controls.Add(TBSubTotal);
             PProducto.Controls.Add(BtnLimpiarDetalles);
             PProducto.Controls.Add(BtnAgregarDetalle);
             PProducto.Controls.Add(NUDCantidadProducto);
@@ -221,12 +221,12 @@
             LSubtotal.Text = "Subtotal:";
             LSubtotal.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // textBox1
+            // TBSubTotal
             // 
-            textBox1.Location = new Point(674, 36);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(78, 27);
-            textBox1.TabIndex = 20;
+            TBSubTotal.Location = new Point(674, 36);
+            TBSubTotal.Name = "TBSubTotal";
+            TBSubTotal.Size = new Size(78, 27);
+            TBSubTotal.TabIndex = 20;
             // 
             // BtnLimpiarDetalles
             // 
@@ -651,7 +651,7 @@
         private Button BCancelar;
         private Button BLimpiarCliente;
         private Label LSubtotal;
-        private TextBox textBox1;
+        private TextBox TBSubTotal;
         private Button BtnLimpiarDetalles;
         private Button BtnEliminarDetalle;
     }

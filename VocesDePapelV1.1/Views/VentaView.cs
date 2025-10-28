@@ -62,6 +62,8 @@ namespace VocesDePapelV1._1.Views
         public event EventHandler VerDetallesEvent;
         public event EventHandler LimpiarDetallesEvent;
         public event EventHandler AnularVentaEvent;
+        public event EventHandler CantidadCambiadaEvent;
+        public event EventHandler PrecioCambiadoEvent;
         // Propiedades del formulario
         public Form FormInstance => this; // Devuelve la instancia actual del formulario
         // Propiedades del cliente
@@ -105,8 +107,15 @@ namespace VocesDePapelV1._1.Views
         }
 
         public int ProductoSeleccionadoId { get; set; }
-        public int ProductoCantidad { get; set; }
-        public decimal ProductoPrecio { get; set; }
+        public int ProductoCantidad {
+            get{ return (int)NUDCantidadProducto.Value; }
+            set { NUDCantidadProducto.Value = value;}
+        }
+        public decimal ProductoPrecio { 
+            get{ return decimal.TryParse(TBPrecio.Text, out decimal result) ? result : 0;
+            }
+            set{ TBPrecio.Text = value.ToString("F2"); }
+        }
         public string ProductoSeleccionadoNombre
         {
             get { return TBNomProducto.Text; }//productoSeleccionadoNombre
@@ -130,6 +139,12 @@ namespace VocesDePapelV1._1.Views
             get { return TBSTock.Text; }
             set { TBSTock.Text = value; }
         }
+        public decimal ProductoSeleccionadoSubtotal
+        {
+            get { return decimal.TryParse(TBSubTotal.Text, out decimal result) ? result : 0;
+            }
+            set { TBSubTotal.Text = value.ToString("F2"); } // Actualizar el control de la vista      
+        }
 
         // Propiedades de venta
         public string NumeroFactura
@@ -143,16 +158,12 @@ namespace VocesDePapelV1._1.Views
 
         public decimal TotalVenta
         {
-            get
-            {
+            get {
                 decimal total = detalles.Sum(d => d.Subtotal);
                 TBPrecioTotal.Text = total.ToString("F2");
                 return total;
             }
-            set
-            {
-                TBPrecioTotal.Text = value.ToString("F2");
-            }
+            set { TBPrecioTotal.Text = value.ToString("F2"); }
         }
         // Propiedades de binding
         public BindingList<VentaDetalleModel> Detalles => detalles;
@@ -200,6 +211,10 @@ namespace VocesDePapelV1._1.Views
             BtnAgregarDetalle.Click += delegate { AgregarProductoEvent?.Invoke(this, EventArgs.Empty); };
             BtnEliminarDetalle.Click += delegate { EliminarProductoEvent?.Invoke(this, EventArgs.Empty); };
             BtnLimpiarDetalles.Click += delegate { LimpiarDetallesEvent?.Invoke(this, EventArgs.Empty); };
+            NUDCantidadProducto.ValueChanged += (s, e) => { System.Diagnostics.Debug.WriteLine($"Cantidad cambiada: {NUDCantidadProducto.Value}");
+                CantidadCambiadaEvent?.Invoke(s, e);};
+            TBPrecio.TextChanged += (s, e) => { System.Diagnostics.Debug.WriteLine($"Precio cambiado: {TBPrecio.Text}");
+                PrecioCambiadoEvent?.Invoke(s, e); };
         }
 
         public static VentaView GetInstance(Form parentConteiner, string connectionString)
@@ -356,20 +371,7 @@ namespace VocesDePapelV1._1.Views
             ProductoPrecio = producto.Precio;
         }
 
-        private void ConfigurarDataGridViewProductos()
-        {
-            // Configurar columnas
-            dataGridViewProductos.Columns.Clear();
-            dataGridViewProductos.Columns.Add("Id_libro", "ID");
-            dataGridViewProductos.Columns.Add("Titulo", "Título");
-            dataGridViewProductos.Columns.Add("Editorial", "Editorial");
-            dataGridViewProductos.Columns.Add("Precio", "Precio");
-            dataGridViewProductos.Columns.Add("Stock", "Stock");
-
-            dataGridViewProductos.Columns["Id_libro"].Width = 50;
-            dataGridViewProductos.Columns["Titulo"].Width = 200;
-            dataGridViewProductos.Columns["Precio"].DefaultCellStyle.Format = "C2";
-        }
+       
         private void CalcularTotal()
         {
             decimal total = detalles.Sum(d => d.Subtotal);

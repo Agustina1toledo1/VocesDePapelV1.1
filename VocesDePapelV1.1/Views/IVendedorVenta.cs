@@ -26,6 +26,8 @@ namespace VocesDePapelV1._1.Views
         event EventHandler SearchEvent;
         event EventHandler VerDetallesEvent;
         event EventHandler AnularVentaEvent;
+        event EventHandler CantidadCambiadaEvent;
+        event EventHandler PrecioCambiadoEvent;
         // propiedad para el formulario
         Form FormInstance { get; }
         // propiedades para los datos del cliente
@@ -47,6 +49,7 @@ namespace VocesDePapelV1._1.Views
         string ProductoSeleccionadoCategoria { get; set; }
         string ProductoSeleccionadoPrecio { get; set; }
         string ProductoSeleccionadoStock { get; set; }
+        decimal ProductoSeleccionadoSubtotal { get; set; }
         // propiedades para los datos de la venta
         string NumeroFactura { get; set; }
         DateTime FechaVenta { get; set; }
