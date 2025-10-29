@@ -16,6 +16,7 @@ namespace VocesDePapelV1._1.Models
         private int id_venta_cabecera;
         private int id_libro;
 
+
         [DisplayName("ID Detalle Venta")]
         public int Id_venta_detalle
         {

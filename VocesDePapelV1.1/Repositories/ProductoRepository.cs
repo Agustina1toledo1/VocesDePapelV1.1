@@ -58,7 +58,7 @@ namespace VocesDePapelV1._1.Repositories
 
             }
         }
-
+       
         public void Eliminar(int id)
         {
             using (var connection = new Microsoft.Data.SqlClient.SqlConnection(connectionString))

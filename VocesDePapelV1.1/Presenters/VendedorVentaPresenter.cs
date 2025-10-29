@@ -36,11 +36,8 @@ namespace VocesDePapelV1._1.Presenters
             this.detalleRepo = new VentaDetalleRepository(connectionString);
             this.productoRepo = new ProductoRepository(connectionString);
             this.detallesVenta = new List<VentaDetalleModel>();
-            this.productosEncontrados = new List<ProductoModel>();
-
-
-            // Obtener usuario actual (deberías pasar esto como parámetro o obtenerlo del login)
-            this.usuarioActual = new UsuarioModel { Id_usuario = 1 }; // Temporal
+            this.productosEncontrados = new List<ProductoModel>();            
+            this.usuarioActual = new UsuarioModel { Id_usuario = 1 }; // Obtener usuario actual 
 
             SuscribirEventos();
             InicializarVista();
@@ -59,15 +56,16 @@ namespace VocesDePapelV1._1.Presenters
             this.view.CancelarVentaEvent += OnCancelarVenta;
             this.view.CantidadCambiadaEvent += OnCantidadOPrecioCambiado;
             this.view.PrecioCambiadoEvent += OnCantidadOPrecioCambiado;
+           // this view.LimpiarDetallesEvent += OnLimpiarDetalles;
         }
         private void InicializarVista()
         {
             view.FechaVenta = DateTime.Now;
             CargarProximoNumeroFactura();
-            view.NumeroFactura = ventaCabeceraRepository.ObtenerProximoNumeroFactura().ToString();
+           //view.NumeroFactura = ventaCabeceraRepository.ObtenerProximoNumeroFactura().ToString();
             view.ProductoCantidad = 1; // Cantidad por defecto
         }
-
+        //AGREGAR PRODUCTO AL DATAGRID
         private void OnAgregarProducto(object sender, EventArgs e)
         {
             try
@@ -95,7 +93,7 @@ namespace VocesDePapelV1._1.Presenters
                 var producto = productosEncontrados.FirstOrDefault(p => p.Id_libro == view.ProductoSeleccionadoId);
                 if (producto == null)
                 {
-                    view.MostrarMensaje("Producto no encontrado", false);
+                    view.MostrarMensaje(" Producto no encontrado. Realice una búsqueda primero.", false);
                     return;
                 }
 
@@ -111,11 +109,11 @@ namespace VocesDePapelV1._1.Presenters
                 {
                     Id_libro = view.ProductoSeleccionadoId,
                     Cantidad = view.ProductoCantidad,
-                    Precio_unitario = view.ProductoPrecio,
-                   // Subtotal = view.ProductoCantidad * view.ProductoPrecio,
-                    Titulo_libro = producto.Titulo
+                    Precio_unitario = view.ProductoPrecio,                 
+                    Titulo_libro = view.ProductoSeleccionadoNombre
                 };
-
+                System.Diagnostics.Debug.WriteLine($"Detalle creado - Cantidad: {detalle.Cantidad}," +
+                                 $" Precio: {detalle.Precio_unitario}, Subtotal calculado: {detalle.Subtotal}");
                 // Agregar a la lista de detalles
                 view.AgregarDetalle(detalle);
 
@@ -143,8 +141,6 @@ namespace VocesDePapelV1._1.Presenters
         {
             try
             {
-                // En una implementación real, esto recibiría el índice del producto a eliminar
-                // Por simplicidad, asumimos que se elimina el último o se tiene una selección
                 if (view.Detalles.Count > 0)
                 {
                     view.EliminarDetalle(view.Detalles.Count - 1);
@@ -157,7 +153,28 @@ namespace VocesDePapelV1._1.Presenters
                 view.MostrarMensaje($"Error al eliminar producto: {ex.Message}", false);
             }
         }
+        //MÉTODO PARA MANEJAR CAMBIOS
+        private void OnCantidadOPrecioCambiado(object sender, EventArgs e)
+        {
+            CalcularYActualizarSubtotal();
+        }
 
+        // MÉTODO PARA CALCULAR Y ACTUALIZAR AUTOMÁTICAMENTE
+        private void CalcularYActualizarSubtotal()
+        {
+            try
+            {
+                decimal precio = view.ProductoPrecio;
+                int cantidad = view.ProductoCantidad;
+                decimal subtotal = cantidad * precio;
+                view.ProductoSeleccionadoSubtotal = subtotal;
+            }
+            catch (Exception ex)
+            {
+                // No mostrar mensaje para no molestar al usuario durante la escritura
+                view.ProductoSeleccionadoSubtotal = 0;
+            }
+        }
         private void OnFinalizarVenta(object sender, EventArgs e)
         {
             try
@@ -270,7 +287,7 @@ namespace VocesDePapelV1._1.Presenters
         {
             try
             {
-                // VERIFICAR que el repositorio no sea null
+                // VERIFICA que el repositorio no sea null
                 if (clienteRepository == null)
                 {
                     MessageBox.Show("Error: Repositorio de clientes no inicializado", "Error",
@@ -280,14 +297,14 @@ namespace VocesDePapelV1._1.Presenters
 
                 string cuit = view.ClienteCuit?.Trim();
 
-                // Solo buscar si el CUIT tiene al menos 8 caracteres (para evitar búsquedas prematuras)
+                // Solo busca si el CUIT tiene al menos 8 caracteres (para evitar búsquedas prematuras)
                 if (string.IsNullOrEmpty(cuit) || cuit.Length < 8)
                 {
                     LimpiarDatosCliente();
                     return;
                 }
 
-                // Buscar cliente en la base de datos
+                // Busca cliente en la base de datos
                 var cliente = clienteRepository.ObtenerPorCuit(cuit);
 
                 if (cliente != null)
@@ -431,28 +448,7 @@ namespace VocesDePapelV1._1.Presenters
             }
         }
 
-        //MÉTODO PARA MANEJAR CAMBIOS
-        private void OnCantidadOPrecioCambiado(object sender, EventArgs e)
-        {
-            CalcularYActualizarSubtotal();
-        }
-
-        // MÉTODO PARA CALCULAR Y ACTUALIZAR AUTOMÁTICAMENTE
-        private void CalcularYActualizarSubtotal()
-        {
-            try
-            {
-                decimal precio = view.ProductoPrecio;
-                int cantidad = view.ProductoCantidad;
-                decimal subtotal = cantidad * precio;
-                view.ProductoSeleccionadoSubtotal = subtotal;
-            }
-            catch (Exception ex)
-            {
-                // No mostrar mensaje para no molestar al usuario durante la escritura
-                view.ProductoSeleccionadoSubtotal = 0;
-            }
-        }
+        
 
         // Limpiar datos del vendedor
         private void LimpiarDatosVendedor()
