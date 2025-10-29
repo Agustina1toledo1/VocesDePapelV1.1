@@ -212,9 +212,9 @@ namespace VocesDePapelV1._1.Views
             BtnEliminarDetalle.Click += delegate { EliminarProductoEvent?.Invoke(this, EventArgs.Empty); };
             BtnLimpiarDetalles.Click += delegate { LimpiarDetallesEvent?.Invoke(this, EventArgs.Empty); };
             NUDCantidadProducto.ValueChanged += (s, e) => { System.Diagnostics.Debug.WriteLine($"Cantidad cambiada: {NUDCantidadProducto.Value}");
-                CantidadCambiadaEvent?.Invoke(s, e);};
+            CantidadCambiadaEvent?.Invoke(s, e);};
             TBPrecio.TextChanged += (s, e) => { System.Diagnostics.Debug.WriteLine($"Precio cambiado: {TBPrecio.Text}");
-                PrecioCambiadoEvent?.Invoke(s, e); };
+            PrecioCambiadoEvent?.Invoke(s, e); };
         }
 
         public static VentaView GetInstance(Form parentConteiner, string connectionString)
