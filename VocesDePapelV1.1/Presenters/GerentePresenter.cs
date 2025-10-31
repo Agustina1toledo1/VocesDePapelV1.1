@@ -71,7 +71,7 @@ namespace VocesDePapelV1._1.Presenters
         {
             IGerenteBackupView backupView = GerenteBackupView.GetInstance((GerenteView)this.view); // muestra solo una instancia de la vista de usuario
             
-            new BackupPresenter(backupView);
+            new BackupPresenter(backupView, connectionString);
         }
 
 
