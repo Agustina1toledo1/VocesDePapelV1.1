@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace VocesDePapelV1._1.Models
 {
-    public class VentaCabeceraModel
+    public class VentaCabeceraModel2
     {
         private int id_venta_cabecera;
         private DateTime fecha_hora;
@@ -25,7 +25,7 @@ namespace VocesDePapelV1._1.Models
         }
 
         [DisplayName("Fecha_hora")]
-        [Required(ErrorMessage = "La fecha y hora son requeridas")]
+        //[Required(ErrorMessage = "La fecha y hora son requeridas")]
         public DateTime Fecha_hora
         {
             get { return fecha_hora; }
@@ -41,13 +41,34 @@ namespace VocesDePapelV1._1.Models
             set { total_venta = value; }
         }
 
-        [DisplayName("Cliente")]
+        [DisplayName("Id Cliente")]
         [Required(ErrorMessage = "El cliente es requerido")]
         public int Id_cliente
         {
             get { return id_cliente; }
             set { id_cliente = value; }
         }
+        [DisplayName("Nombre Cliente")]
+        public string Nombre_cliente
+        {
+            get; set;
+        }
+        [DisplayName("Cuit Cliente")]
+        public string Cuit_cliente
+        {
+            get; set;
+        }
+        [DisplayName("Email Cliente")]
+        public string Email_cliente
+        {
+            get; set;
+        }
+        [DisplayName("Tel Cliente")]
+        public string Tel_cliente
+        {
+            get; set;
+        }
+
 
         [DisplayName("ID Vendedor")]
         [Required(ErrorMessage = "El vendedor es requerido")]
@@ -56,8 +77,18 @@ namespace VocesDePapelV1._1.Models
             get { return id_usuario; }
             set { id_usuario = value; }
         }
+        [DisplayName("Nombre Vendedor")]
+        public string Nombre_vendedor
+        {
+            get; set;
+        }
+        [DisplayName("Cuit Vendedor")]
+        public string Cuit_vendedor
+        {
+            get; set;
+        }
 
-        [DisplayName("Estado Venta")]
+        [DisplayName("Estado")]
         [Required(ErrorMessage = "El estado es requerido")]
         public int Id_estado
         {
@@ -66,19 +97,8 @@ namespace VocesDePapelV1._1.Models
         }
 
         // Propiedades adicionales para mostrar información relacionada
-        [DisplayName("Cliente")]
-        public string Nombre_cliente { get; set; }
-        [DisplayName("Cliente cuit")]
-        public string Cuit_cliente { get; set; }
-        public string Email_cliente { get; set; }
-        public string Telefono_cliente { get; set; }
 
-
-        [DisplayName("Vendedor")]
-        public string Nombre_vendedor { get; set; }
-        public string Cuit_vendedor { get; set; }
-
-        [DisplayName("Estado")]
+        [DisplayName("Nombre Estado")]
         public string Nombre_estado { get; set; }
     }
 
