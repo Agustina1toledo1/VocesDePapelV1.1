@@ -89,7 +89,7 @@ namespace VocesDePapelV1._1.Presenters
                 Form parentContainer = this.view.FormInstance;
 
                 // Obtener instancia de VentaView
-                IVendedorVenta ventaView = VentaView.GetInstance(parentContainer, connStr);
+                IVentaView ventaView = VentaView.GetInstance(parentContainer, connStr);
 
                 // Crear el Presenter con el constructor corregido
                 new VendedorVentaPresenter(ventaView, connStr);

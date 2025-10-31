@@ -8,7 +8,7 @@ using System.Windows.Forms;
 using VocesDePapelV1._1.Models;
 namespace VocesDePapelV1._1.Views
 {
-    public interface IVendedorVenta
+    public interface IVentaView
     {
         // eventos para las acciones del usuario
         event EventHandler AddNewClienteEvent;

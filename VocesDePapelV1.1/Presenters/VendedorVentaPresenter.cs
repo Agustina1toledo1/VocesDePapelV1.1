@@ -14,7 +14,7 @@ namespace VocesDePapelV1._1.Presenters
 {
     public class VendedorVentaPresenter
     {
-        private readonly IVendedorVenta view; //campo privado para la vista usando la interfa
+        private readonly IVentaView view; //campo privado para la vista usando la interfa
         private readonly IProductoSearchView productoSearchView; // 
         private readonly string connectionString; // Almacena la cadena de conexión
         private readonly IClienteRepository clienteRepository; // Repositorio de Cliente para la busqueda
@@ -26,7 +26,7 @@ namespace VocesDePapelV1._1.Presenters
         private UsuarioModel usuarioActual;
         private List<ProductoModel> productosEncontrados;
         // Constructor
-        public VendedorVentaPresenter(IVendedorVenta view, string connectionString)
+        public VendedorVentaPresenter(IVentaView view, string connectionString)
         {
             this.view = view;
             this.connectionString = connectionString;

@@ -3,7 +3,7 @@ using VocesDePapelV1._1.Models;
 
 namespace VocesDePapelV1._1.Views
 {
-    public partial class VentaView : Form, IVendedorVenta
+    public partial class VentaView : Form, IVentaView
     {
         private readonly string connectionString;
         private BindingList<VentaDetalleModel> detalles;
@@ -436,7 +436,7 @@ namespace VocesDePapelV1._1.Views
                 }
             }
         }
-        void IVendedorVenta.Show()
+        void IVentaView.Show()
         {
             base.Show();
         }
