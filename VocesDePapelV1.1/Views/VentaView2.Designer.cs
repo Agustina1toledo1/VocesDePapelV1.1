@@ -28,12 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            BtnEliminarDetalle = new Button();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            BtnQuitarDetalle = new Button();
             BCancelar = new Button();
             BGuardar = new Button();
             LPrecioTotal = new Label();
             label3 = new Label();
-            dataGridViewDetalles = new DataGridView();
             PFactura = new Panel();
             lb_nro_factura = new Label();
             LNUmFACTura = new Label();
@@ -73,26 +74,27 @@
             TBSearch = new TextBox();
             LProducto = new Label();
             lb_venta_total = new Label();
-            ((System.ComponentModel.ISupportInitialize)dataGridViewDetalles).BeginInit();
+            dataGridViewDetalles = new DataGridView();
             PFactura.SuspendLayout();
             PVendedor.SuspendLayout();
             PCliente.SuspendLayout();
             PProducto.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)NUDCantidadProducto).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewDetalles).BeginInit();
             SuspendLayout();
             // 
-            // BtnEliminarDetalle
+            // BtnQuitarDetalle
             // 
-            BtnEliminarDetalle.BackColor = Color.FromArgb(255, 128, 128);
-            BtnEliminarDetalle.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            BtnEliminarDetalle.ForeColor = SystemColors.ActiveCaptionText;
-            BtnEliminarDetalle.Location = new Point(804, 396);
-            BtnEliminarDetalle.Margin = new Padding(0);
-            BtnEliminarDetalle.Name = "BtnEliminarDetalle";
-            BtnEliminarDetalle.Size = new Size(120, 38);
-            BtnEliminarDetalle.TabIndex = 32;
-            BtnEliminarDetalle.Text = "Eliminar";
-            BtnEliminarDetalle.UseVisualStyleBackColor = false;
+            BtnQuitarDetalle.BackColor = Color.FromArgb(255, 128, 128);
+            BtnQuitarDetalle.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            BtnQuitarDetalle.ForeColor = SystemColors.ActiveCaptionText;
+            BtnQuitarDetalle.Location = new Point(804, 396);
+            BtnQuitarDetalle.Margin = new Padding(0);
+            BtnQuitarDetalle.Name = "BtnQuitarDetalle";
+            BtnQuitarDetalle.Size = new Size(120, 38);
+            BtnQuitarDetalle.TabIndex = 32;
+            BtnQuitarDetalle.Text = "Quitar";
+            BtnQuitarDetalle.UseVisualStyleBackColor = false;
             // 
             // BCancelar
             // 
@@ -137,16 +139,6 @@
             label3.Size = new Size(217, 31);
             label3.TabIndex = 27;
             label3.Text = "Lista de Productos:";
-            // 
-            // dataGridViewDetalles
-            // 
-            dataGridViewDetalles.BackgroundColor = Color.FromArgb(255, 224, 192);
-            dataGridViewDetalles.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewDetalles.Location = new Point(116, 384);
-            dataGridViewDetalles.Name = "dataGridViewDetalles";
-            dataGridViewDetalles.RowHeadersWidth = 51;
-            dataGridViewDetalles.Size = new Size(671, 220);
-            dataGridViewDetalles.TabIndex = 26;
             // 
             // PFactura
             // 
@@ -566,26 +558,50 @@
             lb_venta_total.TabIndex = 40;
             lb_venta_total.Text = "total";
             // 
+            // dataGridViewDetalles
+            // 
+            dataGridViewDetalles.AllowUserToAddRows = false;
+            dataGridViewDetalles.BackgroundColor = SystemColors.ActiveCaption;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = SystemColors.Control;
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle3.Padding = new Padding(2);
+            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            dataGridViewDetalles.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewDetalles.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewDetalles.Location = new Point(119, 384);
+            dataGridViewDetalles.MultiSelect = false;
+            dataGridViewDetalles.Name = "dataGridViewDetalles";
+            dataGridViewDetalles.ReadOnly = true;
+            dataGridViewDetalles.RowHeadersWidth = 51;
+            dataGridViewCellStyle4.SelectionBackColor = Color.White;
+            dataGridViewCellStyle4.SelectionForeColor = Color.Black;
+            dataGridViewDetalles.RowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewDetalles.Size = new Size(674, 285);
+            dataGridViewDetalles.TabIndex = 56;
+            // 
             // VentaView2
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1254, 709);
+            Controls.Add(dataGridViewDetalles);
             Controls.Add(lb_venta_total);
-            Controls.Add(BtnEliminarDetalle);
+            Controls.Add(BtnQuitarDetalle);
             Controls.Add(BCancelar);
             Controls.Add(lb_comprobante);
             Controls.Add(BGuardar);
             Controls.Add(LPrecioTotal);
             Controls.Add(label3);
-            Controls.Add(dataGridViewDetalles);
             Controls.Add(PFactura);
             Controls.Add(PVendedor);
             Controls.Add(PCliente);
             Controls.Add(PProducto);
             Name = "VentaView2";
             Text = "VentaView2";
-            ((System.ComponentModel.ISupportInitialize)dataGridViewDetalles).EndInit();
             PFactura.ResumeLayout(false);
             PFactura.PerformLayout();
             PVendedor.ResumeLayout(false);
@@ -595,18 +611,18 @@
             PProducto.ResumeLayout(false);
             PProducto.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)NUDCantidadProducto).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewDetalles).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private Button BtnEliminarDetalle;
+        private Button BtnQuitarDetalle;
         private Button BCancelar;
         private Button BGuardar;
         private Label LPrecioTotal;
         private Label label3;
-        private DataGridView dataGridViewDetalles;
         private Panel PFactura;
         private TextBox TBNUmFactura;
         private Label LNUmFACTura;
@@ -648,5 +664,6 @@
         private Label lb_producto_stock;
         private Label lb_producto_subtotal;
         private Label lb_venta_total;
+        private DataGridView dataGridViewDetalles;
     }
 }
