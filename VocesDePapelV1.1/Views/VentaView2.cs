@@ -101,9 +101,10 @@ namespace VocesDePapelV1._1.Views
         {
             get => throw new NotImplementedException(); set => throw new NotImplementedException();
         }
-        public string Total_venta
+        public string Total_venta 
         {
-            get => throw new NotImplementedException(); set => throw new NotImplementedException();
+            get { return lb_venta_total.Text; }
+            set { lb_venta_total.Text = value; }
         }
         public string Id_cliente
         {

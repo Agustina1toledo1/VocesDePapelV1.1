@@ -15,7 +15,21 @@ namespace VocesDePapelV1._1.Repositories
         }
         public void Add(VentaCabeceraModel2 ventaCabecera)
         {
-            throw new NotImplementedException();
+            using (var connection = new Microsoft.Data.SqlClient.SqlConnection(connectionString))
+            using (var command = connection.CreateCommand())
+            {
+                connection.Open();
+
+                command.CommandText = @"INSERT INTO venta_cabecera(total_venta, id_cliente, id_usuario, id_estado)
+                                        VALUES (@total_venta, @id_cliente, @id_usuario, @id_estado);";
+
+                command.Parameters.Add("@total_venta", System.Data.SqlDbType.Decimal).Value = ventaCabecera.Total_venta;
+                command.Parameters.Add("@id_cliente", System.Data.SqlDbType.Int).Value = ventaCabecera.Id_cliente;
+                command.Parameters.Add("@id_usuario", System.Data.SqlDbType.Int).Value = ventaCabecera.Id_usuario;
+                command.Parameters.Add("@id_estado", System.Data.SqlDbType.Int).Value = ventaCabecera.Id_estado;
+
+                command.ExecuteNonQuery();
+            }
         }
 
         public void Eliminar(int id)

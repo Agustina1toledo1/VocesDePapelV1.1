@@ -85,6 +85,10 @@ namespace VocesDePapelV1._1.Presenters
                     bindingSourceDetalle.DataSource = null;
                     bindingSourceDetalle.DataSource = ventaDetalles;
                     view.SetVentaDetalleListBindingSource(bindingSourceDetalle);
+
+                    //actualizamos el total
+                    decimal total = ventaDetalles.Sum(d => d.Subtotal);
+                    this.view.Total_venta = total.ToString("0.00");
                     MessageBox.Show("Producto eliminado del detalle.");
                     view.IsSuccessful = true;
                 }
@@ -158,6 +162,10 @@ namespace VocesDePapelV1._1.Presenters
             bindingSourceDetalle.DataSource = null;
             bindingSourceDetalle.DataSource = ventaDetalles;
             view.SetVentaDetalleListBindingSource(bindingSourceDetalle);
+
+            //actualizamos el total
+            decimal total = ventaDetalles.Sum(d => d.Subtotal);
+            this.view.Total_venta = total.ToString("0.00");
 
             MessageBox.Show("Producto agregado al detalle.");
             view.IsSuccessful = true;
