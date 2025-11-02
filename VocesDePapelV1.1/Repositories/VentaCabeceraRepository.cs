@@ -34,7 +34,7 @@ namespace VocesDePapelV1._1.Repositories
                 command.Parameters.Add("@total_venta", SqlDbType.Decimal).Value = ventaCabecera.Total_venta;
                 command.Parameters.Add("@id_cliente", SqlDbType.Int).Value = ventaCabecera.Id_cliente;
                 command.Parameters.Add("@id_usuario", SqlDbType.Int).Value = ventaCabecera.Id_usuario;
-                command.Parameters.Add("@id_estado", SqlDbType.Int).Value = ventaCabecera.Id_estado;
+                command.Parameters.Add("@id_estado", SqlDbType.Int).Value = 0;
                 // Asignar el ID generado al modelo
                 ventaCabecera.Id_venta_cabecera = Convert.ToInt32(command.ExecuteScalar());
             }
