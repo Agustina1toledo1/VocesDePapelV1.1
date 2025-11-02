@@ -45,7 +45,6 @@ namespace VocesDePapelV1._1.Models
         [DisplayName("Precio Unitario")]
         [Required(ErrorMessage = "El precio unitario es requerido")]
         [Range(0.01, 100000.00, ErrorMessage = "El precio unitario debe estar entre $0.01 y $100,000.00")]
-        [RegularExpression(@"^\d+(\.\d{1,2})?$", ErrorMessage = "El precio debe tener máximo 2 decimales")]
         public decimal Precio_unitario
         {
             get { return precio_unitario; }
@@ -66,7 +65,6 @@ namespace VocesDePapelV1._1.Models
         [DisplayName("Subtotal")]
         [Required(ErrorMessage = "El subtotal es requerido")]
         [Range(0.01, 100000.00, ErrorMessage = "El subtotaldebe estar entre $0.01 y $100,000.00")]
-        [RegularExpression(@"^\d+(\.\d{1,2})?$", ErrorMessage = "El subtotal debe tener máximo 2 decimales")]
         public decimal Subtotal
         {
             get { return subtotal; }
