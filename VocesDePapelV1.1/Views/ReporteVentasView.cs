@@ -17,38 +17,54 @@ namespace VocesDePapelV1._1.Views
         {
             InitializeComponent();
             AssociateAndRaiseViewEvents();
+
+
+            // Configurar ComboBox de tipo reporte
+            cmbTipoReporte.Items.Clear();
+            cmbTipoReporte.Items.AddRange(new string[] {
+            "Por Fecha",
+            "Por Vendedor",
+            "Por Cliente",  // Nuevo tipo
+            "Top 10 Ventas"
+        });
+            cmbTipoReporte.SelectedIndex = 0;
         }
 
         private void AssociateAndRaiseViewEvents()
         {
-            
+
             btnBuscar.Click += delegate { SearchEvent?.Invoke(this, EventArgs.Empty); };//  Evento Buscar
-            
+
             btnGenerarPDF.Click += delegate { GenerateReportEvent?.Invoke(this, EventArgs.Empty); };//Evento Generar PDF
-                       
+
             btnLimpiar.Click += delegate { LimpiarFiltrosEvent?.Invoke(this, EventArgs.Empty); };//Evento Limpiar
 
-            // Enter en campos de texto
-            txtFiltroAdicional.KeyDown += (s, e) =>
-            {
-                if (e.KeyCode == Keys.Enter)
-                    SearchEvent?.Invoke(this, EventArgs.Empty);
-            };
         }
         // Propiedades para saber el tipo de usuario
-        public bool EsModoVendedor { get; set; }
-        public int IdVendedorAutomatico { get; set; }
-
-        // Propiedades  para filtros
-        public string TxtVendedorAuto
+       /* public bool EsModoVendedor
         {
-            get => txtVendedorAuto?.Text ?? string.Empty;
+            get { return !cmbVendedor.Visible && txtVendedorAuto.Visible; }
             set
             {
-                if (txtVendedorAuto != null)
-                    txtVendedorAuto.Text = value;
+                if (value)
+                {
+                    // Modo vendedor: mostrar TextBox, ocultar ComboBox
+                    cmbVendedor.Visible = false;
+                    txtVendedorAuto.Visible = true;
+                    lblVendedor.Text = "Vendedor:";
+                }
+                else
+                {
+                    // Modo gerente: mostrar ComboBox, ocultar TextBox
+                    cmbVendedor.Visible = true;
+                    txtVendedorAuto.Visible = false;
+                    lblVendedor.Text = "Seleccionar Vendedor:";
+                }
             }
-        }
+        }*/
+
+
+        // Propiedades  para filtros
         public bool CmbTipoReporteEnabled
         {
             get => cmbTipoReporte.Enabled;
@@ -63,7 +79,6 @@ namespace VocesDePapelV1._1.Views
                     dtpFechaInicio.Value = fecha;
             }
         }
-
         public string FechaFin
         {
             get => dtpFechaFin.Value.ToString("yyyy-MM-dd");
@@ -73,47 +88,62 @@ namespace VocesDePapelV1._1.Views
                     dtpFechaFin.Value = fecha;
             }
         }
-
         public string TipoReporte
         {
-            get => cmbTipoReporte.SelectedItem?.ToString() ?? "PorFecha";
+            get => cmbTipoReporte.SelectedItem?.ToString() ?? "Por Fecha";
             set => cmbTipoReporte.SelectedItem = value;
         }
-
-        public string FiltroAdicional
-        {
-            get => txtFiltroAdicional.Text;
-            set => txtFiltroAdicional.Text = value;
-        }
-      
-        public int? IdVendedorSeleccionado
-        {
-            get => cmbVendedores.SelectedValue as int?;
-            set => cmbVendedores.SelectedValue = value;
-        }
-
         public bool IncluirDetalles
         {
             get => chkIncluirDetalles.Checked;
             set => chkIncluirDetalles.Checked = value;
         }
+        public string ValorBusqueda
+        {
+            get
+            {
+                if (cmbBusqueda.SelectedValue != null)
+                    return cmbBusqueda.SelectedValue.ToString();
+                return cmbBusqueda.Text;
+            }
+        }
 
+        public string TextoBusqueda
+        {
+            set
+            {
+                cmbBusqueda.Text = value;
+            }
+        }
+        public bool ComboBusquedaHabilitado
+        {
+            set
+            {
+                cmbBusqueda.Enabled = value;
+            }
+        }
+        public string EtiquetaBusqueda
+        {
+            set
+            {
+                lblBusqueda.Text = value;
+            }
+        }
         // PROPIEDADES para resultados
         public string TotalVentasPeriodo
         {
             get => lblTotalVentas.Text;
-            set => lblTotalVentas.Text = value;
+            set => lblTotalVentas.Text = $"Total Ventas: {value}";
         }
-
-        public string CantidadVentasPeriodo {
+        public string CantidadVentasPeriodo
+        {
             get => lblCantidadVentas.Text;
-            set => lblCantidadVentas.Text = value;
+            set => lblCantidadVentas.Text = $"Cantidad Ventas: {value}";
         }
-
         public string PromedioVenta
         {
             get => lblPromedioVenta.Text;
-            set => lblPromedioVenta.Text = value;
+            set => lblPromedioVenta.Text = $"Promedio Venta: {value}";
         }
         public string CantidadVentas
         {
@@ -135,15 +165,14 @@ namespace VocesDePapelV1._1.Views
                 lblMensaje.Visible = !string.IsNullOrEmpty(value);
             }
         }
-
         public bool IsSuccessful { get; set; }
 
         // EVENTOS 
         public event EventHandler SearchEvent;
         public event EventHandler GenerateReportEvent;
-        public event EventHandler ExportExcelEvent;
         public event EventHandler LimpiarFiltrosEvent;
-        
+        public event EventHandler TipoReporteChangedEvent;
+
 
         //MÉTODOS 
         public void SetVentasListBindingSource(BindingSource ventasList)
@@ -170,13 +199,13 @@ namespace VocesDePapelV1._1.Views
             }
             return instance;
         }
-        public bool FiltroVendedorVisible
+        /*public bool FiltroVendedorVisible
         {
             get
             {
                 // Verificar si los controles del filtro están visibles
                 return lblFiltroAdicional.Visible &&
-                       (cmbVendedores != null ? cmbVendedores.Visible : txtFiltroAdicional.Visible);
+                       (cmbVendedor != null ? cmbVendedor.Visible );
             }
             set
             {
@@ -190,18 +219,18 @@ namespace VocesDePapelV1._1.Views
                     {
                         txtVendedorAuto.Visible = value;
                     }
-                    if (cmbVendedores != null)
+                    if (cmbVendedor != null)
                     {
-                        cmbVendedores.Visible = false;
+                        cmbVendedor.Visible = false;
                     }
                     lblFiltroAdicional.Text = "Vendedor:";
                 }
                 else
                 {
                     // MODO GERENTE: Usar ComboBox para selección
-                    if (cmbVendedores != null)
+                    if (cmbVendedor != null)
                     {
-                        cmbVendedores.Visible = value;
+                        cmbVendedor.Visible = value;
                     }
                     if (txtVendedorAuto != null)
                     {
@@ -216,26 +245,86 @@ namespace VocesDePapelV1._1.Views
                     txtFiltroAdicional.Visible = false;
                 }
             }
-        }
+        }*/
 
         public List<UsuarioModel> ListaVendedores
         {
-            get
-            {
-                if (cmbVendedores != null && cmbVendedores.DataSource != null)
-                    return cmbVendedores.DataSource as List<UsuarioModel>;
-                return new List<UsuarioModel>();
-            }
             set
             {
-                if (cmbVendedores != null)
-                {
-                    cmbVendedores.DataSource = value;
-                    cmbVendedores.DisplayMember = "NombreCompleto"; // Usar la propiedad que creamos
-                    cmbVendedores.ValueMember = "IdUsuario";
-                    cmbVendedores.SelectedIndex = -1; // Sin selección por defecto
-                }
+                cmbVendedor.DataSource = value;
+                cmbVendedor.DisplayMember = "NombreCompleto";
+                cmbVendedor.ValueMember = "Id_usuario";
             }
         }
+        public int? IdVendedorSeleccionado
+        {
+            get
+            {
+                return cmbVendedor.SelectedValue as int?;
+            }
+        }
+        public string NombreVendedorSeleccionado
+        {
+            get => cmbVendedor.Text;
+            set => cmbVendedor.Text = value;
+        }
+        public List<ClienteModel> ListaClientes
+        {
+            set
+            {
+                cmbBusqueda.DataSource = value;
+                cmbBusqueda.DisplayMember = "NombreRazonSocial";
+                cmbBusqueda.ValueMember = "Cuit"; // O "Id_cliente" según tu modelo
+            }
+        }
+        public bool ComboVendedorHabilitado
+        {
+            set
+            {
+                cmbVendedor.Enabled = value;
+                cmbTipoReporte.Enabled = value;
+            }
+        }
+        public string TextoVendedor
+        {
+            set
+            {
+                cmbVendedor.Text = value;
+            }
+        }
+        public int VendedorSeleccionadoId
+        {
+            set
+            {
+                cmbVendedor.SelectedValue = value;
+            }
+        }
+     
+        /* public bool FiltroVendedorHabilitado
+         {
+             set
+             {
+                 cmbVendedor.Enabled = value;
+                 cmbVendedor.Visible = value;
+                 txtVendedorAuto.Visible = !value;
+             }
+         }
+
+         public int IdVendedorAutomatico
+         {
+             set
+             {
+                 // Para modo vendedor - seleccionar automáticamente
+                 foreach (UsuarioModel item in cmbVendedor.Items)
+                 {
+                     if (item.Id_usuario == value)
+                     {
+                         cmbVendedor.SelectedItem = item;
+                         break;
+                     }
+                 }
+             }
+
+         }*/
     }
 }

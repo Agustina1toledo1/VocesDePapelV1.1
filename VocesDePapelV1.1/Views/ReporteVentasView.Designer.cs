@@ -28,10 +28,10 @@
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             panelFiltros = new Panel();
             grpFiltros = new GroupBox();
+            cmbVendedor = new ComboBox();
             chkIncluirDetalles = new CheckBox();
-            lblFiltroAdicional = new Label();
-            txtFiltroAdicional = new TextBox();
             lblTipoReporte = new Label();
+            lblBusqueda = new Label();
             cmbTipoReporte = new ComboBox();
             lblFechaFin = new Label();
             dtpFechaFin = new DateTimePicker();
@@ -52,14 +52,13 @@
             panelGrid = new Panel();
             dgvVentas = new DataGridView();
             lblMensaje = new Label();
+            cmbBusqueda = new ComboBox();
             panelFiltros.SuspendLayout();
             grpFiltros.SuspendLayout();
             panelBotones.SuspendLayout();
             panelResultados.SuspendLayout();
             grpEstadisticas.SuspendLayout();
             panelGrid.SuspendLayout();
-            grpFiltros.Controls.Add(cmbVendedores);
-            grpFiltros.Controls.Add(txtVendedorAuto);
             ((System.ComponentModel.ISupportInitialize)dgvVentas).BeginInit();
             SuspendLayout();
             // 
@@ -74,9 +73,9 @@
             // 
             // grpFiltros
             // 
+            grpFiltros.Controls.Add(cmbBusqueda);
+            grpFiltros.Controls.Add(cmbVendedor);
             grpFiltros.Controls.Add(chkIncluirDetalles);
-            grpFiltros.Controls.Add(lblFiltroAdicional);
-            grpFiltros.Controls.Add(txtFiltroAdicional);
             grpFiltros.Controls.Add(lblTipoReporte);
             grpFiltros.Controls.Add(cmbTipoReporte);
             grpFiltros.Controls.Add(lblFechaFin);
@@ -92,6 +91,15 @@
             grpFiltros.TabStop = false;
             grpFiltros.Text = "Filtros del Reporte";
             // 
+            // cmbVendedor
+            // 
+            cmbVendedor.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbVendedor.FormattingEnabled = true;
+            cmbVendedor.Location = new Point(150, 117);
+            cmbVendedor.Name = "cmbVendedor";
+            cmbVendedor.Size = new Size(200, 28);
+            cmbVendedor.TabIndex = 11;
+            // 
             // chkIncluirDetalles
             // 
             chkIncluirDetalles.AutoSize = true;
@@ -103,39 +111,6 @@
             chkIncluirDetalles.Text = "Incluir Detalles";
             chkIncluirDetalles.UseVisualStyleBackColor = true;
             // 
-            // lblFiltroAdicional
-            // 
-            lblFiltroAdicional.AutoSize = true;
-            lblFiltroAdicional.Font = new Font("Segoe UI", 9F);
-            lblFiltroAdicional.Location = new Point(600, 40);
-            lblFiltroAdicional.Name = "lblFiltroAdicional";
-            lblFiltroAdicional.Size = new Size(95, 20);
-            lblFiltroAdicional.TabIndex = 7;
-            lblFiltroAdicional.Text = "ID Vendedor:";
-            // 
-            // txtFiltroAdicional
-            // 
-            txtFiltroAdicional.Font = new Font("Segoe UI", 9F);
-            txtFiltroAdicional.Location = new Point(600, 65);
-            txtFiltroAdicional.Name = "txtFiltroAdicional";
-            txtFiltroAdicional.Size = new Size(200, 27);
-            txtFiltroAdicional.TabIndex = 6;
-            // 
-            // ComboBox para Gerente
-            cmbVendedores = new ComboBox();
-            cmbVendedores.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmbVendedores.Location = new Point(600, 65);
-            cmbVendedores.Size = new Size(200, 28);
-            cmbVendedores.Visible = false;
-
-            // TextBox para Vendedor (solo lectura)
-            txtVendedorAuto = new TextBox();
-            txtVendedorAuto.ReadOnly = true;
-            txtVendedorAuto.BackColor = Color.LightGray;
-            txtVendedorAuto.Location = new Point(600, 65);
-            txtVendedorAuto.Size = new Size(200, 27);
-            txtVendedorAuto.Visible = false;
-            //
             // lblTipoReporte
             // 
             lblTipoReporte.AutoSize = true;
@@ -146,6 +121,16 @@
             lblTipoReporte.TabIndex = 5;
             lblTipoReporte.Text = "Tipo Reporte:";
             // 
+            //lblBusqueda
+            lblBusqueda.AutoSize = true;
+            lblBusqueda.Font = new Font("Segoe UI", 9F);
+            lblBusqueda.Location = new Point(622, 40);
+            lblBusqueda.Name = "lblBusqueda";
+            lblBusqueda.Size = new Size(80, 20);
+            lblBusqueda.TabIndex = 10;
+            lblBusqueda.Text = "Búsqueda:";
+
+
             // cmbTipoReporte
             // 
             cmbTipoReporte.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -376,6 +361,17 @@
             lblMensaje.TextAlign = ContentAlignment.MiddleCenter;
             lblMensaje.Visible = false;
             // 
+            // cmbBusqueda
+            // 
+            cmbBusqueda.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbBusqueda.Font = new Font("Segoe UI", 9F);
+            cmbBusqueda.FormattingEnabled = true;
+            cmbBusqueda.Items.AddRange(new object[] { "Por Fecha", "Por Vendedor", "Top 10 Ventas", "Por Cliente" });
+            cmbBusqueda.Location = new Point(622, 64);
+            cmbBusqueda.Name = "cmbBusqueda";
+            cmbBusqueda.Size = new Size(180, 28);
+            cmbBusqueda.TabIndex = 12;
+            // 
             // ReporteVentasView
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -405,10 +401,10 @@
         private Panel panelFiltros;
         private GroupBox grpFiltros;
         private CheckBox chkIncluirDetalles;
-        private Label lblFiltroAdicional;
-        private TextBox txtFiltroAdicional;
-        private ComboBox cmbVendedores;
-        private TextBox txtVendedorAuto;
+        private ComboBox cmbVendedor;
+        private Label lblBusqueda;
+        // private Label lblVendedor;
+        //private TextBox txtVendedorAuto;
         private Label lblTipoReporte;
         private ComboBox cmbTipoReporte;
         private Label lblFechaFin;
@@ -430,5 +426,6 @@
         private Panel panelGrid;
         private DataGridView dgvVentas;
         private Label lblMensaje;
+        private ComboBox cmbBusqueda;
     }
 }

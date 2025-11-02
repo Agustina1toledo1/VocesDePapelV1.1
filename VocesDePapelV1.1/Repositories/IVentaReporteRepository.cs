@@ -15,7 +15,11 @@ namespace VocesDePapelV1._1.Repositories
         IEnumerable<VentaReporteModel> GetTop10Ventas();
         UsuarioModel GetVendedorPorId(int idVendedor);
         IEnumerable<UsuarioModel> GetVendedoresActivos();
+        IEnumerable<ClienteModel> GetClientesActivos();
         decimal GetTotalVentasPeriodo(DateTime fechaInicio, DateTime fechaFin);
         int GetCantidadVentasPeriodo(DateTime fechaInicio, DateTime fechaFin);
+        decimal GetTotalVentasPorVendedor(int idVendedor, DateTime fechaInicio, DateTime fechaFin);
+        int GetCantidadVentasPorVendedor(int idVendedor, DateTime fechaInicio, DateTime fechaFin);
+        IEnumerable<VentaReporteModel> GetVentasPorCliente(string criterioCliente, DateTime fechaInicio, DateTime fechaFin);
     }
 }

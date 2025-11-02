@@ -13,21 +13,29 @@ namespace VocesDePapelV1._1.Views
         string FechaInicio { get; set; }
         string FechaFin { get; set; }
         string TipoReporte { get; set; }
-        string FiltroAdicional { get; set; }
-        bool FiltroVendedorVisible { get; set; }
         bool IncluirDetalles { get; set; }
-        bool EsModoVendedor { get; set; }
-        int? IdVendedorSeleccionado { get; set; }
-
-        int IdVendedorAutomatico { get; set; }
-        string TxtVendedorAuto { get; set; }
+        List<UsuarioModel> ListaVendedores { set; }
+        List<ClienteModel> ListaClientes { set; }
+        string ValorBusqueda { get; } // Valor seleccionado en el ComboBox
+        string TextoBusqueda { set; } // Texto a mostrar en el ComboBox
+        int? IdVendedorSeleccionado { get; }
+        string NombreVendedorSeleccionado { get; set; }
+        // bool FiltroVendedorHabilitado { set; }
+        //  bool FiltroVendedorVisible { get; set; }       
+        // Propiedades para filtros vendedor
+        // bool EsModoVendedor { get; set; }
+        bool ComboVendedorHabilitado { set; }
+        bool ComboBusquedaHabilitado { set; }
+        string EtiquetaBusqueda { set; }
+        string TextoVendedor { set; }////
+        int VendedorSeleccionadoId { set; }
+        //int IdVendedorAutomatico { set; }
+       // string TxtVendedorAuto { set; }
         bool CmbTipoReporteEnabled { get; set; }
-        List<UsuarioModel> ListaVendedores { get; set; }
-
-        // Resultados
+       // Resultados
         string TotalVentasPeriodo { get; set; }
         string CantidadVentasPeriodo { get; set; }
-        string PromedioVenta { get; set; }
+        string PromedioVenta {  get; set; }
        // string VentaMasAlta { get; set; }
         //string VentaMasBaja { get; set; }
         string CantidadVentas { get; set; }
@@ -40,9 +48,9 @@ namespace VocesDePapelV1._1.Views
 
         // Eventos
         event EventHandler SearchEvent;
-        event EventHandler GenerateReportEvent;
-        event EventHandler ExportExcelEvent;
+        event EventHandler GenerateReportEvent;       
         event EventHandler LimpiarFiltrosEvent;
+        event EventHandler TipoReporteChangedEvent;
 
         // Métodos
         void SetVentasListBindingSource(BindingSource ventasList);

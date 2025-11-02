@@ -18,26 +18,15 @@ namespace VocesDePapelV1._1.Presenters
         private IEnumerable<VentaReporteModel> ventasList;
         private bool busquedaRealizada = false;
 
-        public ReporteVentasPresenter(IGerenteViewReporteVentas view, IVentaReporteRepository repository, bool esModoVendedor = false,
-                                  int? idVendedor = null)
-        {
-            Console.WriteLine($"MODO VENDEDOR: {esModoVendedor}, ID: {idVendedor}");
-
-            this.view = view;
-            this.repository = repository;
-
-            // DEBUG TEMPORAL
-            view.Message = $"Modo: {(esModoVendedor ? "VENDEDOR" : "GERENTE")}, ID: {idVendedor}";
-
+        public ReporteVentasPresenter(IGerenteViewReporteVentas view, IVentaReporteRepository repository,
+                                  bool esModoVendedor = false, int? idVendedor = null)
+        {            
             this.view = view;
             this.repository = repository;
             this.ventasBindingSource = new BindingSource();
             // Configurar modo de la vista
-            view.EsModoVendedor = esModoVendedor;
-
             if (esModoVendedor && idVendedor.HasValue)
             {
-                view.IdVendedorAutomatico = idVendedor.Value;
                 ConfigurarModoVendedor(idVendedor.Value);
             }
             else
@@ -49,9 +38,10 @@ namespace VocesDePapelV1._1.Presenters
             this.view.SearchEvent += SearchVentas;
             this.view.GenerateReportEvent += GenerateReport;
             this.view.LimpiarFiltrosEvent += LimpiarFiltros;
-
+            this.view.TipoReporteChangedEvent += TipoReporteChanged;
             // Configuración inicial
             ConfigurarFechasPorDefecto();
+
             this.view.Show();
         }
 
@@ -59,19 +49,21 @@ namespace VocesDePapelV1._1.Presenters
         {
             try
             {
-                // Obtener datos del vendedor (CORREGIDO el nombre del método)
+                // Obtener datos del vendedor 
                 var vendedor = repository.GetVendedorPorId(idVendedor);
 
                 if (vendedor != null)
                 {
-                    view.TxtVendedorAuto = $"{vendedor.Nombre} {vendedor.Apellido}";
-                    view.IdVendedorSeleccionado = idVendedor;
-
-                    // Bloquear selección de vendedor
-                    view.FiltroVendedorVisible = true;
-                    view.TipoReporte = "Por Vendedor";
-                    view.CmbTipoReporteEnabled = false; // Bloquear cambio de tipo reporte
-
+                    // Configurar vista en modo vendedor
+                    var vendedorUnico = new List<UsuarioModel> { vendedor };
+                    view.ListaVendedores = vendedorUnico;
+                    view.VendedorSeleccionadoId = idVendedor; // Seleccionar automáticamente
+                    view.TextoVendedor = $"{vendedor.Nombre} {vendedor.Apellido}";// Mostrar nombre
+                    view.ComboVendedorHabilitado = false;// Deshabilitar selección
+                    view.TipoReporte = "Por Vendedor";// Forzar tipo de reporte
+                    view.TextoBusqueda = $"{vendedor.Nombre} {vendedor.Apellido}";
+                    view.ComboBusquedaHabilitado = false;
+                    view.EtiquetaBusqueda = "Vendedor:";
                     // Buscar automáticamente
                     SearchVentas(this, EventArgs.Empty);
                 }
@@ -87,10 +79,18 @@ namespace VocesDePapelV1._1.Presenters
         }
         private void ConfigurarModoGerente()
         {
-            // Cargar lista de vendedores
-            var vendedores = repository.GetVendedoresActivos();
-            view.ListaVendedores = vendedores.ToList();
-            view.CmbTipoReporteEnabled = true; // Permitir cambiar tipo reporte
+            try
+            {
+                view.ComboVendedorHabilitado = true;// Habilitar selección de vendedor
+                // Cargar lista de vendedores
+                var vendedores = repository.GetVendedoresActivos();
+                view.ListaVendedores = vendedores.ToList();
+                TipoReporteChanged(this, EventArgs.Empty);
+            }
+            catch (Exception ex)
+            {
+                view.Message = $"Error al cargar vendedores: {ex.Message}";
+            }
         }
         private void ConfigurarFechasPorDefecto()
         {
@@ -101,11 +101,42 @@ namespace VocesDePapelV1._1.Presenters
             view.FechaInicio = fechaInicio.ToString("yyyy-MM-dd");
             view.FechaFin = fechaFin.ToString("yyyy-MM-dd");
             view.TipoReporte = "Por Fecha";
-            view.FiltroAdicional = string.Empty;
             view.IncluirDetalles = false;
 
         }
+        private void TipoReporteChanged(object? sender, EventArgs e)
+        {
+            try
+            {
+                switch (view.TipoReporte)
+                {
+                    case "Por Vendedor":
+                        var vendedores = repository.GetVendedoresActivos();
+                        view.ListaVendedores = vendedores.ToList();
+                        view.EtiquetaBusqueda = "Seleccionar Vendedor:";
+                        view.ComboBusquedaHabilitado = true;
+                        break;
 
+                    case "Por Cliente":
+                        var clientes = repository.GetClientesActivos();
+                        view.ListaClientes = clientes.ToList();
+                        view.EtiquetaBusqueda = "Seleccionar Cliente:";
+                        view.ComboBusquedaHabilitado = true;
+                        break;
+
+                    case "Por Fecha":
+                    case "Top 10 Ventas":
+                        view.EtiquetaBusqueda = "Búsqueda:";
+                        view.ComboBusquedaHabilitado = false;
+                        view.TextoBusqueda = string.Empty;
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                view.Message = $"Error al cargar datos: {ex.Message}";
+            }
+        }
         private void SearchVentas(object? sender, EventArgs e)
         {
             try
@@ -135,23 +166,36 @@ namespace VocesDePapelV1._1.Presenters
                         ventasList = repository.GetVentasPorFecha(fechaInicio, fechaFin);
                         break;
                     case "Por Vendedor":
-                        if (view.IdVendedorSeleccionado.HasValue)
+                        if (!view.IdVendedorSeleccionado.HasValue)
                         {
-                            ventasList = repository.GetVentasPorVendedor(
-                                view.IdVendedorSeleccionado.Value,
-                                fechaInicio,
-                                fechaFin);
+                            view.Message = "Debe seleccionar un vendedor para este tipo de reporte.";
+                            return;
                         }
-                        break;
+                        if (int.TryParse(view.ValorBusqueda, out int idVendedor))
+                        {
+                            ventasList = repository.GetVentasPorVendedor(idVendedor, fechaInicio, fechaFin);
+
+                        } break;
                     case "Top 10 Ventas":
                         ventasList = repository.GetTop10Ventas();
                         break;
-
+                    case "Por Cliente":
+                        if (string.IsNullOrEmpty(view.ValorBusqueda))
+                        {
+                            view.Message = "Debe seleccionar un cliente.";
+                            return;
+                        }
+                        ventasList = repository.GetVentasPorCliente(view.ValorBusqueda, fechaInicio, fechaFin);
+                        break;
                     default:
                         ventasList = repository.GetVentasPorFecha(fechaInicio, fechaFin);
                         break;
                 }
 
+                if (ventasList == null)
+                {
+                    ventasList = new List<VentaReporteModel>();
+                }
                 //  Calcular estadísticas
                 CalcularEstadisticas(fechaInicio, fechaFin);
 
@@ -173,9 +217,25 @@ namespace VocesDePapelV1._1.Presenters
 
         private void CalcularEstadisticas(DateTime fechaInicio, DateTime fechaFin)
         {
-            //Calcular métricas del reporte
-            decimal totalVentas = repository.GetTotalVentasPeriodo(fechaInicio, fechaFin);
-            int cantidadVentas = repository.GetCantidadVentasPeriodo(fechaInicio, fechaFin);
+            decimal totalVentas;
+            int cantidadVentas;
+
+            // Diferenciar cálculo según tipo de reporte
+            if (view.TipoReporte == "Por Vendedor" && view.IdVendedorSeleccionado.HasValue)
+            {
+                // Usar métodos específicos para vendedor
+                totalVentas = repository.GetTotalVentasPorVendedor(
+                    view.IdVendedorSeleccionado.Value, fechaInicio, fechaFin);
+                cantidadVentas = repository.GetCantidadVentasPorVendedor(
+                    view.IdVendedorSeleccionado.Value, fechaInicio, fechaFin);
+            }
+            else
+            {
+                // Usar métodos generales
+                totalVentas = repository.GetTotalVentasPeriodo(fechaInicio, fechaFin);
+                cantidadVentas = repository.GetCantidadVentasPeriodo(fechaInicio, fechaFin);
+            }
+
             decimal promedioVenta = cantidadVentas > 0 ? totalVentas / cantidadVentas : 0;
 
             view.TotalVentasPeriodo = totalVentas.ToString("C2");
