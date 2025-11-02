@@ -18,11 +18,32 @@ namespace VocesDePapelV1._1.Presenters
         private IEnumerable<VentaReporteModel> ventasList;
         private bool busquedaRealizada = false;
 
-        public ReporteVentasPresenter(IGerenteViewReporteVentas view, IVentaReporteRepository repository)
+        public ReporteVentasPresenter(IGerenteViewReporteVentas view, IVentaReporteRepository repository, bool esModoVendedor = false,
+                                  int? idVendedor = null)
         {
+            Console.WriteLine($"MODO VENDEDOR: {esModoVendedor}, ID: {idVendedor}");
+
+            this.view = view;
+            this.repository = repository;
+
+            // DEBUG TEMPORAL
+            view.Message = $"Modo: {(esModoVendedor ? "VENDEDOR" : "GERENTE")}, ID: {idVendedor}";
+
             this.view = view;
             this.repository = repository;
             this.ventasBindingSource = new BindingSource();
+            // Configurar modo de la vista
+            view.EsModoVendedor = esModoVendedor;
+
+            if (esModoVendedor && idVendedor.HasValue)
+            {
+                view.IdVendedorAutomatico = idVendedor.Value;
+                ConfigurarModoVendedor(idVendedor.Value);
+            }
+            else
+            {
+                ConfigurarModoGerente();
+            }
 
             // Suscribir eventos de la vista
             this.view.SearchEvent += SearchVentas;
@@ -34,6 +55,43 @@ namespace VocesDePapelV1._1.Presenters
             this.view.Show();
         }
 
+        private void ConfigurarModoVendedor(int idVendedor)
+        {
+            try
+            {
+                // Obtener datos del vendedor (CORREGIDO el nombre del método)
+                var vendedor = repository.GetVendedorPorId(idVendedor);
+
+                if (vendedor != null)
+                {
+                    view.TxtVendedorAuto = $"{vendedor.Nombre} {vendedor.Apellido}";
+                    view.IdVendedorSeleccionado = idVendedor;
+
+                    // Bloquear selección de vendedor
+                    view.FiltroVendedorVisible = true;
+                    view.TipoReporte = "Por Vendedor";
+                    view.CmbTipoReporteEnabled = false; // Bloquear cambio de tipo reporte
+
+                    // Buscar automáticamente
+                    SearchVentas(this, EventArgs.Empty);
+                }
+                else
+                {
+                    view.Message = "No se encontró el vendedor especificado";
+                }
+            }
+            catch (Exception ex)
+            {
+                view.Message = $"Error al configurar modo vendedor: {ex.Message}";
+            }
+        }
+        private void ConfigurarModoGerente()
+        {
+            // Cargar lista de vendedores
+            var vendedores = repository.GetVendedoresActivos();
+            view.ListaVendedores = vendedores.ToList();
+            view.CmbTipoReporteEnabled = true; // Permitir cambiar tipo reporte
+        }
         private void ConfigurarFechasPorDefecto()
         {
             // Establecer fechas por defecto (mes actual)
@@ -73,18 +131,22 @@ namespace VocesDePapelV1._1.Presenters
                 // Obtener datos según tipo de reporte
                 switch (view.TipoReporte)
                 {
-                    case "PorFecha":
+                    case "Por Fecha":
                         ventasList = repository.GetVentasPorFecha(fechaInicio, fechaFin);
                         break;
-                    case "PorVendedor":
-                        if (int.TryParse(view.FiltroAdicional, out int idVendedor))
-                            ventasList = repository.GetVentasPorVendedor(idVendedor);
-                        else
-                            ventasList = new List<VentaReporteModel>();
+                    case "Por Vendedor":
+                        if (view.IdVendedorSeleccionado.HasValue)
+                        {
+                            ventasList = repository.GetVentasPorVendedor(
+                                view.IdVendedorSeleccionado.Value,
+                                fechaInicio,
+                                fechaFin);
+                        }
                         break;
-                    case "Top10":
+                    case "Top 10 Ventas":
                         ventasList = repository.GetTop10Ventas();
                         break;
+
                     default:
                         ventasList = repository.GetVentasPorFecha(fechaInicio, fechaFin);
                         break;

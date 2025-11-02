@@ -9,6 +9,9 @@ namespace VocesDePapelV1._1.Presenters
     public class VendedorPresenter
     {
         private IVendedorView view;
+        private bool esModoVendedor;
+        private int? idUsuario;
+
         //un campo de solo lectura para la cadena de conexion
         private readonly string connectionString;
 
@@ -68,17 +71,30 @@ namespace VocesDePapelV1._1.Presenters
 
         private void ShowReporteVentaView(object? sender, EventArgs e)
         {
-            // Obtener el contenedor padre (ya corregido en A)
-           // Form parentContainer = this.view.FormInstance;
+            Form parentContainer = this.view.FormInstance;
 
-            // 2. Obtener la vista, PASANDO LA CONEXIÓN (CS0121)
-            // Asumimos que GerenteViewReporteV.GetInstance acepta ahora la conexión
-           // IGerenteViewReporteV backupView = GerenteViewReporteV.GetInstance(parentContainer, this.connectionString);
+            IGerenteViewReporteVentas reporteView = ReporteVentasView.GetInstance(parentContainer);
+            IVentaReporteRepository repository = new VentaReporteRepository(connectionString);
+            int idUsuario = 5;
+            new ReporteVentasPresenter(reporteView, repository, true, idUsuario);
+        }
+        private int ObtenerIdDesdeMainForm()
+        {
+            // Buscar el Form principal
+            Form mainForm = Application.OpenForms.OfType<LoginView>().FirstOrDefault();
+            if (mainForm != null)
+            {
+                // Verificar si tiene propiedad de usuario
+                var usuarioProp = mainForm.GetType().GetProperty("UsuarioLogueado");
+                if (usuarioProp != null)
+                {
+                    var usuario = usuarioProp.GetValue(mainForm) as UsuarioModel;
+                    if (usuario != null) return usuario.Id_usuario;
+                }
+            }
 
-            // 3. Crear el Presenter, PASANDO LA CONEXIÓN (Missing Constructor)
-            // Asumimos que ReporteVentaGerentePresenter acepta ahora la conexión
-           //new ReporteVentaGerentePresenter(backupView, this.connectionString);
-
+            // Si no encuentra, usar temporal
+            return 3; // ← ID temporal
         }
 
         private void ShowVentaView(object? sender, EventArgs e)

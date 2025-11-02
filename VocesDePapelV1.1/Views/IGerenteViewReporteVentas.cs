@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VocesDePapelV1._1.Models;
 
 namespace VocesDePapelV1._1.Views
 {
@@ -13,7 +14,15 @@ namespace VocesDePapelV1._1.Views
         string FechaFin { get; set; }
         string TipoReporte { get; set; }
         string FiltroAdicional { get; set; }
+        bool FiltroVendedorVisible { get; set; }
         bool IncluirDetalles { get; set; }
+        bool EsModoVendedor { get; set; }
+        int? IdVendedorSeleccionado { get; set; }
+
+        int IdVendedorAutomatico { get; set; }
+        string TxtVendedorAuto { get; set; }
+        bool CmbTipoReporteEnabled { get; set; }
+        List<UsuarioModel> ListaVendedores { get; set; }
 
         // Resultados
         string TotalVentasPeriodo { get; set; }
@@ -27,13 +36,13 @@ namespace VocesDePapelV1._1.Views
         // Mensajes
         string Message { get; set; }
         bool IsSuccessful { get; set; }
-        //Action<object, EventArgs> LimpiarFiltrosEvent { get; set; }
+      
 
         // Eventos
         event EventHandler SearchEvent;
         event EventHandler GenerateReportEvent;
         event EventHandler ExportExcelEvent;
-       event EventHandler LimpiarFiltrosEvent;
+        event EventHandler LimpiarFiltrosEvent;
 
         // Métodos
         void SetVentasListBindingSource(BindingSource ventasList);

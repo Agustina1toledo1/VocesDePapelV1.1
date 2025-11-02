@@ -15,7 +15,7 @@ namespace VocesDePapelV1._1.Servicios
         {
             try
             {
-                // 🔗 CONEXIÓN 14: Crear documento PDF
+                // Crear documento PDF
                 Document doc = new Document(PageSize.A4.Rotate(), 25, 25, 30, 30);
                 PdfWriter.GetInstance(doc, new FileStream(rutaArchivo, FileMode.Create));
                 doc.Open();
@@ -34,7 +34,7 @@ namespace VocesDePapelV1._1.Servicios
                     cabecera.AddCell(new PdfPCell(logoPdf) { Border = iTextSharp.text.Rectangle.NO_BORDER });
                 }
 
-                // 🔗 CONEXIÓN 15: Información del reporte
+                // Información del reporte
                 string infoReporte = $"REPORTE DE VENTAS\n" +
                                    $"Período: {view.FechaInicio} al {view.FechaFin}\n" +
                                    $"Total Ventas: {view.TotalVentasPeriodo}\n" +
@@ -53,7 +53,7 @@ namespace VocesDePapelV1._1.Servicios
                 doc.Add(cabecera);
                 doc.Add(new Paragraph("\n"));
 
-                // 🔗 CONEXIÓN 16: Tabla de ventas
+                //Tabla de ventas
                 PdfPTable tabla = new PdfPTable(8);
                 tabla.WidthPercentage = 100;
                 tabla.SetWidths(new float[] { 0.8f, 1.2f, 2f, 2f, 1.2f, 1f, 1f, 1f });
@@ -68,7 +68,7 @@ namespace VocesDePapelV1._1.Servicios
                 tabla.AddCell(CrearCeldaEncabezado("Productos"));
                 tabla.AddCell(CrearCeldaEncabezado("Pago"));
 
-                // 🔗 CONEXIÓN 17: Datos de ventas
+                // Datos de ventas
                 foreach (var venta in ventas)
                 {
                     tabla.AddCell(CrearCeldaDato(venta.IdVenta.ToString()));
@@ -78,12 +78,12 @@ namespace VocesDePapelV1._1.Servicios
                     tabla.AddCell(CrearCeldaDato(venta.TotalVenta.ToString("C2")));
                     tabla.AddCell(CrearCeldaDato(venta.EstadoVenta));
                     tabla.AddCell(CrearCeldaDato(venta.CantidadProductos.ToString()));
-                    tabla.AddCell(CrearCeldaDato(venta.FormaPago));
+                   
                 }
 
                 doc.Add(tabla);
 
-                // 🔗 CONEXIÓN 18: Resumen final
+                // Resumen final
                 doc.Add(new Paragraph($"\nResumen del Reporte:",
                     FontFactory.GetFont("Arial", 12, iTextSharp.text.Font.BOLD)));
 

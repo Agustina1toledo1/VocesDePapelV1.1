@@ -35,17 +35,13 @@ namespace VocesDePapelV1._1.Repositories
                         u.nombre + ' ' + u.apellido as NombreVendedor,
                         vc.total_venta as TotalVenta,
                         e.nombre_estado as EstadoVenta,
-                        COUNT(vd.id_detalle_venta) as CantidadProductos,
+                        (SELECT COUNT(*) FROM detalle_venta vd WHERE vd.id_venta_cabecera = vc.id_venta_cabecera) as CantidadProductos,
                         'Efectivo' as FormaPago
                     FROM venta_cabecera vc
                     INNER JOIN cliente c ON vc.id_cliente = c.id_cliente
                     INNER JOIN usuario u ON vc.id_usuario = u.id_usuario
                     INNER JOIN estado e ON vc.id_estado = e.id_estado
-                    LEFT JOIN detalle_venta vd ON vc.id_venta_cabecera = vd.id_venta_cabecera
                     WHERE vc.fecha_hora BETWEEN @fechaInicio AND @fechaFin
-                    GROUP BY 
-                        vc.id_venta_cabecera, vc.fecha_hora, c.nombre_razon_social,
-                        u.nombre, u.apellido, vc.total_venta, e.nombre_estado
                     ORDER BY vc.fecha_hora DESC";
 
                 command.Parameters.Add("@fechaInicio", SqlDbType.DateTime).Value = fechaInicio;
@@ -64,7 +60,7 @@ namespace VocesDePapelV1._1.Repositories
                             TotalVenta = Convert.ToDecimal(reader["TotalVenta"]),
                             EstadoVenta = reader["EstadoVenta"].ToString(),
                             CantidadProductos = Convert.ToInt32(reader["CantidadProductos"]),
-                            FormaPago = reader["FormaPago"].ToString()
+                          
                         };
                         ventasList.Add(venta);
                     }
@@ -118,12 +114,56 @@ namespace VocesDePapelV1._1.Repositories
             }
         }
 
-        // Métodos adicionales (implementación similar)
-        public IEnumerable<VentaReporteModel> GetVentasPorVendedor(int idVendedor)
+        // Obtener ventas por vendedor
+        public IEnumerable<VentaReporteModel> GetVentasPorVendedor(int idVendedor, DateTime fechaInicio, DateTime fechaFin)
         {
-            // Implementación similar con filtro por vendedor
             var ventasList = new List<VentaReporteModel>();
-            // ... código similar al anterior con WHERE vc.id_usuario = @idVendedor
+
+            using (var connection = new SqlConnection(connectionString))
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+
+                command.CommandText = @"
+            SELECT
+                vc.id_venta_cabecera as IdVenta,
+                vc.fecha_hora as FechaVenta,
+                c.nombre_razon_social as NombreCliente,
+                u.nombre + ' ' + u.apellido as NombreVendedor,
+                vc.total_venta as TotalVenta,
+                e.nombre_estado as EstadoVenta,
+                (SELECT COUNT(*) FROM detalle_venta vd WHERE vd.id_venta_cabecera = vc.id_venta_cabecera) as CantidadProductos                
+                FROM venta_cabecera vc
+                INNER JOIN cliente c ON vc.id_cliente = c.id_cliente
+                INNER JOIN usuario u ON vc.id_usuario = u.id_usuario
+                INNER JOIN estado e ON vc.id_estado = e.id_estado
+                WHERE vc.id_usuario = @idVendedor  -- ← FILTRO POR VENDEDOR
+                ORDER BY vc.fecha_hora DESC";
+
+                command.Parameters.Add("@idVendedor", SqlDbType.Int).Value = idVendedor;
+                command.Parameters.Add("@fechaInicio", SqlDbType.DateTime).Value = fechaInicio;
+                command.Parameters.Add("@fechaFin", SqlDbType.DateTime).Value = fechaFin;
+
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var venta = new VentaReporteModel
+                        {
+                            IdVenta = Convert.ToInt32(reader["IdVenta"]),
+                            FechaVenta = Convert.ToDateTime(reader["FechaVenta"]),
+                            NombreCliente = reader["NombreCliente"].ToString(),
+                            NombreVendedor = reader["NombreVendedor"].ToString(),
+                            TotalVenta = Convert.ToDecimal(reader["TotalVenta"]),
+                            EstadoVenta = reader["EstadoVenta"].ToString(),
+                            CantidadProductos = Convert.ToInt32(reader["CantidadProductos"]),
+                           
+                        };
+                        ventasList.Add(venta);
+                    }
+                }
+            }
             return ventasList;
         }
 
@@ -139,5 +179,75 @@ namespace VocesDePapelV1._1.Repositories
         {
             throw new NotImplementedException();
         }
+        public UsuarioModel GetVendedorPorId(int idVendedor)
+        {
+            using (var connection = new SqlConnection(connectionString))
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+
+                command.CommandText = @"
+                SELECT id_usuario, nombre, apellido, baja,
+                       nombre + ' ' + apellido as NombreCompleto
+                FROM usuario 
+                WHERE id_usuario = @idVendedor 
+                AND baja = 0"; // Solo usuarios activos
+
+                command.Parameters.Add("@idVendedor", SqlDbType.Int).Value = idVendedor;
+
+                using (var reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        return new UsuarioModel
+                        {
+                            Id_usuario = Convert.ToInt32(reader["id_usuario"]),
+                            Nombre = reader["nombre"].ToString(),
+                            Apellido = reader["apellido"].ToString(),
+                            Baja = Convert.ToInt32(reader["baja"])
+                        };
+                    }
+                }
+            }
+            return null; // Si no encuentra el vendedor
+        }
+
+        // IMPLEMENTAR GetVendedoresActivos
+        public IEnumerable<UsuarioModel> GetVendedoresActivos()
+        {
+            var vendedores = new List<UsuarioModel>();
+
+            using (var connection = new SqlConnection(connectionString))
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+
+                command.CommandText = @"
+                SELECT u.id_usuario, u.nombre, u.apellido, u.baja, e.nombre_estado
+                FROM usuario u
+                INNER JOIN estado e ON u.baja = e.id_estado
+                WHERE u.baja = 0  -- ← usuarios activos (id_estado = 0 = activo)
+                ORDER BY u.nombre, u.apellido";
+
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        vendedores.Add(new UsuarioModel
+                        {
+                            Id_usuario = Convert.ToInt32(reader["id_usuario"]),
+                            Nombre = reader["nombre"].ToString(),
+                            Apellido = reader["apellido"].ToString(),
+                            Baja = Convert.ToInt32(reader["baja"]),
+                            Nombre_estado = reader["nombre_estado"].ToString()
+                        });
+                    }
+                }
+            }
+            return vendedores;
+        }
+    
     }
 }

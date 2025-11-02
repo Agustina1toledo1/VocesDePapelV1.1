@@ -58,6 +58,8 @@
             panelResultados.SuspendLayout();
             grpEstadisticas.SuspendLayout();
             panelGrid.SuspendLayout();
+            grpFiltros.Controls.Add(cmbVendedores);
+            grpFiltros.Controls.Add(txtVendedorAuto);
             ((System.ComponentModel.ISupportInitialize)dgvVentas).BeginInit();
             SuspendLayout();
             // 
@@ -119,6 +121,21 @@
             txtFiltroAdicional.Size = new Size(200, 27);
             txtFiltroAdicional.TabIndex = 6;
             // 
+            // ComboBox para Gerente
+            cmbVendedores = new ComboBox();
+            cmbVendedores.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbVendedores.Location = new Point(600, 65);
+            cmbVendedores.Size = new Size(200, 28);
+            cmbVendedores.Visible = false;
+
+            // TextBox para Vendedor (solo lectura)
+            txtVendedorAuto = new TextBox();
+            txtVendedorAuto.ReadOnly = true;
+            txtVendedorAuto.BackColor = Color.LightGray;
+            txtVendedorAuto.Location = new Point(600, 65);
+            txtVendedorAuto.Size = new Size(200, 27);
+            txtVendedorAuto.Visible = false;
+            //
             // lblTipoReporte
             // 
             lblTipoReporte.AutoSize = true;
@@ -390,6 +407,8 @@
         private CheckBox chkIncluirDetalles;
         private Label lblFiltroAdicional;
         private TextBox txtFiltroAdicional;
+        private ComboBox cmbVendedores;
+        private TextBox txtVendedorAuto;
         private Label lblTipoReporte;
         private ComboBox cmbTipoReporte;
         private Label lblFechaFin;

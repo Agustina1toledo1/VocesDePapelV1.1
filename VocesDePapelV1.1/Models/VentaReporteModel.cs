@@ -30,7 +30,6 @@ namespace VocesDePapelV1._1.Models
         [DisplayName("Cantidad Productos")]
         public int CantidadProductos { get; set; }
 
-        [DisplayName("Forma de Pago")]
-        public string FormaPago { get; set; }
+       
     }
 }

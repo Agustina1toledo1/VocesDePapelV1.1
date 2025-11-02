@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using VocesDePapelV1._1.Models;
 
 namespace VocesDePapelV1._1.Views
 {
@@ -34,8 +35,25 @@ namespace VocesDePapelV1._1.Views
                     SearchEvent?.Invoke(this, EventArgs.Empty);
             };
         }
+        // Propiedades para saber el tipo de usuario
+        public bool EsModoVendedor { get; set; }
+        public int IdVendedorAutomatico { get; set; }
 
-        // para la interfaz
+        // Propiedades  para filtros
+        public string TxtVendedorAuto
+        {
+            get => txtVendedorAuto?.Text ?? string.Empty;
+            set
+            {
+                if (txtVendedorAuto != null)
+                    txtVendedorAuto.Text = value;
+            }
+        }
+        public bool CmbTipoReporteEnabled
+        {
+            get => cmbTipoReporte.Enabled;
+            set => cmbTipoReporte.Enabled = value;
+        }
         public string FechaInicio
         {
             get => dtpFechaInicio.Value.ToString("yyyy-MM-dd");
@@ -66,6 +84,12 @@ namespace VocesDePapelV1._1.Views
         {
             get => txtFiltroAdicional.Text;
             set => txtFiltroAdicional.Text = value;
+        }
+      
+        public int? IdVendedorSeleccionado
+        {
+            get => cmbVendedores.SelectedValue as int?;
+            set => cmbVendedores.SelectedValue = value;
         }
 
         public bool IncluirDetalles
@@ -145,6 +169,73 @@ namespace VocesDePapelV1._1.Views
                 instance.BringToFront();
             }
             return instance;
+        }
+        public bool FiltroVendedorVisible
+        {
+            get
+            {
+                // Verificar si los controles del filtro están visibles
+                return lblFiltroAdicional.Visible &&
+                       (cmbVendedores != null ? cmbVendedores.Visible : txtFiltroAdicional.Visible);
+            }
+            set
+            {
+                // Mostrar/ocultar el label del filtro
+                lblFiltroAdicional.Visible = value;
+
+                if (EsModoVendedor)
+                {
+                    // MODO VENDEDOR: Usar TextBox o Label fijo
+                    if (txtVendedorAuto != null)
+                    {
+                        txtVendedorAuto.Visible = value;
+                    }
+                    if (cmbVendedores != null)
+                    {
+                        cmbVendedores.Visible = false;
+                    }
+                    lblFiltroAdicional.Text = "Vendedor:";
+                }
+                else
+                {
+                    // MODO GERENTE: Usar ComboBox para selección
+                    if (cmbVendedores != null)
+                    {
+                        cmbVendedores.Visible = value;
+                    }
+                    if (txtVendedorAuto != null)
+                    {
+                        txtVendedorAuto.Visible = false;
+                    }
+                    lblFiltroAdicional.Text = "Seleccionar Vendedor:";
+                }
+
+                // Si el filtro está oculto, también ocultar el textbox normal
+                if (!value && txtFiltroAdicional != null)
+                {
+                    txtFiltroAdicional.Visible = false;
+                }
+            }
+        }
+
+        public List<UsuarioModel> ListaVendedores
+        {
+            get
+            {
+                if (cmbVendedores != null && cmbVendedores.DataSource != null)
+                    return cmbVendedores.DataSource as List<UsuarioModel>;
+                return new List<UsuarioModel>();
+            }
+            set
+            {
+                if (cmbVendedores != null)
+                {
+                    cmbVendedores.DataSource = value;
+                    cmbVendedores.DisplayMember = "NombreCompleto"; // Usar la propiedad que creamos
+                    cmbVendedores.ValueMember = "IdUsuario";
+                    cmbVendedores.SelectedIndex = -1; // Sin selección por defecto
+                }
+            }
         }
     }
 }
