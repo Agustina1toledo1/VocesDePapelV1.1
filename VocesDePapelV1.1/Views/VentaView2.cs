@@ -35,7 +35,6 @@ namespace VocesDePapelV1._1.Views
                 if (e.KeyCode == Keys.Enter)
                 {
                     SearchClienteEvent?.Invoke(this, EventArgs.Empty);
-                    MessageBox.Show(Message);
                 }
             };
             TBCuitVendedor.KeyDown += (s, e) =>
@@ -43,7 +42,6 @@ namespace VocesDePapelV1._1.Views
                 if (e.KeyCode == Keys.Enter)
                 {
                     SearchVendedorEvent?.Invoke(this, EventArgs.Empty);
-                    MessageBox.Show(Message);
                 }
             };
 
@@ -64,6 +62,22 @@ namespace VocesDePapelV1._1.Views
             NUDCantidadProducto.ValueChanged += (s, e) =>
             {
                 CalculateSubtotalEvent?.Invoke(this, EventArgs.Empty);
+            };
+            BtnAgregarDetalle.Click += delegate
+            {
+                AddNewDetalleEvent?.Invoke(this, EventArgs.Empty);
+            };
+            //elimia detalle del datagrid
+            BtnQuitarDetalle.Click += delegate
+            {
+                if (dataGridViewDetalles.SelectedCells.Count > 0)
+                {
+                    var result = MessageBox.Show("Estas seguro de eliminar el producto seleccionado?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    if (result == DialogResult.Yes)
+                    {
+                        DeleteEvent?.Invoke(this, EventArgs.Empty);
+                    }
+                }
             };
         }
 
@@ -162,6 +176,7 @@ namespace VocesDePapelV1._1.Views
         public string Precio_unitario
         {
             get { return lb_producto_precio.Text; }
+            set { lb_producto_precio.Text = value; }
         }
         public string Subtotal
         {
@@ -176,6 +191,7 @@ namespace VocesDePapelV1._1.Views
         public string Producto_stock
         {
             get { return lb_producto_stock.Text; }
+            set { lb_producto_stock.Text = value; }
         }
         public string SearchValue
         {
@@ -222,6 +238,9 @@ namespace VocesDePapelV1._1.Views
         public void SetVentaDetalleListBindingSource(object ventaDetalleList)
         {
             dataGridViewDetalles.DataSource = ventaDetalleList;
+            dataGridViewDetalles.Columns["Id_venta_detalle"].Visible = false;
+            dataGridViewDetalles.Columns["Id_venta_cabecera"].Visible = false;
+
         }
 
        

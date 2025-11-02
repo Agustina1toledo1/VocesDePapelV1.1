@@ -55,9 +55,7 @@ namespace VocesDePapelV1._1.Presenters
             this.view.CancelAllEvent += CancelAll;
             this.view.CalculateSubtotalEvent += CalcularSubtotal;
 
-            //suscribir eventos de la vista productoSearchView
-            // this.productoSearchView.SelectEvent += ProductoSelected;
-            //this.productoSearchView.CancelEvent += ProductoSearchCanceled;
+            this.ventaDetalles = new List<VentaDetalleModel2>();
 
             this.view.Show();
 
@@ -69,24 +67,6 @@ namespace VocesDePapelV1._1.Presenters
             throw new NotImplementedException();
         }
 
-        /*private void ProductoSelected(object? sender, EventArgs e)
-        {
-            if (productoSearchView is Form form && form.Controls["dtg_productoSearch"] is DataGridView dgv && dgv.CurrentRow != null)
-            {
-                var producto = dgv.CurrentRow.DataBoundItem as ProductoModel;
-                if (producto != null)
-                {
-                    view.Id_producto = producto.Id_libro.ToString();
-                    view.Producto_nombre = producto.Titulo;
-                    view.Producto_stock = producto.Stock.ToString();
-                    view.Precio_unitario = producto.Precio.ToString();
-                    view.Subtotal = (producto.Precio * Convert.ToInt32(view.Cantidad)).ToString();
-                    view.Message = "Producto seleccionado.";
-                    view.IsSuccessful = true;
-                }
-            }
-        }*/
-
         private void CancelAll(object? sender, EventArgs e)
         {
             throw new NotImplementedException();
@@ -94,7 +74,25 @@ namespace VocesDePapelV1._1.Presenters
 
         private void DeleteDetalle(object? sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var detalle = (VentaDetalleModel2)bindingSourceDetalle.Current;
+                if (detalle != null)
+                {
+                    var nuevaLista = ventaDetalles.ToList(); // convertir a lista
+                    nuevaLista.Remove(detalle);
+                    ventaDetalles = nuevaLista;
+                    bindingSourceDetalle.DataSource = null;
+                    bindingSourceDetalle.DataSource = ventaDetalles;
+                    view.SetVentaDetalleListBindingSource(bindingSourceDetalle);
+                    MessageBox.Show("Producto eliminado del detalle.");
+                    view.IsSuccessful = true;
+                }
+            }catch (Exception ex)
+            {
+                MessageBox.Show("Error al eliminar el detalle: " + ex.Message);
+                view.IsSuccessful = false;
+            }
         }
 
         private void DeleteAllDetalles(object? sender, EventArgs e)
@@ -112,10 +110,59 @@ namespace VocesDePapelV1._1.Presenters
             throw new NotImplementedException();
         }
 
+        //Agregar nuevo detalle al datagrid de venta
         private void AddNewDetalle(object? sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            if (!int.TryParse(view.Cantidad, out int cantidad) || cantidad <= 0)
+            {
+                MessageBox.Show( "Cantidad inválida.");
+                view.IsSuccessful = false;
+                return;
+            }
+
+            if (!decimal.TryParse(view.Precio_unitario, out decimal precio) || precio <= 0)
+            {
+                MessageBox.Show( "Precio inválido.");
+                view.IsSuccessful = false;
+                return;
+            }
+
+            if (!int.TryParse(view.Producto_stock, out int stock) || cantidad > stock)
+            {
+                MessageBox.Show("La cantidad supera el stock disponible.");
+                view.IsSuccessful = false;
+                return;
+            }
+            int idProducto = int.Parse(view.Id_producto);
+
+            // Verificar si el producto ya está en el detalle
+            if (ventaDetalles.Any(d => d.Id_libro == idProducto))
+            {
+                MessageBox.Show("Este producto ya fue agregado al detalle.Elimine el producto y vuelva a agregar");
+                view.IsSuccessful = false;
+                return;
+            }
+            var detalle = new VentaDetalleModel2
+            {
+                Id_libro = Convert.ToInt32(view.Id_producto),
+                Cantidad = Convert.ToInt32(view.Cantidad),
+                Titulo_libro = view.Producto_nombre,
+                Precio_unitario = precio,
+                Subtotal = this.view.Subtotal != "" ? Convert.ToDecimal(this.view.Subtotal) : 0
+            };
+            //creamos una lista temporal de detalles de venta
+            var nuevaLista = ventaDetalles.ToList(); // convertir a lista
+            nuevaLista.Add(detalle);
+            ventaDetalles = nuevaLista;
+
+            bindingSourceDetalle.DataSource = null;
+            bindingSourceDetalle.DataSource = ventaDetalles;
+            view.SetVentaDetalleListBindingSource(bindingSourceDetalle);
+
+            MessageBox.Show("Producto agregado al detalle.");
+            view.IsSuccessful = true;
         }
+
 
         private void SearchProducto(object? sender, EventArgs e)
         {
@@ -177,7 +224,7 @@ namespace VocesDePapelV1._1.Presenters
                 var vendedor = usuarioRepository.ObtenerPorCuit(this.view.Vendedor_cuit);
                 if (vendedor == null)
                 {
-                    this.view.Message = "El CUIT/CUIL ingresado no está registrado.";
+                    MessageBox.Show( "El CUIT/CUIL ingresado no está registrado.");
                     CleanviewFieldsVendedor();
                     return;
                 }
@@ -185,13 +232,12 @@ namespace VocesDePapelV1._1.Presenters
                 {
                     this.view.Vendedor_nombre = vendedor.NombreCompleto;
                     this.view.Id_usuario = vendedor.Id_usuario.ToString(); //se guarda internamente
-                    this.view.Message = "Vendedor registrado.";
                     return;
                 }
             }
             else
             {
-                this.view.Message = "El CUIT/CUIL no puede estar vacío.";
+                MessageBox.Show( "El CUIT/CUIL no puede estar vacío.");
                 CleanviewFieldsVendedor();
             }
         }
@@ -205,7 +251,7 @@ namespace VocesDePapelV1._1.Presenters
                 var cliente = clienteRepository.ObtenerPorCuit(this.view.Cliente_cuit);
                 if (cliente == null)
                 {
-                    this.view.Message = "El CUIT/CUIL ingresado no está registrado.";
+                    MessageBox.Show("El CUIT/CUIL ingresado no está registrado.");
                     CleanviewFieldsCliente();
                     return;
                 }
@@ -215,13 +261,12 @@ namespace VocesDePapelV1._1.Presenters
                     this.view.Id_cliente = cliente.Id_cliente.ToString(); //se guarda internamente
                     this.view.Cliente_email = cliente.Email;
                     this.view.Cliente_telefono = cliente.Telefono;
-                    this.view.Message = "Cliente registrado.";
                     return;
                 }
             }
             else
             {
-                this.view.Message = "El CUIT/CUIL no puede estar vacío.";
+                MessageBox.Show("El CUIT/CUIL no puede estar vacío.");
                 CleanviewFieldsCliente();
             }
         }
@@ -231,7 +276,7 @@ namespace VocesDePapelV1._1.Presenters
 
             if (cantidad > int.Parse(view.Producto_stock))
             {
-                view.Message = "La cantidad supera el stock disponible.";
+                MessageBox.Show("La cantidad supera el stock disponible.");
                 view.Subtotal = "0.00";
                 return;
             }

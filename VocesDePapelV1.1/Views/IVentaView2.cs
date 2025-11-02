@@ -32,12 +32,12 @@ namespace VocesDePapelV1._1.Views
         string Id_venta_detalle { get; set; }
         string Id_producto { get; set; }
         string Cantidad { get;}
-        string Precio_unitario { get; }
+        string Precio_unitario { get; set; }
         string Subtotal { get; set; }
 
         //propiedades de la tabla producto
         string Producto_nombre { get; set; }
-        string Producto_stock { get; }
+        string Producto_stock { get; set; }
         string SearchValue { get; set; }
         VentaCabeceraModel2 VentaCabecera { get; set; }
         VentaDetalleModel2 VentaDetalleActual { get; set; }

@@ -28,24 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            dtg_productoSearch = new DataGridView();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             btn_seleccionar_productoSearch = new Button();
             btn_cancelar_productoSearch = new Button();
+            dtg_productoSearch = new DataGridView();
             ((System.ComponentModel.ISupportInitialize)dtg_productoSearch).BeginInit();
             SuspendLayout();
-            // 
-            // dtg_productoSearch
-            // 
-            dtg_productoSearch.BackgroundColor = SystemColors.ActiveBorder;
-            dtg_productoSearch.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dtg_productoSearch.Location = new Point(75, 60);
-            dtg_productoSearch.MultiSelect = false;
-            dtg_productoSearch.Name = "dtg_productoSearch";
-            dtg_productoSearch.ReadOnly = true;
-            dtg_productoSearch.RowHeadersWidth = 51;
-            dtg_productoSearch.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dtg_productoSearch.Size = new Size(799, 436);
-            dtg_productoSearch.TabIndex = 1;
             // 
             // btn_seleccionar_productoSearch
             // 
@@ -67,15 +56,39 @@
             btn_cancelar_productoSearch.Text = "Cancelar";
             btn_cancelar_productoSearch.UseVisualStyleBackColor = true;
             // 
+            // dtg_productoSearch
+            // 
+            dtg_productoSearch.AllowUserToAddRows = false;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = SystemColors.Control;
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle3.Padding = new Padding(2);
+            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            dtg_productoSearch.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dtg_productoSearch.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dtg_productoSearch.Location = new Point(82, 50);
+            dtg_productoSearch.MultiSelect = false;
+            dtg_productoSearch.Name = "dtg_productoSearch";
+            dtg_productoSearch.ReadOnly = true;
+            dtg_productoSearch.RowHeadersWidth = 51;
+            dataGridViewCellStyle4.SelectionBackColor = Color.White;
+            dataGridViewCellStyle4.SelectionForeColor = Color.Black;
+            dtg_productoSearch.RowsDefaultCellStyle = dataGridViewCellStyle4;
+            dtg_productoSearch.Size = new Size(796, 433);
+            dtg_productoSearch.TabIndex = 57;
+            // 
             // ProductoSearchView2
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveCaption;
             ClientSize = new Size(1138, 666);
+            Controls.Add(dtg_productoSearch);
             Controls.Add(btn_cancelar_productoSearch);
             Controls.Add(btn_seleccionar_productoSearch);
-            Controls.Add(dtg_productoSearch);
             Name = "ProductoSearchView2";
             Text = "ProductoSearchView2";
             ((System.ComponentModel.ISupportInitialize)dtg_productoSearch).EndInit();
@@ -83,9 +96,8 @@
         }
 
         #endregion
-
-        private DataGridView dtg_productoSearch;
         private Button btn_seleccionar_productoSearch;
         private Button btn_cancelar_productoSearch;
+        private DataGridView dtg_productoSearch;
     }
 }
