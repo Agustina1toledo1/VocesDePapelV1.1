@@ -96,7 +96,7 @@ namespace VocesDePapelV1._1.Repositories
             }
         }
 
-        // 🔗 CONEXIÓN 3: Obtener cantidad de ventas en período
+        // Obtener cantidad de ventas en período
         public int GetCantidadVentasPeriodo(DateTime fechaInicio, DateTime fechaFin)
         {
             using (var connection = new SqlConnection(connectionString))
