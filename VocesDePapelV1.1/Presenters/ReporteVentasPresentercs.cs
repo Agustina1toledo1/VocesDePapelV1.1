@@ -42,6 +42,10 @@ namespace VocesDePapelV1._1.Presenters
 
             view.FechaInicio = fechaInicio.ToString("yyyy-MM-dd");
             view.FechaFin = fechaFin.ToString("yyyy-MM-dd");
+            view.TipoReporte = "Por Fecha";
+            view.FiltroAdicional = string.Empty;
+            view.IncluirDetalles = false;
+
         }
 
         private void SearchVentas(object? sender, EventArgs e)
@@ -167,22 +171,21 @@ namespace VocesDePapelV1._1.Presenters
         {
             try
             {
-                // 1. Limpiar la lista de ventas en memoria
+                //Limpiar la lista de ventas en memoria
                 ventasList = null;
                 busquedaRealizada = false;
 
-                // 2. Limpiar el BindingSource (datos del grid)
+                //Limpiar el BindingSource (datos del grid)
                 ventasBindingSource.DataSource = null;
 
-                // 3. Resetear las fechas a valores por defecto
+                // Resetear las fechas a valores por defecto
                 ConfigurarFechasPorDefecto();
 
-                // 4. Limpiar estadísticas
+                //Limpiar estadísticas
                 view.TotalVentas = "0.00";
                 view.CantidadVentas = "0";
                 view.PromedioVenta = "0.00";
 
-                // 5. Opcional: Mostrar mensaje
                 view.Message = "Filtros limpiados correctamente";
             }
             catch (Exception ex)
