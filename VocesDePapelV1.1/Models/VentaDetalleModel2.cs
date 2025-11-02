@@ -28,7 +28,6 @@ namespace VocesDePapelV1._1.Models
 
         [DisplayName("Cantidad")]
         [Required(ErrorMessage = "La cantidad es requerida")]
-        [Range(1, 1000, ErrorMessage = "La cantidad debe estar entre 1 y 1000 unidades")]
         public int Cantidad
         {
             get { return cantidad; }
@@ -44,7 +43,6 @@ namespace VocesDePapelV1._1.Models
 
         [DisplayName("Precio Unitario")]
         [Required(ErrorMessage = "El precio unitario es requerido")]
-        [Range(0.01, 100000.00, ErrorMessage = "El precio unitario debe estar entre $0.01 y $100,000.00")]
         public decimal Precio_unitario
         {
             get { return precio_unitario; }
@@ -64,7 +62,6 @@ namespace VocesDePapelV1._1.Models
         }
         [DisplayName("Subtotal")]
         [Required(ErrorMessage = "El subtotal es requerido")]
-        [Range(0.01, 100000.00, ErrorMessage = "El subtotaldebe estar entre $0.01 y $100,000.00")]
         public decimal Subtotal
         {
             get { return subtotal; }

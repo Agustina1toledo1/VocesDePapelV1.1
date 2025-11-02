@@ -36,8 +36,6 @@
             LPrecioTotal = new Label();
             label3 = new Label();
             PFactura = new Panel();
-            lb_nro_factura = new Label();
-            LNUmFACTura = new Label();
             lb_comprobante = new Label();
             PVendedor = new Panel();
             lb_vendedor_nombre_apellido = new Label();
@@ -142,43 +140,21 @@
             // 
             // PFactura
             // 
-            PFactura.Controls.Add(lb_nro_factura);
-            PFactura.Controls.Add(LNUmFACTura);
+            PFactura.Controls.Add(lb_comprobante);
             PFactura.Location = new Point(116, 36);
             PFactura.Name = "PFactura";
             PFactura.Size = new Size(233, 169);
             PFactura.TabIndex = 25;
             // 
-            // lb_nro_factura
-            // 
-            lb_nro_factura.AutoSize = true;
-            lb_nro_factura.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lb_nro_factura.Location = new Point(32, 90);
-            lb_nro_factura.Name = "lb_nro_factura";
-            lb_nro_factura.Size = new Size(135, 28);
-            lb_nro_factura.TabIndex = 33;
-            lb_nro_factura.Text = "lb_nro_factura";
-            // 
-            // LNUmFACTura
-            // 
-            LNUmFACTura.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            LNUmFACTura.ImageAlign = ContentAlignment.BottomCenter;
-            LNUmFACTura.Location = new Point(22, 41);
-            LNUmFACTura.Name = "LNUmFACTura";
-            LNUmFACTura.Size = new Size(117, 26);
-            LNUmFACTura.TabIndex = 8;
-            LNUmFACTura.Text = "Numero:";
-            LNUmFACTura.TextAlign = ContentAlignment.MiddleCenter;
-            // 
             // lb_comprobante
             // 
             lb_comprobante.AutoSize = true;
-            lb_comprobante.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lb_comprobante.Location = new Point(119, 28);
+            lb_comprobante.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lb_comprobante.Location = new Point(12, 58);
             lb_comprobante.Name = "lb_comprobante";
-            lb_comprobante.Size = new Size(145, 28);
+            lb_comprobante.Size = new Size(197, 38);
             lb_comprobante.TabIndex = 1;
-            lb_comprobante.Text = "Comprobante:";
+            lb_comprobante.Text = "Comprobante";
             // 
             // PVendedor
             // 
@@ -592,7 +568,6 @@
             Controls.Add(lb_venta_total);
             Controls.Add(BtnQuitarDetalle);
             Controls.Add(BCancelar);
-            Controls.Add(lb_comprobante);
             Controls.Add(BtnGuardarVenta);
             Controls.Add(LPrecioTotal);
             Controls.Add(label3);
@@ -625,7 +600,6 @@
         private Label label3;
         private Panel PFactura;
         private TextBox TBNUmFactura;
-        private Label LNUmFACTura;
         private Label lb_comprobante;
         private DateTimePicker dateTimePicker1;
         private Panel PVendedor;
@@ -654,7 +628,6 @@
         private Label LNomProducto;
         private TextBox TBSearch;
         private Label LProducto;
-        private Label lb_nro_factura;
         private Label lb_cliente_email;
         private Label lb_cliente_nombre_razon;
         private Label lb_cliente_tel;
