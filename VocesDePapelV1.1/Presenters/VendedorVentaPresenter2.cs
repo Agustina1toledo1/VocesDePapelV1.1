@@ -109,20 +109,19 @@ namespace VocesDePapelV1._1.Presenters
         {
             try
             {
-                var ventaCabecera = new VentaCabeceraModel2
-                
-                {
-                    Id_cliente = Convert.ToInt32(view.Id_cliente),
-                    Id_usuario = Convert.ToInt32(view.Id_usuario),
-                    // Fecha_venta = DateTime.Now,
-                    Total_venta = Convert.ToDecimal(view.Total_venta)
-                }; 
-                new Common.ModelDataValidation().Validate(ventaCabecera);
-                MessageBox.Show("Venta Cabecera correcta.");
-
                 var ventaDetalleList = this.ventaDetalles?.ToList();
-                //si la lista de detalles es nula o no tiene elementos
-                if (ventaDetalleList == null || ventaDetalleList.Count == 0)
+                if (string.IsNullOrWhiteSpace(view.Id_cliente) || view.Id_cliente == "0")
+                {
+                    MessageBox.Show("Debe buscar y seleccionar un cliente válido.");
+                    view.IsSuccessful = false;
+                    return;
+                }else if (string.IsNullOrWhiteSpace(view.Id_usuario) || view.Id_usuario == "0")
+                {
+                    MessageBox.Show("Debe buscar y seleccionar un vendedor válido.");
+                    view.IsSuccessful = false;
+                    return;
+                }
+                else if (ventaDetalleList == null || ventaDetalleList.Count == 0)
                 {
                     MessageBox.Show("No hay productos en el detalle.");
                     view.IsSuccessful = false;
@@ -130,7 +129,19 @@ namespace VocesDePapelV1._1.Presenters
                 }
                 else
                 {
+                    var ventaCabecera = new VentaCabeceraModel2
+
+                    {
+                        Id_cliente = Convert.ToInt32(view.Id_cliente),
+                        Id_usuario = Convert.ToInt32(view.Id_usuario),
+                        // Fecha_venta = DateTime.Now,
+                        Total_venta = Convert.ToDecimal(view.Total_venta)
+                    };
+                    new Common.ModelDataValidation().Validate(ventaCabecera);
+                    MessageBox.Show("Venta Cabecera correcta.");
+
                     cabeceraRepository.Add(ventaCabecera);
+
                     foreach (var detalle in ventaDetalleList)
                     {
                         detalle.Id_venta_cabecera = ventaCabecera.Id_venta_cabecera; //asignar el id de la cabecera recien creada
@@ -139,8 +150,6 @@ namespace VocesDePapelV1._1.Presenters
                     }
                     MessageBox.Show("Venta Detalle correcta.");
                 }
-                    
-                
             }
             catch (Exception ex)
             {

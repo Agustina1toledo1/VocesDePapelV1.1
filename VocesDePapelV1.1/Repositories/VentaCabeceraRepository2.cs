@@ -20,7 +20,9 @@ namespace VocesDePapelV1._1.Repositories
             {
                 connection.Open();
 
-                command.CommandText = @"INSERT INTO venta_cabecera(total_venta, id_cliente, id_usuario, id_estado)
+                command.CommandText = @"
+                                        INSERT INTO venta_cabecera (total_venta, id_cliente, id_usuario, id_estado)
+                                        OUTPUT INSERTED.id_venta_cabecera
                                         VALUES (@total_venta, @id_cliente, @id_usuario, @id_estado);";
 
                 command.Parameters.Add("@total_venta", System.Data.SqlDbType.Decimal).Value = ventaCabecera.Total_venta;
@@ -29,6 +31,7 @@ namespace VocesDePapelV1._1.Repositories
                 command.Parameters.Add("@id_estado", System.Data.SqlDbType.Int).Value = ventaCabecera.Id_estado;
 
                 command.ExecuteNonQuery();
+                ventaCabecera.Id_venta_cabecera = (int)command.ExecuteScalar();
             }
         }
 

@@ -28,11 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             BtnQuitarDetalle = new Button();
             BCancelar = new Button();
-            BGuardar = new Button();
+            BtnGuardarVenta = new Button();
             LPrecioTotal = new Label();
             label3 = new Label();
             PFactura = new Panel();
@@ -108,17 +108,17 @@
             BCancelar.Text = "Cancelar";
             BCancelar.UseVisualStyleBackColor = false;
             // 
-            // BGuardar
+            // BtnGuardarVenta
             // 
-            BGuardar.BackColor = Color.FromArgb(192, 255, 192);
-            BGuardar.Cursor = Cursors.Hand;
-            BGuardar.Font = new Font("Segoe UI", 13F, FontStyle.Bold);
-            BGuardar.Location = new Point(817, 559);
-            BGuardar.Name = "BGuardar";
-            BGuardar.Size = new Size(151, 45);
-            BGuardar.TabIndex = 30;
-            BGuardar.Text = "Guardar";
-            BGuardar.UseVisualStyleBackColor = false;
+            BtnGuardarVenta.BackColor = Color.FromArgb(192, 255, 192);
+            BtnGuardarVenta.Cursor = Cursors.Hand;
+            BtnGuardarVenta.Font = new Font("Segoe UI", 13F, FontStyle.Bold);
+            BtnGuardarVenta.Location = new Point(817, 559);
+            BtnGuardarVenta.Name = "BtnGuardarVenta";
+            BtnGuardarVenta.Size = new Size(151, 45);
+            BtnGuardarVenta.TabIndex = 30;
+            BtnGuardarVenta.Text = "Guardar";
+            BtnGuardarVenta.UseVisualStyleBackColor = false;
             // 
             // LPrecioTotal
             // 
@@ -550,36 +550,36 @@
             // 
             // lb_venta_total
             // 
-            lb_venta_total.AutoSize = true;
+            lb_venta_total.BorderStyle = BorderStyle.FixedSingle;
             lb_venta_total.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lb_venta_total.Location = new Point(995, 485);
             lb_venta_total.Name = "lb_venta_total";
-            lb_venta_total.Size = new Size(65, 31);
+            lb_venta_total.Size = new Size(112, 39);
             lb_venta_total.TabIndex = 40;
-            lb_venta_total.Text = "total";
+            lb_venta_total.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // dataGridViewDetalles
             // 
             dataGridViewDetalles.AllowUserToAddRows = false;
             dataGridViewDetalles.BackgroundColor = SystemColors.ActiveCaption;
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = SystemColors.Control;
-            dataGridViewCellStyle3.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle3.Padding = new Padding(2);
-            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
-            dataGridViewDetalles.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.Padding = new Padding(2);
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dataGridViewDetalles.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dataGridViewDetalles.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewDetalles.Location = new Point(119, 384);
             dataGridViewDetalles.MultiSelect = false;
             dataGridViewDetalles.Name = "dataGridViewDetalles";
             dataGridViewDetalles.ReadOnly = true;
             dataGridViewDetalles.RowHeadersWidth = 51;
-            dataGridViewCellStyle4.SelectionBackColor = Color.White;
-            dataGridViewCellStyle4.SelectionForeColor = Color.Black;
-            dataGridViewDetalles.RowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.SelectionBackColor = Color.White;
+            dataGridViewCellStyle2.SelectionForeColor = Color.Black;
+            dataGridViewDetalles.RowsDefaultCellStyle = dataGridViewCellStyle2;
             dataGridViewDetalles.Size = new Size(674, 285);
             dataGridViewDetalles.TabIndex = 56;
             // 
@@ -593,7 +593,7 @@
             Controls.Add(BtnQuitarDetalle);
             Controls.Add(BCancelar);
             Controls.Add(lb_comprobante);
-            Controls.Add(BGuardar);
+            Controls.Add(BtnGuardarVenta);
             Controls.Add(LPrecioTotal);
             Controls.Add(label3);
             Controls.Add(PFactura);
@@ -620,7 +620,7 @@
 
         private Button BtnQuitarDetalle;
         private Button BCancelar;
-        private Button BGuardar;
+        private Button BtnGuardarVenta;
         private Label LPrecioTotal;
         private Label label3;
         private Panel PFactura;

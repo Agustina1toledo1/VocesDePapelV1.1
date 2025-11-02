@@ -49,14 +49,14 @@ namespace VocesDePapelV1._1.Views
             BBuscarProducto.Click += delegate
             {
                 SearchProductoEvent?.Invoke(this, EventArgs.Empty);
-                
+
             };
             TBSearch.KeyDown += (s, e) =>
             {
                 if (e.KeyCode == Keys.Enter)
                 {
                     SearchProductoEvent?.Invoke(this, EventArgs.Empty);
-                    
+
                 }
             };
             NUDCantidadProducto.ValueChanged += (s, e) =>
@@ -78,6 +78,12 @@ namespace VocesDePapelV1._1.Views
                         DeleteEvent?.Invoke(this, EventArgs.Empty);
                     }
                 }
+            };
+
+            //guardar venta
+            BtnGuardarVenta.Click += delegate
+            {
+                SaveEvent?.Invoke(this, EventArgs.Empty);
             };
         }
 
@@ -101,7 +107,7 @@ namespace VocesDePapelV1._1.Views
         {
             get => throw new NotImplementedException(); set => throw new NotImplementedException();
         }
-        public string Total_venta 
+        public string Total_venta
         {
             get { return lb_venta_total.Text; }
             set { lb_venta_total.Text = value; }
@@ -173,7 +179,7 @@ namespace VocesDePapelV1._1.Views
             get { return idProducto; }
             set { idProducto = value; }
         }
-       
+
         public string Precio_unitario
         {
             get { return lb_producto_precio.Text; }
@@ -244,6 +250,6 @@ namespace VocesDePapelV1._1.Views
 
         }
 
-       
+        
     }
 }
