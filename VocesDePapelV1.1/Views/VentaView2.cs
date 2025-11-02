@@ -17,6 +17,9 @@ namespace VocesDePapelV1._1.Views
         private bool isSuccessful;
         private string idCliente;
         private string idVendedor;
+        private string idProducto;
+        public string Cantidad => NUDCantidadProducto.Value.ToString();
+
 
         public VentaView2()
         {
@@ -48,15 +51,19 @@ namespace VocesDePapelV1._1.Views
             BBuscarProducto.Click += delegate
             {
                 SearchProductoEvent?.Invoke(this, EventArgs.Empty);
-                MessageBox.Show(Message);
+                
             };
             TBSearch.KeyDown += (s, e) =>
             {
                 if (e.KeyCode == Keys.Enter)
                 {
                     SearchProductoEvent?.Invoke(this, EventArgs.Empty);
-                    MessageBox.Show(Message);
+                    
                 }
+            };
+            NUDCantidadProducto.ValueChanged += (s, e) =>
+            {
+                CalculateSubtotalEvent?.Invoke(this, EventArgs.Empty);
             };
         }
 
@@ -148,17 +155,13 @@ namespace VocesDePapelV1._1.Views
         }
         public string Id_producto
         {
-            get => throw new NotImplementedException(); set => throw new NotImplementedException();
+            get { return idProducto; }
+            set { idProducto = value; }
         }
-        public string Cantidad
-        {
-            get { return NUDCantidadProducto.Text; }
-            set { NUDCantidadProducto.Text = value; }
-        }
+       
         public string Precio_unitario
         {
             get { return lb_producto_precio.Text; }
-            set { lb_producto_precio.Text = value; }
         }
         public string Subtotal
         {
@@ -173,7 +176,6 @@ namespace VocesDePapelV1._1.Views
         public string Producto_stock
         {
             get { return lb_producto_stock.Text; }
-            set { lb_producto_stock.Text = value; }
         }
         public string SearchValue
         {
@@ -192,6 +194,7 @@ namespace VocesDePapelV1._1.Views
         public event EventHandler DeleteAllEvent;
         public event EventHandler CancelEvent;
         public event EventHandler CancelAllEvent;
+        public event EventHandler CalculateSubtotalEvent;
 
         //singleton patron (abre una sola instancia del formulario) 
         private static VentaView2 instance;
