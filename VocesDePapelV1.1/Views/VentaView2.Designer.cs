@@ -58,7 +58,7 @@
             l_cliente_email = new Label();
             PProducto = new Panel();
             lb_producto_subtotal = new Label();
-            lb_producto_dtock = new Label();
+            lb_producto_stock = new Label();
             lb_producto_precio = new Label();
             lb_producto_titulo = new Label();
             LSubtotal = new Label();
@@ -202,20 +202,19 @@
             // 
             // lb_vendedor_nombre_apellido
             // 
-            lb_vendedor_nombre_apellido.AutoSize = true;
+            lb_vendedor_nombre_apellido.BorderStyle = BorderStyle.Fixed3D;
             lb_vendedor_nombre_apellido.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lb_vendedor_nombre_apellido.Location = new Point(25, 101);
+            lb_vendedor_nombre_apellido.Location = new Point(25, 104);
             lb_vendedor_nombre_apellido.Name = "lb_vendedor_nombre_apellido";
-            lb_vendedor_nombre_apellido.Size = new Size(277, 28);
+            lb_vendedor_nombre_apellido.Size = new Size(277, 39);
             lb_vendedor_nombre_apellido.TabIndex = 37;
-            lb_vendedor_nombre_apellido.Text = "lb_vendedor_nombre_apellido";
             // 
             // TBCuitVendedor
             // 
             TBCuitVendedor.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             TBCuitVendedor.Location = new Point(85, 27);
             TBCuitVendedor.Name = "TBCuitVendedor";
-            TBCuitVendedor.Size = new Size(179, 34);
+            TBCuitVendedor.Size = new Size(217, 34);
             TBCuitVendedor.TabIndex = 8;
             // 
             // LNombeYApellidoV
@@ -270,31 +269,30 @@
             // 
             // lb_cliente_tel
             // 
+            lb_cliente_tel.BorderStyle = BorderStyle.Fixed3D;
             lb_cliente_tel.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lb_cliente_tel.Location = new Point(104, 132);
+            lb_cliente_tel.Location = new Point(104, 133);
             lb_cliente_tel.Name = "lb_cliente_tel";
-            lb_cliente_tel.Size = new Size(198, 23);
+            lb_cliente_tel.Size = new Size(198, 29);
             lb_cliente_tel.TabIndex = 36;
-            lb_cliente_tel.Text = "lb_cliente_tel";
             // 
             // lb_cliente_email
             // 
+            lb_cliente_email.BorderStyle = BorderStyle.Fixed3D;
             lb_cliente_email.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lb_cliente_email.Location = new Point(104, 105);
+            lb_cliente_email.Location = new Point(104, 101);
             lb_cliente_email.Name = "lb_cliente_email";
-            lb_cliente_email.Size = new Size(198, 29);
+            lb_cliente_email.Size = new Size(198, 32);
             lb_cliente_email.TabIndex = 36;
-            lb_cliente_email.Text = "lb_cliente_email";
             // 
             // lb_cliente_nombre_razon
             // 
-            lb_cliente_nombre_razon.AutoSize = true;
+            lb_cliente_nombre_razon.BorderStyle = BorderStyle.Fixed3D;
             lb_cliente_nombre_razon.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lb_cliente_nombre_razon.Location = new Point(216, 20);
+            lb_cliente_nombre_razon.Location = new Point(220, 18);
             lb_cliente_nombre_razon.Name = "lb_cliente_nombre_razon";
-            lb_cliente_nombre_razon.Size = new Size(228, 28);
+            lb_cliente_nombre_razon.Size = new Size(231, 35);
             lb_cliente_nombre_razon.TabIndex = 35;
-            lb_cliente_nombre_razon.Text = "lb_cliente_nombre_razon";
             // 
             // BLimpiarCliente
             // 
@@ -386,7 +384,7 @@
             // 
             PProducto.BackColor = SystemColors.GradientInactiveCaption;
             PProducto.Controls.Add(lb_producto_subtotal);
-            PProducto.Controls.Add(lb_producto_dtock);
+            PProducto.Controls.Add(lb_producto_stock);
             PProducto.Controls.Add(lb_producto_precio);
             PProducto.Controls.Add(lb_producto_titulo);
             PProducto.Controls.Add(LSubtotal);
@@ -415,15 +413,15 @@
             lb_producto_subtotal.TabIndex = 39;
             lb_producto_subtotal.Text = "subtotal";
             // 
-            // lb_producto_dtock
+            // lb_producto_stock
             // 
-            lb_producto_dtock.AutoSize = true;
-            lb_producto_dtock.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
-            lb_producto_dtock.Location = new Point(514, 72);
-            lb_producto_dtock.Name = "lb_producto_dtock";
-            lb_producto_dtock.Size = new Size(58, 28);
-            lb_producto_dtock.TabIndex = 38;
-            lb_producto_dtock.Text = "stock";
+            lb_producto_stock.AutoSize = true;
+            lb_producto_stock.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            lb_producto_stock.Location = new Point(514, 72);
+            lb_producto_stock.Name = "lb_producto_stock";
+            lb_producto_stock.Size = new Size(58, 28);
+            lb_producto_stock.TabIndex = 38;
+            lb_producto_stock.Text = "stock";
             // 
             // lb_producto_precio
             // 
@@ -647,7 +645,7 @@
         private Label lb_vendedor_nombre_apellido;
         private Label lb_producto_precio;
         private Label lb_producto_titulo;
-        private Label lb_producto_dtock;
+        private Label lb_producto_stock;
         private Label lb_producto_subtotal;
         private Label lb_venta_total;
     }

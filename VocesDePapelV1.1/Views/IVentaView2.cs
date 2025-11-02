@@ -4,40 +4,44 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using VocesDePapelV1._1.Models;
 
 namespace VocesDePapelV1._1.Views
 {
     public interface IVentaView2
     {
         //propiedades de la tabla cabecera venta
-        string id_venta_cabecera { get; set; }
-        string fecha_hora_venta { get; set; }
-        string total_venta { get; set; }
-        string id_cliente { get; set; }
-        string id_usuario { get; set; }
-        string id_estado { get; set; }
-        string cliente_nombre { get; set; }
-        string cliente_cuit { get; set; }
-        string cliente_email { get; set; }
-        string cliente_telefono { get; set; }
-        string vendedor_nombre { get; set; }
-        string vendedor_cuit { get; set; }
-        string estado_nombre { get; set; }
-        string message { get; set; }
-        bool isSuccessful { get; set; }
+        string Id_venta_cabecera { get; set; }
+        string Fecha_hora_venta { get; set; }
+        string Total_venta { get; set; }
+        string Id_cliente { get; set; }
+        string Id_usuario { get; set; }
+        string Id_estado { get; set; }
+        string Cliente_nombre { get; set; }
+        string Cliente_cuit { get; set; }
+        string Cliente_email { get; set; }
+        string Cliente_telefono { get; set; }
+        string Vendedor_nombre { get; set; }
+        string Vendedor_cuit { get; set; }
+        string Estado_nombre { get; set; }
+        string Message { get; set; }
+        bool IsSuccessful { get; set; }
 
 
         //propiedades de la tabla detalle venta
-        string id_venta_detalle { get; set; }
-        string id_producto { get; set; }
-        string cantidad { get; set; }
-        string precio_unitario { get; set; }
-        string subtotal { get; set; }
+        string Id_venta_detalle { get; set; }
+        string Id_producto { get; set; }
+        string Cantidad { get; set; }
+        string Precio_unitario { get; set; }
+        string Subtotal { get; set; }
 
         //propiedades de la tabla producto
-        string producto_nombre { get; set; }
-        string producto_stock { get; set; }
-        string searchValue { get; set; }
+        string Producto_nombre { get; set; }
+        string Producto_stock { get; set; }
+        string SearchValue { get; set; }
+        VentaCabeceraModel2 VentaCabecera { get; set; }
+        VentaDetalleModel2 VentaDetalleActual { get; set; }
+        ProductoModel ProductoActual { get; set; }
 
 
         //eventos

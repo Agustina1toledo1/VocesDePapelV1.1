@@ -21,8 +21,8 @@ namespace VocesDePapelV1._1.Models
         [DisplayName("ID Detalle Venta")]
         public int Id_venta_detalle
         {
-            get { return id_libro; }
-            set { id_libro = value; }
+            get { return id_venta_detalle; }
+            set { id_venta_detalle = value; }
         }
 
         [DisplayName("Cantidad")]
