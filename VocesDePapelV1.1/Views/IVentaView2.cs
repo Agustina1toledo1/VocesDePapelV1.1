@@ -54,7 +54,6 @@ namespace VocesDePapelV1._1.Views
         event EventHandler SaveEvent;
         event EventHandler EditEvent;
         event EventHandler DeleteEvent; //Eliminar un detalle de la venta
-        event EventHandler DeleteAllEvent; //eliminar todos los detalles de la venta
         event EventHandler CancelAllEvent; //limpiar todos los campos de la venta
         event EventHandler CalculateSubtotalEvent; //calcula el subtotal del producto segun la cantidad
 

@@ -51,7 +51,6 @@ namespace VocesDePapelV1._1.Presenters
             this.view.AddNewDetalleEvent += AddNewDetalle;
             this.view.AddNewEvent += AddNewVenta;
             this.view.SaveEvent += SaveVenta;
-            this.view.DeleteAllEvent += DeleteAllDetalles;
             this.view.DeleteEvent += DeleteDetalle;
             this.view.CancelAllEvent += CancelAll;
             this.view.CalculateSubtotalEvent += CalcularSubtotal;
@@ -63,10 +62,6 @@ namespace VocesDePapelV1._1.Presenters
 
         }
 
-        private void ProductoSearchCanceled(object? sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
 
         private void CancelAll(object? sender, EventArgs e)
         {
@@ -100,10 +95,7 @@ namespace VocesDePapelV1._1.Presenters
             }
         }
 
-        private void DeleteAllDetalles(object? sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
+       
 
         private void SaveVenta(object? sender, EventArgs e)
         {
@@ -147,8 +139,14 @@ namespace VocesDePapelV1._1.Presenters
                         detalle.Id_venta_cabecera = ventaCabecera.Id_venta_cabecera; //asignar el id de la cabecera recien creada
                         new Common.ModelDataValidation().Validate(detalle);
                         detalleRepository.Add(detalle);
+
+                        productoRepository.ActualizarStock(detalle.Id_libro, -(detalle.Cantidad));
                     }
-                    MessageBox.Show("Venta Detalle correcta.");
+                    int nroVenta = ventaCabecera.Id_venta_cabecera;
+                    MessageBox.Show($"Venta NRO: {nroVenta}\n¡Guardada con éxito!", "Confirmación", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    CleanviewFieldsVenta();
+
                 }
             }
             catch (Exception ex)
@@ -358,11 +356,40 @@ namespace VocesDePapelV1._1.Presenters
             this.view.Id_cliente = "0"; //se guarda internamente
             this.view.Cliente_email = "";
             this.view.Cliente_telefono = "";
+            this.view.Cliente_cuit = "";
         }
         private void CleanviewFieldsVendedor()
         {
             this.view.Vendedor_nombre = "";
             this.view.Id_usuario = "0"; 
+        }
+
+        private void CleanviewFieldsProducto()
+        {
+            this.view.Id_producto = "0";
+            this.view.Producto_nombre = "";
+            this.view.Producto_stock = "0";
+            this.view.Precio_unitario = "0.00";
+            this.view.Subtotal = "0.00";
+            this.view.SearchValue = "";
+
+
+        }
+        private void cleanViewFieldsDetalles()
+        {
+            ventaDetalles = new List<VentaDetalleModel2>(); // vaciar la lista
+            bindingSourceDetalle.DataSource = null;
+            bindingSourceDetalle.DataSource = ventaDetalles;
+            view.SetVentaDetalleListBindingSource(bindingSourceDetalle);
+
+            // limpiar el total
+            view.Total_venta = "0.00";
+        }
+        private void CleanviewFieldsVenta()
+        {
+            CleanviewFieldsCliente();
+            CleanviewFieldsProducto();
+            cleanViewFieldsDetalles();
         }
     }
 }

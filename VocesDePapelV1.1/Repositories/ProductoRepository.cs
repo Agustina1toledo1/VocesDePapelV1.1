@@ -17,24 +17,6 @@ namespace VocesDePapelV1._1.Repositories
             using (var command = connection.CreateCommand())
             {
                 connection.Open();
-                // Verifico existencia del producto por su título
-                /*
-                command.CommandText = @"
-                                    SELECT COUNT(1)
-                                        FROM libro
-                                        WHERE titulo = @titulo ;
-                                        ";
-                command.Parameters.Add("@titulo", SqlDbType.NVarChar).Value = producto.Titulo;
-
-                int existe = (int)command.ExecuteScalar();
-                if (existe > 0)
-                {
-                    // Retiro los parámetros previos y lanzo excepción
-                    //command.Parameters.Clear();
-                    throw new InvalidOperationException("El producto ingresado ya está registrado.");
-                }
-                    // Inserto el nuevo producto
-                    command.Parameters.Clear();*/
                 command.CommandText = @"INSERT 
                                             INTO libro 
                                                 (titulo, 
@@ -440,8 +422,8 @@ namespace VocesDePapelV1._1.Repositories
         }
         public void ActualizarStock(int idProducto, int cantidad)
         {
-            using (var connection = new SqlConnection(connectionString))
-            using (var command = new SqlCommand())
+            using (var connection = new Microsoft.Data.SqlClient.SqlConnection(connectionString))
+            using (var command = new Microsoft.Data.SqlClient.SqlCommand())
             {
                 connection.Open();
                 command.Connection = connection;
