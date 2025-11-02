@@ -17,6 +17,21 @@ namespace VocesDePapelV1._1.Views
         public ProductoSearchView2()
         {
             InitializeComponent();
+            this.AutoScroll = true;
+            AssociateAndRaiseViewEvents();
+        }
+
+        private void AssociateAndRaiseViewEvents()
+        {
+            btn_seleccionar_productoSearch.Click += delegate
+            {
+                if (dtg_productoSearch.CurrentRow == null)
+                {
+                    MessageBox.Show("Debe seleccionar un producto de la lista.");
+                    return;
+                }
+                SelectEvent?.Invoke(this, EventArgs.Empty);
+            };
         }
 
         public string Message {

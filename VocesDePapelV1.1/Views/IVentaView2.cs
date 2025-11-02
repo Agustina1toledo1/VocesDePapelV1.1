@@ -31,13 +31,13 @@ namespace VocesDePapelV1._1.Views
         //propiedades de la tabla detalle venta
         string Id_venta_detalle { get; set; }
         string Id_producto { get; set; }
-        string Cantidad { get; set; }
-        string Precio_unitario { get; set; }
+        string Cantidad { get;}
+        string Precio_unitario { get; }
         string Subtotal { get; set; }
 
         //propiedades de la tabla producto
         string Producto_nombre { get; set; }
-        string Producto_stock { get; set; }
+        string Producto_stock { get; }
         string SearchValue { get; set; }
         VentaCabeceraModel2 VentaCabecera { get; set; }
         VentaDetalleModel2 VentaDetalleActual { get; set; }
@@ -56,6 +56,7 @@ namespace VocesDePapelV1._1.Views
         event EventHandler DeleteEvent; //Eliminar un detalle de la venta
         event EventHandler DeleteAllEvent; //eliminar todos los detalles de la venta
         event EventHandler CancelAllEvent; //limpiar todos los campos de la venta
+        event EventHandler CalculateSubtotalEvent; //calcula el subtotal del producto segun la cantidad
 
 
         //metodos

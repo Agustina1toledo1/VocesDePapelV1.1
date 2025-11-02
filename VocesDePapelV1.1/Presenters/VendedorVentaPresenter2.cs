@@ -12,7 +12,7 @@ namespace VocesDePapelV1._1.Presenters
     public class VendedorVentaPresenter2
     {
         private IVentaView2 view;
-        private IProductoSearchView2 productoSearchView;
+        //private IProductoSearchView2 productoSearchView;
         private IVentaCabeceraRepository2 cabeceraRepository;
         private IVentaDetalleRepository2 detalleRepository;
         private IClienteRepository clienteRepository;
@@ -25,14 +25,14 @@ namespace VocesDePapelV1._1.Presenters
         private IEnumerable<VentaDetalleModel2> ventaDetalles;
         private IEnumerable<ProductoModel> productos;
 
-        public VendedorVentaPresenter2(IVentaView2 view, IProductoSearchView2 productoSearchView,
+        public VendedorVentaPresenter2(IVentaView2 view, 
             IVentaCabeceraRepository2 cabeceraRepository,
             IVentaDetalleRepository2 detalleRepository, IClienteRepository clienteRepository,
             IProductoRepository productoRepository,
-            IUsuarioRepository usuarioRepository)
+            IUsuarioRepository usuarioRepository)//IProductoSearchView2 productoSearchView,
         {
             this.view = view;
-            this.productoSearchView = productoSearchView;
+            //this.productoSearchView = productoSearchView;
             this.cabeceraRepository = cabeceraRepository;
             this.detalleRepository = detalleRepository;
             this.clienteRepository = clienteRepository;
@@ -53,10 +53,11 @@ namespace VocesDePapelV1._1.Presenters
             this.view.DeleteAllEvent += DeleteAllDetalles;
             this.view.DeleteEvent += DeleteDetalle;
             this.view.CancelAllEvent += CancelAll;
+            this.view.CalculateSubtotalEvent += CalcularSubtotal;
 
             //suscribir eventos de la vista productoSearchView
-            this.productoSearchView.SelectEvent += ProductoSelected;
-            this.productoSearchView.CancelEvent += ProductoSearchCanceled;
+            // this.productoSearchView.SelectEvent += ProductoSelected;
+            //this.productoSearchView.CancelEvent += ProductoSearchCanceled;
 
             this.view.Show();
 
@@ -68,10 +69,23 @@ namespace VocesDePapelV1._1.Presenters
             throw new NotImplementedException();
         }
 
-        private void ProductoSelected(object? sender, EventArgs e)
+        /*private void ProductoSelected(object? sender, EventArgs e)
         {
-            throw new NotImplementedException();
-        }
+            if (productoSearchView is Form form && form.Controls["dtg_productoSearch"] is DataGridView dgv && dgv.CurrentRow != null)
+            {
+                var producto = dgv.CurrentRow.DataBoundItem as ProductoModel;
+                if (producto != null)
+                {
+                    view.Id_producto = producto.Id_libro.ToString();
+                    view.Producto_nombre = producto.Titulo;
+                    view.Producto_stock = producto.Stock.ToString();
+                    view.Precio_unitario = producto.Precio.ToString();
+                    view.Subtotal = (producto.Precio * Convert.ToInt32(view.Cantidad)).ToString();
+                    view.Message = "Producto seleccionado.";
+                    view.IsSuccessful = true;
+                }
+            }
+        }*/
 
         private void CancelAll(object? sender, EventArgs e)
         {
@@ -112,14 +126,44 @@ namespace VocesDePapelV1._1.Presenters
             if (emptyValue == false) //si no es vacio
             {
                 productos = productoRepository.GetByValueTitulo(searchValue); //obtenemos los productos que coinciden con el valor de busqueda
-                bindingSourceProducto.DataSource = productos;
-                productoSearchView.SetProductoListBindingSource(bindingSourceProducto);
-                productoSearchView.Show();
-                this.view.Message = "Libros encontrados.";
+                if (productos == null || productos.Count() == 0)
+                {
+                    
+                    MessageBox.Show("No se encontraron libros que coincidan con la búsqueda.");
+                    return;
+                }
+                else
+                {
+                    bindingSourceProducto.DataSource = productos.Where(c => c.Eliminado_id == 0).ToList();
+                    buscador.SetProductoListBindingSource(bindingSourceProducto); //libros activos 
+                    buscador.Show();
+                }
+
+                // Manejo de selección
+                buscador.SelectEvent += (s, e) =>
+                {
+                    if (buscador.Controls["dtg_productoSearch"] is DataGridView dgv && dgv.CurrentRow != null)
+                    {
+                        var producto = dgv.CurrentRow.DataBoundItem as ProductoModel;
+                        if (producto != null)
+                        {
+                            view.Id_producto = producto.Id_libro.ToString();
+                            view.Producto_nombre = producto.Titulo;
+                            view.Producto_stock = producto.Stock.ToString();
+                            view.Precio_unitario = producto.Precio.ToString();
+                            view.Subtotal = (producto.Precio * Convert.ToInt32(view.Cantidad)).ToString();
+
+                            view.IsSuccessful = true;
+                        }
+                    }
+                    buscador.Close();
+                };
+
             }
             else
             {
-                this.view.Message = "El campo de búsqueda no puede estar vacío.";
+                MessageBox.Show("El campo de búsqueda no puede estar vacío.");
+                
             }
 
         }
@@ -179,6 +223,29 @@ namespace VocesDePapelV1._1.Presenters
             {
                 this.view.Message = "El CUIT/CUIL no puede estar vacío.";
                 CleanviewFieldsCliente();
+            }
+        }
+        private void CalcularSubtotal(object? sender, EventArgs e)
+        {
+            int cantidad = Convert.ToInt32(this.view.Cantidad);
+
+            if (cantidad > int.Parse(view.Producto_stock))
+            {
+                view.Message = "La cantidad supera el stock disponible.";
+                view.Subtotal = "0.00";
+                return;
+            }
+            // Intentar convertir el texto del precio unitario
+            try
+            {
+                decimal precioProducto = Convert.ToDecimal(this.view.Precio_unitario);
+                decimal subtotal = cantidad * precioProducto;
+                this.view.Subtotal = subtotal.ToString("0.00");
+
+            }
+            catch
+            {
+                MessageBox.Show("Precio unitario inválido. No se puede calcular el subtotal.");
             }
         }
 

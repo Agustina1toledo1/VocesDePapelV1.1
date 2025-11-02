@@ -90,8 +90,8 @@ namespace VocesDePapelV1._1.Presenters
             IVentaDetalleRepository2 ventaDetalleRepository = new VentaDetalleRepository2(this.connectionString);
             IUsuarioRepository usuarioRepository = new UsuarioRepository(this.connectionString);
             IProductoRepository productoRepository = new ProductoRepository(this.connectionString);
-            new VendedorVentaPresenter2(ventaView, productoSearchView,ventaCabeceraRepository,
-                ventaDetalleRepository, clienteRepository, productoRepository, usuarioRepository);
+            new VendedorVentaPresenter2(ventaView, ventaCabeceraRepository,
+                ventaDetalleRepository, clienteRepository, productoRepository, usuarioRepository);//productoSearchView,
 
             /*try
             {

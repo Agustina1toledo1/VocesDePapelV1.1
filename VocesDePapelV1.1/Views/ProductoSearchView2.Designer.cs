@@ -43,6 +43,7 @@
             dtg_productoSearch.Name = "dtg_productoSearch";
             dtg_productoSearch.ReadOnly = true;
             dtg_productoSearch.RowHeadersWidth = 51;
+            dtg_productoSearch.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dtg_productoSearch.Size = new Size(799, 436);
             dtg_productoSearch.TabIndex = 1;
             // 
