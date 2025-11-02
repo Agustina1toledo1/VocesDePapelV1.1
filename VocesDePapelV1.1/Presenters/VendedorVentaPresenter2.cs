@@ -1,11 +1,12 @@
-﻿using System;
+﻿using iTextSharp.text;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using VocesDePapelV1._1.Views;
 using VocesDePapelV1._1.Models;
 using VocesDePapelV1._1.Repositories;
+using VocesDePapelV1._1.Views;
 
 namespace VocesDePapelV1._1.Presenters
 {
@@ -106,7 +107,47 @@ namespace VocesDePapelV1._1.Presenters
 
         private void SaveVenta(object? sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var ventaCabecera = new VentaCabeceraModel2
+                
+                {
+                    Id_cliente = Convert.ToInt32(view.Id_cliente),
+                    Id_usuario = Convert.ToInt32(view.Id_usuario),
+                    // Fecha_venta = DateTime.Now,
+                    Total_venta = Convert.ToDecimal(view.Total_venta)
+                }; 
+                new Common.ModelDataValidation().Validate(ventaCabecera);
+                MessageBox.Show("Venta Cabecera correcta.");
+
+                var ventaDetalleList = this.ventaDetalles?.ToList();
+                //si la lista de detalles es nula o no tiene elementos
+                if (ventaDetalleList == null || ventaDetalleList.Count == 0)
+                {
+                    MessageBox.Show("No hay productos en el detalle.");
+                    view.IsSuccessful = false;
+                    return;
+                }
+                else
+                {
+                    cabeceraRepository.Add(ventaCabecera);
+                    foreach (var detalle in ventaDetalleList)
+                    {
+                        detalle.Id_venta_cabecera = ventaCabecera.Id_venta_cabecera; //asignar el id de la cabecera recien creada
+                        new Common.ModelDataValidation().Validate(detalle);
+                        detalleRepository.Add(detalle);
+                    }
+                    MessageBox.Show("Venta Detalle correcta.");
+                }
+                    
+                
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al guardar la venta: " + ex.Message);
+                view.IsSuccessful = false;
+                return;
+            }
         }
 
         private void AddNewVenta(object? sender, EventArgs e)
