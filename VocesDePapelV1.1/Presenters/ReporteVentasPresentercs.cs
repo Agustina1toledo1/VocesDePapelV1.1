@@ -18,15 +18,37 @@ namespace VocesDePapelV1._1.Presenters
         private IEnumerable<VentaReporteModel> ventasList;
         private bool busquedaRealizada = false;
 
+<<<<<<< HEAD
         public ReporteVentasPresenter(IGerenteViewReporteVentas view, IVentaReporteRepository repository,
                                   bool esModoVendedor = false, int? idVendedor = null)
         {            
+=======
+        public ReporteVentasPresenter(IGerenteViewReporteVentas view, IVentaReporteRepository repository, bool esModoVendedor = false,
+                                  int? idVendedor = null)
+        {
+            Console.WriteLine($"MODO VENDEDOR: {esModoVendedor}, ID: {idVendedor}");
+
+            this.view = view;
+            this.repository = repository;
+
+            // DEBUG TEMPORAL
+            view.Message = $"Modo: {(esModoVendedor ? "VENDEDOR" : "GERENTE")}, ID: {idVendedor}";
+
+>>>>>>> se agrega acceso a reporte de ventas para vendedor con  filtro restringido
             this.view = view;
             this.repository = repository;
             this.ventasBindingSource = new BindingSource();
             // Configurar modo de la vista
+<<<<<<< HEAD
             if (esModoVendedor && idVendedor.HasValue)
             {
+=======
+            view.EsModoVendedor = esModoVendedor;
+
+            if (esModoVendedor && idVendedor.HasValue)
+            {
+                view.IdVendedorAutomatico = idVendedor.Value;
+>>>>>>> se agrega acceso a reporte de ventas para vendedor con  filtro restringido
                 ConfigurarModoVendedor(idVendedor.Value);
             }
             else
@@ -49,11 +71,16 @@ namespace VocesDePapelV1._1.Presenters
         {
             try
             {
+<<<<<<< HEAD
                 // Obtener datos del vendedor 
+=======
+                // Obtener datos del vendedor (CORREGIDO el nombre del método)
+>>>>>>> se agrega acceso a reporte de ventas para vendedor con  filtro restringido
                 var vendedor = repository.GetVendedorPorId(idVendedor);
 
                 if (vendedor != null)
                 {
+<<<<<<< HEAD
                     // Configurar vista en modo vendedor
                     var vendedorUnico = new List<UsuarioModel> { vendedor };
                     view.ListaVendedores = vendedorUnico;
@@ -64,6 +91,16 @@ namespace VocesDePapelV1._1.Presenters
                     view.TextoBusqueda = $"{vendedor.Nombre} {vendedor.Apellido}";
                     view.ComboBusquedaHabilitado = false;
                     view.EtiquetaBusqueda = "Vendedor:";
+=======
+                    view.TxtVendedorAuto = $"{vendedor.Nombre} {vendedor.Apellido}";
+                    view.IdVendedorSeleccionado = idVendedor;
+
+                    // Bloquear selección de vendedor
+                    view.FiltroVendedorVisible = true;
+                    view.TipoReporte = "Por Vendedor";
+                    view.CmbTipoReporteEnabled = false; // Bloquear cambio de tipo reporte
+
+>>>>>>> se agrega acceso a reporte de ventas para vendedor con  filtro restringido
                     // Buscar automáticamente
                     SearchVentas(this, EventArgs.Empty);
                 }
@@ -79,6 +116,7 @@ namespace VocesDePapelV1._1.Presenters
         }
         private void ConfigurarModoGerente()
         {
+<<<<<<< HEAD
             try
             {
                 view.ComboVendedorHabilitado = true;// Habilitar selección de vendedor
@@ -91,6 +129,12 @@ namespace VocesDePapelV1._1.Presenters
             {
                 view.Message = $"Error al cargar vendedores: {ex.Message}";
             }
+=======
+            // Cargar lista de vendedores
+            var vendedores = repository.GetVendedoresActivos();
+            view.ListaVendedores = vendedores.ToList();
+            view.CmbTipoReporteEnabled = true; // Permitir cambiar tipo reporte
+>>>>>>> se agrega acceso a reporte de ventas para vendedor con  filtro restringido
         }
         private void ConfigurarFechasPorDefecto()
         {
@@ -167,6 +211,7 @@ namespace VocesDePapelV1._1.Presenters
                         ventasList = repository.GetVentasPorFecha(fechaInicio, fechaFin);
                         break;
                     case "Por Vendedor":
+<<<<<<< HEAD
                         if (!view.IdVendedorSeleccionado.HasValue)
                         {
                             view.Message = "Debe seleccionar un vendedor para este tipo de reporte.";
@@ -189,6 +234,20 @@ namespace VocesDePapelV1._1.Presenters
                         }
                         ventasList = repository.GetVentasPorCliente(view.ValorBusqueda, fechaInicio, fechaFin);
                         break;
+=======
+                        if (view.IdVendedorSeleccionado.HasValue)
+                        {
+                            ventasList = repository.GetVentasPorVendedor(
+                                view.IdVendedorSeleccionado.Value,
+                                fechaInicio,
+                                fechaFin);
+                        }
+                        break;
+                    case "Top 10 Ventas":
+                        ventasList = repository.GetTop10Ventas();
+                        break;
+
+>>>>>>> se agrega acceso a reporte de ventas para vendedor con  filtro restringido
                     default:
                         ventasList = repository.GetVentasPorFecha(fechaInicio, fechaFin);
                         break;

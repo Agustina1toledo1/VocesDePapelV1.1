@@ -12,11 +12,18 @@ namespace VocesDePapelV1._1.Repositories
     {
         IEnumerable<VentaReporteModel> GetVentasPorFecha(DateTime fechaInicio, DateTime fechaFin);
         IEnumerable<VentaReporteModel> GetVentasPorVendedor(int idVendedor, DateTime fechaInicio, DateTime fechaFin);
+<<<<<<< HEAD
         IEnumerable<VentaReporteModel> GetVentasPorCliente(string criterioCliente, DateTime fechaInicio, DateTime fechaFin);
         IEnumerable<VentaReporteModel> GetTop10Ventas();
         UsuarioModel GetVendedorPorId(int idVendedor);
         IEnumerable<UsuarioModel> GetVendedoresActivos();
         IEnumerable<ClienteModel> GetClientesActivos();
+=======
+        IEnumerable<VentaReporteModel> GetVentasPorCliente(string criterioCliente);
+        IEnumerable<VentaReporteModel> GetTop10Ventas();
+        UsuarioModel GetVendedorPorId(int idVendedor);
+        IEnumerable<UsuarioModel> GetVendedoresActivos();
+>>>>>>> se agrega acceso a reporte de ventas para vendedor con  filtro restringido
         decimal GetTotalVentasPeriodo(DateTime fechaInicio, DateTime fechaFin);
         int GetCantidadVentasPeriodo(DateTime fechaInicio, DateTime fechaFin);
         decimal GetTotalVentasPorVendedor(int idVendedor, DateTime fechaInicio, DateTime fechaFin);

@@ -28,13 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             dataGridViewDetalles = new DataGridView();
-            btn_buscar_usuario = new Button();
-            text_buscar_usuario = new TextBox();
+            btn_buscar_comprobante = new Button();
+            text_buscar_comprobante = new TextBox();
             l_lista_comprobantes = new Label();
-            btn_guardar_usuario = new Button();
+            btn_ver_detalle_comprobante = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridViewDetalles).BeginInit();
             SuspendLayout();
             // 
@@ -42,45 +42,45 @@
             // 
             dataGridViewDetalles.AllowUserToAddRows = false;
             dataGridViewDetalles.BackgroundColor = SystemColors.ActiveCaption;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = SystemColors.Control;
-            dataGridViewCellStyle1.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle1.Padding = new Padding(2);
-            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dataGridViewDetalles.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = SystemColors.Control;
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle3.Padding = new Padding(2);
+            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            dataGridViewDetalles.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             dataGridViewDetalles.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewDetalles.Location = new Point(113, 128);
             dataGridViewDetalles.MultiSelect = false;
             dataGridViewDetalles.Name = "dataGridViewDetalles";
             dataGridViewDetalles.ReadOnly = true;
             dataGridViewDetalles.RowHeadersWidth = 51;
-            dataGridViewCellStyle2.SelectionBackColor = Color.White;
-            dataGridViewCellStyle2.SelectionForeColor = Color.Black;
-            dataGridViewDetalles.RowsDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.SelectionBackColor = Color.White;
+            dataGridViewCellStyle4.SelectionForeColor = Color.Black;
+            dataGridViewDetalles.RowsDefaultCellStyle = dataGridViewCellStyle4;
             dataGridViewDetalles.Size = new Size(927, 571);
             dataGridViewDetalles.TabIndex = 57;
             // 
-            // btn_buscar_usuario
+            // btn_buscar_comprobante
             // 
-            btn_buscar_usuario.BackColor = SystemColors.GradientActiveCaption;
-            btn_buscar_usuario.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btn_buscar_usuario.Image = Properties.Resources.lupa;
-            btn_buscar_usuario.Location = new Point(970, 50);
-            btn_buscar_usuario.Name = "btn_buscar_usuario";
-            btn_buscar_usuario.Size = new Size(55, 43);
-            btn_buscar_usuario.TabIndex = 60;
-            btn_buscar_usuario.UseVisualStyleBackColor = false;
+            btn_buscar_comprobante.BackColor = SystemColors.GradientActiveCaption;
+            btn_buscar_comprobante.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btn_buscar_comprobante.Image = Properties.Resources.lupa;
+            btn_buscar_comprobante.Location = new Point(970, 50);
+            btn_buscar_comprobante.Name = "btn_buscar_comprobante";
+            btn_buscar_comprobante.Size = new Size(55, 43);
+            btn_buscar_comprobante.TabIndex = 60;
+            btn_buscar_comprobante.UseVisualStyleBackColor = false;
             // 
-            // text_buscar_usuario
+            // text_buscar_comprobante
             // 
-            text_buscar_usuario.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            text_buscar_usuario.Location = new Point(499, 57);
-            text_buscar_usuario.Name = "text_buscar_usuario";
-            text_buscar_usuario.Size = new Size(445, 31);
-            text_buscar_usuario.TabIndex = 59;
+            text_buscar_comprobante.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            text_buscar_comprobante.Location = new Point(499, 57);
+            text_buscar_comprobante.Name = "text_buscar_comprobante";
+            text_buscar_comprobante.Size = new Size(445, 31);
+            text_buscar_comprobante.TabIndex = 59;
             // 
             // l_lista_comprobantes
             // 
@@ -93,25 +93,25 @@
             l_lista_comprobantes.Text = "Lista de comprobantes";
             l_lista_comprobantes.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // btn_guardar_usuario
+            // btn_ver_detalle_comprobante
             // 
-            btn_guardar_usuario.BackColor = Color.LightGreen;
-            btn_guardar_usuario.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btn_guardar_usuario.Location = new Point(1060, 128);
-            btn_guardar_usuario.Name = "btn_guardar_usuario";
-            btn_guardar_usuario.Size = new Size(269, 43);
-            btn_guardar_usuario.TabIndex = 61;
-            btn_guardar_usuario.Text = "Ver detalle";
-            btn_guardar_usuario.UseVisualStyleBackColor = false;
+            btn_ver_detalle_comprobante.BackColor = Color.LightGreen;
+            btn_ver_detalle_comprobante.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btn_ver_detalle_comprobante.Location = new Point(1060, 128);
+            btn_ver_detalle_comprobante.Name = "btn_ver_detalle_comprobante";
+            btn_ver_detalle_comprobante.Size = new Size(269, 43);
+            btn_ver_detalle_comprobante.TabIndex = 61;
+            btn_ver_detalle_comprobante.Text = "Ver detalle";
+            btn_ver_detalle_comprobante.UseVisualStyleBackColor = false;
             // 
             // VendedorComprobanteView
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1365, 731);
-            Controls.Add(btn_guardar_usuario);
-            Controls.Add(btn_buscar_usuario);
-            Controls.Add(text_buscar_usuario);
+            Controls.Add(btn_ver_detalle_comprobante);
+            Controls.Add(btn_buscar_comprobante);
+            Controls.Add(text_buscar_comprobante);
             Controls.Add(l_lista_comprobantes);
             Controls.Add(dataGridViewDetalles);
             Name = "VendedorComprobanteView";
@@ -124,9 +124,9 @@
         #endregion
 
         private DataGridView dataGridViewDetalles;
-        private Button btn_buscar_usuario;
-        private TextBox text_buscar_usuario;
+        private Button btn_buscar_comprobante;
+        private TextBox text_buscar_comprobante;
         private Label l_lista_comprobantes;
-        private Button btn_guardar_usuario;
+        private Button btn_ver_detalle_comprobante;
     }
 }

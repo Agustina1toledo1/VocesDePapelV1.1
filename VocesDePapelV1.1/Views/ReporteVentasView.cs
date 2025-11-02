@@ -42,6 +42,7 @@ namespace VocesDePapelV1._1.Views
 
         }
         // Propiedades para saber el tipo de usuario
+<<<<<<< HEAD
        /* public bool EsModoVendedor
         {
             get { return !cmbVendedor.Visible && txtVendedorAuto.Visible; }
@@ -66,6 +67,21 @@ namespace VocesDePapelV1._1.Views
 
 
         // Propiedades  para filtros
+=======
+        public bool EsModoVendedor { get; set; }
+        public int IdVendedorAutomatico { get; set; }
+
+        // Propiedades  para filtros
+        public string TxtVendedorAuto
+        {
+            get => txtVendedorAuto?.Text ?? string.Empty;
+            set
+            {
+                if (txtVendedorAuto != null)
+                    txtVendedorAuto.Text = value;
+            }
+        }
+>>>>>>> se agrega acceso a reporte de ventas para vendedor con  filtro restringido
         public bool CmbTipoReporteEnabled
         {
             get => cmbTipoReporte.Enabled;
@@ -94,6 +110,22 @@ namespace VocesDePapelV1._1.Views
             get => cmbTipoReporte.SelectedItem?.ToString() ?? "Por Fecha";
             set => cmbTipoReporte.SelectedItem = value;
         }
+<<<<<<< HEAD
+=======
+
+        public string FiltroAdicional
+        {
+            get => txtFiltroAdicional.Text;
+            set => txtFiltroAdicional.Text = value;
+        }
+      
+        public int? IdVendedorSeleccionado
+        {
+            get => cmbVendedores.SelectedValue as int?;
+            set => cmbVendedores.SelectedValue = value;
+        }
+
+>>>>>>> se agrega acceso a reporte de ventas para vendedor con  filtro restringido
         public bool IncluirDetalles
         {
             get => chkIncluirDetalles.Checked;
@@ -260,13 +292,21 @@ namespace VocesDePapelV1._1.Views
             }
             return instance;
         }
+<<<<<<< HEAD
         /*public bool FiltroVendedorVisible
+=======
+        public bool FiltroVendedorVisible
+>>>>>>> se agrega acceso a reporte de ventas para vendedor con  filtro restringido
         {
             get
             {
                 // Verificar si los controles del filtro están visibles
                 return lblFiltroAdicional.Visible &&
+<<<<<<< HEAD
                        (cmbVendedor != null ? cmbVendedor.Visible );
+=======
+                       (cmbVendedores != null ? cmbVendedores.Visible : txtFiltroAdicional.Visible);
+>>>>>>> se agrega acceso a reporte de ventas para vendedor con  filtro restringido
             }
             set
             {
@@ -280,18 +320,30 @@ namespace VocesDePapelV1._1.Views
                     {
                         txtVendedorAuto.Visible = value;
                     }
+<<<<<<< HEAD
                     if (cmbVendedor != null)
                     {
                         cmbVendedor.Visible = false;
+=======
+                    if (cmbVendedores != null)
+                    {
+                        cmbVendedores.Visible = false;
+>>>>>>> se agrega acceso a reporte de ventas para vendedor con  filtro restringido
                     }
                     lblFiltroAdicional.Text = "Vendedor:";
                 }
                 else
                 {
                     // MODO GERENTE: Usar ComboBox para selección
+<<<<<<< HEAD
                     if (cmbVendedor != null)
                     {
                         cmbVendedor.Visible = value;
+=======
+                    if (cmbVendedores != null)
+                    {
+                        cmbVendedores.Visible = value;
+>>>>>>> se agrega acceso a reporte de ventas para vendedor con  filtro restringido
                     }
                     if (txtVendedorAuto != null)
                     {
@@ -306,6 +358,7 @@ namespace VocesDePapelV1._1.Views
                     txtFiltroAdicional.Visible = false;
                 }
             }
+<<<<<<< HEAD
         }*/
         
        
@@ -335,5 +388,28 @@ namespace VocesDePapelV1._1.Views
              }
 
          }*/
+=======
+        }
+
+        public List<UsuarioModel> ListaVendedores
+        {
+            get
+            {
+                if (cmbVendedores != null && cmbVendedores.DataSource != null)
+                    return cmbVendedores.DataSource as List<UsuarioModel>;
+                return new List<UsuarioModel>();
+            }
+            set
+            {
+                if (cmbVendedores != null)
+                {
+                    cmbVendedores.DataSource = value;
+                    cmbVendedores.DisplayMember = "NombreCompleto"; // Usar la propiedad que creamos
+                    cmbVendedores.ValueMember = "IdUsuario";
+                    cmbVendedores.SelectedIndex = -1; // Sin selección por defecto
+                }
+            }
+        }
+>>>>>>> se agrega acceso a reporte de ventas para vendedor con  filtro restringido
     }
 }

@@ -29,6 +29,7 @@ namespace VocesDePapelV1._1.Repositories
                 command.Connection = connection;
 
                 command.CommandText = @"
+<<<<<<< HEAD
                  SELECT
                     vc.id_venta_cabecera as IdVenta,
                     vc.fecha_hora as FechaVenta,
@@ -45,6 +46,23 @@ namespace VocesDePapelV1._1.Repositories
                 INNER JOIN estado e ON vc.id_estado = e.id_estado 
                 WHERE vc.fecha_hora BETWEEN @fechaInicio AND @fechaFin
                 ORDER BY vc.fecha_hora DESC";
+=======
+                    SELECT
+                        vc.id_venta_cabecera as IdVenta,
+                        vc.fecha_hora as FechaVenta,
+                        c.nombre_razon_social as NombreCliente,
+                        u.nombre + ' ' + u.apellido as NombreVendedor,
+                        vc.total_venta as TotalVenta,
+                        e.nombre_estado as EstadoVenta,
+                        (SELECT COUNT(*) FROM detalle_venta vd WHERE vd.id_venta_cabecera = vc.id_venta_cabecera) as CantidadProductos,
+                        'Efectivo' as FormaPago
+                    FROM venta_cabecera vc
+                    INNER JOIN cliente c ON vc.id_cliente = c.id_cliente
+                    INNER JOIN usuario u ON vc.id_usuario = u.id_usuario
+                    INNER JOIN estado e ON vc.id_estado = e.id_estado
+                    WHERE vc.fecha_hora BETWEEN @fechaInicio AND @fechaFin
+                    ORDER BY vc.fecha_hora DESC";
+>>>>>>> se agrega acceso a reporte de ventas para vendedor con  filtro restringido
 
                 command.Parameters.Add("@fechaInicio", SqlDbType.DateTime).Value = fechaInicio;
                 command.Parameters.Add("@fechaFin", SqlDbType.DateTime).Value = fechaFin;
@@ -62,6 +80,10 @@ namespace VocesDePapelV1._1.Repositories
                             TotalVenta = Convert.ToDecimal(reader["TotalVenta"]),
                             EstadoVenta = reader["EstadoVenta"].ToString(),
                             CantidadProductos = Convert.ToInt32(reader["CantidadProductos"]),
+<<<<<<< HEAD
+=======
+                          
+>>>>>>> se agrega acceso a reporte de ventas para vendedor con  filtro restringido
                         };
                         ventasList.Add(venta);
                     }
@@ -120,6 +142,7 @@ namespace VocesDePapelV1._1.Repositories
         {
             var ventasList = new List<VentaReporteModel>();
 
+<<<<<<< HEAD
             try
             {
                 using (var connection = new SqlConnection(connectionString))
@@ -181,6 +204,8 @@ namespace VocesDePapelV1._1.Repositories
         // Obtener total de ventas por vendedor en período
         public decimal GetTotalVentasPorVendedor(int idVendedor, DateTime fechaInicio, DateTime fechaFin)
         {
+=======
+>>>>>>> se agrega acceso a reporte de ventas para vendedor con  filtro restringido
             using (var connection = new SqlConnection(connectionString))
             using (var command = new SqlCommand())
             {
@@ -188,19 +213,59 @@ namespace VocesDePapelV1._1.Repositories
                 command.Connection = connection;
 
                 command.CommandText = @"
+<<<<<<< HEAD
             SELECT ISNULL(SUM(total_venta), 0) as Total
             FROM venta_cabecera 
             WHERE id_usuario = @idVendedor
             AND fecha_hora BETWEEN @fechaInicio AND @fechaFin
             AND id_estado = 0";
+=======
+            SELECT
+                vc.id_venta_cabecera as IdVenta,
+                vc.fecha_hora as FechaVenta,
+                c.nombre_razon_social as NombreCliente,
+                u.nombre + ' ' + u.apellido as NombreVendedor,
+                vc.total_venta as TotalVenta,
+                e.nombre_estado as EstadoVenta,
+                (SELECT COUNT(*) FROM detalle_venta vd WHERE vd.id_venta_cabecera = vc.id_venta_cabecera) as CantidadProductos                
+                FROM venta_cabecera vc
+                INNER JOIN cliente c ON vc.id_cliente = c.id_cliente
+                INNER JOIN usuario u ON vc.id_usuario = u.id_usuario
+                INNER JOIN estado e ON vc.id_estado = e.id_estado
+                WHERE vc.id_usuario = @idVendedor  -- ← FILTRO POR VENDEDOR
+                ORDER BY vc.fecha_hora DESC";
+>>>>>>> se agrega acceso a reporte de ventas para vendedor con  filtro restringido
 
                 command.Parameters.Add("@idVendedor", SqlDbType.Int).Value = idVendedor;
                 command.Parameters.Add("@fechaInicio", SqlDbType.DateTime).Value = fechaInicio;
                 command.Parameters.Add("@fechaFin", SqlDbType.DateTime).Value = fechaFin;
 
+<<<<<<< HEAD
                 var result = command.ExecuteScalar();
                 return result != null ? Convert.ToDecimal(result) : 0;
             }
+=======
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var venta = new VentaReporteModel
+                        {
+                            IdVenta = Convert.ToInt32(reader["IdVenta"]),
+                            FechaVenta = Convert.ToDateTime(reader["FechaVenta"]),
+                            NombreCliente = reader["NombreCliente"].ToString(),
+                            NombreVendedor = reader["NombreVendedor"].ToString(),
+                            TotalVenta = Convert.ToDecimal(reader["TotalVenta"]),
+                            EstadoVenta = reader["EstadoVenta"].ToString(),
+                            CantidadProductos = Convert.ToInt32(reader["CantidadProductos"]),
+                           
+                        };
+                        ventasList.Add(venta);
+                    }
+                }
+            }
+            return ventasList;
+>>>>>>> se agrega acceso a reporte de ventas para vendedor con  filtro restringido
         }
 
         // Obtener cantidad de ventas por vendedor en período
@@ -319,8 +384,46 @@ namespace VocesDePapelV1._1.Repositories
             }
             return null; // Si no encuentra el vendedor
         }
+<<<<<<< HEAD
 
         // Obtener todos los vendedores activos
+=======
+        public UsuarioModel GetVendedorPorId(int idVendedor)
+        {
+            using (var connection = new SqlConnection(connectionString))
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+
+                command.CommandText = @"
+                SELECT id_usuario, nombre, apellido, baja,
+                       nombre + ' ' + apellido as NombreCompleto
+                FROM usuario 
+                WHERE id_usuario = @idVendedor 
+                AND baja = 0"; // Solo usuarios activos
+
+                command.Parameters.Add("@idVendedor", SqlDbType.Int).Value = idVendedor;
+
+                using (var reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        return new UsuarioModel
+                        {
+                            Id_usuario = Convert.ToInt32(reader["id_usuario"]),
+                            Nombre = reader["nombre"].ToString(),
+                            Apellido = reader["apellido"].ToString(),
+                            Baja = Convert.ToInt32(reader["baja"])
+                        };
+                    }
+                }
+            }
+            return null; // Si no encuentra el vendedor
+        }
+
+        // IMPLEMENTAR GetVendedoresActivos
+>>>>>>> se agrega acceso a reporte de ventas para vendedor con  filtro restringido
         public IEnumerable<UsuarioModel> GetVendedoresActivos()
         {
             var vendedores = new List<UsuarioModel>();
@@ -332,10 +435,17 @@ namespace VocesDePapelV1._1.Repositories
                 command.Connection = connection;
 
                 command.CommandText = @"
+<<<<<<< HEAD
                 SELECT u.id_usuario, u.nombre, u.apellido, u.cuit, u.baja, r.nombre_rol
                 FROM usuario u
                 INNER JOIN rol r ON u.id_rol = r.id_rol
                 WHERE u.baja = 0  -- ← Solo usuarios activos
+=======
+                SELECT u.id_usuario, u.nombre, u.apellido, u.baja, e.nombre_estado
+                FROM usuario u
+                INNER JOIN estado e ON u.baja = e.id_estado
+                WHERE u.baja = 0  -- ← usuarios activos (id_estado = 0 = activo)
+>>>>>>> se agrega acceso a reporte de ventas para vendedor con  filtro restringido
                 ORDER BY u.nombre, u.apellido";
 
                 using (var reader = command.ExecuteReader())
@@ -347,15 +457,21 @@ namespace VocesDePapelV1._1.Repositories
                             Id_usuario = Convert.ToInt32(reader["id_usuario"]),
                             Nombre = reader["nombre"].ToString(),
                             Apellido = reader["apellido"].ToString(),
+<<<<<<< HEAD
                             Cuit_usuario = reader["cuit"].ToString(),
                             Baja = Convert.ToInt32(reader["baja"]),
                             Nombre_rol = reader["nombre_rol"]?.ToString() ?? ""
+=======
+                            Baja = Convert.ToInt32(reader["baja"]),
+                            Nombre_estado = reader["nombre_estado"].ToString()
+>>>>>>> se agrega acceso a reporte de ventas para vendedor con  filtro restringido
                         });
                     }
                 }
             }
             return vendedores;
         }
+<<<<<<< HEAD
         public IEnumerable<ClienteModel> GetClientesActivos()
         {
             var clientes = new List<ClienteModel>();
@@ -391,5 +507,8 @@ namespace VocesDePapelV1._1.Repositories
 
        
 
+=======
+    
+>>>>>>> se agrega acceso a reporte de ventas para vendedor con  filtro restringido
     }
 }

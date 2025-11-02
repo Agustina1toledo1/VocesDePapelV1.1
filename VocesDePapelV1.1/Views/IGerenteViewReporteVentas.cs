@@ -13,6 +13,7 @@ namespace VocesDePapelV1._1.Views
         string FechaInicio { get; set; }
         string FechaFin { get; set; }
         string TipoReporte { get; set; }
+<<<<<<< HEAD
         bool IncluirDetalles { get; set; }
         List<UsuarioModel> ListaVendedores { set; }
         List<ClienteModel> ListaClientes { set; }
@@ -33,6 +34,20 @@ namespace VocesDePapelV1._1.Views
        // string TxtVendedorAuto { set; }
         bool CmbTipoReporteEnabled { get; set; }
        // Resultados
+=======
+        string FiltroAdicional { get; set; }
+        bool FiltroVendedorVisible { get; set; }
+        bool IncluirDetalles { get; set; }
+        bool EsModoVendedor { get; set; }
+        int? IdVendedorSeleccionado { get; set; }
+
+        int IdVendedorAutomatico { get; set; }
+        string TxtVendedorAuto { get; set; }
+        bool CmbTipoReporteEnabled { get; set; }
+        List<UsuarioModel> ListaVendedores { get; set; }
+
+        // Resultados
+>>>>>>> se agrega acceso a reporte de ventas para vendedor con  filtro restringido
         string TotalVentasPeriodo { get; set; }
         string CantidadVentasPeriodo { get; set; }
         string PromedioVenta {  get; set; }
@@ -48,9 +63,15 @@ namespace VocesDePapelV1._1.Views
 
         // Eventos
         event EventHandler SearchEvent;
+<<<<<<< HEAD
         event EventHandler GenerateReportEvent;       
         event EventHandler LimpiarFiltrosEvent;
         event EventHandler TipoReporteChangedEvent;
+=======
+        event EventHandler GenerateReportEvent;
+        event EventHandler ExportExcelEvent;
+        event EventHandler LimpiarFiltrosEvent;
+>>>>>>> se agrega acceso a reporte de ventas para vendedor con  filtro restringido
 
         // Métodos
         void SetVentasListBindingSource(BindingSource ventasList);

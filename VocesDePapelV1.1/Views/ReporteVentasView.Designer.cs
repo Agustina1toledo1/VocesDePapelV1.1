@@ -59,6 +59,8 @@
             panelResultados.SuspendLayout();
             grpEstadisticas.SuspendLayout();
             panelGrid.SuspendLayout();
+            grpFiltros.Controls.Add(cmbVendedores);
+            grpFiltros.Controls.Add(txtVendedorAuto);
             ((System.ComponentModel.ISupportInitialize)dgvVentas).BeginInit();
             SuspendLayout();
             // 
@@ -111,6 +113,42 @@
             chkIncluirDetalles.Text = "Incluir Detalles";
             chkIncluirDetalles.UseVisualStyleBackColor = true;
             // 
+<<<<<<< HEAD
+=======
+            // lblFiltroAdicional
+            // 
+            lblFiltroAdicional.AutoSize = true;
+            lblFiltroAdicional.Font = new Font("Segoe UI", 9F);
+            lblFiltroAdicional.Location = new Point(600, 40);
+            lblFiltroAdicional.Name = "lblFiltroAdicional";
+            lblFiltroAdicional.Size = new Size(95, 20);
+            lblFiltroAdicional.TabIndex = 7;
+            lblFiltroAdicional.Text = "ID Vendedor:";
+            // 
+            // txtFiltroAdicional
+            // 
+            txtFiltroAdicional.Font = new Font("Segoe UI", 9F);
+            txtFiltroAdicional.Location = new Point(600, 65);
+            txtFiltroAdicional.Name = "txtFiltroAdicional";
+            txtFiltroAdicional.Size = new Size(200, 27);
+            txtFiltroAdicional.TabIndex = 6;
+            // 
+            // ComboBox para Gerente
+            cmbVendedores = new ComboBox();
+            cmbVendedores.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbVendedores.Location = new Point(600, 65);
+            cmbVendedores.Size = new Size(200, 28);
+            cmbVendedores.Visible = false;
+
+            // TextBox para Vendedor (solo lectura)
+            txtVendedorAuto = new TextBox();
+            txtVendedorAuto.ReadOnly = true;
+            txtVendedorAuto.BackColor = Color.LightGray;
+            txtVendedorAuto.Location = new Point(600, 65);
+            txtVendedorAuto.Size = new Size(200, 27);
+            txtVendedorAuto.Visible = false;
+            //
+>>>>>>> se agrega acceso a reporte de ventas para vendedor con  filtro restringido
             // lblTipoReporte
             // 
             lblTipoReporte.AutoSize = true;
@@ -401,10 +439,17 @@
         private Panel panelFiltros;
         private GroupBox grpFiltros;
         private CheckBox chkIncluirDetalles;
+<<<<<<< HEAD
         private ComboBox cmbVendedor;
         private Label lblBusqueda;
         // private Label lblVendedor;
         //private TextBox txtVendedorAuto;
+=======
+        private Label lblFiltroAdicional;
+        private TextBox txtFiltroAdicional;
+        private ComboBox cmbVendedores;
+        private TextBox txtVendedorAuto;
+>>>>>>> se agrega acceso a reporte de ventas para vendedor con  filtro restringido
         private Label lblTipoReporte;
         private ComboBox cmbTipoReporte;
         private Label lblFechaFin;
