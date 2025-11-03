@@ -28,13 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             dataGridViewDetalles = new DataGridView();
             btn_buscar_usuario = new Button();
             text_buscar_usuario = new TextBox();
             l_lista_comprobantes = new Label();
-            btn_limpiar_usuario = new Button();
             btn_guardar_usuario = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridViewDetalles).BeginInit();
             SuspendLayout();
@@ -43,24 +42,24 @@
             // 
             dataGridViewDetalles.AllowUserToAddRows = false;
             dataGridViewDetalles.BackgroundColor = SystemColors.ActiveCaption;
-            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = SystemColors.Control;
-            dataGridViewCellStyle7.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle7.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle7.Padding = new Padding(2);
-            dataGridViewCellStyle7.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = DataGridViewTriState.True;
-            dataGridViewDetalles.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.Padding = new Padding(2);
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dataGridViewDetalles.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dataGridViewDetalles.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewDetalles.Location = new Point(113, 128);
             dataGridViewDetalles.MultiSelect = false;
             dataGridViewDetalles.Name = "dataGridViewDetalles";
             dataGridViewDetalles.ReadOnly = true;
             dataGridViewDetalles.RowHeadersWidth = 51;
-            dataGridViewCellStyle8.SelectionBackColor = Color.White;
-            dataGridViewCellStyle8.SelectionForeColor = Color.Black;
-            dataGridViewDetalles.RowsDefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle2.SelectionBackColor = Color.White;
+            dataGridViewCellStyle2.SelectionForeColor = Color.Black;
+            dataGridViewDetalles.RowsDefaultCellStyle = dataGridViewCellStyle2;
             dataGridViewDetalles.Size = new Size(927, 571);
             dataGridViewDetalles.TabIndex = 57;
             // 
@@ -94,17 +93,6 @@
             l_lista_comprobantes.Text = "Lista de comprobantes";
             l_lista_comprobantes.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // btn_limpiar_usuario
-            // 
-            btn_limpiar_usuario.BackColor = Color.FromArgb(255, 192, 128);
-            btn_limpiar_usuario.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btn_limpiar_usuario.Location = new Point(1063, 183);
-            btn_limpiar_usuario.Name = "btn_limpiar_usuario";
-            btn_limpiar_usuario.Size = new Size(269, 43);
-            btn_limpiar_usuario.TabIndex = 63;
-            btn_limpiar_usuario.Text = "Realizar Nota de credito";
-            btn_limpiar_usuario.UseVisualStyleBackColor = false;
-            // 
             // btn_guardar_usuario
             // 
             btn_guardar_usuario.BackColor = Color.LightGreen;
@@ -121,7 +109,6 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1365, 731);
-            Controls.Add(btn_limpiar_usuario);
             Controls.Add(btn_guardar_usuario);
             Controls.Add(btn_buscar_usuario);
             Controls.Add(text_buscar_usuario);
@@ -140,7 +127,6 @@
         private Button btn_buscar_usuario;
         private TextBox text_buscar_usuario;
         private Label l_lista_comprobantes;
-        private Button btn_limpiar_usuario;
         private Button btn_guardar_usuario;
     }
 }
