@@ -34,6 +34,7 @@
             clienteVendedorItemMenu = new ToolStripMenuItem();
             reporteVentaVendedorItemMenu = new ToolStripMenuItem();
             cerrarSVendedorItemMenu = new ToolStripMenuItem();
+            toolStripMenuItem1 = new ToolStripMenuItem();
             menuVendedor.SuspendLayout();
             SuspendLayout();
             // 
@@ -42,7 +43,7 @@
             menuVendedor.AutoSize = false;
             menuVendedor.BackColor = Color.FromArgb(255, 192, 128);
             menuVendedor.ImageScalingSize = new Size(20, 20);
-            menuVendedor.Items.AddRange(new ToolStripItem[] { ventaToolStripMenuItem, ventaVendedorItemMenu, clienteVendedorItemMenu, reporteVentaVendedorItemMenu, cerrarSVendedorItemMenu });
+            menuVendedor.Items.AddRange(new ToolStripItem[] { ventaToolStripMenuItem, ventaVendedorItemMenu, clienteVendedorItemMenu, reporteVentaVendedorItemMenu, cerrarSVendedorItemMenu, toolStripMenuItem1 });
             menuVendedor.Location = new Point(0, 0);
             menuVendedor.Name = "menuVendedor";
             menuVendedor.Size = new Size(1382, 90);
@@ -103,6 +104,18 @@
             cerrarSVendedorItemMenu.Text = "Cerrar Sesión";
             cerrarSVendedorItemMenu.TextImageRelation = TextImageRelation.ImageAboveText;
             // 
+            // toolStripMenuItem1
+            // 
+            toolStripMenuItem1.AutoSize = false;
+            toolStripMenuItem1.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            toolStripMenuItem1.Image = Properties.Resources.verificar;
+            toolStripMenuItem1.ImageAlign = ContentAlignment.BottomCenter;
+            toolStripMenuItem1.ImageScaling = ToolStripItemImageScaling.None;
+            toolStripMenuItem1.Name = "toolStripMenuItem1";
+            toolStripMenuItem1.Size = new Size(152, 86);
+            toolStripMenuItem1.Text = "Comprobante";
+            toolStripMenuItem1.TextImageRelation = TextImageRelation.ImageAboveText;
+            // 
             // VendedorView
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -126,5 +139,6 @@
         private ToolStripMenuItem reporteVentaVendedorItemMenu;
         private ToolStripMenuItem ventaVendedorItemMenu;
         private ToolStripMenuItem cerrarSVendedorItemMenu;
+        private ToolStripMenuItem toolStripMenuItem1;
     }
 }
