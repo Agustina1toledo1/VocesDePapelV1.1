@@ -108,6 +108,7 @@ namespace VocesDePapelV1._1.Presenters
         {
             try
             {
+
                 switch (view.TipoReporte)
                 {
                     case "Por Vendedor":
@@ -173,6 +174,7 @@ namespace VocesDePapelV1._1.Presenters
                         }
                         if (int.TryParse(view.ValorBusqueda, out int idVendedor))
                         {
+                            view.Message = idVendedor.ToString();
                             ventasList = repository.GetVentasPorVendedor(idVendedor, fechaInicio, fechaFin);
 
                         } break;

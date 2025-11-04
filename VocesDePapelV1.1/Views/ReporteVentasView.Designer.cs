@@ -122,6 +122,7 @@
             lblTipoReporte.Text = "Tipo Reporte:";
             // 
             //lblBusqueda
+            //
             lblBusqueda.AutoSize = true;
             lblBusqueda.Font = new Font("Segoe UI", 9F);
             lblBusqueda.Location = new Point(622, 40);
@@ -129,8 +130,7 @@
             lblBusqueda.Size = new Size(80, 20);
             lblBusqueda.TabIndex = 10;
             lblBusqueda.Text = "Búsqueda:";
-
-
+            //
             // cmbTipoReporte
             // 
             cmbTipoReporte.DropDownStyle = ComboBoxStyle.DropDownList;

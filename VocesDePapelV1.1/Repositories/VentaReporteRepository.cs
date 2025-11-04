@@ -1,7 +1,8 @@
-﻿using System;
+﻿using iTextSharp.text;
+using Microsoft.Data.SqlClient;
+using System;
 using System.Collections.Generic;
 using System.Data;
-using Microsoft.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,21 +29,22 @@ namespace VocesDePapelV1._1.Repositories
                 command.Connection = connection;
 
                 command.CommandText = @"
-                    SELECT
-                        vc.id_venta_cabecera as IdVenta,
-                        vc.fecha_hora as FechaVenta,
-                        c.nombre_razon_social as NombreCliente,
-                        u.nombre + ' ' + u.apellido as NombreVendedor,
-                        vc.total_venta as TotalVenta,
-                        e.nombre_estado as EstadoVenta,
-                        (SELECT COUNT(*) FROM detalle_venta vd WHERE vd.id_venta_cabecera = vc.id_venta_cabecera) as CantidadProductos,
-                        'Efectivo' as FormaPago
-                    FROM venta_cabecera vc
-                    INNER JOIN cliente c ON vc.id_cliente = c.id_cliente
-                    INNER JOIN usuario u ON vc.id_usuario = u.id_usuario
-                    INNER JOIN estado e ON vc.id_estado = e.id_estado
-                    WHERE vc.fecha_hora BETWEEN @fechaInicio AND @fechaFin
-                    ORDER BY vc.fecha_hora DESC";
+                 SELECT
+                    vc.id_venta_cabecera as IdVenta,
+                    vc.fecha_hora as FechaVenta,
+                    c.nombre_razon_social as NombreCliente,
+                    u.nombre + ' ' + u.apellido as NombreVendedor,
+                    vc.total_venta as TotalVenta,
+                    e.nombre_estado as EstadoVenta,
+                    (SELECT COUNT(*) 
+                        FROM detalle_venta vd 
+                        WHERE vd.id_venta_cabecera = vc.id_venta_cabecera) as CantidadProductos
+                FROM venta_cabecera vc
+                INNER JOIN cliente c ON vc.id_cliente = c.id_cliente
+                INNER JOIN usuario u ON vc.id_usuario = u.id_usuario
+                INNER JOIN estado e ON vc.id_estado = e.id_estado 
+                WHERE vc.fecha_hora BETWEEN @fechaInicio AND @fechaFin
+                ORDER BY vc.fecha_hora DESC";
 
                 command.Parameters.Add("@fechaInicio", SqlDbType.DateTime).Value = fechaInicio;
                 command.Parameters.Add("@fechaFin", SqlDbType.DateTime).Value = fechaFin;
@@ -60,7 +62,6 @@ namespace VocesDePapelV1._1.Repositories
                             TotalVenta = Convert.ToDecimal(reader["TotalVenta"]),
                             EstadoVenta = reader["EstadoVenta"].ToString(),
                             CantidadProductos = Convert.ToInt32(reader["CantidadProductos"]),
-                          
                         };
                         ventasList.Add(venta);
                     }
@@ -129,20 +130,22 @@ namespace VocesDePapelV1._1.Repositories
 
                     command.CommandText = @"
                  SELECT
-                        vc.id_venta_cabecera as IdVenta,
-                        vc.fecha_hora as FechaVenta,
-                        c.nombre_razon_social as NombreCliente,
-                        u.nombre + ' ' + u.apellido as NombreVendedor,
-                        vc.total_venta as TotalVenta,
-                        e.nombre_estado as EstadoVenta,
-                        (SELECT COUNT(*) FROM detalle_venta vd WHERE vd.id_venta_cabecera = vc.id_venta_cabecera) as CantidadProductos                
-                    FROM venta_cabecera vc
-                    INNER JOIN cliente c ON vc.id_cliente = c.id_cliente
-                    INNER JOIN usuario u ON vc.id_usuario = u.id_usuario
-                    INNER JOIN estado e ON vc.id_estado = e.id_estado
-                    WHERE vc.id_usuario = @idVendedor 
-                    AND vc.fecha_hora BETWEEN @fechaInicio AND @fechaFin
-                    ORDER BY vc.fecha_hora DESC";
+                    vc.id_venta_cabecera as IdVenta,
+                    vc.fecha_hora as FechaVenta,
+                    c.nombre_razon_social as NombreCliente,
+                    u.nombre + ' ' + u.apellido as NombreVendedor,
+                    vc.total_venta as TotalVenta,
+                    e.nombre_estado as EstadoVenta,
+                    (SELECT COUNT(*) 
+                        FROM detalle_venta vd 
+                        WHERE vd.id_venta_cabecera = vc.id_venta_cabecera) as CantidadProductos                
+                FROM venta_cabecera vc
+                INNER JOIN cliente c ON vc.id_cliente = c.id_cliente
+                INNER JOIN usuario u ON vc.id_usuario = u.id_usuario
+                INNER JOIN estado e ON vc.id_estado = e.id_estado  
+                WHERE vc.id_usuario = @idVendedor 
+                AND vc.fecha_hora BETWEEN @fechaInicio AND @fechaFin
+                ORDER BY vc.fecha_hora DESC";
 
                     command.Parameters.Add("@idVendedor", SqlDbType.Int).Value = idVendedor;
                     command.Parameters.Add("@fechaInicio", SqlDbType.DateTime).Value = fechaInicio;
@@ -223,18 +226,66 @@ namespace VocesDePapelV1._1.Repositories
                 return (int)command.ExecuteScalar();
             }
         }
+        public IEnumerable<VentaReporteModel> GetVentasPorCliente(string criterioCliente, DateTime fechaInicio, DateTime fechaFin)
+        {
+            var ventasList = new List<VentaReporteModel>();
+
+            using (var connection = new SqlConnection(connectionString))
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+
+                 command.CommandText = @"
+                    SELECT
+                        vc.id_venta_cabecera as IdVenta,
+                        vc.fecha_hora as FechaVenta,
+                        c.nombre_razon_social as NombreCliente,
+                        u.nombre + ' ' + u.apellido as NombreVendedor,
+                        vc.total_venta as TotalVenta,
+                        vc.estado as EstadoVenta,  -- Campo directo de venta_cabecera
+                        (SELECT COUNT(*) FROM detalle_venta vd WHERE vd.id_venta_cabecera = vc.id_venta_cabecera) as CantidadProductos                
+                    FROM venta_cabecera vc
+                    INNER JOIN cliente c ON vc.id_cliente = c.id_cliente
+                    INNER JOIN usuario u ON vc.id_usuario = u.id_usuario
+                    INNER JOIN estado e ON vc.id_estado = e.id_estado 
+                    WHERE (c.cuit_cuil LIKE @criterio + '%' OR c.nombre_razon_social LIKE @criterio + '%')
+                    AND vc.fecha_hora BETWEEN @fechaInicio AND @fechaFin
+                    ORDER BY vc.fecha_hora DESC";
+
+                command.Parameters.Add("@criterio", SqlDbType.NVarChar).Value = criterioCliente;
+                command.Parameters.Add("@fechaInicio", SqlDbType.DateTime).Value = fechaInicio;
+                command.Parameters.Add("@fechaFin", SqlDbType.DateTime).Value = fechaFin;
+
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var venta = new VentaReporteModel
+                        {
+                            IdVenta = Convert.ToInt32(reader["IdVenta"]),
+                            FechaVenta = Convert.ToDateTime(reader["FechaVenta"]),
+                            NombreCliente = reader["NombreCliente"].ToString(),
+                            NombreVendedor = reader["NombreVendedor"].ToString(),
+                            TotalVenta = Convert.ToDecimal(reader["TotalVenta"]),
+                            EstadoVenta = reader["EstadoVenta"].ToString(),
+                            CantidadProductos = Convert.ToInt32(reader["CantidadProductos"]),
+                        };
+                        ventasList.Add(venta);
+                    }
+                }
+            }
+            return ventasList;
+        }
         public IEnumerable<VentaReporteModel> GetTop10Ventas()
         {
-            // Implementación para top 10 ventas
+            
             var ventasList = new List<VentaReporteModel>();
             // ... código con ORDER BY vc.total_venta DESC LIMIT 10
             return ventasList;
         }
 
-        public IEnumerable<VentaReporteModel> GetVentasPorCliente(string criterioCliente)
-        {
-            throw new NotImplementedException();
-        }
+        
         public UsuarioModel GetVendedorPorId(int idVendedor)
         {
             using (var connection = new SqlConnection(connectionString))
@@ -281,10 +332,10 @@ namespace VocesDePapelV1._1.Repositories
                 command.Connection = connection;
 
                 command.CommandText = @"
-                SELECT u.id_usuario, u.nombre, u.apellido, u.baja, e.nombre_estado
+                SELECT u.id_usuario, u.nombre, u.apellido, u.cuit, u.baja, r.nombre_rol
                 FROM usuario u
-                INNER JOIN estado e ON u.baja = e.id_estado
-                WHERE u.baja = 0  -- ← usuarios activos (id_estado = 0 = activo)
+                INNER JOIN rol r ON u.id_rol = r.id_rol
+                WHERE u.baja = 0  -- ← Solo usuarios activos
                 ORDER BY u.nombre, u.apellido";
 
                 using (var reader = command.ExecuteReader())
@@ -296,8 +347,9 @@ namespace VocesDePapelV1._1.Repositories
                             Id_usuario = Convert.ToInt32(reader["id_usuario"]),
                             Nombre = reader["nombre"].ToString(),
                             Apellido = reader["apellido"].ToString(),
+                            Cuit_usuario = reader["cuit"].ToString(),
                             Baja = Convert.ToInt32(reader["baja"]),
-                            Nombre_estado = reader["nombre_estado"].ToString()
+                            Nombre_rol = reader["nombre_rol"]?.ToString() ?? ""
                         });
                     }
                 }
@@ -315,9 +367,8 @@ namespace VocesDePapelV1._1.Repositories
                 command.Connection = connection;
 
                 command.CommandText = @"
-            SELECT id_cliente, nombre_razon_social, cuit, baja
+            SELECT id_cliente, nombre_razon_social, cuit_cuil, email, telefono
             FROM cliente 
-            WHERE baja = 0
             ORDER BY nombre_razon_social";
 
                 using (var reader = command.ExecuteReader())
@@ -328,7 +379,9 @@ namespace VocesDePapelV1._1.Repositories
                         {
                             Id_cliente = Convert.ToInt32(reader["id_cliente"]),
                             Nombre_razon_social = reader["nombre_razon_social"].ToString(),
-                            Cuit_cuil = reader["cuit"].ToString()                            
+                            Cuit_cuil = reader["cuit_cuil"].ToString(), // ← Se llama cuit_cuil en tu BD
+                            Email = reader["email"]?.ToString() ?? "",
+                            Telefono = reader["telefono"]?.ToString() ?? ""
                         });
                     }
                 }
@@ -336,57 +389,7 @@ namespace VocesDePapelV1._1.Repositories
             return clientes;
         }
 
-        public IEnumerable<VentaReporteModel> GetVentasPorCliente(string criterioCliente, DateTime fechaInicio, DateTime fechaFin)
-        {
-            var ventasList = new List<VentaReporteModel>();
-
-            using (var connection = new SqlConnection(connectionString))
-            using (var command = new SqlCommand())
-            {
-                connection.Open();
-                command.Connection = connection;
-
-                command.CommandText = @"
-            SELECT
-                vc.id_venta_cabecera as IdVenta,
-                vc.fecha_hora as FechaVenta,
-                c.nombre_razon_social as NombreCliente,
-                u.nombre + ' ' + u.apellido as NombreVendedor,
-                vc.total_venta as TotalVenta,
-                e.nombre_estado as EstadoVenta,
-                (SELECT COUNT(*) FROM detalle_venta vd WHERE vd.id_venta_cabecera = vc.id_venta_cabecera) as CantidadProductos                
-            FROM venta_cabecera vc
-            INNER JOIN cliente c ON vc.id_cliente = c.id_cliente
-            INNER JOIN usuario u ON vc.id_usuario = u.id_usuario
-            INNER JOIN estado e ON vc.id_estado = e.id_estado
-            WHERE (c.cuit LIKE @criterio + '%' OR c.nombre_razon_social LIKE @criterio + '%')
-            AND vc.fecha_hora BETWEEN @fechaInicio AND @fechaFin
-            ORDER BY vc.fecha_hora DESC";
-
-                command.Parameters.Add("@criterio", SqlDbType.NVarChar).Value = criterioCliente + "%";
-                command.Parameters.Add("@fechaInicio", SqlDbType.DateTime).Value = fechaInicio;
-                command.Parameters.Add("@fechaFin", SqlDbType.DateTime).Value = fechaFin;
-
-                using (var reader = command.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        var venta = new VentaReporteModel
-                        {
-                            IdVenta = Convert.ToInt32(reader["IdVenta"]),
-                            FechaVenta = Convert.ToDateTime(reader["FechaVenta"]),
-                            NombreCliente = reader["NombreCliente"].ToString(),
-                            NombreVendedor = reader["NombreVendedor"].ToString(),
-                            TotalVenta = Convert.ToDecimal(reader["TotalVenta"]),
-                            EstadoVenta = reader["EstadoVenta"].ToString(),
-                            CantidadProductos = Convert.ToInt32(reader["CantidadProductos"]),
-                        };
-                        ventasList.Add(venta);
-                    }
-                }
-            }
-            return ventasList;
-        }
+       
 
     }
 }

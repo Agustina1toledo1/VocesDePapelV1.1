@@ -1,4 +1,5 @@
-﻿using System;
+﻿using iTextSharp.text;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,7 +12,7 @@ namespace VocesDePapelV1._1.Repositories
     {
         IEnumerable<VentaReporteModel> GetVentasPorFecha(DateTime fechaInicio, DateTime fechaFin);
         IEnumerable<VentaReporteModel> GetVentasPorVendedor(int idVendedor, DateTime fechaInicio, DateTime fechaFin);
-        IEnumerable<VentaReporteModel> GetVentasPorCliente(string criterioCliente);
+        IEnumerable<VentaReporteModel> GetVentasPorCliente(string criterioCliente, DateTime fechaInicio, DateTime fechaFin);
         IEnumerable<VentaReporteModel> GetTop10Ventas();
         UsuarioModel GetVendedorPorId(int idVendedor);
         IEnumerable<UsuarioModel> GetVendedoresActivos();
@@ -20,6 +21,5 @@ namespace VocesDePapelV1._1.Repositories
         int GetCantidadVentasPeriodo(DateTime fechaInicio, DateTime fechaFin);
         decimal GetTotalVentasPorVendedor(int idVendedor, DateTime fechaInicio, DateTime fechaFin);
         int GetCantidadVentasPorVendedor(int idVendedor, DateTime fechaInicio, DateTime fechaFin);
-        IEnumerable<VentaReporteModel> GetVentasPorCliente(string criterioCliente, DateTime fechaInicio, DateTime fechaFin);
-    }
+           }
 }

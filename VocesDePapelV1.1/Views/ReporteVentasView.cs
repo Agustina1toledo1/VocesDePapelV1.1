@@ -38,6 +38,7 @@ namespace VocesDePapelV1._1.Views
             btnGenerarPDF.Click += delegate { GenerateReportEvent?.Invoke(this, EventArgs.Empty); };//Evento Generar PDF
 
             btnLimpiar.Click += delegate { LimpiarFiltrosEvent?.Invoke(this, EventArgs.Empty); };//Evento Limpiar
+            cmbTipoReporte.SelectedIndexChanged += cmbTipoReporte_SelectedIndexChanged;
 
         }
         // Propiedades para saber el tipo de usuario
@@ -112,21 +113,24 @@ namespace VocesDePapelV1._1.Views
         {
             set
             {
-                cmbBusqueda.Text = value;
+                if (cmbBusqueda != null)
+                    cmbBusqueda.Text = value;
             }
         }
         public bool ComboBusquedaHabilitado
         {
             set
             {
-                cmbBusqueda.Enabled = value;
+                if (cmbBusqueda != null)
+                    cmbBusqueda.Enabled = value;
             }
         }
         public string EtiquetaBusqueda
         {
             set
             {
-                lblBusqueda.Text = value;
+                if (lblBusqueda != null)
+                    lblBusqueda.Text = value;
             }
         }
         // PROPIEDADES para resultados
@@ -156,6 +160,60 @@ namespace VocesDePapelV1._1.Views
             get => lblTotalVentas.Text;
             set => lblTotalVentas.Text = value;
         }
+        public List<UsuarioModel> ListaVendedores
+        {
+            set
+            {
+                cmbVendedor.DataSource = value;
+                cmbVendedor.DisplayMember = "NombreCompleto";
+                cmbVendedor.ValueMember = "Id_usuario";
+            }
+        }
+        //
+        public int? IdVendedorSeleccionado
+        {
+            get
+            {
+                return cmbVendedor.SelectedValue as int?;
+            }
+        }
+        public string NombreVendedorSeleccionado
+        {
+            get => cmbVendedor.Text;
+            set => cmbVendedor.Text = value;
+        }
+        public List<ClienteModel> ListaClientes
+        {
+            set
+            {
+                cmbBusqueda.DataSource = value;
+                cmbBusqueda.DisplayMember = "NombreRazonSocial";
+                cmbBusqueda.ValueMember = "Cuit"; // O "Id_cliente" según tu modelo
+            }
+        }
+        public bool ComboVendedorHabilitado
+        {
+            set
+            {
+                cmbVendedor.Enabled = value;
+                cmbTipoReporte.Enabled = value;
+            }
+        }
+        public string TextoVendedor
+        {
+            set
+            {
+                cmbVendedor.Text = value;
+            }
+        }
+        public int VendedorSeleccionadoId
+        {
+            set
+            {
+                cmbVendedor.SelectedValue = value;
+            }
+        }
+
         public string Message
         {
             get => lblMensaje.Text;
@@ -179,7 +237,10 @@ namespace VocesDePapelV1._1.Views
         {
             dgvVentas.DataSource = ventasList;
         }
-
+        private void cmbTipoReporte_SelectedIndexChanged(object? sender, EventArgs e)
+        {           
+            TipoReporteChangedEvent?.Invoke(this, EventArgs.Empty);
+        }
         //MÉTODO Singleton (patrón para una sola instancia)
         private static ReporteVentasView instance;
         public static ReporteVentasView GetInstance(Form parentContainer)
@@ -246,60 +307,8 @@ namespace VocesDePapelV1._1.Views
                 }
             }
         }*/
-
-        public List<UsuarioModel> ListaVendedores
-        {
-            set
-            {
-                cmbVendedor.DataSource = value;
-                cmbVendedor.DisplayMember = "NombreCompleto";
-                cmbVendedor.ValueMember = "Id_usuario";
-            }
-        }
-        public int? IdVendedorSeleccionado
-        {
-            get
-            {
-                return cmbVendedor.SelectedValue as int?;
-            }
-        }
-        public string NombreVendedorSeleccionado
-        {
-            get => cmbVendedor.Text;
-            set => cmbVendedor.Text = value;
-        }
-        public List<ClienteModel> ListaClientes
-        {
-            set
-            {
-                cmbBusqueda.DataSource = value;
-                cmbBusqueda.DisplayMember = "NombreRazonSocial";
-                cmbBusqueda.ValueMember = "Cuit"; // O "Id_cliente" según tu modelo
-            }
-        }
-        public bool ComboVendedorHabilitado
-        {
-            set
-            {
-                cmbVendedor.Enabled = value;
-                cmbTipoReporte.Enabled = value;
-            }
-        }
-        public string TextoVendedor
-        {
-            set
-            {
-                cmbVendedor.Text = value;
-            }
-        }
-        public int VendedorSeleccionadoId
-        {
-            set
-            {
-                cmbVendedor.SelectedValue = value;
-            }
-        }
-     
+        
+       
         /* public bool FiltroVendedorHabilitado
          {
              set
