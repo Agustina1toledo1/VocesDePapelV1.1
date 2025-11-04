@@ -24,7 +24,7 @@ namespace VocesDePapelV1._1
           bool continuar = true;
            while (continuar)
             {
-                string connectionString = ConfigurationManager.ConnectionStrings["Valor"].ConnectionString;
+                string connectionString = ConfigurationManager.ConnectionStrings["SqlConection2"].ConnectionString;
 
                 // var usuarioRepository = new UsuarioStaticoRepository();
                 var usuarioRepository = new UsuarioRepository(connectionString);

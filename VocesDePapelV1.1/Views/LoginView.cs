@@ -38,7 +38,7 @@ namespace VocesDePapelV1._1.Views
             UsuarioAutenticado = null;
             AutenticacionExitosa = false;
 
-            // ventos para los botones 
+            // eventos para los botones 
             btn_ingresar_login.Click += BtnIngresar_Click;
             btn_cancelar_login.Click += BtnCancelar_Click;
 

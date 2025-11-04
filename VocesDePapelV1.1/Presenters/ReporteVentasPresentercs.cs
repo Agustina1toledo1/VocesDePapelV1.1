@@ -1,0 +1,321 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using VocesDePapelV1._1.Models;
+using VocesDePapelV1._1.Repositories;
+using VocesDePapelV1._1.Servicios;
+using VocesDePapelV1._1.Views;
+
+namespace VocesDePapelV1._1.Presenters
+{
+    public class ReporteVentasPresenter
+    {
+        private IGerenteViewReporteVentas view;
+        private IVentaReporteRepository repository;
+        private BindingSource ventasBindingSource;
+        private IEnumerable<VentaReporteModel> ventasList;
+        private bool busquedaRealizada = false;
+
+        public ReporteVentasPresenter(IGerenteViewReporteVentas view, IVentaReporteRepository repository,
+                                  bool esModoVendedor = false, int? idVendedor = null)
+        {            
+            this.view = view;
+            this.repository = repository;
+            this.ventasBindingSource = new BindingSource();
+            // Configurar modo de la vista
+            if (esModoVendedor && idVendedor.HasValue)
+            {
+                ConfigurarModoVendedor(idVendedor.Value);
+            }
+            else
+            {
+                ConfigurarModoGerente();
+            }
+
+            // Suscribir eventos de la vista
+            this.view.SearchEvent += SearchVentas;
+            this.view.GenerateReportEvent += GenerateReport;
+            this.view.LimpiarFiltrosEvent += LimpiarFiltros;
+            this.view.TipoReporteChangedEvent += TipoReporteChanged;
+            // Configuración inicial
+            ConfigurarFechasPorDefecto();
+
+            this.view.Show();
+        }
+
+        private void ConfigurarModoVendedor(int idVendedor)
+        {
+            try
+            {
+                // Obtener datos del vendedor 
+                var vendedor = repository.GetVendedorPorId(idVendedor);
+
+                if (vendedor != null)
+                {
+                    // Configurar vista en modo vendedor
+                    var vendedorUnico = new List<UsuarioModel> { vendedor };
+                    view.ListaVendedores = vendedorUnico;
+                    view.VendedorSeleccionadoId = idVendedor; // Seleccionar automáticamente
+                    view.TextoVendedor = $"{vendedor.Nombre} {vendedor.Apellido}";// Mostrar nombre
+                    view.ComboVendedorHabilitado = false;// Deshabilitar selección
+                    view.TipoReporte = "Por Vendedor";// Forzar tipo de reporte
+                    view.TextoBusqueda = $"{vendedor.Nombre} {vendedor.Apellido}";
+                    view.ComboBusquedaHabilitado = false;
+                    view.EtiquetaBusqueda = "Vendedor:";
+                    // Buscar automáticamente
+                    SearchVentas(this, EventArgs.Empty);
+                }
+                else
+                {
+                    view.Message = "No se encontró el vendedor especificado";
+                }
+            }
+            catch (Exception ex)
+            {
+                view.Message = $"Error al configurar modo vendedor: {ex.Message}";
+            }
+        }
+        private void ConfigurarModoGerente()
+        {
+            try
+            {
+                view.ComboVendedorHabilitado = true;// Habilitar selección de vendedor
+                // Cargar lista de vendedores
+                var vendedores = repository.GetVendedoresActivos();
+                view.ListaVendedores = vendedores.ToList();
+                TipoReporteChanged(this, EventArgs.Empty);
+            }
+            catch (Exception ex)
+            {
+                view.Message = $"Error al cargar vendedores: {ex.Message}";
+            }
+        }
+        private void ConfigurarFechasPorDefecto()
+        {
+            // Establecer fechas por defecto (mes actual)
+            var fechaInicio = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+            var fechaFin = DateTime.Now;
+
+            view.FechaInicio = fechaInicio.ToString("yyyy-MM-dd");
+            view.FechaFin = fechaFin.ToString("yyyy-MM-dd");
+            view.TipoReporte = "Por Fecha";
+            view.IncluirDetalles = false;
+
+        }
+        private void TipoReporteChanged(object? sender, EventArgs e)
+        {
+            try
+            {
+
+                switch (view.TipoReporte)
+                {
+                    case "Por Vendedor":
+                        var vendedores = repository.GetVendedoresActivos();
+                        view.ListaVendedores = vendedores.ToList();
+                        view.EtiquetaBusqueda = "Seleccionar Vendedor:";
+                        view.ComboBusquedaHabilitado = true;
+                        break;
+
+                    case "Por Cliente":
+                        var clientes = repository.GetClientesActivos();
+                        view.ListaClientes = clientes.ToList();
+                        view.EtiquetaBusqueda = "Seleccionar Cliente:";
+                        view.ComboBusquedaHabilitado = true;
+                        break;
+
+                    case "Por Fecha":
+                    case "Top 10 Ventas":
+                        view.EtiquetaBusqueda = "Búsqueda:";
+                        view.ComboBusquedaHabilitado = false;
+                        view.TextoBusqueda = string.Empty;
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                view.Message = $"Error al cargar datos: {ex.Message}";
+            }
+        }
+        private void SearchVentas(object? sender, EventArgs e)
+        {
+            try
+            {
+                //Validar fechas
+                if (!DateTime.TryParse(view.FechaInicio, out DateTime fechaInicio) ||
+                    !DateTime.TryParse(view.FechaFin, out DateTime fechaFin))
+                {
+                    view.Message = "Formato de fecha inválido. Use YYYY-MM-DD.";
+                    view.IsSuccessful = false;
+                    busquedaRealizada = false;
+                    return;
+                }
+
+                if (fechaInicio > fechaFin)
+                {
+                    view.Message = "La fecha de inicio no puede ser mayor a la fecha fin.";
+                    view.IsSuccessful = false;
+                    busquedaRealizada = false;
+                    return;
+                }
+
+                // Obtener datos según tipo de reporte
+                switch (view.TipoReporte)
+                {
+                    case "Por Fecha":
+                        ventasList = repository.GetVentasPorFecha(fechaInicio, fechaFin);
+                        break;
+                    case "Por Vendedor":
+                        if (!view.IdVendedorSeleccionado.HasValue)
+                        {
+                            view.Message = "Debe seleccionar un vendedor para este tipo de reporte.";
+                            return;
+                        }
+                        if (int.TryParse(view.ValorBusqueda, out int idVendedor))
+                        {
+                            view.Message = idVendedor.ToString();
+                            ventasList = repository.GetVentasPorVendedor(idVendedor, fechaInicio, fechaFin);
+
+                        } break;
+                    case "Top 10 Ventas":
+                        ventasList = repository.GetTop10Ventas();
+                        break;
+                    case "Por Cliente":
+                        if (string.IsNullOrEmpty(view.ValorBusqueda))
+                        {
+                            view.Message = "Debe seleccionar un cliente.";
+                            return;
+                        }
+                        ventasList = repository.GetVentasPorCliente(view.ValorBusqueda, fechaInicio, fechaFin);
+                        break;
+                    default:
+                        ventasList = repository.GetVentasPorFecha(fechaInicio, fechaFin);
+                        break;
+                }
+
+                if (ventasList == null)
+                {
+                    ventasList = new List<VentaReporteModel>();
+                }
+                //  Calcular estadísticas
+                CalcularEstadisticas(fechaInicio, fechaFin);
+
+                //Enlazar datos a la vista
+                ventasBindingSource.DataSource = ventasList;
+                view.SetVentasListBindingSource(ventasBindingSource);
+
+                view.Message = $"Se encontraron {ventasList.Count()} ventas en el período.";
+                view.IsSuccessful = true;
+                busquedaRealizada = true;
+            }
+            catch (Exception ex)
+            {
+                view.Message = $"Error al buscar ventas: {ex.Message}";
+                view.IsSuccessful = false;
+                busquedaRealizada = false;
+            }
+        }
+
+        private void CalcularEstadisticas(DateTime fechaInicio, DateTime fechaFin)
+        {
+            decimal totalVentas;
+            int cantidadVentas;
+
+            // Diferenciar cálculo según tipo de reporte
+            if (view.TipoReporte == "Por Vendedor" && view.IdVendedorSeleccionado.HasValue)
+            {
+                // Usar métodos específicos para vendedor
+                totalVentas = repository.GetTotalVentasPorVendedor(
+                    view.IdVendedorSeleccionado.Value, fechaInicio, fechaFin);
+                cantidadVentas = repository.GetCantidadVentasPorVendedor(
+                    view.IdVendedorSeleccionado.Value, fechaInicio, fechaFin);
+            }
+            else
+            {
+                // Usar métodos generales
+                totalVentas = repository.GetTotalVentasPeriodo(fechaInicio, fechaFin);
+                cantidadVentas = repository.GetCantidadVentasPeriodo(fechaInicio, fechaFin);
+            }
+
+            decimal promedioVenta = cantidadVentas > 0 ? totalVentas / cantidadVentas : 0;
+
+            view.TotalVentasPeriodo = totalVentas.ToString("C2");
+            view.CantidadVentasPeriodo = cantidadVentas.ToString();
+            view.PromedioVenta = promedioVenta.ToString("C2");
+        }
+
+        private void GenerateReport(object? sender, EventArgs e)
+        {
+            //Validar que se realizó búsqueda
+            if (!busquedaRealizada)
+            {
+                view.Message = "Debe realizar primero una búsqueda antes de generar el reporte.";
+                view.IsSuccessful = false;
+                return;
+            }
+
+            var lista = (IEnumerable<VentaReporteModel>)ventasBindingSource.DataSource;
+
+            if (lista == null || !lista.Any())
+            {
+                view.Message = "No hay datos para generar el reporte.";
+                view.IsSuccessful = false;
+                return;
+            }
+
+            string rutaPDF;
+            using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+            {
+                saveFileDialog.Filter = "Archivos PDF (*.pdf)|*.pdf";
+                saveFileDialog.Title = "Guardar reporte de ventas";
+                saveFileDialog.FileName = $"ReporteVentas_{DateTime.Now:yyyyMMdd_HHmm}.pdf";
+
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    rutaPDF = saveFileDialog.FileName;
+                }
+                else
+                {
+                    view.Message = "Generación de reporte cancelada.";
+                    view.IsSuccessful = false;
+                    return;
+                }
+            }
+
+            //  Generar PDF
+            var generador = new GeneradorPDFVentas();
+            bool exito = generador.GenerarReporteVentas(lista, view, rutaPDF);
+
+            view.Message = exito ? "Reporte de ventas generado correctamente." : "Error al generar el reporte.";
+            view.IsSuccessful = exito;
+        }
+
+        private void LimpiarFiltros(object sender, EventArgs e)
+        {
+            try
+            {
+                //Limpiar la lista de ventas en memoria
+                ventasList = null;
+                busquedaRealizada = false;
+
+                //Limpiar el BindingSource (datos del grid)
+                ventasBindingSource.DataSource = null;
+
+                // Resetear las fechas a valores por defecto
+                ConfigurarFechasPorDefecto();
+
+                //Limpiar estadísticas
+                view.TotalVentas = "0.00";
+                view.CantidadVentas = "0";
+                view.PromedioVenta = "0.00";
+
+                view.Message = "Filtros limpiados correctamente";
+            }
+            catch (Exception ex)
+            {
+                view.Message = $"Error al limpiar: {ex.Message}";
+            }
+        }
+    }
+}
