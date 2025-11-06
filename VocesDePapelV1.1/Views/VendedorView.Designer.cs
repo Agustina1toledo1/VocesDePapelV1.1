@@ -108,7 +108,7 @@
             // 
             toolStripMenuItem1.AutoSize = false;
             toolStripMenuItem1.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            toolStripMenuItem1.Image = Properties.Resources.verificar;
+            toolStripMenuItem1.Image = Properties.Resources.factura;
             toolStripMenuItem1.ImageAlign = ContentAlignment.BottomCenter;
             toolStripMenuItem1.ImageScaling = ToolStripItemImageScaling.None;
             toolStripMenuItem1.Name = "toolStripMenuItem1";
