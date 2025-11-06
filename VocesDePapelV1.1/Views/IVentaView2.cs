@@ -52,10 +52,11 @@ namespace VocesDePapelV1._1.Views
         event EventHandler AddNewDetalleEvent;//añade un detalle a la venta
         event EventHandler AddNewEvent;//añade la venta completa
         event EventHandler SaveEvent;
-        event EventHandler EditEvent;
         event EventHandler DeleteEvent; //Eliminar un detalle de la venta
         event EventHandler CancelAllEvent; //limpiar todos los campos de la venta
         event EventHandler CalculateSubtotalEvent; //calcula el subtotal del producto segun la cantidad
+        event EventHandler ClearClienteEvent; //limpia los datos del cliente
+        event EventHandler ClearProductoEvent;
 
 
         //metodos

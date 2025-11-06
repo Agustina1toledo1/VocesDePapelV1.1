@@ -14,6 +14,8 @@ namespace VocesDePapelV1._1.Presenters
 
         //un campo de solo lectura para la cadena de conexion
         private readonly string connectionString;
+        private VendedorVentaPresenter2 ventaPresenter; //para no repetir instancias de venta
+
 
         public VendedorPresenter(IVendedorView view, string connectionString)
         {
@@ -100,31 +102,26 @@ namespace VocesDePapelV1._1.Presenters
         private void ShowVentaView(object? sender, EventArgs e)
         {
             IVentaView2 ventaView = VentaView2.GetInstance((VendedorView)this.view);
-            IProductoSearchView2 productoSearchView = new ProductoSearchView2();
-            IClienteRepository clienteRepository = new ClienteRepository(this.connectionString);
-            IVentaCabeceraRepository2 ventaCabeceraRepository = new VentaCabeceraRepository2(this.connectionString);
-            IVentaDetalleRepository2 ventaDetalleRepository = new VentaDetalleRepository2(this.connectionString);
-            IUsuarioRepository usuarioRepository = new UsuarioRepository(this.connectionString);
-            IProductoRepository productoRepository = new ProductoRepository(this.connectionString);
-            new VendedorVentaPresenter2(ventaView, ventaCabeceraRepository,
-                ventaDetalleRepository, clienteRepository, productoRepository, usuarioRepository);//productoSearchView,
 
-            /*try
+            if (ventaPresenter == null)
             {
-                string connStr = this.connectionString;
-                Form parentContainer = this.view.FormInstance;
+                IProductoSearchView2 productoSearchView = new ProductoSearchView2();
+                IClienteRepository clienteRepository = new ClienteRepository(this.connectionString);
+                IVentaCabeceraRepository2 ventaCabeceraRepository = new VentaCabeceraRepository2(this.connectionString);
+                IVentaDetalleRepository2 ventaDetalleRepository = new VentaDetalleRepository2(this.connectionString);
+                IUsuarioRepository usuarioRepository = new UsuarioRepository(this.connectionString);
+                IProductoRepository productoRepository = new ProductoRepository(this.connectionString);
 
-                // Obtener instancia de VentaView
-                IVentaView ventaView = VentaView.GetInstance(parentContainer, connStr);
-
-                // Crear el Presenter con el constructor corregido
-                new VendedorVentaPresenter(ventaView, connStr);
+                ventaPresenter = new VendedorVentaPresenter2(
+                    ventaView,
+                    ventaCabeceraRepository,
+                    ventaDetalleRepository,
+                    clienteRepository,
+                    productoRepository,
+                    usuarioRepository
+                );
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error al abrir vista de ventas: {ex.Message}", "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }*/
+
         }
     }
 }

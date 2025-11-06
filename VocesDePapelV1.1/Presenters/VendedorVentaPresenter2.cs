@@ -48,12 +48,17 @@ namespace VocesDePapelV1._1.Presenters
             this.view.SearchClienteEvent += SearchCliente;
             this.view.SearchVendedorEvent += SearchVendedor;
             this.view.SearchProductoEvent += SearchProducto;
+
+            this.view.AddNewDetalleEvent -= AddNewDetalle; //desuscribir para evitar multiples suscripciones
             this.view.AddNewDetalleEvent += AddNewDetalle;
             this.view.AddNewEvent += AddNewVenta;
+            this.view.SaveEvent -= SaveVenta;
             this.view.SaveEvent += SaveVenta;
             this.view.DeleteEvent += DeleteDetalle;
             this.view.CancelAllEvent += CancelAll;
             this.view.CalculateSubtotalEvent += CalcularSubtotal;
+            this.view.ClearClienteEvent += CleanCliente;
+            this.view.ClearProductoEvent += CleanProducto;
 
             this.ventaDetalles = new List<VentaDetalleModel2>();
 
@@ -62,6 +67,15 @@ namespace VocesDePapelV1._1.Presenters
 
         }
 
+        private void CleanProducto(object? sender, EventArgs e)
+        {
+            CleanviewFieldsProducto();
+        }
+
+        private void CleanCliente(object? sender, EventArgs e)
+        {
+            CleanviewFieldsCliente();
+        }
 
         private void CancelAll(object? sender, EventArgs e)
         {
@@ -99,6 +113,7 @@ namespace VocesDePapelV1._1.Presenters
 
         private void SaveVenta(object? sender, EventArgs e)
         {
+            MessageBox.Show("Guardando la venta...");
             try
             {
                 var ventaDetalleList = this.ventaDetalles?.ToList();
@@ -121,6 +136,7 @@ namespace VocesDePapelV1._1.Presenters
                 }
                 else
                 {
+                    MessageBox.Show("Guardando la venta... dentro del else");
                     var ventaCabecera = new VentaCabeceraModel2
 
                     {
@@ -130,9 +146,10 @@ namespace VocesDePapelV1._1.Presenters
                         Total_venta = Convert.ToDecimal(view.Total_venta)
                     };
                     new Common.ModelDataValidation().Validate(ventaCabecera);
+                    cabeceraRepository.Add(ventaCabecera);
                     MessageBox.Show("Venta Cabecera correcta.");
 
-                    cabeceraRepository.Add(ventaCabecera);
+                    
 
                     foreach (var detalle in ventaDetalleList)
                     {
