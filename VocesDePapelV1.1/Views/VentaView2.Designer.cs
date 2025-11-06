@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle10 = new DataGridViewCellStyle();
             BtnQuitarDetalle = new Button();
             BCancelar = new Button();
             BtnGuardarVenta = new Button();
@@ -38,17 +38,18 @@
             PFactura = new Panel();
             lb_comprobante = new Label();
             PVendedor = new Panel();
+            btn_buscar_cuit_vendedor_venta = new Button();
             lb_vendedor_nombre_apellido = new Label();
             TBCuitVendedor = new TextBox();
             LNombeYApellidoV = new Label();
             LCuitVendedor = new Label();
             LVendedor = new Label();
             PCliente = new Panel();
+            btn_buscar_cuit_cliente_venta = new Button();
             lb_cliente_tel = new Label();
             lb_cliente_email = new Label();
             lb_cliente_nombre_razon = new Label();
             BLimpiarCliente = new Button();
-            BAgregarCliente = new Button();
             LCliente = new Label();
             label1 = new Label();
             TBCuilCuit = new TextBox();
@@ -145,6 +146,7 @@
             PFactura.Name = "PFactura";
             PFactura.Size = new Size(233, 169);
             PFactura.TabIndex = 25;
+            PFactura.Paint += this.PFactura_Paint;
             // 
             // lb_comprobante
             // 
@@ -158,6 +160,7 @@
             // 
             // PVendedor
             // 
+            PVendedor.Controls.Add(btn_buscar_cuit_vendedor_venta);
             PVendedor.Controls.Add(lb_vendedor_nombre_apellido);
             PVendedor.Controls.Add(TBCuitVendedor);
             PVendedor.Controls.Add(LNombeYApellidoV);
@@ -167,6 +170,17 @@
             PVendedor.Name = "PVendedor";
             PVendedor.Size = new Size(317, 169);
             PVendedor.TabIndex = 24;
+            PVendedor.Paint += PVendedor_Paint;
+            // 
+            // btn_buscar_cuit_vendedor_venta
+            // 
+            btn_buscar_cuit_vendedor_venta.BackColor = SystemColors.ActiveCaption;
+            btn_buscar_cuit_vendedor_venta.Image = Properties.Resources.lupa;
+            btn_buscar_cuit_vendedor_venta.Location = new Point(261, 25);
+            btn_buscar_cuit_vendedor_venta.Name = "btn_buscar_cuit_vendedor_venta";
+            btn_buscar_cuit_vendedor_venta.Size = new Size(53, 38);
+            btn_buscar_cuit_vendedor_venta.TabIndex = 58;
+            btn_buscar_cuit_vendedor_venta.UseVisualStyleBackColor = false;
             // 
             // lb_vendedor_nombre_apellido
             // 
@@ -182,7 +196,7 @@
             TBCuitVendedor.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             TBCuitVendedor.Location = new Point(85, 27);
             TBCuitVendedor.Name = "TBCuitVendedor";
-            TBCuitVendedor.Size = new Size(217, 34);
+            TBCuitVendedor.Size = new Size(170, 34);
             TBCuitVendedor.TabIndex = 8;
             // 
             // LNombeYApellidoV
@@ -219,11 +233,11 @@
             // 
             // PCliente
             // 
+            PCliente.Controls.Add(btn_buscar_cuit_cliente_venta);
             PCliente.Controls.Add(lb_cliente_tel);
             PCliente.Controls.Add(lb_cliente_email);
             PCliente.Controls.Add(lb_cliente_nombre_razon);
             PCliente.Controls.Add(BLimpiarCliente);
-            PCliente.Controls.Add(BAgregarCliente);
             PCliente.Controls.Add(LCliente);
             PCliente.Controls.Add(label1);
             PCliente.Controls.Add(TBCuilCuit);
@@ -234,6 +248,17 @@
             PCliente.Name = "PCliente";
             PCliente.Size = new Size(468, 169);
             PCliente.TabIndex = 23;
+            PCliente.Paint += this.PCliente_Paint;
+            // 
+            // btn_buscar_cuit_cliente_venta
+            // 
+            btn_buscar_cuit_cliente_venta.BackColor = SystemColors.ActiveCaption;
+            btn_buscar_cuit_cliente_venta.Image = Properties.Resources.lupa;
+            btn_buscar_cuit_cliente_venta.Location = new Point(347, 61);
+            btn_buscar_cuit_cliente_venta.Name = "btn_buscar_cuit_cliente_venta";
+            btn_buscar_cuit_cliente_venta.Size = new Size(53, 38);
+            btn_buscar_cuit_cliente_venta.TabIndex = 57;
+            btn_buscar_cuit_cliente_venta.UseVisualStyleBackColor = false;
             // 
             // lb_cliente_tel
             // 
@@ -241,7 +266,7 @@
             lb_cliente_tel.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lb_cliente_tel.Location = new Point(104, 133);
             lb_cliente_tel.Name = "lb_cliente_tel";
-            lb_cliente_tel.Size = new Size(198, 29);
+            lb_cliente_tel.Size = new Size(226, 29);
             lb_cliente_tel.TabIndex = 36;
             // 
             // lb_cliente_email
@@ -250,7 +275,7 @@
             lb_cliente_email.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lb_cliente_email.Location = new Point(104, 101);
             lb_cliente_email.Name = "lb_cliente_email";
-            lb_cliente_email.Size = new Size(198, 32);
+            lb_cliente_email.Size = new Size(226, 32);
             lb_cliente_email.TabIndex = 36;
             // 
             // lb_cliente_nombre_razon
@@ -267,24 +292,12 @@
             BLimpiarCliente.BackColor = Color.FromArgb(255, 192, 128);
             BLimpiarCliente.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             BLimpiarCliente.ForeColor = SystemColors.ActiveCaptionText;
-            BLimpiarCliente.Location = new Point(361, 124);
+            BLimpiarCliente.Location = new Point(346, 115);
             BLimpiarCliente.Name = "BLimpiarCliente";
             BLimpiarCliente.Size = new Size(90, 33);
             BLimpiarCliente.TabIndex = 12;
             BLimpiarCliente.Text = "Limpiar";
             BLimpiarCliente.UseVisualStyleBackColor = false;
-            // 
-            // BAgregarCliente
-            // 
-            BAgregarCliente.BackColor = Color.FromArgb(192, 255, 192);
-            BAgregarCliente.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            BAgregarCliente.ForeColor = SystemColors.ActiveCaptionText;
-            BAgregarCliente.Location = new Point(361, 85);
-            BAgregarCliente.Name = "BAgregarCliente";
-            BAgregarCliente.Size = new Size(90, 33);
-            BAgregarCliente.TabIndex = 11;
-            BAgregarCliente.Text = "Agregar";
-            BAgregarCliente.UseVisualStyleBackColor = false;
             // 
             // LCliente
             // 
@@ -373,49 +386,45 @@
             // 
             // lb_producto_subtotal
             // 
-            lb_producto_subtotal.AutoSize = true;
+            lb_producto_subtotal.BorderStyle = BorderStyle.Fixed3D;
             lb_producto_subtotal.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
-            lb_producto_subtotal.Location = new Point(750, 70);
+            lb_producto_subtotal.Location = new Point(739, 65);
             lb_producto_subtotal.Name = "lb_producto_subtotal";
             lb_producto_subtotal.Size = new Size(85, 28);
             lb_producto_subtotal.TabIndex = 39;
-            lb_producto_subtotal.Text = "subtotal";
             // 
             // lb_producto_stock
             // 
-            lb_producto_stock.AutoSize = true;
+            lb_producto_stock.BorderStyle = BorderStyle.Fixed3D;
             lb_producto_stock.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
-            lb_producto_stock.Location = new Point(514, 72);
+            lb_producto_stock.Location = new Point(521, 67);
             lb_producto_stock.Name = "lb_producto_stock";
             lb_producto_stock.Size = new Size(58, 28);
             lb_producto_stock.TabIndex = 38;
-            lb_producto_stock.Text = "stock";
             // 
             // lb_producto_precio
             // 
-            lb_producto_precio.AutoSize = true;
+            lb_producto_precio.BorderStyle = BorderStyle.Fixed3D;
             lb_producto_precio.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
-            lb_producto_precio.Location = new Point(419, 70);
+            lb_producto_precio.Location = new Point(428, 67);
             lb_producto_precio.Name = "lb_producto_precio";
             lb_producto_precio.Size = new Size(67, 28);
             lb_producto_precio.TabIndex = 37;
-            lb_producto_precio.Text = "precio";
             // 
             // lb_producto_titulo
             // 
-            lb_producto_titulo.AutoSize = true;
+            lb_producto_titulo.BorderStyle = BorderStyle.Fixed3D;
             lb_producto_titulo.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
-            lb_producto_titulo.Location = new Point(239, 71);
+            lb_producto_titulo.Location = new Point(239, 68);
             lb_producto_titulo.Name = "lb_producto_titulo";
             lb_producto_titulo.Size = new Size(174, 28);
             lb_producto_titulo.TabIndex = 36;
-            lb_producto_titulo.Text = "lb_producto_titulo";
             // 
             // LSubtotal
             // 
             LSubtotal.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             LSubtotal.ImageAlign = ContentAlignment.BottomCenter;
-            LSubtotal.Location = new Point(717, 29);
+            LSubtotal.Location = new Point(717, 28);
             LSubtotal.Name = "LSubtotal";
             LSubtotal.Size = new Size(132, 32);
             LSubtotal.TabIndex = 31;
@@ -438,7 +447,7 @@
             BtnAgregarDetalle.BackColor = Color.FromArgb(192, 255, 192);
             BtnAgregarDetalle.Location = new Point(879, 42);
             BtnAgregarDetalle.Name = "BtnAgregarDetalle";
-            BtnAgregarDetalle.Size = new Size(114, 30);
+            BtnAgregarDetalle.Size = new Size(114, 33);
             BtnAgregarDetalle.TabIndex = 15;
             BtnAgregarDetalle.Text = "Agregar";
             BtnAgregarDetalle.UseVisualStyleBackColor = false;
@@ -446,7 +455,7 @@
             // NUDCantidadProducto
             // 
             NUDCantidadProducto.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            NUDCantidadProducto.Location = new Point(638, 70);
+            NUDCantidadProducto.Location = new Point(637, 64);
             NUDCantidadProducto.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             NUDCantidadProducto.Name = "NUDCantidadProducto";
             NUDCantidadProducto.Size = new Size(58, 34);
@@ -457,7 +466,7 @@
             // 
             LCantidad.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             LCantidad.ImageAlign = ContentAlignment.BottomCenter;
-            LCantidad.Location = new Point(613, 28);
+            LCantidad.Location = new Point(613, 27);
             LCantidad.Name = "LCantidad";
             LCantidad.Size = new Size(118, 34);
             LCantidad.TabIndex = 17;
@@ -468,7 +477,7 @@
             // 
             LStock.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             LStock.ImageAlign = ContentAlignment.BottomCenter;
-            LStock.Location = new Point(502, 28);
+            LStock.Location = new Point(502, 26);
             LStock.Name = "LStock";
             LStock.Size = new Size(105, 32);
             LStock.TabIndex = 16;
@@ -538,24 +547,24 @@
             // 
             dataGridViewDetalles.AllowUserToAddRows = false;
             dataGridViewDetalles.BackgroundColor = SystemColors.ActiveCaption;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = SystemColors.Control;
-            dataGridViewCellStyle1.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle1.Padding = new Padding(2);
-            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dataGridViewDetalles.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle9.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = SystemColors.Control;
+            dataGridViewCellStyle9.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle9.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle9.Padding = new Padding(2);
+            dataGridViewCellStyle9.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle9.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle9.WrapMode = DataGridViewTriState.True;
+            dataGridViewDetalles.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle9;
             dataGridViewDetalles.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewDetalles.Location = new Point(119, 384);
             dataGridViewDetalles.MultiSelect = false;
             dataGridViewDetalles.Name = "dataGridViewDetalles";
             dataGridViewDetalles.ReadOnly = true;
             dataGridViewDetalles.RowHeadersWidth = 51;
-            dataGridViewCellStyle2.SelectionBackColor = Color.White;
-            dataGridViewCellStyle2.SelectionForeColor = Color.Black;
-            dataGridViewDetalles.RowsDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle10.SelectionBackColor = Color.White;
+            dataGridViewCellStyle10.SelectionForeColor = Color.Black;
+            dataGridViewDetalles.RowsDefaultCellStyle = dataGridViewCellStyle10;
             dataGridViewDetalles.Size = new Size(674, 285);
             dataGridViewDetalles.TabIndex = 56;
             // 
@@ -577,6 +586,7 @@
             Controls.Add(PProducto);
             Name = "VentaView2";
             Text = "VentaView2";
+            Load += this.VentaView2_Load;
             PFactura.ResumeLayout(false);
             PFactura.PerformLayout();
             PVendedor.ResumeLayout(false);
@@ -609,7 +619,6 @@
         private Label LVendedor;
         private Panel PCliente;
         private Button BLimpiarCliente;
-        private Button BAgregarCliente;
         private Label LCliente;
         private Label label1;
         private TextBox TBCuilCuit;
@@ -638,5 +647,7 @@
         private Label lb_producto_subtotal;
         private Label lb_venta_total;
         private DataGridView dataGridViewDetalles;
+        private Button btn_buscar_cuit_cliente_venta;
+        private Button btn_buscar_cuit_vendedor_venta;
     }
 }
