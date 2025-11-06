@@ -37,6 +37,10 @@ namespace VocesDePapelV1._1.Views
                     SearchClienteEvent?.Invoke(this, EventArgs.Empty);
                 }
             };
+            btn_buscar_cuit_cliente_venta.Click += delegate
+            {
+                SearchClienteEvent?.Invoke(this, EventArgs.Empty);
+            };
             TBCuitVendedor.KeyDown += (s, e) =>
             {
                 if (e.KeyCode == Keys.Enter)
@@ -44,7 +48,10 @@ namespace VocesDePapelV1._1.Views
                     SearchVendedorEvent?.Invoke(this, EventArgs.Empty);
                 }
             };
-
+            btn_buscar_cuit_vendedor_venta.Click += delegate
+            {
+                SearchVendedorEvent?.Invoke(this, EventArgs.Empty);
+            };
             //Buscar producto
             BBuscarProducto.Click += delegate
             {
@@ -84,6 +91,15 @@ namespace VocesDePapelV1._1.Views
             BtnGuardarVenta.Click += delegate
             {
                 SaveEvent?.Invoke(this, EventArgs.Empty);
+            };
+            //limpiar datos del cliente
+            BLimpiarCliente.Click += delegate
+            {
+                ClearClienteEvent?.Invoke(this, EventArgs.Empty);
+            };
+            BtnLimpiarDetalles.Click += delegate
+            {
+                ClearProductoEvent?.Invoke(this, EventArgs.Empty);
             };
         }
 
@@ -218,6 +234,8 @@ namespace VocesDePapelV1._1.Views
         public event EventHandler CancelEvent;
         public event EventHandler CancelAllEvent;
         public event EventHandler CalculateSubtotalEvent;
+        public event EventHandler ClearClienteEvent;
+        public event EventHandler ClearProductoEvent;
 
         //singleton patron (abre una sola instancia del formulario) 
         private static VentaView2 instance;
@@ -250,6 +268,9 @@ namespace VocesDePapelV1._1.Views
 
         }
 
-        
+        private void PVendedor_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

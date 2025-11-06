@@ -30,8 +30,9 @@ namespace VocesDePapelV1._1.Repositories
                 command.Parameters.Add("@id_usuario", System.Data.SqlDbType.Int).Value = ventaCabecera.Id_usuario;
                 command.Parameters.Add("@id_estado", System.Data.SqlDbType.Int).Value = ventaCabecera.Id_estado;
 
-                command.ExecuteNonQuery();
-                ventaCabecera.Id_venta_cabecera = (int)command.ExecuteScalar();
+                ventaCabecera.Id_venta_cabecera = (int)command.ExecuteScalar();//ExecuteScalar(),
+                                                                               //que ejecuta el INSERT y devuelve el valor de OUTPUT
+                                                                               //INSERTED.id_venta_cabecera en una sola operación
             }
         }
 
