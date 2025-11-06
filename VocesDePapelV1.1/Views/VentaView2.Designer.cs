@@ -146,7 +146,6 @@
             PFactura.Name = "PFactura";
             PFactura.Size = new Size(233, 169);
             PFactura.TabIndex = 25;
-            PFactura.Paint += this.PFactura_Paint;
             // 
             // lb_comprobante
             // 
@@ -248,7 +247,6 @@
             PCliente.Name = "PCliente";
             PCliente.Size = new Size(468, 169);
             PCliente.TabIndex = 23;
-            PCliente.Paint += this.PCliente_Paint;
             // 
             // btn_buscar_cuit_cliente_venta
             // 
@@ -586,7 +584,6 @@
             Controls.Add(PProducto);
             Name = "VentaView2";
             Text = "VentaView2";
-            Load += this.VentaView2_Load;
             PFactura.ResumeLayout(false);
             PFactura.PerformLayout();
             PVendedor.ResumeLayout(false);

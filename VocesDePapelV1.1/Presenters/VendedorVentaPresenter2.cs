@@ -113,7 +113,6 @@ namespace VocesDePapelV1._1.Presenters
 
         private void SaveVenta(object? sender, EventArgs e)
         {
-            MessageBox.Show("Guardando la venta...");
             try
             {
                 var ventaDetalleList = this.ventaDetalles?.ToList();
@@ -136,7 +135,6 @@ namespace VocesDePapelV1._1.Presenters
                 }
                 else
                 {
-                    MessageBox.Show("Guardando la venta... dentro del else");
                     var ventaCabecera = new VentaCabeceraModel2
 
                     {
@@ -147,7 +145,6 @@ namespace VocesDePapelV1._1.Presenters
                     };
                     new Common.ModelDataValidation().Validate(ventaCabecera);
                     cabeceraRepository.Add(ventaCabecera);
-                    MessageBox.Show("Venta Cabecera correcta.");
 
                     
 

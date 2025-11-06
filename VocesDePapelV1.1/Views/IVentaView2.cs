@@ -11,8 +11,6 @@ namespace VocesDePapelV1._1.Views
     public interface IVentaView2
     {
         //propiedades de la tabla cabecera venta
-        string Id_venta_cabecera { get; set; }
-        string Fecha_hora_venta { get; set; }
         string Total_venta { get; set; }
         string Id_cliente { get; set; }
         string Id_usuario { get; set; }
@@ -39,9 +37,6 @@ namespace VocesDePapelV1._1.Views
         string Producto_nombre { get; set; }
         string Producto_stock { get; set; }
         string SearchValue { get; set; }
-        VentaCabeceraModel2 VentaCabecera { get; set; }
-        VentaDetalleModel2 VentaDetalleActual { get; set; }
-        ProductoModel ProductoActual { get; set; }
 
 
         //eventos

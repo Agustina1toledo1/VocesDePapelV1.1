@@ -103,26 +103,7 @@ namespace VocesDePapelV1._1.Views
             };
         }
 
-        public VentaCabeceraModel2 VentaCabecera
-        {
-            get => throw new NotImplementedException(); set => throw new NotImplementedException();
-        }
-        public VentaDetalleModel2 VentaDetalleActual
-        {
-            get => throw new NotImplementedException(); set => throw new NotImplementedException();
-        }
-        public ProductoModel ProductoActual
-        {
-            get => throw new NotImplementedException(); set => throw new NotImplementedException();
-        }
-        public string Id_venta_cabecera
-        {
-            get => throw new NotImplementedException(); set => throw new NotImplementedException();
-        }
-        public string Fecha_hora_venta
-        {
-            get => throw new NotImplementedException(); set => throw new NotImplementedException();
-        }
+        
         public string Total_venta
         {
             get { return lb_venta_total.Text; }
