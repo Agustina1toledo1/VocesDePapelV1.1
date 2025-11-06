@@ -26,13 +26,16 @@ namespace VocesDePapelV1._1.Views
             throw new NotImplementedException();
         }
 
-        public string SearchNumeroComprobante {
+        public string SearchNumeroComprobante
+        {
             get => throw new NotImplementedException(); set => throw new NotImplementedException();
         }
-        public string Message { 
+        public string Message
+        {
             get => throw new NotImplementedException(); set => throw new NotImplementedException();
         }
-        public bool IsSuccessful {
+        public bool IsSuccessful
+        {
             get => throw new NotImplementedException(); set => throw new NotImplementedException();
         }
 
@@ -43,5 +46,8 @@ namespace VocesDePapelV1._1.Views
         {
             throw new NotImplementedException();
         }
+
+        
+        
     }
 }
