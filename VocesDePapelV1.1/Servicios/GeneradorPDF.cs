@@ -80,6 +80,85 @@ namespace VocesDePapelV1._1.Servicios
                 return false;
             }
         }
+        public void GenerarComprobantePDF(VentaCabeceraModel2 cabecera, IEnumerable<VentaDetalleModel2> detalles, string rutaDestino)
+        {
+            try
+            {
+                using var fs = new FileStream(rutaDestino, FileMode.Create, FileAccess.Write, FileShare.None);
+                var doc = new Document(PageSize.A4, 25, 25, 30, 30);
+                PdfWriter.GetInstance(doc, fs);
+                doc.Open();
+
+                // 🔹 Cabecera con logo y fecha
+                PdfPTable cabeceraTabla = new PdfPTable(2);
+                cabeceraTabla.WidthPercentage = 100;
+                cabeceraTabla.SetWidths(new float[] { 1f, 3f });
+
+                using (var ms = new MemoryStream())
+                {
+                    Properties.Resources.logo.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                    iTextSharp.text.Image logoPdf = iTextSharp.text.Image.GetInstance(ms.ToArray());
+                    logoPdf.ScaleToFit(60f, 60f);
+                    cabeceraTabla.AddCell(new PdfPCell(logoPdf) { Border = iTextSharp.text.Rectangle.NO_BORDER });
+                }
+
+                var celdaTitulo = new PdfPCell(new Phrase(
+                    $"Comprobante de Venta\nGenerado el {cabecera.Fecha_hora:dd/MM/yyyy HH:mm:ss}",
+                    FontFactory.GetFont("Arial", 12, iTextSharp.text.Font.BOLD)))
+                {
+                    HorizontalAlignment = Element.ALIGN_RIGHT,
+                    Border = iTextSharp.text.Rectangle.NO_BORDER
+                };
+                cabeceraTabla.AddCell(celdaTitulo);
+
+                doc.Add(cabeceraTabla);
+                doc.Add(new Paragraph("\n"));
+
+                // 🔹 Datos de la cabecera
+                var fontLabel = FontFactory.GetFont("Arial", 11, iTextSharp.text.Font.BOLD);
+                var fontValue = FontFactory.GetFont("Arial", 11);
+
+                doc.Add(new Paragraph($"Nro de Comprobante: {cabecera.Id_venta_cabecera}", fontValue));
+                doc.Add(new Paragraph($"Cliente: {cabecera.Nombre_cliente}", fontValue));
+                doc.Add(new Paragraph($"Vendedor: {cabecera.Nombre_vendedor}", fontValue));
+                doc.Add(new Paragraph($"Total: ${cabecera.Total_venta:F2}", fontValue));
+                doc.Add(new Paragraph("\n"));
+
+                // 🔹 Tabla de detalles
+                PdfPTable tabla = new PdfPTable(4);
+                tabla.WidthPercentage = 100;
+                tabla.SetWidths(new float[] { 3f, 1f, 2f, 2f });
+
+                var fontHeader = FontFactory.GetFont("Arial", 11, iTextSharp.text.Font.BOLD);
+                tabla.AddCell(new Phrase("Libro", fontHeader));
+                tabla.AddCell(new Phrase("Cantidad", fontHeader));
+                tabla.AddCell(new Phrase("Precio Unitario", fontHeader));
+                tabla.AddCell(new Phrase("Subtotal", fontHeader));
+
+                int contador = 0;
+                foreach (var d in detalles)
+                {
+                    tabla.AddCell(d.Titulo_libro);
+                    tabla.AddCell(d.Cantidad.ToString());
+                    tabla.AddCell($"${d.Precio_unitario:F2}");
+                    tabla.AddCell($"${d.Subtotal:F2}");
+                    contador++;
+                }
+
+                doc.Add(tabla);
+                doc.Add(new Paragraph($"\nTotal de ítems: {contador}", fontValue));
+                doc.Close();
+
+                MessageBox.Show($"PDF generado correctamente:\n{rutaDestino}", "Comprobante", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al generar el PDF: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
+
     }
 }
 

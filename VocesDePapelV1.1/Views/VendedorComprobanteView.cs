@@ -39,7 +39,17 @@ namespace VocesDePapelV1._1.Views
                 if (dataGridViewCabecera.SelectedCells.Count > 0)
                 {
                     LoadEvent?.Invoke(this, EventArgs.Empty);
+                    
                 }
+            };
+            //Generar pdf
+            btn_ver_generarPDF.Click += delegate
+            {
+                if(dataGridViewCabecera.SelectedCells.Count > 0)
+                {
+                    GenerarPDFEvent?.Invoke(this, EventArgs.Empty);
+                }
+                
             };
         }
 
