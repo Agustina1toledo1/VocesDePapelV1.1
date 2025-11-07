@@ -98,8 +98,8 @@ namespace VocesDePapelV1._1.Presenters
             var fechaInicio = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
             var fechaFin = DateTime.Now;
 
-            view.FechaInicio = fechaInicio.ToString("yyyy-MM-dd");
-            view.FechaFin = fechaFin.ToString("yyyy-MM-dd");
+            view.FechaInicio = fechaInicio;
+            view.FechaFin = fechaFin;
             view.TipoReporte = "Por Fecha";
             view.IncluirDetalles = false;
 
@@ -142,9 +142,12 @@ namespace VocesDePapelV1._1.Presenters
         {
             try
             {
+                DateTime fechaInicio = view.FechaInicio;
+                DateTime fechaFin = view.FechaFin;
+                DateTime diaSiguiente = fechaFin.AddDays(1);
+                DateTime fechaFinValorAjustado = diaSiguiente.AddMilliseconds(-3);
                 //Validar fechas
-                if (!DateTime.TryParse(view.FechaInicio, out DateTime fechaInicio) ||
-                    !DateTime.TryParse(view.FechaFin, out DateTime fechaFin))
+                if (fechaInicio == DateTime.MinValue || fechaFinValorAjustado == DateTime.MinValue)
                 {
                     view.Message = "Formato de fecha inválido. Use YYYY-MM-DD.";
                     view.IsSuccessful = false;
@@ -152,7 +155,7 @@ namespace VocesDePapelV1._1.Presenters
                     return;
                 }
 
-                if (fechaInicio > fechaFin)
+                if (fechaInicio > fechaFinValorAjustado)
                 {
                     view.Message = "La fecha de inicio no puede ser mayor a la fecha fin.";
                     view.IsSuccessful = false;
@@ -164,7 +167,7 @@ namespace VocesDePapelV1._1.Presenters
                 switch (view.TipoReporte)
                 {
                     case "Por Fecha":
-                        ventasList = repository.GetVentasPorFecha(fechaInicio, fechaFin);
+                        ventasList = repository.GetVentasPorFecha(fechaInicio, fechaFinValorAjustado);
                         break;
                     case "Por Vendedor":
                         if (!view.IdVendedorSeleccionado.HasValue)
@@ -175,7 +178,7 @@ namespace VocesDePapelV1._1.Presenters
                         if (int.TryParse(view.ValorBusqueda, out int idVendedor))
                         {
                             view.Message = idVendedor.ToString();
-                            ventasList = repository.GetVentasPorVendedor(idVendedor, fechaInicio, fechaFin);
+                            ventasList = repository.GetVentasPorVendedor(idVendedor, fechaInicio, fechaFinValorAjustado);
 
                         } break;
                     case "Top 10 Ventas":
@@ -187,10 +190,10 @@ namespace VocesDePapelV1._1.Presenters
                             view.Message = "Debe seleccionar un cliente.";
                             return;
                         }
-                        ventasList = repository.GetVentasPorCliente(view.ValorBusqueda, fechaInicio, fechaFin);
+                        ventasList = repository.GetVentasPorCliente(view.ValorBusqueda, fechaInicio, fechaFinValorAjustado);
                         break;
                     default:
-                        ventasList = repository.GetVentasPorFecha(fechaInicio, fechaFin);
+                        ventasList = repository.GetVentasPorFecha(fechaInicio, fechaFinValorAjustado);
                         break;
                 }
 
@@ -199,7 +202,7 @@ namespace VocesDePapelV1._1.Presenters
                     ventasList = new List<VentaReporteModel>();
                 }
                 //  Calcular estadísticas
-                CalcularEstadisticas(fechaInicio, fechaFin);
+                CalcularEstadisticas(fechaInicio, fechaFinValorAjustado);
 
                 //Enlazar datos a la vista
                 ventasBindingSource.DataSource = ventasList;

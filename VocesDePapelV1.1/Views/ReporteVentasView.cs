@@ -25,7 +25,7 @@ namespace VocesDePapelV1._1.Views
             "Por Fecha",
             "Por Vendedor",
             "Por Cliente",  // Nuevo tipo
-            "Top 10 Ventas"
+            
         });
             cmbTipoReporte.SelectedIndex = 0;
         }
@@ -42,8 +42,9 @@ namespace VocesDePapelV1._1.Views
 
         }
         // Propiedades para saber el tipo de usuario
-       /* public bool EsModoVendedor
+        public bool EsModoVendedor
         {
+
             get { return !cmbVendedor.Visible && txtVendedorAuto.Visible; }
             set
             {
@@ -62,7 +63,7 @@ namespace VocesDePapelV1._1.Views
                     lblVendedor.Text = "Seleccionar Vendedor:";
                 }
             }
-        }*/
+        }
 
 
         // Propiedades  para filtros
@@ -71,21 +72,21 @@ namespace VocesDePapelV1._1.Views
             get => cmbTipoReporte.Enabled;
             set => cmbTipoReporte.Enabled = value;
         }
-        public string FechaInicio
+        public DateTime FechaInicio
         {
-            get => dtpFechaInicio.Value.ToString("yyyy-MM-dd");
+            get => dtpFechaInicio.Value.Date; // Devuelve el DateTime con hora 00:00:00
             set
             {
-                if (DateTime.TryParse(value, out DateTime fecha))
+                if (DateTime.TryParse(value.ToString(), out DateTime fecha))
                     dtpFechaInicio.Value = fecha;
             }
         }
-        public string FechaFin
+        public DateTime FechaFin
         {
-            get => dtpFechaFin.Value.ToString("yyyy-MM-dd");
+            get => dtpFechaFin.Value.Date; // Devuelve el DateTime con hora 00:00:00
             set
             {
-                if (DateTime.TryParse(value, out DateTime fecha))
+                if (DateTime.TryParse(value.ToString(), out DateTime fecha))
                     dtpFechaFin.Value = fecha;
             }
         }

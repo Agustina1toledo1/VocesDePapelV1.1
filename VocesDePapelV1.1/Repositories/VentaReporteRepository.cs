@@ -46,6 +46,7 @@ namespace VocesDePapelV1._1.Repositories
                 WHERE vc.fecha_hora BETWEEN @fechaInicio AND @fechaFin
                 ORDER BY vc.fecha_hora DESC";
 
+                
                 command.Parameters.Add("@fechaInicio", SqlDbType.DateTime).Value = fechaInicio;
                 command.Parameters.Add("@fechaFin", SqlDbType.DateTime).Value = fechaFin;
 
@@ -129,23 +130,23 @@ namespace VocesDePapelV1._1.Repositories
                     command.Connection = connection;
 
                     command.CommandText = @"
-                 SELECT
-                    vc.id_venta_cabecera as IdVenta,
-                    vc.fecha_hora as FechaVenta,
-                    c.nombre_razon_social as NombreCliente,
-                    u.nombre + ' ' + u.apellido as NombreVendedor,
-                    vc.total_venta as TotalVenta,
-                    e.nombre_estado as EstadoVenta,
-                    (SELECT COUNT(*) 
-                        FROM detalle_venta vd 
-                        WHERE vd.id_venta_cabecera = vc.id_venta_cabecera) as CantidadProductos                
-                FROM venta_cabecera vc
-                INNER JOIN cliente c ON vc.id_cliente = c.id_cliente
-                INNER JOIN usuario u ON vc.id_usuario = u.id_usuario
-                INNER JOIN estado e ON vc.id_estado = e.id_estado  
-                WHERE vc.id_usuario = @idVendedor 
-                AND vc.fecha_hora BETWEEN @fechaInicio AND @fechaFin
-                ORDER BY vc.fecha_hora DESC";
+                     SELECT
+                        vc.id_venta_cabecera as IdVenta,
+                        vc.fecha_hora as FechaVenta,
+                        c.nombre_razon_social as NombreCliente,
+                        u.nombre + ' ' + u.apellido as NombreVendedor,
+                        vc.total_venta as TotalVenta,
+                        e.nombre_estado as EstadoVenta,
+                        (SELECT COUNT(*) 
+                            FROM detalle_venta vd 
+                            WHERE vd.id_venta_cabecera = vc.id_venta_cabecera) as CantidadProductos                
+                    FROM venta_cabecera vc
+                    INNER JOIN cliente c ON vc.id_cliente = c.id_cliente
+                    INNER JOIN usuario u ON vc.id_usuario = u.id_usuario
+                    INNER JOIN estado e ON vc.id_estado = e.id_estado  
+                    WHERE vc.id_usuario = @idVendedor 
+                    AND vc.fecha_hora BETWEEN @fechaInicio AND @fechaFin
+                    ORDER BY vc.fecha_hora DESC";
 
                     command.Parameters.Add("@idVendedor", SqlDbType.Int).Value = idVendedor;
                     command.Parameters.Add("@fechaInicio", SqlDbType.DateTime).Value = fechaInicio;

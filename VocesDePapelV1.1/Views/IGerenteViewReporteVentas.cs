@@ -10,8 +10,8 @@ namespace VocesDePapelV1._1.Views
     public interface IGerenteViewReporteVentas
     {
         // Propiedades
-        string FechaInicio { get; set; }
-        string FechaFin { get; set; }
+        DateTime FechaInicio { get; set; }
+        DateTime FechaFin { get; set; }
         string TipoReporte { get; set; }
         bool IncluirDetalles { get; set; }
         List<UsuarioModel> ListaVendedores { set; }
