@@ -127,7 +127,8 @@ namespace VocesDePapelV1._1.Models
                 command.Connection = connection;
                 //command.CommandText = "SELECT * FROM Usuario ORDER BY id_usuario DESC"; video
                 command.CommandText = @"SELECT *FROM usuario
-                                    WHERE cuit like @cuit+'%' or nombre like @nombre_apellido+'%' or apellido like @nombre_apellido+'%'
+                                    WHERE cuit like @cuit+'%' or nombre like @nombre_apellido+'%' 
+                                    or apellido like @nombre_apellido+'%'
                                     ORDER BY id_usuario DESC";
 
                 command.Parameters.Add("@cuit", SqlDbType.NVarChar).Value = usuario_cuit ;

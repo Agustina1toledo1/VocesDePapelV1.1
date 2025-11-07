@@ -64,7 +64,7 @@
             dataGridViewCellStyle2.SelectionBackColor = Color.White;
             dataGridViewCellStyle2.SelectionForeColor = Color.Black;
             dataGridViewCabecera.RowsDefaultCellStyle = dataGridViewCellStyle2;
-            dataGridViewCabecera.Size = new Size(927, 263);
+            dataGridViewCabecera.Size = new Size(1186, 295);
             dataGridViewCabecera.TabIndex = 57;
             // 
             // btn_buscar_comprobante
@@ -72,27 +72,27 @@
             btn_buscar_comprobante.BackColor = SystemColors.GradientActiveCaption;
             btn_buscar_comprobante.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btn_buscar_comprobante.Image = Properties.Resources.lupa;
-            btn_buscar_comprobante.Location = new Point(970, 50);
+            btn_buscar_comprobante.Location = new Point(1100, 61);
             btn_buscar_comprobante.Name = "btn_buscar_comprobante";
-            btn_buscar_comprobante.Size = new Size(55, 43);
+            btn_buscar_comprobante.Size = new Size(60, 43);
             btn_buscar_comprobante.TabIndex = 60;
             btn_buscar_comprobante.UseVisualStyleBackColor = false;
             // 
             // text_buscar_comprobante
             // 
             text_buscar_comprobante.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            text_buscar_comprobante.Location = new Point(499, 57);
+            text_buscar_comprobante.Location = new Point(499, 68);
             text_buscar_comprobante.Name = "text_buscar_comprobante";
-            text_buscar_comprobante.Size = new Size(445, 31);
+            text_buscar_comprobante.Size = new Size(580, 31);
             text_buscar_comprobante.TabIndex = 59;
             // 
             // l_lista_comprobantes
             // 
             l_lista_comprobantes.BackColor = Color.White;
             l_lista_comprobantes.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            l_lista_comprobantes.Location = new Point(113, 40);
+            l_lista_comprobantes.Location = new Point(113, 51);
             l_lista_comprobantes.Name = "l_lista_comprobantes";
-            l_lista_comprobantes.Size = new Size(927, 66);
+            l_lista_comprobantes.Size = new Size(1186, 66);
             l_lista_comprobantes.TabIndex = 58;
             l_lista_comprobantes.Text = "Lista de comprobantes";
             l_lista_comprobantes.TextAlign = ContentAlignment.MiddleLeft;
@@ -101,7 +101,7 @@
             // 
             btn_ver_generarPDF.BackColor = Color.LightCoral;
             btn_ver_generarPDF.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btn_ver_generarPDF.Location = new Point(1057, 143);
+            btn_ver_generarPDF.Location = new Point(1077, 454);
             btn_ver_generarPDF.Name = "btn_ver_generarPDF";
             btn_ver_generarPDF.Size = new Size(222, 43);
             btn_ver_generarPDF.TabIndex = 61;
@@ -122,7 +122,7 @@
             dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
             dataGridViewDetalle.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             dataGridViewDetalle.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewDetalle.Location = new Point(113, 434);
+            dataGridViewDetalle.Location = new Point(113, 454);
             dataGridViewDetalle.MultiSelect = false;
             dataGridViewDetalle.Name = "dataGridViewDetalle";
             dataGridViewDetalle.ReadOnly = true;
@@ -130,14 +130,14 @@
             dataGridViewCellStyle4.SelectionBackColor = Color.White;
             dataGridViewCellStyle4.SelectionForeColor = Color.Black;
             dataGridViewDetalle.RowsDefaultCellStyle = dataGridViewCellStyle4;
-            dataGridViewDetalle.Size = new Size(927, 272);
+            dataGridViewDetalle.Size = new Size(927, 273);
             dataGridViewDetalle.TabIndex = 62;
             // 
             // VendedorComprobanteView
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1365, 731);
+            ClientSize = new Size(1365, 782);
             Controls.Add(dataGridViewDetalle);
             Controls.Add(btn_ver_generarPDF);
             Controls.Add(btn_buscar_comprobante);

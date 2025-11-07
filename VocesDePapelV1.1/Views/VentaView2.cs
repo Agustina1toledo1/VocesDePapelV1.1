@@ -249,9 +249,5 @@ namespace VocesDePapelV1._1.Views
 
         }
 
-        private void PVendedor_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
     }
 }

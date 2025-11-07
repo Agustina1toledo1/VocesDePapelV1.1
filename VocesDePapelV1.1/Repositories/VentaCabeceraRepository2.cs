@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -56,11 +57,15 @@ namespace VocesDePapelV1._1.Repositories
                                                 c.nombre_razon_social, 
                                                 u.nombre,
                                                 u.apellido,
-                                                e.nombre_estado
+                                                e.nombre_estado,
+                                                c.cuit_cuil,
+                                                c.email,
+                                                c.telefono,
+                                                u.cuit
                                        FROM  venta_cabecera as vc
                                        INNER JOIN cliente as c on vc.id_cliente = c.id_cliente
                                         INNER JOIN usuario as u on vc.id_usuario = u.id_usuario
-                                        INNER JOIN estado as e on vc.estado_id = e.estado_id
+                                        INNER JOIN estado as e on vc.id_estado = e.id_estado
                                         ORDER BY
                                                 vc.fecha_hora DESC;
                                         ";
@@ -68,16 +73,20 @@ namespace VocesDePapelV1._1.Repositories
                 {
                     while (reader.Read())
                     {
-                        var vetaCabecera = new VentaCabeceraModel2
+                        var ventaCabecera = new VentaCabeceraModel2
                         {
                             Id_venta_cabecera = Convert.ToInt32(reader["id_venta_cabecera"]),
                             Fecha_hora = (DateTime)reader["fecha_hora"],
                             Total_venta = Convert.ToDecimal(reader["total_venta"]),
-                            Nombre_cliente = (reader["nombre_razon_social"]).ToString() ,
+                            Nombre_cliente = (reader["nombre_razon_social"]).ToString(),
                             Nombre_vendedor = (reader["nombre"]).ToString() + (reader["apellido"]).ToString(),
-                            Nombre_estado = (reader["nombre_estado"]).ToString()
+                            Nombre_estado = (reader["nombre_estado"]).ToString(),
+                            Cuit_cliente = reader["cuit_cuil"].ToString(),
+                            Email_cliente = reader["email"].ToString(),
+                            Tel_cliente = reader["telefono"].ToString(),
+                            Cuit_vendedor = reader["cuit"].ToString()
                         };
-                        ventaCabeceraList.Add(vetaCabecera);
+                        ventaCabeceraList.Add(ventaCabecera);
                     }
                 }
 
@@ -92,7 +101,56 @@ namespace VocesDePapelV1._1.Repositories
 
         public IEnumerable<VentaCabeceraModel2> GetById(int value)
         {
-            throw new NotImplementedException();
+            var ventaCabeceraList = new List<VentaCabeceraModel2>();
+            using (var connection = new Microsoft.Data.SqlClient.SqlConnection(connectionString))
+            using (var command = new Microsoft.Data.SqlClient.SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = @"SELECT vc.id_venta_cabecera, 
+                                                vc.fecha_hora, 
+                                                vc.total_venta, 
+                                                c.nombre_razon_social, 
+                                                u.nombre,
+                                                u.apellido,
+                                                e.nombre_estado,
+                                                c.cuit_cuil,
+                                                c.email,
+                                                c.telefono,
+                                                u.cuit
+                                       FROM  venta_cabecera as vc
+                                       INNER JOIN cliente as c on vc.id_cliente = c.id_cliente
+                                        INNER JOIN usuario as u on vc.id_usuario = u.id_usuario
+                                        INNER JOIN estado as e on vc.id_estado = e.id_estado
+                                        WHERE vc.id_venta_cabecera = @id_cabecera
+                                        ORDER BY
+                                                vc.fecha_hora DESC;";
+                command.Parameters.Add("@id_cabecera", SqlDbType.Int).Value = value;
+
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var ventaCabecera = new VentaCabeceraModel2
+                        {
+                            Id_venta_cabecera = Convert.ToInt32(reader["id_venta_cabecera"]),
+                            Fecha_hora = (DateTime)reader["fecha_hora"],
+                            Total_venta = Convert.ToDecimal(reader["total_venta"]),
+                            Nombre_cliente = (reader["nombre_razon_social"]).ToString(),
+                            Nombre_vendedor = (reader["nombre"]).ToString() + (reader["apellido"]).ToString(),
+                            Nombre_estado = (reader["nombre_estado"]).ToString(),
+                            Cuit_cliente = reader["cuit_cuil"].ToString(),
+                            Email_cliente = reader["email"].ToString(),
+                            Tel_cliente = reader["telefono"].ToString(),
+                            Cuit_vendedor = reader["cuit"].ToString()
+                        };
+                        ventaCabeceraList.Add(ventaCabecera);
+                    }
+                }
+
+            }
+            return ventaCabeceraList;
+
         }
 
         public IEnumerable<VentaCabeceraModel2> GetByVendedorDate(int value, DateTime inicio, DateTime final)

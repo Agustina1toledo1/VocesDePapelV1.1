@@ -15,10 +15,12 @@ namespace VocesDePapelV1._1.Views
 
         //eventos
         event EventHandler SearchComprobanteEvent;
-        event EventHandler ShowComprobanteEvent;
+        event EventHandler GenerarPDFEvent;
+        event EventHandler LoadEvent;
 
         //metodos
-        void SetComprobanteFiltradoListBindingSource(object comprobanteList); //metodo para enlazar la lista de comprobantes
+        void SetComprobanteListBindingSource(object comprobanteList); //metodo para enlazar la lista de comprobantes
+        void SetComprobanteDetalleListBindingSource(object comprobanteDetalleList);
         void Show(); //mostrar formulario
     }
 }

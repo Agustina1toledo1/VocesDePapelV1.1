@@ -169,7 +169,6 @@
             PVendedor.Name = "PVendedor";
             PVendedor.Size = new Size(317, 169);
             PVendedor.TabIndex = 24;
-            PVendedor.Paint += PVendedor_Paint;
             // 
             // btn_buscar_cuit_vendedor_venta
             // 

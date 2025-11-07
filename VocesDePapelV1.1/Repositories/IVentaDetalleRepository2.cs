@@ -11,6 +11,7 @@ namespace VocesDePapelV1._1.Repositories
     {
         void Add(VentaDetalleModel2 ventaDetalle);
         IEnumerable<VentaDetalleModel2> GetByVentaId(int ventaId);
+        IEnumerable<VentaDetalleModel2> GetAll();
         void EliminarPorVentaId(int ventaId);
     }
 }

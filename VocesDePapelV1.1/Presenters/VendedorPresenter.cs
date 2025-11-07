@@ -12,6 +12,7 @@ namespace VocesDePapelV1._1.Presenters
         //un campo de solo lectura para la cadena de conexion
         private readonly string connectionString;
         private VendedorVentaPresenter2 ventaPresenter; //para no repetir instancias de venta
+        private VendedorComprobantePresenter comprobantePresenter;
 
 
         public VendedorPresenter(IVendedorView view, string connectionString)
@@ -24,6 +25,7 @@ namespace VocesDePapelV1._1.Presenters
             this.view.ShowClienteView += ShowClienteView;
             this.view.ShowReporteVentaView += ShowReporteVentaView;
             this.view.LogoutEvent += LogoutEvent;
+            this.view.ShowComprobanteView += ShowComprobanteView;
 
         }
 
@@ -67,7 +69,19 @@ namespace VocesDePapelV1._1.Presenters
                 MessageBox.Show($"Error al abrir vista de clientes: {ex.Message}");
             }
         }
+        private void ShowComprobanteView(object? sender, EventArgs e)
+        {
+            IVendedorComprobanteView comprobanteView = VendedorComprobanteView.GetInstance((VendedorView)this.view);
+            
+            if(comprobantePresenter == null)
+            {
+                IVentaCabeceraRepository2 ventaCabeceraRepository = new VentaCabeceraRepository2(this.connectionString);
+                IVentaDetalleRepository2 ventaDetalleRepository = new VentaDetalleRepository2(this.connectionString);
 
+                comprobantePresenter = new VendedorComprobantePresenter(comprobanteView, ventaCabeceraRepository, 
+                    ventaDetalleRepository);
+            }
+        }
         private void ShowReporteVentaView(object? sender, EventArgs e)
         {
             // Obtener el contenedor padre (ya corregido en A)
