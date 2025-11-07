@@ -13,8 +13,10 @@ namespace VocesDePapelV1._1.Views
 {
     public partial class ReporteVentasView : Form, IGerenteViewReporteVentas
     {
+      
         public ReporteVentasView()
         {
+
             InitializeComponent();
             AssociateAndRaiseViewEvents();
 
@@ -29,7 +31,7 @@ namespace VocesDePapelV1._1.Views
         });
             cmbTipoReporte.SelectedIndex = 0;
         }
-
+        private static ReporteVentasView instance;
         private void AssociateAndRaiseViewEvents()
         {
 
@@ -165,6 +167,18 @@ namespace VocesDePapelV1._1.Views
                     lblBusqueda.Text = value;
             }
         }
+        public object DatosComboBusqueda
+        {
+            set
+            {
+                if (cmbBusqueda != null)
+                {
+                    cmbBusqueda.DataSource = value;
+                    cmbBusqueda.DisplayMember = "Nombre"; // O la propiedad a mostrar
+                    cmbBusqueda.ValueMember = "Id"; // O la propiedad del valor
+                }
+            }
+        }
         // PROPIEDADES para resultados
         public string TotalVentasPeriodo
         {
@@ -194,6 +208,9 @@ namespace VocesDePapelV1._1.Views
         }
         public List<UsuarioModel> ListaVendedores
         {
+            get {
+                return listaVendedores;
+            }
             set
             {
                 cmbVendedor.DataSource = value;
@@ -206,7 +223,7 @@ namespace VocesDePapelV1._1.Views
         {
             get
             {
-                return cmbVendedor.SelectedValue as int?;
+                return cmbBusqueda.SelectedValue as int?;
             }
         }
         public string NombreVendedorSeleccionado
@@ -256,6 +273,58 @@ namespace VocesDePapelV1._1.Views
             }
         }
         public bool IsSuccessful { get; set; }
+        int? IGerenteViewReporteVentas.IdVendedorSeleccionado {
+            get
+            {
+                // Lógica para OBTENER el ID del vendedor seleccionado
+                if (cmbBusqueda.SelectedValue != null &&
+                    cmbBusqueda.SelectedValue != DBNull.Value)
+                {
+                    if (cmbBusqueda.SelectedValue is int id)
+                    {
+                        return id;
+                    }
+                    else if (int.TryParse(cmbBusqueda.SelectedValue.ToString(), out id))
+                    {
+                        return id;
+                    }
+                }
+                return null;
+            }
+            set
+            {
+                // Lógica para ESTABLECER el vendedor seleccionado
+                if (value.HasValue)
+                {
+                    try
+                    {
+                        // Buscar el vendedor en el ComboBox
+                        foreach (var item in cmbBusqueda.Items)
+                        {
+                            if (item is UsuarioModel usuario && usuario.Id_usuario == value.Value)
+                            {
+                                cmbBusqueda.SelectedItem = item;
+                                return;
+                            }
+                        }
+
+                        // Si no lo encuentra por objeto, intentar por valor
+                        cmbBusqueda.SelectedValue = value.Value;
+                    }
+                    catch (Exception ex)
+                    {
+                        // Log del error si es necesario
+                        Console.WriteLine($"Error al seleccionar vendedor: {ex.Message}");
+                    }
+                }
+                else
+                {
+                    // Si no hay valor, deseleccionar
+                    cmbBusqueda.SelectedIndex = -1;
+                }
+            }
+        }
+        List<UsuarioModel> IGerenteViewReporteVentas.DatosComboBusqueda { get => throw new NotImplementedException(); set => DatosComboBusqueda = value; }
 
         // EVENTOS 
         public event EventHandler SearchEvent;
@@ -273,8 +342,9 @@ namespace VocesDePapelV1._1.Views
         {           
             TipoReporteChangedEvent?.Invoke(this, EventArgs.Empty);
         }
-        //MÉTODO Singleton (patrón para una sola instancia)
-        private static ReporteVentasView instance;
+      
+        private readonly List<UsuarioModel> listaVendedores;
+
         public static ReporteVentasView GetInstance(Form parentContainer)
         {
             if (instance == null || instance.IsDisposed)

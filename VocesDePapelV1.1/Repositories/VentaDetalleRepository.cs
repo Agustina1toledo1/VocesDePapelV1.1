@@ -74,7 +74,7 @@ namespace VocesDePapelV1._1.Repositories
                             Precio_unitario = Convert.ToDecimal(reader["precio_unitario"]),
                             Id_venta_cabecera = Convert.ToInt32(reader["id_venta_cabecera"]),
                             Id_libro = Convert.ToInt32(reader["id_libro"]),
-                            Titulo_libro = reader["Titulo_libro"].ToString()
+                            //Titulo_libro = reader["Titulo_libro"].ToString()
                         });
                     }
                 }

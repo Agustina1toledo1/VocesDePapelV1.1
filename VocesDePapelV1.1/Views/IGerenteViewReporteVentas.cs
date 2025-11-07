@@ -19,7 +19,7 @@ namespace VocesDePapelV1._1.Views
         List<ClienteModel> ListaClientes { set; }
         string ValorBusqueda { get; } // Valor seleccionado en el ComboBox
         string TextoBusqueda { set; } // Texto a mostrar en el ComboBox
-        int? IdVendedorSeleccionado { get; }
+        int? IdVendedorSeleccionado { get; set; }
         string NombreVendedorSeleccionado { get; set; }
         // bool FiltroVendedorHabilitado { set; }
         //  bool FiltroVendedorVisible { get; set; }       
@@ -59,7 +59,8 @@ namespace VocesDePapelV1._1.Views
         // Mensajes
         string Message { get; set; }
         bool IsSuccessful { get; set; }
-      
+        List<UsuarioModel> DatosComboBusqueda { get; set; }
+
 
         // Eventos
         event EventHandler SearchEvent;

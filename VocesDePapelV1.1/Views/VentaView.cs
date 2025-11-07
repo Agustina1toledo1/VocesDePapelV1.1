@@ -318,7 +318,7 @@ namespace VocesDePapelV1._1.Views
                 int rowIndex = dataGridViewDetalles.Rows.Add();
                 DataGridViewRow row = dataGridViewDetalles.Rows[rowIndex];
                 row.Cells["Id_libro"].Value = detalle.Id_libro;
-                row.Cells["Titulo_libro"].Value = detalle.Titulo_libro;
+               // row.Cells["Titulo_libro"].Value = detalle.Titulo_libro;
                 row.Cells["Cantidad"].Value = detalle.Cantidad;
                 row.Cells["PrecioUnitario"].Value = detalle.Precio_unitario;
                 row.Cells["Subtotal"].Value = detalle.Subtotal;
@@ -389,7 +389,7 @@ namespace VocesDePapelV1._1.Views
                     var detalle = new VentaDetalleModel
                     {
                         Id_libro = Convert.ToInt32(row.Cells["Id_libro"].Value),
-                        Titulo_libro = row.Cells["Titulo_libro"].Value?.ToString() ?? "",
+                        //Titulo_libro = row.Cells["Titulo_libro"].Value?.ToString() ?? "",
                         Cantidad = Convert.ToInt32(row.Cells["Cantidad"].Value),
                         Precio_unitario = Convert.ToDecimal(row.Cells["Precio_unitario"].Value),
                         //Subtotal = Convert.ToDecimal(row.Cells["Subtotal"].Value)

@@ -1,4 +1,5 @@
 ﻿using iTextSharp.text;
+using Dapper;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
@@ -18,9 +19,9 @@ namespace VocesDePapelV1._1.Repositories
         }
 
         // Obtener ventas por rango de fechas
-        public IEnumerable<VentaReporteModel> GetVentasPorFecha(DateTime fechaInicio, DateTime fechaFin)
+        public IEnumerable<VentaCabeceraModel> GetVentasPorFecha(DateTime fechaInicio, DateTime fechaFin)
         {
-            var ventasList = new List<VentaReporteModel>();
+            var ventasList = new List<VentaCabeceraModel>();
 
             using (var connection = new SqlConnection(connectionString))
             using (var command = new SqlCommand())
@@ -71,19 +72,15 @@ namespace VocesDePapelV1._1.Repositories
                 {
                     while (reader.Read())
                     {
-                        var venta = new VentaReporteModel
+                        var venta = new VentaCabeceraModel
                         {
-                            IdVenta = Convert.ToInt32(reader["IdVenta"]),
-                            FechaVenta = Convert.ToDateTime(reader["FechaVenta"]),
-                            NombreCliente = reader["NombreCliente"].ToString(),
-                            NombreVendedor = reader["NombreVendedor"].ToString(),
-                            TotalVenta = Convert.ToDecimal(reader["TotalVenta"]),
-                            EstadoVenta = reader["EstadoVenta"].ToString(),
-                            CantidadProductos = Convert.ToInt32(reader["CantidadProductos"]),
-<<<<<<< HEAD
-=======
-                          
->>>>>>> se agrega acceso a reporte de ventas para vendedor con  filtro restringido
+                            Id_venta_cabecera = Convert.ToInt32(reader["IdVenta"]),
+                            Fecha_hora = Convert.ToDateTime(reader["FechaVenta"]),
+                            Nombre_cliente = reader["NombreCliente"].ToString(),
+                            Nombre_vendedor = reader["NombreVendedor"].ToString(),
+                            Total_venta= Convert.ToDecimal(reader["TotalVenta"]),
+                            Id_estado = (int)reader["EstadoVenta"]
+                            //CantidadProductos = Convert.ToInt32(reader["CantidadProductos"]),
                         };
                         ventasList.Add(venta);
                     }
@@ -138,9 +135,9 @@ namespace VocesDePapelV1._1.Repositories
         }
 
         // Obtener ventas por vendedor
-        public IEnumerable<VentaReporteModel> GetVentasPorVendedor(int idVendedor, DateTime fechaInicio, DateTime fechaFin)
+        public IEnumerable<VentaCabeceraModel> GetVentasPorVendedor(int idVendedor, DateTime fechaInicio, DateTime fechaFin)
         {
-            var ventasList = new List<VentaReporteModel>();
+            var ventasList = new List<VentaCabeceraModel>();
 
 <<<<<<< HEAD
             try
@@ -178,15 +175,15 @@ namespace VocesDePapelV1._1.Repositories
                     {
                         while (reader.Read())
                         {
-                            var venta = new VentaReporteModel
+                            var venta = new VentaCabeceraModel
                             {
-                                IdVenta = Convert.ToInt32(reader["IdVenta"]),
-                                FechaVenta = Convert.ToDateTime(reader["FechaVenta"]),
-                                NombreCliente = reader["NombreCliente"].ToString(),
-                                NombreVendedor = reader["NombreVendedor"].ToString(),
-                                TotalVenta = Convert.ToDecimal(reader["TotalVenta"]),
-                                EstadoVenta = reader["EstadoVenta"].ToString(),
-                                CantidadProductos = Convert.ToInt32(reader["CantidadProductos"]),
+                                Id_venta_cabecera = Convert.ToInt32(reader["IdVenta"]),
+                                Fecha_hora= Convert.ToDateTime(reader["FechaVenta"]),
+                                Nombre_vendedor = reader["NombreCliente"].ToString(),
+                                Cuit_vendedor = reader["NombreVendedor"].ToString(),
+                                Total_venta = Convert.ToDecimal(reader["TotalVenta"]),
+                               Id_estado = (int)reader["EstadoVenta"]
+                                // CantidadProductos = Convert.ToInt32(reader["CantidadProductos"]),
                             };
                             ventasList.Add(venta);
                         }
@@ -213,28 +210,11 @@ namespace VocesDePapelV1._1.Repositories
                 command.Connection = connection;
 
                 command.CommandText = @"
-<<<<<<< HEAD
-            SELECT ISNULL(SUM(total_venta), 0) as Total
-            FROM venta_cabecera 
-            WHERE id_usuario = @idVendedor
-            AND fecha_hora BETWEEN @fechaInicio AND @fechaFin
-            AND id_estado = 0";
-=======
-            SELECT
-                vc.id_venta_cabecera as IdVenta,
-                vc.fecha_hora as FechaVenta,
-                c.nombre_razon_social as NombreCliente,
-                u.nombre + ' ' + u.apellido as NombreVendedor,
-                vc.total_venta as TotalVenta,
-                e.nombre_estado as EstadoVenta,
-                (SELECT COUNT(*) FROM detalle_venta vd WHERE vd.id_venta_cabecera = vc.id_venta_cabecera) as CantidadProductos                
-                FROM venta_cabecera vc
-                INNER JOIN cliente c ON vc.id_cliente = c.id_cliente
-                INNER JOIN usuario u ON vc.id_usuario = u.id_usuario
-                INNER JOIN estado e ON vc.id_estado = e.id_estado
-                WHERE vc.id_usuario = @idVendedor  -- ← FILTRO POR VENDEDOR
-                ORDER BY vc.fecha_hora DESC";
->>>>>>> se agrega acceso a reporte de ventas para vendedor con  filtro restringido
+                    SELECT ISNULL(SUM(total_venta), 0) as Total
+                    FROM venta_cabecera 
+                    WHERE id_usuario = @idVendedor
+                    AND fecha_hora BETWEEN @fechaInicio AND @fechaFin
+                    AND id_estado = 0";
 
                 command.Parameters.Add("@idVendedor", SqlDbType.Int).Value = idVendedor;
                 command.Parameters.Add("@fechaInicio", SqlDbType.DateTime).Value = fechaInicio;
@@ -278,11 +258,11 @@ namespace VocesDePapelV1._1.Repositories
                 command.Connection = connection;
 
                 command.CommandText = @"
-                SELECT COUNT(*) as Cantidad
-                FROM venta_cabecera 
-                WHERE id_usuario = @idVendedor
-                AND fecha_hora BETWEEN @fechaInicio AND @fechaFin
-                AND id_estado = 0";
+                    SELECT COUNT(*) as Cantidad
+                    FROM venta_cabecera 
+                    WHERE id_usuario = @idVendedor
+                    AND fecha_hora BETWEEN @fechaInicio AND @fechaFin
+                    AND id_estado = 0";
 
                 command.Parameters.Add("@idVendedor", SqlDbType.Int).Value = idVendedor;
                 command.Parameters.Add("@fechaInicio", SqlDbType.DateTime).Value = fechaInicio;
@@ -291,9 +271,9 @@ namespace VocesDePapelV1._1.Repositories
                 return (int)command.ExecuteScalar();
             }
         }
-        public IEnumerable<VentaReporteModel> GetVentasPorCliente(string criterioCliente, DateTime fechaInicio, DateTime fechaFin)
+        public IEnumerable<VentaCabeceraModel> GetVentasPorCliente(string criterioCliente, DateTime fechaInicio, DateTime fechaFin)
         {
-            var ventasList = new List<VentaReporteModel>();
+            var ventasList = new List<VentaCabeceraModel>();
 
             using (var connection = new SqlConnection(connectionString))
             using (var command = new SqlCommand())
@@ -326,15 +306,15 @@ namespace VocesDePapelV1._1.Repositories
                 {
                     while (reader.Read())
                     {
-                        var venta = new VentaReporteModel
+                        var venta = new VentaCabeceraModel
                         {
-                            IdVenta = Convert.ToInt32(reader["IdVenta"]),
-                            FechaVenta = Convert.ToDateTime(reader["FechaVenta"]),
-                            NombreCliente = reader["NombreCliente"].ToString(),
-                            NombreVendedor = reader["NombreVendedor"].ToString(),
-                            TotalVenta = Convert.ToDecimal(reader["TotalVenta"]),
-                            EstadoVenta = reader["EstadoVenta"].ToString(),
-                            CantidadProductos = Convert.ToInt32(reader["CantidadProductos"]),
+                            Id_venta_cabecera = Convert.ToInt32(reader["IdVenta"]),
+                            Fecha_hora = Convert.ToDateTime(reader["FechaVenta"]),
+                            Nombre_cliente = reader["NombreCliente"].ToString(),
+                            Cuit_cliente= reader["NombreVendedor"].ToString(),
+                            Total_venta = Convert.ToDecimal(reader["TotalVenta"]),
+                            Nombre_estado = reader["EstadoVenta"].ToString(),
+                            // = Convert.ToInt32(reader["CantidadProductos"]),
                         };
                         ventasList.Add(venta);
                     }
@@ -342,10 +322,10 @@ namespace VocesDePapelV1._1.Repositories
             }
             return ventasList;
         }
-        public IEnumerable<VentaReporteModel> GetTop10Ventas()
+        public IEnumerable<VentaCabeceraModel> GetTop10Ventas()
         {
             
-            var ventasList = new List<VentaReporteModel>();
+            var ventasList = new List<VentaCabeceraModel>();
             // ... código con ORDER BY vc.total_venta DESC LIMIT 10
             return ventasList;
         }
@@ -505,10 +485,21 @@ namespace VocesDePapelV1._1.Repositories
             return clientes;
         }
 
-       
+       public List<VentaCabeceraModel> GetVentasCabecera()
+        {
+            List<VentaCabeceraModel> ventas = new List<VentaCabeceraModel>();
 
-=======
-    
->>>>>>> se agrega acceso a reporte de ventas para vendedor con  filtro restringido
+            using (var connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                var sql = @"SELECT Id, Fecha, ClienteNombre, VendedorNombre, Total 
+                    FROM VentasCabecera 
+                    WHERE Activo = 1";
+
+                ventas = connection.Query<VentaCabeceraModel>(sql).ToList();
+            }
+
+            return ventas;
+        }
     }
 }

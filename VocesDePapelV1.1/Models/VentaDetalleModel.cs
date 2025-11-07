@@ -15,23 +15,19 @@ namespace VocesDePapelV1._1.Models
         private decimal precio_unitario;
         private int id_venta_cabecera;
         private int id_libro;
+        private decimal subtotal;
+        private string titulo_libro;
 
 
         [DisplayName("ID Detalle Venta")]
         public int Id_venta_detalle
         {
             get { return id_venta_detalle; }
-            set
-            {
-                if (value < 0)
-                    throw new ArgumentException("El ID del detalle de venta no puede ser negativo");
-                id_venta_detalle = value;
-            }
+            set { id_venta_detalle = value; }
         }
 
         [DisplayName("Cantidad")]
         [Required(ErrorMessage = "La cantidad es requerida")]
-        [Range(1, 1000, ErrorMessage = "La cantidad debe estar entre 1 y 1000 unidades")]
         public int Cantidad
         {
             get { return cantidad; }
@@ -47,8 +43,6 @@ namespace VocesDePapelV1._1.Models
 
         [DisplayName("Precio Unitario")]
         [Required(ErrorMessage = "El precio unitario es requerido")]
-        [Range(0.01, 100000.00, ErrorMessage = "El precio unitario debe estar entre $0.01 y $100,000.00")]
-        [RegularExpression(@"^\d+(\.\d{1,2})?$", ErrorMessage = "El precio debe tener máximo 2 decimales")]
         public decimal Precio_unitario
         {
             get { return precio_unitario; }
@@ -66,19 +60,19 @@ namespace VocesDePapelV1._1.Models
                 precio_unitario = value;
             }
         }
+        [DisplayName("Subtotal")]
+        [Required(ErrorMessage = "El subtotal es requerido")]
+        public decimal Subtotal
+        {
+            get { return subtotal; }
+            set { subtotal = value; }
+        }
 
         [DisplayName("ID Venta Cabecera")]
-        [Required(ErrorMessage = "El ID de la venta cabecera es requerido")]
-        [Range(1, int.MaxValue, ErrorMessage = "El ID de venta cabecera debe ser válido")]
         public int Id_venta_cabecera
         {
             get { return id_venta_cabecera; }
-            set
-            {
-                if (value <= 0)
-                    throw new ArgumentException("El ID de venta cabecera debe ser mayor a 0");
-                id_venta_cabecera = value;
-            }
+            set { id_venta_cabecera = value; }
         }
 
         [DisplayName("ID Libro")]
@@ -95,21 +89,6 @@ namespace VocesDePapelV1._1.Models
             }
         }
 
-        // Propiedad calculada (solo lectura)
-        [DisplayName("Subtotal")]
-        [Browsable(false)] // No mostrar en DataGridView
-        public decimal Subtotal
-        {
-            get { return Cantidad * Precio_unitario; }
-        }
-
-        // Propiedades de navegación (para mostrar información relacionada)
-        [DisplayName("Título del Libro")]
-        public string Titulo_libro { get; set; }
-
-        [DisplayName("Producto")]
-        [Browsable(false)]
-        public ProductoModel Libro { get; set; }
 
         // Constructor
         public VentaDetalleModel()
@@ -166,15 +145,15 @@ namespace VocesDePapelV1._1.Models
                 Precio_unitario = this.Precio_unitario,
                 Id_venta_cabecera = this.Id_venta_cabecera,
                 Id_libro = this.Id_libro,
-                Titulo_libro = this.Titulo_libro
+                //Titulo_libro = this.Titulo_libro
             };
         }
 
         // Override de ToString para debugging
-        public override string ToString()
+       /* public override string ToString()
         {
             return $"Detalle: {Titulo_libro ?? "Libro"} x {Cantidad} = ${Subtotal:F2}";
-        }
+        }*/
     }
 
 }

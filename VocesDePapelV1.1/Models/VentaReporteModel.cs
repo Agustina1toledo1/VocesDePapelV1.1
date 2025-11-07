@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace VocesDePapelV1._1.Models
 {
-    public class VentaReporteModel
+   /* public class VentaReporteModel
     {
         [DisplayName("N° Factura")]
         public int IdVenta { get; set; }
@@ -31,5 +31,5 @@ namespace VocesDePapelV1._1.Models
         public int CantidadProductos { get; set; }
 
        
-    }
+    }*/
 }

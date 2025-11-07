@@ -10,11 +10,10 @@ namespace VocesDePapelV1._1.Repositories
 {
     public interface IVentaReporteRepository
     {
-        IEnumerable<VentaReporteModel> GetVentasPorFecha(DateTime fechaInicio, DateTime fechaFin);
-        IEnumerable<VentaReporteModel> GetVentasPorVendedor(int idVendedor, DateTime fechaInicio, DateTime fechaFin);
-<<<<<<< HEAD
-        IEnumerable<VentaReporteModel> GetVentasPorCliente(string criterioCliente, DateTime fechaInicio, DateTime fechaFin);
-        IEnumerable<VentaReporteModel> GetTop10Ventas();
+        IEnumerable<VentaCabeceraModel> GetVentasPorFecha(DateTime fechaInicio, DateTime fechaFin);
+        IEnumerable<VentaCabeceraModel> GetVentasPorVendedor(int idVendedor, DateTime fechaInicio, DateTime fechaFin);
+        IEnumerable<VentaCabeceraModel> GetVentasPorCliente(string criterioCliente, DateTime fechaInicio, DateTime fechaFin);
+        IEnumerable<VentaCabeceraModel> GetTop10Ventas();
         UsuarioModel GetVendedorPorId(int idVendedor);
         IEnumerable<UsuarioModel> GetVendedoresActivos();
         IEnumerable<ClienteModel> GetClientesActivos();

@@ -110,7 +110,7 @@ namespace VocesDePapelV1._1.Presenters
                     Id_libro = view.ProductoSeleccionadoId,
                     Cantidad = view.ProductoCantidad,
                     Precio_unitario = view.ProductoPrecio,                 
-                    Titulo_libro = view.ProductoSeleccionadoNombre
+                    //Titulo_libro = view.ProductoSeleccionadoNombre
                 };
                 System.Diagnostics.Debug.WriteLine($"Detalle creado - Cantidad: {detalle.Cantidad}," +
                                  $" Precio: {detalle.Precio_unitario}, Subtotal calculado: {detalle.Subtotal}");
@@ -198,7 +198,7 @@ namespace VocesDePapelV1._1.Presenters
                     var producto = productoRepo.GetAll().FirstOrDefault(p => p.Id_libro == detalle.Id_libro);
                     if (producto?.Stock < detalle.Cantidad)
                     {
-                        view.MostrarMensaje($"Stock insuficiente para: {detalle.Titulo_libro}", false);
+                       // view.MostrarMensaje($"Stock insuficiente para: {detalle.Titulo_libro}", false);
                         return;
                     }
                 }

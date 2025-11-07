@@ -16,6 +16,7 @@ namespace VocesDePapelV1._1.Repositories
         IEnumerable<VentaCabeceraModel> GetByValue(string value);
         VentaCabeceraModel ObtenerPorId(int id);
         int ObtenerProximoNumeroFactura();
+      //  IEnumerable<VentaCabeceraModel2> GetByVendedorDate(int value, DateTime inicio, DateTime final);
 
     }
 

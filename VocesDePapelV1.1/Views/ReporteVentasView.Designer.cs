@@ -404,7 +404,8 @@
             cmbBusqueda.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbBusqueda.Font = new Font("Segoe UI", 9F);
             cmbBusqueda.FormattingEnabled = true;
-            cmbBusqueda.Items.AddRange(new object[] { "Por Fecha", "Por Vendedor", "Top 10 Ventas", "Por Cliente" });
+            //  cmbBusqueda.Items.AddRange(new object[] { });
+            cmbBusqueda.DataSource = this.ListaVendedores;
             cmbBusqueda.Location = new Point(622, 64);
             cmbBusqueda.Name = "cmbBusqueda";
             cmbBusqueda.Size = new Size(180, 28);

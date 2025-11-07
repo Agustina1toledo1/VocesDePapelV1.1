@@ -5,13 +5,14 @@ using System.Collections.Generic;
 using System.IO;
 using VocesDePapelV1._1.Models;
 using VocesDePapelV1._1.Views;
+using System.Linq;
 using VocesDePapelV1._1.Properties;
 
 namespace VocesDePapelV1._1.Servicios
 {
     public class GeneradorPDFVentas
     {
-        public bool GenerarReporteVentas(IEnumerable<VentaReporteModel> ventas, IGerenteViewReporteVentas view, string rutaArchivo)
+        public bool GenerarReporteVentas(IEnumerable<VentaCabeceraModel> ventas, IGerenteViewReporteVentas view, string rutaArchivo)
         {
             try
             {
@@ -71,13 +72,13 @@ namespace VocesDePapelV1._1.Servicios
                 // Datos de ventas
                 foreach (var venta in ventas)
                 {
-                    tabla.AddCell(CrearCeldaDato(venta.IdVenta.ToString()));
-                    tabla.AddCell(CrearCeldaDato(venta.FechaVenta.ToString("dd/MM/yyyy")));
-                    tabla.AddCell(CrearCeldaDato(venta.NombreCliente));
-                    tabla.AddCell(CrearCeldaDato(venta.NombreVendedor));
-                    tabla.AddCell(CrearCeldaDato(venta.TotalVenta.ToString("C2")));
-                    tabla.AddCell(CrearCeldaDato(venta.EstadoVenta));
-                    tabla.AddCell(CrearCeldaDato(venta.CantidadProductos.ToString()));
+                    tabla.AddCell(CrearCeldaDato(venta.Id_venta_cabecera.ToString()));
+                    tabla.AddCell(CrearCeldaDato(venta.Fecha_hora.ToString("dd/MM/yyyy")));
+                    tabla.AddCell(CrearCeldaDato(venta.Nombre_cliente));
+                    tabla.AddCell(CrearCeldaDato(venta.Nombre_vendedor));
+                    tabla.AddCell(CrearCeldaDato(venta.Total_venta.ToString("C2")));
+                    tabla.AddCell(CrearCeldaDato(venta.Id_estado.ToString()));
+                   //cantidad tabla.AddCell(CrearCeldaDato(venta..ToString()));
                    
                 }
 
