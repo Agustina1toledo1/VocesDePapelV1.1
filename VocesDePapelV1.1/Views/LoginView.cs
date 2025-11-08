@@ -17,13 +17,14 @@ namespace VocesDePapelV1._1.Views
        
         private readonly AuthService _authService;
 
-        public UsuarioModel? UsuarioAutenticado { get; private set; }
-        public bool AutenticacionExitosa { get; private set; }
-
+        public UsuarioModel? UsuarioAutenticado { get;  set; }
+        public bool AutenticacionExitosa { get; set; }
+        public int IdUsuarioLogeado { get;  set; }
         // ✅ Constructor vacio 
-        public LoginView()
+        public LoginView(int idUsuario)
         {
             InitializeComponent();
+            this.IdUsuarioLogeado = idUsuario;
             this.StartPosition = FormStartPosition.CenterScreen;
         }
 

@@ -77,27 +77,48 @@ namespace VocesDePapelV1._1.Presenters
 
             IGerenteViewReporteVentas reporteView = ReporteVentasView.GetInstance(parentContainer);
             IVentaReporteRepository repository = new VentaReporteRepository(connectionString);
-            int idUsuario = 5;
-            new ReporteVentasPresenter(reporteView, repository, true, idUsuario);
-        }
-        private int ObtenerIdDesdeMainForm()
-        {
-            // Buscar el Form principal
-            Form mainForm = Application.OpenForms.OfType<LoginView>().FirstOrDefault();
-            if (mainForm != null)
+            int idVendedor = 0;
+            string cuitVendedor = string.Empty;
+
+            using (var popup = new Cuit())
             {
-                // Verificar si tiene propiedad de usuario
-                var usuarioProp = mainForm.GetType().GetProperty("UsuarioLogueado");
-                if (usuarioProp != null)
+                if (popup.ShowDialog() == DialogResult.OK)
                 {
-                    var usuario = usuarioProp.GetValue(mainForm) as UsuarioModel;
-                    if (usuario != null) return usuario.Id_usuario;
+                    cuitVendedor = popup.CuitIngresado;
+                }
+                else
+                {
+                    // El usuario canceló o cerró el pop-up
+                    return;
                 }
             }
 
-            // Si no encuentra, usar temporal
-            return 3; // ← ID temporal
+            // --- 2. Buscar el ID usando el CUIT ---
+            try
+            {
+                // Usar el Repositorio para buscar el ID real
+                idVendedor = repository.GetVendedoresActivos()
+                    .FirstOrDefault(v => v.Cuit_usuario == cuitVendedor)?.Id_usuario ?? 0;
+            }
+            catch
+            {
+                // Manejo de error si el CUIT no existe
+                MessageBox.Show("CUIT no encontrado o no es un vendedor válido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // --- 3. Crear el Presentador con el ID Obtenido ---
+            if (idVendedor > 0)
+            {
+                // Se abre el reporte en modo vendedor con el ID encontrado
+                new ReporteVentasPresenter(reporteView, repository, true, idVendedor);
+            }
+            else
+            {
+                MessageBox.Show("No se pudo obtener el ID del vendedor.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
+        
 
         private void ShowVentaView(object? sender, EventArgs e)
         {
