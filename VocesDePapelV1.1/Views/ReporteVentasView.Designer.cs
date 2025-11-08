@@ -28,15 +28,16 @@
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             panelFiltros = new Panel();
             grpFiltros = new GroupBox();
+           
+            cmbBusqueda = new ComboBox();
             cmbVendedor = new ComboBox();
-            chkIncluirDetalles = new CheckBox();
             lblTipoReporte = new Label();
-            lblBusqueda = new Label();
             cmbTipoReporte = new ComboBox();
             lblFechaFin = new Label();
             dtpFechaFin = new DateTimePicker();
             lblFechaInicio = new Label();
             dtpFechaInicio = new DateTimePicker();
+            lblBusqueda = new Label();
             panelBotones = new Panel();
             btnLimpiar = new Button();
             btnGenerarPDF = new Button();
@@ -52,7 +53,6 @@
             panelGrid = new Panel();
             dgvVentas = new DataGridView();
             lblMensaje = new Label();
-            cmbBusqueda = new ComboBox();
             panelFiltros.SuspendLayout();
             grpFiltros.SuspendLayout();
             panelBotones.SuspendLayout();
@@ -73,9 +73,9 @@
             // 
             // grpFiltros
             // 
+            
             grpFiltros.Controls.Add(cmbBusqueda);
             grpFiltros.Controls.Add(cmbVendedor);
-            grpFiltros.Controls.Add(chkIncluirDetalles);
             grpFiltros.Controls.Add(lblTipoReporte);
             grpFiltros.Controls.Add(cmbTipoReporte);
             grpFiltros.Controls.Add(lblFechaFin);
@@ -91,6 +91,18 @@
             grpFiltros.TabStop = false;
             grpFiltros.Text = "Filtros del Reporte";
             // 
+           
+            // cmbBusqueda
+            // 
+            cmbBusqueda.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbBusqueda.Font = new Font("Segoe UI", 9F);
+            cmbBusqueda.FormattingEnabled = true;
+            cmbBusqueda.Items.AddRange(new object[] { "Por Fecha", "Por Vendedor", "Top 10 Ventas", "Por Cliente" });
+            cmbBusqueda.Location = new Point(622, 64);
+            cmbBusqueda.Name = "cmbBusqueda";
+            cmbBusqueda.Size = new Size(180, 28);
+            cmbBusqueda.TabIndex = 12;
+            // 
             // cmbVendedor
             // 
             cmbVendedor.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -99,17 +111,6 @@
             cmbVendedor.Name = "cmbVendedor";
             cmbVendedor.Size = new Size(200, 28);
             cmbVendedor.TabIndex = 11;
-            // 
-            // chkIncluirDetalles
-            // 
-            chkIncluirDetalles.AutoSize = true;
-            chkIncluirDetalles.Font = new Font("Segoe UI", 9F);
-            chkIncluirDetalles.Location = new Point(900, 70);
-            chkIncluirDetalles.Name = "chkIncluirDetalles";
-            chkIncluirDetalles.Size = new Size(129, 24);
-            chkIncluirDetalles.TabIndex = 8;
-            chkIncluirDetalles.Text = "Incluir Detalles";
-            chkIncluirDetalles.UseVisualStyleBackColor = true;
             // 
             // lblTipoReporte
             // 
@@ -121,16 +122,6 @@
             lblTipoReporte.TabIndex = 5;
             lblTipoReporte.Text = "Tipo Reporte:";
             // 
-            //lblBusqueda
-            //
-            lblBusqueda.AutoSize = true;
-            lblBusqueda.Font = new Font("Segoe UI", 9F);
-            lblBusqueda.Location = new Point(622, 40);
-            lblBusqueda.Name = "lblBusqueda";
-            lblBusqueda.Size = new Size(80, 20);
-            lblBusqueda.TabIndex = 10;
-            lblBusqueda.Text = "Búsqueda:";
-            //
             // cmbTipoReporte
             // 
             cmbTipoReporte.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -179,6 +170,16 @@
             dtpFechaInicio.Name = "dtpFechaInicio";
             dtpFechaInicio.Size = new Size(160, 27);
             dtpFechaInicio.TabIndex = 0;
+            // 
+            // lblBusqueda
+            // 
+            lblBusqueda.AutoSize = true;
+            lblBusqueda.Font = new Font("Segoe UI", 9F);
+            lblBusqueda.Location = new Point(622, 40);
+            lblBusqueda.Name = "lblBusqueda";
+            lblBusqueda.Size = new Size(80, 20);
+            lblBusqueda.TabIndex = 10;
+            lblBusqueda.Text = "Búsqueda:";
             // 
             // panelBotones
             // 
@@ -263,11 +264,11 @@
             // lblPromedioVenta
             // 
             lblPromedioVenta.AutoSize = true;
-            lblPromedioVenta.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            lblPromedioVenta.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             lblPromedioVenta.ForeColor = Color.Blue;
             lblPromedioVenta.Location = new Point(920, 35);
             lblPromedioVenta.Name = "lblPromedioVenta";
-            lblPromedioVenta.Size = new Size(49, 20);
+            lblPromedioVenta.Size = new Size(65, 28);
             lblPromedioVenta.TabIndex = 4;
             lblPromedioVenta.Text = "$0.00";
             // 
@@ -284,11 +285,11 @@
             // lblCantidadVentas
             // 
             lblCantidadVentas.AutoSize = true;
-            lblCantidadVentas.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            lblCantidadVentas.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             lblCantidadVentas.ForeColor = Color.Green;
             lblCantidadVentas.Location = new Point(530, 35);
             lblCantidadVentas.Name = "lblCantidadVentas";
-            lblCantidadVentas.Size = new Size(18, 20);
+            lblCantidadVentas.Size = new Size(24, 28);
             lblCantidadVentas.TabIndex = 2;
             lblCantidadVentas.Text = "0";
             // 
@@ -305,11 +306,11 @@
             // lblTotalVentas
             // 
             lblTotalVentas.AutoSize = true;
-            lblTotalVentas.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            lblTotalVentas.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             lblTotalVentas.ForeColor = Color.Red;
-            lblTotalVentas.Location = new Point(140, 35);
+            lblTotalVentas.Location = new Point(131, 35);
             lblTotalVentas.Name = "lblTotalVentas";
-            lblTotalVentas.Size = new Size(49, 20);
+            lblTotalVentas.Size = new Size(65, 28);
             lblTotalVentas.TabIndex = 0;
             lblTotalVentas.Text = "$0.00";
             // 
@@ -361,17 +362,6 @@
             lblMensaje.TextAlign = ContentAlignment.MiddleCenter;
             lblMensaje.Visible = false;
             // 
-            // cmbBusqueda
-            // 
-            cmbBusqueda.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmbBusqueda.Font = new Font("Segoe UI", 9F);
-            cmbBusqueda.FormattingEnabled = true;
-            cmbBusqueda.Items.AddRange(new object[] { "Por Fecha", "Por Vendedor", "Top 10 Ventas", "Por Cliente" });
-            cmbBusqueda.Location = new Point(622, 64);
-            cmbBusqueda.Name = "cmbBusqueda";
-            cmbBusqueda.Size = new Size(180, 28);
-            cmbBusqueda.TabIndex = 12;
-            // 
             // ReporteVentasView
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -400,7 +390,6 @@
 
         private Panel panelFiltros;
         private GroupBox grpFiltros;
-        private CheckBox chkIncluirDetalles;
         private ComboBox cmbVendedor;
         private Label lblBusqueda;
         // private Label lblVendedor;
@@ -427,5 +416,6 @@
         private DataGridView dgvVentas;
         private Label lblMensaje;
         private ComboBox cmbBusqueda;
+        private Label TextoBusqueda;
     }
 }

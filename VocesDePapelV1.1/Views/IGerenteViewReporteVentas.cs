@@ -13,21 +13,21 @@ namespace VocesDePapelV1._1.Views
         DateTime FechaInicio { get; set; }
         DateTime FechaFin { get; set; }
         string TipoReporte { get; set; }
-        bool IncluirDetalles { get; set; }
+       
         List<UsuarioModel> ListaVendedores { set; }
         List<ClienteModel> ListaClientes { set; }
         string ValorBusqueda { get; } // Valor seleccionado en el ComboBox
-        string TextoBusqueda { set; } // Texto a mostrar en el ComboBox
+       
         int? IdVendedorSeleccionado { get; }
         string NombreVendedorSeleccionado { get; set; }
         // bool FiltroVendedorHabilitado { set; }
         //  bool FiltroVendedorVisible { get; set; }       
         // Propiedades para filtros vendedor
-        // bool EsModoVendedor { get; set; }
+        bool EsModoVendedor { get; set; }
         bool ComboVendedorHabilitado { set; }
         bool ComboBusquedaHabilitado { set; }
-        string EtiquetaBusqueda { set; }
-        string TextoVendedor { set; }////
+       
+      
         int VendedorSeleccionadoId { set; }
         //int IdVendedorAutomatico { set; }
        // string TxtVendedorAuto { set; }

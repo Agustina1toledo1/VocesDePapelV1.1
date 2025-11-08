@@ -45,24 +45,27 @@ namespace VocesDePapelV1._1.Views
         public bool EsModoVendedor
         {
 
-            get { return !cmbVendedor.Visible && txtVendedorAuto.Visible; }
-            set
+           get { return !cmbTipoReporte.Enabled && !cmbVendedor.Enabled; }
+        set
+        { cmbTipoReporte.Enabled = value;
+            if (value)
             {
-                if (value)
-                {
-                    // Modo vendedor: mostrar TextBox, ocultar ComboBox
-                    cmbVendedor.Visible = false;
-                    txtVendedorAuto.Visible = true;
-                    lblVendedor.Text = "Vendedor:";
-                }
-                else
-                {
-                    // Modo gerente: mostrar ComboBox, ocultar TextBox
-                    cmbVendedor.Visible = true;
-                    txtVendedorAuto.Visible = false;
-                    lblVendedor.Text = "Seleccionar Vendedor:";
-                }
+                // ✅ MODO VENDEDOR - Configuración correcta
+                cmbTipoReporte.Enabled = false;      // Deshabilita cambiar tipo
+                cmbTipoReporte.SelectedItem = "Por Vendedor"; // Fuerza tipo "Por Vendedor"
+                cmbVendedor.Enabled = false;         // Deshabilita cambiar vendedor
+                cmbBusqueda.Enabled = false;         // Deshabilita búsqueda general
+                lblTipoReporte.Text = "Modo Vendedor"; // Cambia etiqueta
             }
+            else
+            {
+                // ✅ MODO GERENTE - Configuración correcta
+                cmbTipoReporte.Enabled = true;       // Habilita cambiar tipo
+                cmbVendedor.Enabled = true;          // Habilita cambiar vendedor
+                cmbBusqueda.Enabled = true;          // Habilita búsqueda general
+                lblTipoReporte.Text = "Tipo Reporte:"; // Etiqueta normal
+            }
+        }
         }
 
 
@@ -95,11 +98,7 @@ namespace VocesDePapelV1._1.Views
             get => cmbTipoReporte.SelectedItem?.ToString() ?? "Por Fecha";
             set => cmbTipoReporte.SelectedItem = value;
         }
-        public bool IncluirDetalles
-        {
-            get => chkIncluirDetalles.Checked;
-            set => chkIncluirDetalles.Checked = value;
-        }
+      
         public string ValorBusqueda
         {
             get
@@ -110,14 +109,7 @@ namespace VocesDePapelV1._1.Views
             }
         }
 
-        public string TextoBusqueda
-        {
-            set
-            {
-                if (cmbBusqueda != null)
-                    cmbBusqueda.Text = value;
-            }
-        }
+        
         public bool ComboBusquedaHabilitado
         {
             set
@@ -225,6 +217,7 @@ namespace VocesDePapelV1._1.Views
             }
         }
         public bool IsSuccessful { get; set; }
+        
 
         // EVENTOS 
         public event EventHandler SearchEvent;

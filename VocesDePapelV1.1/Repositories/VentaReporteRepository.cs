@@ -278,14 +278,7 @@ namespace VocesDePapelV1._1.Repositories
             }
             return ventasList;
         }
-        public IEnumerable<VentaReporteModel> GetTop10Ventas()
-        {
-            
-            var ventasList = new List<VentaReporteModel>();
-            // ... código con ORDER BY vc.total_venta DESC LIMIT 10
-            return ventasList;
-        }
-
+       
         
         public UsuarioModel GetVendedorPorId(int idVendedor)
         {
@@ -368,9 +361,9 @@ namespace VocesDePapelV1._1.Repositories
                 command.Connection = connection;
 
                 command.CommandText = @"
-            SELECT id_cliente, nombre_razon_social, cuit_cuil, email, telefono
-            FROM cliente 
-            ORDER BY nombre_razon_social";
+                    SELECT id_cliente, nombre_razon_social, cuit_cuil, email, telefono
+                    FROM cliente 
+                    ORDER BY nombre_razon_social";
 
                 using (var reader = command.ExecuteReader())
                 {

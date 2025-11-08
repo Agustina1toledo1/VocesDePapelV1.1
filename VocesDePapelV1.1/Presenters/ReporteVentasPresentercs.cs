@@ -32,6 +32,7 @@ namespace VocesDePapelV1._1.Presenters
             else
             {
                 ConfigurarModoGerente();
+                
             }
 
             // Suscribir eventos de la vista
@@ -51,19 +52,21 @@ namespace VocesDePapelV1._1.Presenters
             {
                 // Obtener datos del vendedor 
                 var vendedor = repository.GetVendedorPorId(idVendedor);
-
+                view.EsModoVendedor = true;  
                 if (vendedor != null)
                 {
+                    view.Message = $"Configurando modo vendedor - ID: {idVendedor}";
                     // Configurar vista en modo vendedor
                     var vendedorUnico = new List<UsuarioModel> { vendedor };
                     view.ListaVendedores = vendedorUnico;
                     view.VendedorSeleccionadoId = idVendedor; // Seleccionar automáticamente
-                    view.TextoVendedor = $"{vendedor.Nombre} {vendedor.Apellido}";// Mostrar nombre
                     view.ComboVendedorHabilitado = false;// Deshabilitar selección
                     view.TipoReporte = "Por Vendedor";// Forzar tipo de reporte
-                    view.TextoBusqueda = $"{vendedor.Nombre} {vendedor.Apellido}";
+                   
                     view.ComboBusquedaHabilitado = false;
-                    view.EtiquetaBusqueda = "Vendedor:";
+
+                    view.TipoReporte = "Por Vendedor";
+
                     // Buscar automáticamente
                     SearchVentas(this, EventArgs.Empty);
                 }
@@ -100,8 +103,11 @@ namespace VocesDePapelV1._1.Presenters
 
             view.FechaInicio = fechaInicio;
             view.FechaFin = fechaFin;
-            view.TipoReporte = "Por Fecha";
-            view.IncluirDetalles = false;
+            view.TotalVentas = "0.00";
+            view.CantidadVentas = "0";
+            view.PromedioVenta = "0.00";
+
+
 
         }
         private void TipoReporteChanged(object? sender, EventArgs e)
@@ -114,22 +120,18 @@ namespace VocesDePapelV1._1.Presenters
                     case "Por Vendedor":
                         var vendedores = repository.GetVendedoresActivos();
                         view.ListaVendedores = vendedores.ToList();
-                        view.EtiquetaBusqueda = "Seleccionar Vendedor:";
+                       
                         view.ComboBusquedaHabilitado = true;
                         break;
 
                     case "Por Cliente":
                         var clientes = repository.GetClientesActivos();
                         view.ListaClientes = clientes.ToList();
-                        view.EtiquetaBusqueda = "Seleccionar Cliente:";
+                       
                         view.ComboBusquedaHabilitado = true;
                         break;
 
                     case "Por Fecha":
-                    case "Top 10 Ventas":
-                        view.EtiquetaBusqueda = "Búsqueda:";
-                        view.ComboBusquedaHabilitado = false;
-                        view.TextoBusqueda = string.Empty;
                         break;
                 }
             }
@@ -181,9 +183,7 @@ namespace VocesDePapelV1._1.Presenters
                             ventasList = repository.GetVentasPorVendedor(idVendedor, fechaInicio, fechaFinValorAjustado);
 
                         } break;
-                    case "Top 10 Ventas":
-                        ventasList = repository.GetTop10Ventas();
-                        break;
+                    
                     case "Por Cliente":
                         if (string.IsNullOrEmpty(view.ValorBusqueda))
                         {
