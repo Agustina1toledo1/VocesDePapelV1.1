@@ -37,13 +37,13 @@ namespace VocesDePapelV1._1.Servicios
                 // Información del reporte
                 string infoReporte = $"REPORTE DE VENTAS\n" +
                                    $"Período: {view.FechaInicio} al {view.FechaFin}\n" +
-                                   $"Total Ventas: {view.TotalVentasPeriodo}\n" +
-                                   $"Cantidad: {view.CantidadVentasPeriodo} ventas\n" +
-                                   $"Promedio: {view.PromedioVenta} por venta\n" +
+                                   $" {view.TotalVentasPeriodo}\n" +
+                                   $" {view.CantidadVentasPeriodo} ventas\n" +
+                                   $" {view.PromedioVenta} por venta\n" +
                                    $"Generado: {DateTime.Now:dd/MM/yyyy HH:mm}";
 
                 PdfPCell celdaInfo = new PdfPCell(new Phrase(infoReporte,
-                    FontFactory.GetFont("Arial", 10, iTextSharp.text.Font.BOLD)))
+                    FontFactory.GetFont("Arial", 14, iTextSharp.text.Font.BOLD)))
                 {
                     HorizontalAlignment = Element.ALIGN_RIGHT,
                     Border = iTextSharp.text.Rectangle.NO_BORDER
@@ -54,9 +54,9 @@ namespace VocesDePapelV1._1.Servicios
                 doc.Add(new Paragraph("\n"));
 
                 //Tabla de ventas
-                PdfPTable tabla = new PdfPTable(8);
+                PdfPTable tabla = new PdfPTable(6);
                 tabla.WidthPercentage = 100;
-                tabla.SetWidths(new float[] { 0.8f, 1.2f, 2f, 2f, 1.2f, 1f, 1f, 1f });
+                tabla.SetWidths(new float[] { 0.8f, 1.2f, 2f, 2f, 1.2f, 1f});
 
                 // Encabezados
                 tabla.AddCell(CrearCeldaEncabezado("N° Factura"));
@@ -64,9 +64,8 @@ namespace VocesDePapelV1._1.Servicios
                 tabla.AddCell(CrearCeldaEncabezado("Cliente"));
                 tabla.AddCell(CrearCeldaEncabezado("Vendedor"));
                 tabla.AddCell(CrearCeldaEncabezado("Total"));
-                tabla.AddCell(CrearCeldaEncabezado("Estado"));
                 tabla.AddCell(CrearCeldaEncabezado("Productos"));
-                tabla.AddCell(CrearCeldaEncabezado("Pago"));
+               
 
                 // Datos de ventas
                 foreach (var venta in ventas)
@@ -76,7 +75,6 @@ namespace VocesDePapelV1._1.Servicios
                     tabla.AddCell(CrearCeldaDato(venta.NombreCliente));
                     tabla.AddCell(CrearCeldaDato(venta.NombreVendedor));
                     tabla.AddCell(CrearCeldaDato(venta.TotalVenta.ToString("C2")));
-                    tabla.AddCell(CrearCeldaDato(venta.EstadoVenta));
                     tabla.AddCell(CrearCeldaDato(venta.CantidadProductos.ToString()));
                    
                 }
@@ -87,10 +85,10 @@ namespace VocesDePapelV1._1.Servicios
                 doc.Add(new Paragraph($"\nResumen del Reporte:",
                     FontFactory.GetFont("Arial", 12, iTextSharp.text.Font.BOLD)));
 
-                string resumen = $"• Total de ventas en período: {view.TotalVentasPeriodo}\n" +
-                               $"• Cantidad de ventas: {view.CantidadVentasPeriodo}\n" +
-                               $"• Promedio por venta: {view.PromedioVenta}\n" +
-                               $"• Ventas listadas: {ventas.Count()}";
+                string resumen = $"•  {view.TotalVentasPeriodo}\n" +
+                               $"•  {view.CantidadVentasPeriodo}\n" +
+                               $"• {view.PromedioVenta}\n";
+                             
 
                 doc.Add(new Paragraph(resumen,
                     FontFactory.GetFont("Arial", 10)));

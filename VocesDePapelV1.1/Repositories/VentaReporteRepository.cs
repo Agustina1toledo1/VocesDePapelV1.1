@@ -227,6 +227,7 @@ namespace VocesDePapelV1._1.Repositories
                 return (int)command.ExecuteScalar();
             }
         }
+        // Obtener ventas por cliente
         public IEnumerable<VentaReporteModel> GetVentasPorCliente(int idCliente, DateTime fechaInicio, DateTime fechaFin)
         {
             var ventasList = new List<VentaReporteModel>();
@@ -278,6 +279,7 @@ namespace VocesDePapelV1._1.Repositories
             }
             return ventasList;
         }
+        // Obtener cantidad de ventas por cliente en período
         public int GetCantidadVentasPorCliente(int idCliente, DateTime fechaInicio, DateTime fechaFin)
         {
             using (var connection = new SqlConnection(connectionString))
@@ -298,7 +300,7 @@ namespace VocesDePapelV1._1.Repositories
                 return (int)command.ExecuteScalar();
             }
         }
-
+        // Obtener total de ventas por cliente en período
         public decimal GetTotalVentasPorCliente(int idCliente, DateTime fechaInicio, DateTime fechaFin)
         {
             using (var connection = new SqlConnection(connectionString))
@@ -320,6 +322,7 @@ namespace VocesDePapelV1._1.Repositories
                 return result != null ? Convert.ToDecimal(result) : 0;
             }
         }
+        // Obtener vendedor por ID
         public UsuarioModel GetVendedorPorId(int idVendedor)
         {
             using (var connection = new SqlConnection(connectionString))
@@ -390,6 +393,7 @@ namespace VocesDePapelV1._1.Repositories
             }
             return vendedores;
         }
+        // Obtener todos los clientes activos
         public IEnumerable<ClienteModel> GetClientesActivos()
         {
             var clientes = new List<ClienteModel>();
@@ -421,9 +425,7 @@ namespace VocesDePapelV1._1.Repositories
                 }
             }
             return clientes;
-        }
-
-       
+        }       
 
     }
 }

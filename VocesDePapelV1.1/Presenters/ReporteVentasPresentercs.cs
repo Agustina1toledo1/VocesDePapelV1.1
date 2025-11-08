@@ -61,12 +61,9 @@ namespace VocesDePapelV1._1.Presenters
                     view.Message = $"Configurando modo vendedor - ID: {idVendedor}";
                     // Configurar vista en modo vendedor
                     var vendedorUnico = new List<UsuarioModel> { vendedor };
-                    view.ListaVendedores = vendedorUnico;
-                    
-                   
-                   
+                    view.ListaVendedores = vendedorUnico;               
+                                      
                     view.ComboBusquedaHabilitado = false;
-
                     view.TipoReporte = "Por Vendedor";
 
                     // Buscar automáticamente
@@ -94,6 +91,7 @@ namespace VocesDePapelV1._1.Presenters
                 var clientes = repository.GetClientesActivos();
                 view.ListaClientes = clientes.ToList();
                 TipoReporteChanged(this, EventArgs.Empty);
+                
             }
             catch (Exception ex)
             {
@@ -111,10 +109,7 @@ namespace VocesDePapelV1._1.Presenters
             view.TotalVentas = "0.00";
             view.CantidadVentas = "0";
             view.PromedioVenta = "0.00";
-            view.CmbBusqueda = "";
-
-
-
+           
         }
         private void TipoReporteChanged(object? sender, EventArgs e)
         {
@@ -137,6 +132,7 @@ namespace VocesDePapelV1._1.Presenters
                         break;
 
                     case "Por Fecha":
+                        view.ComboBusquedaHabilitado = false;
                         break;
                 }
             }
@@ -198,6 +194,7 @@ namespace VocesDePapelV1._1.Presenters
                         break;
                     default:
                         ventasList = repository.GetVentasPorFecha(fechaInicio, fechaFinValorAjustado);
+                        view.CmbBusqueda = "-seleccionar-";
                         break;
                 }
 
