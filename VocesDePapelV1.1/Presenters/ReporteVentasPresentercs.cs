@@ -58,13 +58,13 @@ namespace VocesDePapelV1._1.Presenters
                 view.EsModoVendedor = true;  
                 if (vendedor != null)
                 {
-                    view.Message = $"Configurando modo vendedor - ID: {idVendedor}";
-                    // Configurar vista en modo vendedor
+                   // Configurar vista en modo vendedor
                     var vendedorUnico = new List<UsuarioModel> { vendedor };
                     view.ListaVendedores = vendedorUnico;               
                                       
                     view.ComboBusquedaHabilitado = false;
                     view.TipoReporte = "Por Vendedor";
+                    
 
                     // Buscar automáticamente
                     SearchVentas(this, EventArgs.Empty);
@@ -194,7 +194,7 @@ namespace VocesDePapelV1._1.Presenters
                         break;
                     default:
                         ventasList = repository.GetVentasPorFecha(fechaInicio, fechaFinValorAjustado);
-                        view.CmbBusqueda = "-seleccionar-";
+                       
                         break;
                 }
 
