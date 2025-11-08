@@ -15,6 +15,8 @@ namespace VocesDePapelV1._1.Models
         private decimal precio_unitario;
         private int id_venta_cabecera;
         private int id_libro;
+        private decimal subtotal;
+        private string titulo_libro;
 
 
         [DisplayName("ID Detalle Venta")]
@@ -97,10 +99,11 @@ namespace VocesDePapelV1._1.Models
 
         // Propiedad calculada (solo lectura)
         [DisplayName("Subtotal")]
-        [Browsable(false)] // No mostrar en DataGridView
+        [Required(ErrorMessage = "El subtotal es requerido")]
         public decimal Subtotal
         {
-            get { return Cantidad * Precio_unitario; }
+            get { return subtotal; }
+            set { subtotal = value; }
         }
 
         // Propiedades de navegación (para mostrar información relacionada)
