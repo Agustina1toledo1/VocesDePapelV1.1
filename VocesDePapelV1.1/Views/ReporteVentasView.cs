@@ -157,9 +157,9 @@ namespace VocesDePapelV1._1.Views
         {
             set
             {
-                cmbVendedor.DataSource = value;
-                cmbVendedor.DisplayMember = "NombreCompleto";
-                cmbVendedor.ValueMember = "Id_usuario";
+                cmbBusqueda.DataSource = value;
+                cmbBusqueda.DisplayMember = "NombreCompleto";
+                cmbBusqueda.ValueMember = "Id_usuario";
             }
         }
         //
@@ -167,21 +167,24 @@ namespace VocesDePapelV1._1.Views
         {
             get
             {
-                return cmbVendedor.SelectedValue as int?;
+                return cmbBusqueda.SelectedValue as int?;
             }
         }
-        public string NombreVendedorSeleccionado
+       public int? IdClienteSeleccionado
         {
-            get => cmbVendedor.Text;
-            set => cmbVendedor.Text = value;
+            get
+            {
+                return cmbBusqueda.SelectedValue as int?;
+            }
         }
+
         public List<ClienteModel> ListaClientes
         {
             set
             {
                 cmbBusqueda.DataSource = value;
-                cmbBusqueda.DisplayMember = "NombreRazonSocial";
-                cmbBusqueda.ValueMember = "Cuit"; // O "Id_cliente" según tu modelo
+                cmbBusqueda.DisplayMember = "Nombre_razon_social";
+                cmbBusqueda.ValueMember = "id_cliente"; // O "Id_cliente" según tu modelo
             }
         }
         public bool ComboVendedorHabilitado
@@ -192,13 +195,7 @@ namespace VocesDePapelV1._1.Views
                 cmbTipoReporte.Enabled = value;
             }
         }
-        public string TextoVendedor
-        {
-            set
-            {
-                cmbVendedor.Text = value;
-            }
-        }
+       
         public int VendedorSeleccionadoId
         {
             set
@@ -217,7 +214,8 @@ namespace VocesDePapelV1._1.Views
             }
         }
         public bool IsSuccessful { get; set; }
-        
+        public string CmbBusqueda { get ; set ; }
+
 
         // EVENTOS 
         public event EventHandler SearchEvent;

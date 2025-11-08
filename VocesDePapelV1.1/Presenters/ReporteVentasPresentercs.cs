@@ -24,6 +24,9 @@ namespace VocesDePapelV1._1.Presenters
             this.view = view;
             this.repository = repository;
             this.ventasBindingSource = new BindingSource();
+
+            
+
             // Configurar modo de la vista
             if (esModoVendedor && idVendedor.HasValue)
             {
@@ -59,9 +62,8 @@ namespace VocesDePapelV1._1.Presenters
                     // Configurar vista en modo vendedor
                     var vendedorUnico = new List<UsuarioModel> { vendedor };
                     view.ListaVendedores = vendedorUnico;
-                    view.VendedorSeleccionadoId = idVendedor; // Seleccionar automáticamente
-                    view.ComboVendedorHabilitado = false;// Deshabilitar selección
-                    view.TipoReporte = "Por Vendedor";// Forzar tipo de reporte
+                    
+                   
                    
                     view.ComboBusquedaHabilitado = false;
 
@@ -88,6 +90,9 @@ namespace VocesDePapelV1._1.Presenters
                 // Cargar lista de vendedores
                 var vendedores = repository.GetVendedoresActivos();
                 view.ListaVendedores = vendedores.ToList();
+                
+                var clientes = repository.GetClientesActivos();
+                view.ListaClientes = clientes.ToList();
                 TipoReporteChanged(this, EventArgs.Empty);
             }
             catch (Exception ex)
@@ -106,6 +111,7 @@ namespace VocesDePapelV1._1.Presenters
             view.TotalVentas = "0.00";
             view.CantidadVentas = "0";
             view.PromedioVenta = "0.00";
+            view.CmbBusqueda = "";
 
 
 
@@ -119,16 +125,15 @@ namespace VocesDePapelV1._1.Presenters
                 {
                     case "Por Vendedor":
                         var vendedores = repository.GetVendedoresActivos();
-                        view.ListaVendedores = vendedores.ToList();
-                       
+                        view.ListaVendedores = vendedores.ToList();                       
                         view.ComboBusquedaHabilitado = true;
                         break;
 
                     case "Por Cliente":
                         var clientes = repository.GetClientesActivos();
-                        view.ListaClientes = clientes.ToList();
-                       
+                        view.ListaClientes = clientes.ToList();                       
                         view.ComboBusquedaHabilitado = true;
+
                         break;
 
                     case "Por Fecha":
@@ -171,26 +176,25 @@ namespace VocesDePapelV1._1.Presenters
                     case "Por Fecha":
                         ventasList = repository.GetVentasPorFecha(fechaInicio, fechaFinValorAjustado);
                         break;
-                    case "Por Vendedor":
+                    case "Por Vendedor":                        
                         if (!view.IdVendedorSeleccionado.HasValue)
                         {
                             view.Message = "Debe seleccionar un vendedor para este tipo de reporte.";
                             return;
                         }
-                        if (int.TryParse(view.ValorBusqueda, out int idVendedor))
-                        {
-                            view.Message = idVendedor.ToString();
-                            ventasList = repository.GetVentasPorVendedor(idVendedor, fechaInicio, fechaFinValorAjustado);
+                        int idVendedor = view.IdVendedorSeleccionado.Value;
+                        view.Message = $"Buscando ventas del vendedor ID: {idVendedor}";
+                        ventasList = repository.GetVentasPorVendedor(idVendedor, fechaInicio, fechaFinValorAjustado);
+                        break;
 
-                        } break;
-                    
                     case "Por Cliente":
-                        if (string.IsNullOrEmpty(view.ValorBusqueda))
+                        if (!view.IdClienteSeleccionado.HasValue)
                         {
                             view.Message = "Debe seleccionar un cliente.";
                             return;
                         }
-                        ventasList = repository.GetVentasPorCliente(view.ValorBusqueda, fechaInicio, fechaFinValorAjustado);
+                        int idCliente = view.IdClienteSeleccionado.Value;
+                        ventasList = repository.GetVentasPorCliente(idCliente, fechaInicio, fechaFinValorAjustado);
                         break;
                     default:
                         ventasList = repository.GetVentasPorFecha(fechaInicio, fechaFinValorAjustado);
@@ -233,6 +237,13 @@ namespace VocesDePapelV1._1.Presenters
                     view.IdVendedorSeleccionado.Value, fechaInicio, fechaFin);
                 cantidadVentas = repository.GetCantidadVentasPorVendedor(
                     view.IdVendedorSeleccionado.Value, fechaInicio, fechaFin);
+            }else if (view.TipoReporte == "Por Cliente" && view.IdClienteSeleccionado.HasValue)
+            {
+                // Usar métodos específicos para cliente
+                totalVentas = repository.GetTotalVentasPorCliente(
+                    view.IdClienteSeleccionado.Value, fechaInicio, fechaFin);
+                cantidadVentas = repository.GetCantidadVentasPorCliente(
+                    view.IdClienteSeleccionado.Value, fechaInicio, fechaFin);
             }
             else
             {

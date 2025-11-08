@@ -19,7 +19,8 @@ namespace VocesDePapelV1._1.Views
         string ValorBusqueda { get; } // Valor seleccionado en el ComboBox
        
         int? IdVendedorSeleccionado { get; }
-        string NombreVendedorSeleccionado { get; set; }
+        int? IdClienteSeleccionado { get; }
+
         // bool FiltroVendedorHabilitado { set; }
         //  bool FiltroVendedorVisible { get; set; }       
         // Propiedades para filtros vendedor
@@ -44,7 +45,8 @@ namespace VocesDePapelV1._1.Views
         // Mensajes
         string Message { get; set; }
         bool IsSuccessful { get; set; }
-      
+        string CmbBusqueda { get; set; }
+
 
         // Eventos
         event EventHandler SearchEvent;

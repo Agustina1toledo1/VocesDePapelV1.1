@@ -189,11 +189,11 @@ namespace VocesDePapelV1._1.Repositories
                 command.Connection = connection;
 
                 command.CommandText = @"
-            SELECT ISNULL(SUM(total_venta), 0) as Total
-            FROM venta_cabecera 
-            WHERE id_usuario = @idVendedor
-            AND fecha_hora BETWEEN @fechaInicio AND @fechaFin
-            AND id_estado = 0";
+                    SELECT ISNULL(SUM(total_venta), 0) as Total
+                    FROM venta_cabecera 
+                    WHERE id_usuario = @idVendedor
+                    AND fecha_hora BETWEEN @fechaInicio AND @fechaFin
+                    AND id_estado = 0";
 
                 command.Parameters.Add("@idVendedor", SqlDbType.Int).Value = idVendedor;
                 command.Parameters.Add("@fechaInicio", SqlDbType.DateTime).Value = fechaInicio;
@@ -227,7 +227,7 @@ namespace VocesDePapelV1._1.Repositories
                 return (int)command.ExecuteScalar();
             }
         }
-        public IEnumerable<VentaReporteModel> GetVentasPorCliente(string criterioCliente, DateTime fechaInicio, DateTime fechaFin)
+        public IEnumerable<VentaReporteModel> GetVentasPorCliente(int idCliente, DateTime fechaInicio, DateTime fechaFin)
         {
             var ventasList = new List<VentaReporteModel>();
 
@@ -244,17 +244,17 @@ namespace VocesDePapelV1._1.Repositories
                         c.nombre_razon_social as NombreCliente,
                         u.nombre + ' ' + u.apellido as NombreVendedor,
                         vc.total_venta as TotalVenta,
-                        vc.estado as EstadoVenta,  -- Campo directo de venta_cabecera
+                        vc.id_estado as EstadoVenta, 
                         (SELECT COUNT(*) FROM detalle_venta vd WHERE vd.id_venta_cabecera = vc.id_venta_cabecera) as CantidadProductos                
                     FROM venta_cabecera vc
                     INNER JOIN cliente c ON vc.id_cliente = c.id_cliente
                     INNER JOIN usuario u ON vc.id_usuario = u.id_usuario
                     INNER JOIN estado e ON vc.id_estado = e.id_estado 
-                    WHERE (c.cuit_cuil LIKE @criterio + '%' OR c.nombre_razon_social LIKE @criterio + '%')
+                    WHERE c.id_cliente = @idCliente 
                     AND vc.fecha_hora BETWEEN @fechaInicio AND @fechaFin
                     ORDER BY vc.fecha_hora DESC";
 
-                command.Parameters.Add("@criterio", SqlDbType.NVarChar).Value = criterioCliente;
+                command.Parameters.Add("@idCliente", SqlDbType.Int).Value = idCliente;
                 command.Parameters.Add("@fechaInicio", SqlDbType.DateTime).Value = fechaInicio;
                 command.Parameters.Add("@fechaFin", SqlDbType.DateTime).Value = fechaFin;
 
@@ -278,8 +278,48 @@ namespace VocesDePapelV1._1.Repositories
             }
             return ventasList;
         }
-       
-        
+        public int GetCantidadVentasPorCliente(int idCliente, DateTime fechaInicio, DateTime fechaFin)
+        {
+            using (var connection = new SqlConnection(connectionString))
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = @"
+                SELECT COUNT(*) as Cantidad
+                FROM venta_cabecera vc
+                INNER JOIN cliente c ON vc.id_cliente = c.id_cliente
+                WHERE c.id_cliente = @idCliente
+                AND vc.fecha_hora BETWEEN @fechaInicio AND @fechaFin
+                AND vc.id_estado = 0";
+                command.Parameters.Add("@idCliente", SqlDbType.Int).Value = idCliente;
+                command.Parameters.Add("@fechaInicio", SqlDbType.DateTime).Value = fechaInicio;
+                command.Parameters.Add("@fechaFin", SqlDbType.DateTime).Value = fechaFin;
+                return (int)command.ExecuteScalar();
+            }
+        }
+
+        public decimal GetTotalVentasPorCliente(int idCliente, DateTime fechaInicio, DateTime fechaFin)
+        {
+            using (var connection = new SqlConnection(connectionString))
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = @"
+                    SELECT ISNULL(SUM(vc.total_venta), 0) as Total
+                    FROM venta_cabecera vc
+                    INNER JOIN cliente c ON vc.id_cliente = c.id_cliente
+                    WHERE c.id_cliente = @idCliente
+                    AND vc.fecha_hora BETWEEN @fechaInicio AND @fechaFin
+                    AND vc.id_estado = 0";
+                command.Parameters.Add("@idCliente", SqlDbType.Int).Value = idCliente;
+                command.Parameters.Add("@fechaInicio", SqlDbType.DateTime).Value = fechaInicio;
+                command.Parameters.Add("@fechaFin", SqlDbType.DateTime).Value = fechaFin;
+                var result = command.ExecuteScalar();
+                return result != null ? Convert.ToDecimal(result) : 0;
+            }
+        }
         public UsuarioModel GetVendedorPorId(int idVendedor)
         {
             using (var connection = new SqlConnection(connectionString))
