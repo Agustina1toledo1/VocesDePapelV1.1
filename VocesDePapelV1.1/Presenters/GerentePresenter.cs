@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using VocesDePapelV1._1.Views;
 using VocesDePapelV1._1.Models;
-using VocesDePapelV1._1.Models;
+using VocesDePapelV1._1.Presenters;
 using VocesDePapelV1._1.Servicios;
 using System.Windows.Forms;
 using VocesDePapelV1._1.Repositories;
@@ -15,6 +15,9 @@ namespace VocesDePapelV1._1.Presenters
     public class GerentePresenter
     {
         private IGerenteView view;
+        private bool esModoVendedor;
+        private int? idUsuario;
+
         //un campo de solo lectura para la cadena de conexion
         private readonly string connectionString;
 
@@ -55,9 +58,10 @@ namespace VocesDePapelV1._1.Presenters
 
         private void ShowReporteVentaView(object? sender, EventArgs e)
         {
-            IGerenteViewReporteV backupView = GerenteViewReporteV.GetInstance((GerenteView)this.view); // muestra solo una instancia de la vista de usuario
-
-            new ReporteVentaGerentePresenter(backupView);
+            
+            IGerenteViewReporteVentas reporteView = ReporteVentasView.GetInstance((GerenteView)this.view);
+            IVentaReporteRepository repository = new VentaReporteRepository(connectionString);
+            new ReporteVentasPresenter(reporteView, repository, false, null);
         }
 
         private void ShowUsuariosView(object? sender, EventArgs e)
