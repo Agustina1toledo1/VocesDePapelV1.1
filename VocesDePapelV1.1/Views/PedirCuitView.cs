@@ -16,11 +16,12 @@ namespace VocesDePapelV1._1.Views
         public Cuit()
         {
             InitializeComponent();
+            this.AcceptButton = BtnAceptar;
         }
         private void BtnAceptar_Click(object sender, EventArgs e)
         {
             this.CuitIngresado = txtCuit.Text; // Asigna el valor
-            this.DialogResult = DialogResult.OK; // Indica éxito
+            this.DialogResult = DialogResult.OK; 
             this.Close();
         }
         private void btnCancelar_Click(object sender, EventArgs e)

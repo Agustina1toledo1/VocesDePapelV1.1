@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace VocesDePapelV1._1.Views
 {
-    public partial class ProductoSearchView2 : Form,  IProductoSearchView2
+    public partial class ProductoSearchView2 : Form, IProductoSearchView2
     {
         private string message;
         private bool isSuccessful;
@@ -34,11 +34,13 @@ namespace VocesDePapelV1._1.Views
             };
         }
 
-        public string Message {
+        public string Message
+        {
             get { return message; }
             set { message = value; }
         }
-        public bool IsSuccessful {
+        public bool IsSuccessful
+        {
             get { return isSuccessful; }
             set { isSuccessful = value; }
         }
@@ -49,6 +51,11 @@ namespace VocesDePapelV1._1.Views
         public void SetProductoListBindingSource(object productoList)
         {
             dtg_productoSearch.DataSource = productoList;
+        }
+
+        private void btn_cancelar_productoSearch_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }
