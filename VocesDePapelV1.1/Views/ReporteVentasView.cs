@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using VocesDePapelV1._1.Models;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
 
 namespace VocesDePapelV1._1.Views
 {
@@ -237,18 +238,29 @@ namespace VocesDePapelV1._1.Views
         private static ReporteVentasView instance;
         public static ReporteVentasView GetInstance(Form parentContainer)
         {
+            if (instance != null && !instance.IsDisposed)
+            {
+                // 1. FORZAR CIERRE Y DESTRUCCIÓN
+                // Si la encontramos, la cerramos y la liberamos para forzar la re-creación.
+                try
+                {
+                    // Usar Close() para disparar eventos de cierre si es necesario
+                    instance.Close();
+                }
+                catch { /* Ignorar si ya está cerrándose */ }
+
+                // 2. Liberar recursos inmediatamente (crucial en Singleton si no usamos FormClosed)
+                // instance.Dispose(); // Close() generalmente llama a Dispose()
+
+                // 3. Establecer la instancia a null para que el siguiente bloque la cree.
+                instance = null;
+            }
+
+            // 4. CREAR NUEVA INSTANCIA (Esto se ejecuta después de que la anterior fue destruida)
             if (instance == null || instance.IsDisposed)
             {
                 instance = new ReporteVentasView();
-                instance.MdiParent = parentContainer;
-                instance.FormBorderStyle = FormBorderStyle.None;
-                instance.Dock = DockStyle.Fill;
-            }
-            else
-            {
-                if (instance.WindowState == FormWindowState.Minimized)
-                    instance.WindowState = FormWindowState.Normal;
-                instance.BringToFront();
+                //instance.MdiParent = parent; // Configura el padre MDI si lo usas
             }
             return instance;
         }

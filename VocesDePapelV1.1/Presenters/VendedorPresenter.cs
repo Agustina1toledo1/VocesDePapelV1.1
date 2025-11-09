@@ -89,11 +89,11 @@ namespace VocesDePapelV1._1.Presenters
         {
             Form parentContainer = this.view.FormInstance;
 
-            IGerenteViewReporteVentas reporteView = ReporteVentasView.GetInstance(parentContainer);
+            //IGerenteViewReporteVentas reporteView = ReporteVentasView.GetInstance(parentContainer);
             IVentaReporteRepository repository = new VentaReporteRepository(connectionString);
             int idVendedor = 0;
             string cuitVendedor = string.Empty;
-
+            //  Pedir el CUIT al usuario mediante un pop-up
             using (var popup = new Cuit())
             {
                 if (popup.ShowDialog() == DialogResult.OK)
@@ -101,39 +101,41 @@ namespace VocesDePapelV1._1.Presenters
                     cuitVendedor = popup.CuitIngresado;
                 }
                 else
-                {
-                    // El usuario canceló o cerró el pop-up
+                {// El usuario canceló o cerró el pop-up
                     return;
                 }
             }
-
-            // --- 2. Buscar el ID usando el CUIT ---
+            //  Buscar el ID usando el CUIT
             try
-            {
-                // Usar el Repositorio para buscar el ID real
+            { // Usar el Repositorio para buscar el ID real
                 idVendedor = repository.GetVendedoresActivos()
                     .FirstOrDefault(v => v.Cuit_usuario == cuitVendedor)?.Id_usuario ?? 0;
             }
             catch
-            {
-                // Manejo de error si el CUIT no existe
+            {  // Manejo de error si el CUIT no existe
                 MessageBox.Show("CUIT no encontrado o no es un vendedor válido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-
-            // --- 3. Crear el Presentador con el ID Obtenido ---
+            //  Crear el Presentador con el ID Obtenido 
             if (idVendedor > 0)
             {
+                IGerenteViewReporteVentas reporteView = ReporteVentasView.GetInstance(parentContainer);
+                Form reporteForm = (Form)reporteView;
+                reporteForm.MdiParent = parentContainer;
+                reporteForm.WindowState = FormWindowState.Maximized;
                 // Se abre el reporte en modo vendedor con el ID encontrado
                 new ReporteVentasPresenter(reporteView, repository, true, idVendedor);
+                reporteForm.Show();
+                reporteForm.FormClosed += (s, args) =>
+                { // Finalmente, se libera el recurso de Windows Forms
+                    reporteForm.Dispose();
+                };
             }
             else
             {
                 MessageBox.Show("No se pudo obtener el ID del vendedor.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-        }
-        
-
+        }       
         private void ShowVentaView(object? sender, EventArgs e)
         {
             IVentaView2 ventaView = VentaView2.GetInstance((VendedorView)this.view);
@@ -156,7 +158,6 @@ namespace VocesDePapelV1._1.Presenters
                     usuarioRepository
                 );
             }
-
         }
     }
 }
