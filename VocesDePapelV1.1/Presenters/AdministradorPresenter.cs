@@ -16,7 +16,9 @@ namespace VocesDePapelV1._1.Presenters
         private IAdministradorView view;
         //un campo de solo lectura para la cadena de conexion
         private readonly string connectionString;
-
+        private ProductoPresenter productoPresenter; //para no repetir instancias de venta
+        private AutoresAdminPresenter autorPresenter;
+        private CategoriaAmdinPresenter categoriaPresenter;
         public AdministradorPresenter(IAdministradorView view, string connectionString)
         {
             this.view = view;
@@ -44,15 +46,22 @@ namespace VocesDePapelV1._1.Presenters
         {
             
             IAdministradorCategoria backupView = AdministradorViewCategorias.GetInstance((AdministradorView)this.view); // muestra solo una instancia de la vista de usuario
-            ICategoriaRepository repository = new CategoriaRepository(connectionString);
-            new CategoriaAmdinPresenter(backupView, repository);
+            if(categoriaPresenter == null)
+            {
+                ICategoriaRepository repository = new CategoriaRepository(connectionString);
+                categoriaPresenter = new CategoriaAmdinPresenter(backupView, repository);
+            }
         }
 
         private void ShowAutoresView(object? sender, EventArgs e)
         {
             IAdministradorAutor backupView = AdministradorViewAutores.GetInstance((AdministradorView)this.view); // muestra solo una instancia de la vista de usuario
-            IAutorRepository repository = new AutorRepository(connectionString);
-            new AutoresAdminPresenter(backupView, repository);
+            if(autorPresenter == null)
+            {
+                IAutorRepository repository = new AutorRepository(connectionString);
+                autorPresenter = new AutoresAdminPresenter(backupView, repository);
+            }
+            
         }
 
         private void ShowReporteLibroMasVendidosView(object? sender, EventArgs e)
@@ -82,9 +91,14 @@ namespace VocesDePapelV1._1.Presenters
 
         private void ShowProductoView(object? sender, EventArgs e)
         {
-            IAdministradorViewProducto backupView = AdministradorViewProducto.GetInstance((AdministradorView)this.view); // muestra solo una instancia de la vista de usuario
-            IProductoRepository repository = new ProductoRepository(connectionString);
-            new ProductoPresenter(backupView, repository);
+            IAdministradorViewProducto view = AdministradorViewProducto.GetInstance((AdministradorView)this.view); // muestra solo una instancia de la vista de usuario
+            
+            if(productoPresenter == null)
+            {
+                IProductoRepository repository = new ProductoRepository(connectionString);
+                productoPresenter = new ProductoPresenter(view, repository);
+            }
+            
         }
     }
 }

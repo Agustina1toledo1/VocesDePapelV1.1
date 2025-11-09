@@ -44,12 +44,13 @@ namespace VocesDePapelV1._1.Presenters
                 string carpeta = Path.GetDirectoryName(view.RutaBackup);
 
                 bool exito = servicio.GenerarBackup(carpeta, nombreArchivo);
-                view.Message = exito ? "Backup generado correctamente." : "Error al generar el backup.";
-                view.IsSuccessful = exito;
+                this.view.Message = exito ? "Backup generado correctamente." : "Error al generar el backup.";
+                this.view.IsSuccessful = exito;
             }
             else
             {
-                view.IsSuccessful = false;
+                this.view.Message = "Operación de backup cancelada por el usuario.";
+               this.view.IsSuccessful = false;
             }
         }
     }

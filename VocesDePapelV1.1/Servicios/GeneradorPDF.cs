@@ -89,7 +89,7 @@ namespace VocesDePapelV1._1.Servicios
                 PdfWriter.GetInstance(doc, fs);
                 doc.Open();
 
-                // 🔹 Cabecera con logo y fecha
+                // Cabecera con logo y fecha
                 PdfPTable cabeceraTabla = new PdfPTable(2);
                 cabeceraTabla.WidthPercentage = 100;
                 cabeceraTabla.SetWidths(new float[] { 1f, 3f });
@@ -114,17 +114,17 @@ namespace VocesDePapelV1._1.Servicios
                 doc.Add(cabeceraTabla);
                 doc.Add(new Paragraph("\n"));
 
-                // 🔹 Datos de la cabecera
+                //Datos de la cabecera
                 var fontLabel = FontFactory.GetFont("Arial", 11, iTextSharp.text.Font.BOLD);
                 var fontValue = FontFactory.GetFont("Arial", 11);
 
                 doc.Add(new Paragraph($"Nro de Comprobante: {cabecera.Id_venta_cabecera}", fontValue));
                 doc.Add(new Paragraph($"Cliente: {cabecera.Nombre_cliente}", fontValue));
-                doc.Add(new Paragraph($"Vendedor: {cabecera.Nombre_vendedor}", fontValue));
+                doc.Add(new Paragraph($"Vendedor: {cabecera.Nombre_vendedor} ", fontValue));
                 doc.Add(new Paragraph($"Total: ${cabecera.Total_venta:F2}", fontValue));
                 doc.Add(new Paragraph("\n"));
 
-                // 🔹 Tabla de detalles
+                // Tabla de detalles
                 PdfPTable tabla = new PdfPTable(4);
                 tabla.WidthPercentage = 100;
                 tabla.SetWidths(new float[] { 3f, 1f, 2f, 2f });
