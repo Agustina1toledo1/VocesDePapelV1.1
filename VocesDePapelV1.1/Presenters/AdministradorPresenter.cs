@@ -16,6 +16,7 @@ namespace VocesDePapelV1._1.Presenters
         private IAdministradorView view;
         //un campo de solo lectura para la cadena de conexion
         private readonly string connectionString;
+        private ProductoPresenter productoPresenter; //para no repetir instancias de venta
 
         public AdministradorPresenter(IAdministradorView view, string connectionString)
         {
@@ -80,9 +81,13 @@ namespace VocesDePapelV1._1.Presenters
 
         private void ShowProductoView(object? sender, EventArgs e)
         {
-            IAdministradorViewProducto backupView = AdministradorViewProducto.GetInstance((AdministradorView)this.view); // muestra solo una instancia de la vista de usuario
-            IProductoRepository repository = new ProductoRepository(connectionString);
-            new ProductoPresenter(backupView, repository);
+            IAdministradorViewProducto view = AdministradorViewProducto.GetInstance((AdministradorView)this.view); // muestra solo una instancia de la vista de usuario
+            if(productoPresenter == null)
+            {
+                IProductoRepository repository = new ProductoRepository(connectionString);
+                new ProductoPresenter(view, repository);
+            }
+            
         }
     }
 }
