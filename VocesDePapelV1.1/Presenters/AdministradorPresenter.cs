@@ -19,6 +19,7 @@ namespace VocesDePapelV1._1.Presenters
         private ProductoPresenter productoPresenter; //para no repetir instancias de venta
         private AutoresAdminPresenter autorPresenter;
         private CategoriaAmdinPresenter categoriaPresenter;
+        private ReporteVentasPresenter reportePresenter;
         public AdministradorPresenter(IAdministradorView view, string connectionString)
         {
             this.view = view;
@@ -69,6 +70,7 @@ namespace VocesDePapelV1._1.Presenters
             
             IGerenteReporteLibroMasVendidos backupView = GerenteViewReporteLibroMasVendidos.GetInstance((AdministradorView)this.view); // muestra solo una instancia de la vista de usuario
             new ReporteLibroMasVendidosPresenter(backupView);
+
         }
 
         //como el reporte de stock y mas vendidos de libro y reporte de venta son iguales en la vista del gerente
@@ -81,11 +83,13 @@ namespace VocesDePapelV1._1.Presenters
         }
 
         private void ShowReporteVentaView(object? sender, EventArgs e)
-        {
-            IGerenteViewReporteVentas reporteView = ReporteVentasView.GetInstance((AdministradorView)this.view);
-            IVentaReporteRepository repository = new VentaReporteRepository(connectionString);
-            new ReporteVentasPresenter(reporteView, repository, false, null);
-        
+        {            
+            IGerenteViewReporteVentas reporteView = ReporteVentasView.GetInstance2((AdministradorView)this.view);
+            if (reportePresenter == null)
+            {
+                IVentaReporteRepository repository = new VentaReporteRepository(connectionString);
+                reportePresenter = new ReporteVentasPresenter(reporteView, repository, false, null);
+            }
           
         }
 

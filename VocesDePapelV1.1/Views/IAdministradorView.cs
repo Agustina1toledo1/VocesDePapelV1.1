@@ -8,6 +8,7 @@ namespace VocesDePapelV1._1.Views
 {
     public interface IAdministradorView
     {
+       
         event EventHandler ShowProductoView;
         event EventHandler ShowReporteVentaView;
         event EventHandler ShowReporteLibroStockView;
