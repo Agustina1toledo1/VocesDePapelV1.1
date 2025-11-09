@@ -17,6 +17,9 @@ namespace VocesDePapelV1._1.Presenters
         private IGerenteView view;
         private bool esModoVendedor;
         private int? idUsuario;
+        private UsuarioPresenter usuarioPresenter;
+        private BackupPresenter backupPresenter;
+        private ReporteProductoPresenter reporteProductoPresenter;
 
         //un campo de solo lectura para la cadena de conexion
         private readonly string connectionString;
@@ -51,9 +54,13 @@ namespace VocesDePapelV1._1.Presenters
 
         private void ShowReporteLibroStockView(object? sender, EventArgs e)
         {
+
             IGerenteReporteLibroStock backupView = GerenteViewReporteLibroStock.GetInstance((GerenteView)this.view); // muestra solo una instancia de la vista de usuario
-            IProductoRepository repository = new ProductoRepository(connectionString);
-            new ReporteProductoPresenter(backupView, repository);
+            if(reporteProductoPresenter == null)
+            {
+                IProductoRepository repository = new ProductoRepository(connectionString);
+                reporteProductoPresenter = new ReporteProductoPresenter(backupView, repository);
+            }
         }
 
         private void ShowReporteVentaView(object? sender, EventArgs e)
@@ -67,15 +74,23 @@ namespace VocesDePapelV1._1.Presenters
         private void ShowUsuariosView(object? sender, EventArgs e)
         {
             IGerenteViewUsuario usuarioView = GerenteViewUsuario.GetInstance((GerenteView)this.view); // muestra solo una instancia de la vista de usuario
-            IUsuarioRepository repository = new UsuarioRepository(connectionString);
-            IContraseniaHasher hasher = new pbkdf2ContraseniaHasher();
-            new UsuarioPresenter(usuarioView, repository, hasher);
+            if(usuarioPresenter == null)
+            {
+
+                IUsuarioRepository repository = new UsuarioRepository(connectionString);
+                IContraseniaHasher hasher = new pbkdf2ContraseniaHasher();
+                usuarioPresenter = new UsuarioPresenter(usuarioView, repository, hasher);
+            }
         }
         private void ShowBackupView(object? sender, EventArgs e)
         {
+
             IGerenteBackupView backupView = GerenteBackupView.GetInstance((GerenteView)this.view); // muestra solo una instancia de la vista de usuario
-            
-            new BackupPresenter(backupView, connectionString);
+            if (backupPresenter == null)
+            {
+                backupPresenter = new BackupPresenter(backupView, connectionString);
+            }
+
         }
 
 

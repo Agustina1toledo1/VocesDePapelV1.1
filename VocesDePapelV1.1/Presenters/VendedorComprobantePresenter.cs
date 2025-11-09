@@ -56,7 +56,7 @@ namespace VocesDePapelV1._1.Presenters
             {
                 // No hay cabecera seleccionada → vaciar detalles
                 bindingSourceDetalle.DataSource = null;
-                view.SetComprobanteDetalleListBindingSource(bindingSourceDetalle);
+                this.view.SetComprobanteDetalleListBindingSource(bindingSourceDetalle);
                 return;
             }
 
@@ -64,7 +64,7 @@ namespace VocesDePapelV1._1.Presenters
             ventaDetallesList = detalleRepository.GetByVentaId(idVentaCabecera);
 
             bindingSourceDetalle.DataSource = ventaDetallesList;
-            view.SetComprobanteDetalleListBindingSource(bindingSourceDetalle);
+            this.view.SetComprobanteDetalleListBindingSource(bindingSourceDetalle);
         }
 
 
