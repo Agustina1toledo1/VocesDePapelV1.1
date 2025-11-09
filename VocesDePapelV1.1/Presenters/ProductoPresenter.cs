@@ -44,11 +44,22 @@ namespace VocesDePapelV1._1.Presenters
             this.repository = repository;
 
             //suscribimos eventos
+            this.view.SearchEvent -= SearchProducto;
             this.view.SearchEvent += SearchProducto;
+
+            this.view.AddNewEvent -= AddNewProducto;
             this.view.AddNewEvent += AddNewProducto;
+
+            this.view.EditEvent -= EditProducto;
             this.view.EditEvent += EditProducto;
+
+            this.view.DeleteEvent -= DeleteProducto;
             this.view.DeleteEvent += DeleteProducto;
+
+            this.view.SaveEvent -= SaveProducto;
             this.view.SaveEvent += SaveProducto;
+
+            this.view.CancelEvent -= CancelAction;
             this.view.CancelEvent += CancelAction;
 
             //cargar los datos
