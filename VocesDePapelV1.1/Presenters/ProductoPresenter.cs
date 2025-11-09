@@ -75,6 +75,7 @@ namespace VocesDePapelV1._1.Presenters
             this.view.SetAutorListBindingSource(autorBindingSource);
             //mostramos la vista
             this.view.Show();
+            this.view.IsEdit = false;
         }
 
         private void CargarAllAutor()
@@ -173,18 +174,20 @@ namespace VocesDePapelV1._1.Presenters
                     new Common.ModelDataValidation().Validate(producto);
 
                     repository.Modificar(producto);
-                    view.Message = "Producto modificado correctamente";
+                    MessageBox.Show("Producto modificado correctamente");
                     view.IsSuccessful = true;
                     CargarAllProductos();
-                   
+                    this.view.SetProductoListBindingSource(productoBindingSource);
+
                 }
                 else
                 {
+                    CargarAllProductos();
+                    this.view.SetProductoListBindingSource(productoBindingSource);
                     var existe = productoList.Any(p => p.Titulo == producto.Titulo);
-
                     if (existe)
                     {
-                        view.Message = "Ya existe un producto con ese título.";
+                        MessageBox.Show("Ya existe un producto con ese título.");
                         view.IsSuccessful = false;
                         return;
                     }
@@ -192,9 +195,11 @@ namespace VocesDePapelV1._1.Presenters
                     {
                         new Common.ModelDataValidation().Validate(producto);
                         repository.Add(producto);
-                        view.Message = "Producto agregado correctamente";
+                        MessageBox.Show("Producto agregado correctamente");
                         view.IsSuccessful = true;
                         CargarAllProductos();
+                        this.view.SetProductoListBindingSource(productoBindingSource);
+                        CleanviewFields();
                     }
 
                 }

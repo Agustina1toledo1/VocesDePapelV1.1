@@ -15,6 +15,7 @@ namespace VocesDePapelV1._1.Views
         private string message;
         private bool isSuccessful;
         private bool isEdit;
+        private bool eventsAssociated = false;
         public AdministradorViewProducto()
         {
             InitializeComponent();
@@ -25,13 +26,18 @@ namespace VocesDePapelV1._1.Views
 
         private void AssociateAndRaiseViewEvents()
         {
+            if (eventsAssociated) return;
+            eventsAssociated = true;
             AddSearchItems(new string[] { "Titulo", "Categoria" });
+
+            
             btn_guardar_usuario.Click += delegate
             {
                 SaveEvent?.Invoke(this, EventArgs.Empty);
-                MessageBox.Show(Message);
+                //MessageBox.Show(Message);
             };
             //buscar producto
+
             btn_buscar_producto.Click += delegate
             {
                 SearchEvent?.Invoke(this, EventArgs.Empty);
@@ -95,7 +101,6 @@ namespace VocesDePapelV1._1.Views
             text_precio_admin.KeyPress += TextBoxSoloNumerosDecimales_KeyPress;
             text_stock_admin.KeyPress += TextBoxSoloNumeros_KeyPress;
         }
-        
         public string ProductoId {
             get
             {
