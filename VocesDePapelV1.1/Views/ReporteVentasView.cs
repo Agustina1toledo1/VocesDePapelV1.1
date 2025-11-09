@@ -240,27 +240,41 @@ namespace VocesDePapelV1._1.Views
         {
             if (instance != null && !instance.IsDisposed)
             {
-                // 1. FORZAR CIERRE Y DESTRUCCIÓN
-                // Si la encontramos, la cerramos y la liberamos para forzar la re-creación.
+                //  FORZAR CIERRE Y DESTRUCCIÓN                
                 try
                 {
                     // Usar Close() para disparar eventos de cierre si es necesario
                     instance.Close();
                 }
                 catch { /* Ignorar si ya está cerrándose */ }
-
-                // 2. Liberar recursos inmediatamente (crucial en Singleton si no usamos FormClosed)
-                // instance.Dispose(); // Close() generalmente llama a Dispose()
-
-                // 3. Establecer la instancia a null para que el siguiente bloque la cree.
+                //  Establecer la instancia a null para que el siguiente bloque la cree.
                 instance = null;
             }
-
-            // 4. CREAR NUEVA INSTANCIA (Esto se ejecuta después de que la anterior fue destruida)
+            // CREAR NUEVA INSTANCIA 
             if (instance == null || instance.IsDisposed)
             {
-                instance = new ReporteVentasView();
-                //instance.MdiParent = parent; // Configura el padre MDI si lo usas
+                instance = new ReporteVentasView();               
+            }
+            return instance;
+        }
+
+        public static ReporteVentasView GetInstance2(Form parentConteiner)
+        {
+            if (instance == null || instance.IsDisposed) //si es nulo o esta desechado
+            {
+                instance = new ReporteVentasView ();
+                instance.MdiParent = parentConteiner; //establecer el formulario padre
+                instance.FormBorderStyle = FormBorderStyle.None; //sin bordes
+                instance.Dock = DockStyle.Fill; //llenar el contenedor
+            }
+            else
+            {
+                if (instance.WindowState == FormWindowState.Minimized)//si esta minimizado, restaurar
+                {
+                    instance.WindowState = FormWindowState.Normal;
+                }
+                instance.BringToFront();//si ya existe, traer al frente
+
             }
             return instance;
         }
@@ -311,8 +325,8 @@ namespace VocesDePapelV1._1.Views
                 }
             }
         }*/
-        
-       
+
+
         /* public bool FiltroVendedorHabilitado
          {
              set
