@@ -73,9 +73,11 @@ namespace VocesDePapelV1._1.Presenters
 
         private void ShowReporteVentaView(object? sender, EventArgs e)
         {
-            IGerenteViewReporteV backupView = GerenteViewReporteV.GetInstance((AdministradorView)this.view); // muestra solo una instancia de la vista de usuario
-
-            new ReporteVentaGerentePresenter(backupView);
+            IGerenteViewReporteVentas reporteView = ReporteVentasView.GetInstance((AdministradorView)this.view);
+            IVentaReporteRepository repository = new VentaReporteRepository(connectionString);
+            new ReporteVentasPresenter(reporteView, repository, false, null);
+        
+          
         }
 
         private void ShowProductoView(object? sender, EventArgs e)

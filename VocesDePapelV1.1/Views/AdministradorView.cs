@@ -25,7 +25,7 @@ namespace VocesDePapelV1._1.Views
             cerrarSAdminItemMenu.Click += delegate { LogoutEvent?.Invoke(this, EventArgs.Empty); };
 
         }
-
+        
         public bool LogoutSolicitado => throw new NotImplementedException();
         
 
@@ -37,7 +37,7 @@ namespace VocesDePapelV1._1.Views
         public event EventHandler ShowReporteVentaView;
         public event EventHandler LogoutEvent;
 
-
+        //metodos para cerrar y ocultar la vista
         public void Cerrar()
         {
             this.Close();
