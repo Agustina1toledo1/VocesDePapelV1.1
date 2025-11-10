@@ -11,6 +11,7 @@ namespace VocesDePapelV1._1.Presenters
         private IVendedorView view;
         private bool esModoVendedor;
         private int? idUsuario;
+        private VendedorClientePresenter clientePresenter;
 
         //un campo de solo lectura para la cadena de conexion
         private readonly string connectionString;
@@ -41,6 +42,7 @@ namespace VocesDePapelV1._1.Presenters
 
         private void ShowClienteView(object? sender, EventArgs e)
         {
+            
             try
             {
                 // Obtener la vista
@@ -56,16 +58,19 @@ namespace VocesDePapelV1._1.Presenters
 
                 // CREAR REPOSITORIO
                 IClienteRepository clienteRepository = new ClienteRepository(this.connectionString);
-
-                // VERIFICAR que el repositorio no sea null
-                if (clienteRepository == null)
+                if(clientePresenter ==  null)
                 {
-                    MessageBox.Show("Error: No se pudo crear el repositorio de clientes");
-                    return;
-                }
+                    if (clienteRepository == null)
+                    {
+                        MessageBox.Show("Error: No se pudo crear el repositorio de clientes");
+                        return;
+                    }
 
-                // Instanciar el Presenter
-                new VendedorClientePresenter(clienteView, clienteRepository);
+                    // Instanciar el Presenter
+                    clientePresenter =new VendedorClientePresenter(clienteView, clienteRepository);
+                }
+                // VERIFICAR que el repositorio no sea null
+                
             }
             catch (Exception ex)
             {
