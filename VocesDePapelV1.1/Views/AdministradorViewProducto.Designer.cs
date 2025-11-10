@@ -33,7 +33,7 @@
             l_detalle_producto = new Label();
             btn_eliminar_producto = new Button();
             btn_modificar_producto = new Button();
-            btn_guardar_usuario = new Button();
+            btn_guardar_producto = new Button();
             cmb_categoria_producto = new ComboBox();
             cmb_estado_producto = new ComboBox();
             text_editorial_admin = new TextBox();
@@ -92,16 +92,16 @@
             btn_modificar_producto.Text = "Modificar";
             btn_modificar_producto.UseVisualStyleBackColor = false;
             // 
-            // btn_guardar_usuario
+            // btn_guardar_producto
             // 
-            btn_guardar_usuario.BackColor = Color.LightGreen;
-            btn_guardar_usuario.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btn_guardar_usuario.Location = new Point(63, 616);
-            btn_guardar_usuario.Name = "btn_guardar_usuario";
-            btn_guardar_usuario.Size = new Size(269, 43);
-            btn_guardar_usuario.TabIndex = 34;
-            btn_guardar_usuario.Text = "Guardar";
-            btn_guardar_usuario.UseVisualStyleBackColor = false;
+            btn_guardar_producto.BackColor = Color.LightGreen;
+            btn_guardar_producto.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btn_guardar_producto.Location = new Point(63, 616);
+            btn_guardar_producto.Name = "btn_guardar_producto";
+            btn_guardar_producto.Size = new Size(269, 43);
+            btn_guardar_producto.TabIndex = 34;
+            btn_guardar_producto.Text = "Guardar";
+            btn_guardar_producto.UseVisualStyleBackColor = false;
             // 
             // cmb_categoria_producto
             // 
@@ -356,7 +356,7 @@
             Controls.Add(l_detalle_producto);
             Controls.Add(btn_eliminar_producto);
             Controls.Add(btn_modificar_producto);
-            Controls.Add(btn_guardar_usuario);
+            Controls.Add(btn_guardar_producto);
             Controls.Add(cmb_categoria_producto);
             Controls.Add(cmb_estado_producto);
             Controls.Add(text_editorial_admin);
@@ -382,7 +382,7 @@
         private Label l_detalle_producto;
         private Button btn_eliminar_producto;
         private Button btn_modificar_producto;
-        private Button btn_guardar_usuario;
+        private Button btn_guardar_producto;
         private ComboBox cmb_categoria_producto;
         private ComboBox cmb_estado_producto;
         private TextBox text_editorial_admin;

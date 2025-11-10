@@ -19,6 +19,8 @@ namespace VocesDePapelV1._1.Presenters
         private ProductoPresenter productoPresenter; //para no repetir instancias de venta
         private AutoresAdminPresenter autorPresenter;
         private CategoriaAmdinPresenter categoriaPresenter;
+        private ReporteProductoPresenter reporteProductoPresenter;
+        private ReporteLibroMasVendidosPresenter reporteLibroMasVendidosPresenter;
         public AdministradorPresenter(IAdministradorView view, string connectionString)
         {
             this.view = view;
@@ -66,18 +68,28 @@ namespace VocesDePapelV1._1.Presenters
 
         private void ShowReporteLibroMasVendidosView(object? sender, EventArgs e)
         {
-            
-            IGerenteReporteLibroMasVendidos backupView = GerenteViewReporteLibroMasVendidos.GetInstance((AdministradorView)this.view); // muestra solo una instancia de la vista de usuario
-            new ReporteLibroMasVendidosPresenter(backupView);
+            IGerenteReporteLibroMasVendidos view = GerenteViewReporteLibroMasVendidos.GetInstance((AdministradorView)this.view); // muestra solo una instancia de la vista de usuario
+
+            if (reporteLibroMasVendidosPresenter == null)
+            {
+                IProductoRepository repository = new ProductoRepository(connectionString);
+                reporteLibroMasVendidosPresenter = new ReporteLibroMasVendidosPresenter(view, repository);
+            }
+
         }
 
         //como el reporte de stock y mas vendidos de libro y reporte de venta son iguales en la vista del gerente
 
         private void ShowReporteLibroStockView(object? sender, EventArgs e)
         {
-            IGerenteReporteLibroStock backupView = GerenteViewReporteLibroStock.GetInstance((AdministradorView)this.view); // muestra solo una instancia de la vista de usuario
-            IProductoRepository repository = new ProductoRepository(connectionString);
-            new ReporteProductoPresenter(backupView, repository);
+            IGerenteReporteLibroStock view = GerenteViewReporteLibroStock.GetInstance((AdministradorView)this.view); // muestra solo una instancia de la vista de usuario
+            
+            if (reporteProductoPresenter == null)
+            {
+                IProductoRepository repository = new ProductoRepository(connectionString);
+                reporteProductoPresenter =new ReporteProductoPresenter(view,  repository);
+            }
+            
         }
 
         private void ShowReporteVentaView(object? sender, EventArgs e)

@@ -22,7 +22,8 @@ namespace VocesDePapelV1._1.Presenters
         private bool busquedaRealizada = false;
 
         //constructor
-        public ReporteProductoPresenter(IGerenteReporteLibroStock view, IProductoRepository repository)
+        public ReporteProductoPresenter(IGerenteReporteLibroStock view, 
+            IProductoRepository repository)
         {
             this.view = view;
             this.repository = repository;

@@ -20,6 +20,7 @@ namespace VocesDePapelV1._1.Presenters
         private UsuarioPresenter usuarioPresenter;
         private BackupPresenter backupPresenter;
         private ReporteProductoPresenter reporteProductoPresenter;
+        private ReporteLibroMasVendidosPresenter reporteLibroMasVendidosPresenter;
 
         //un campo de solo lectura para la cadena de conexion
         private readonly string connectionString;
@@ -47,19 +48,26 @@ namespace VocesDePapelV1._1.Presenters
 
         private void ShowReporteLibroMasVendidosView(object? sender, EventArgs e)
         {
-            IGerenteReporteLibroMasVendidos backupView = GerenteViewReporteLibroMasVendidos.GetInstance((GerenteView)this.view); // muestra solo una instancia de la vista de usuario
-
-            new ReporteLibroMasVendidosPresenter(backupView);
+            IGerenteReporteLibroMasVendidos view = GerenteViewReporteLibroMasVendidos.GetInstance((GerenteView)this.view); // muestra solo una instancia de la vista de usuario
+           
+            if (reporteLibroMasVendidosPresenter == null)
+            {
+                IProductoRepository repository = new ProductoRepository(connectionString);
+                reporteLibroMasVendidosPresenter = new ReporteLibroMasVendidosPresenter(view, repository);
+            }
+           
         }
 
         private void ShowReporteLibroStockView(object? sender, EventArgs e)
         {
 
-            IGerenteReporteLibroStock backupView = GerenteViewReporteLibroStock.GetInstance((GerenteView)this.view); // muestra solo una instancia de la vista de usuario
-            if(reporteProductoPresenter == null)
+            IGerenteReporteLibroStock view = GerenteViewReporteLibroStock.GetInstance((GerenteView)this.view); // muestra solo una instancia de la vista de usuario
+            
+            if (reporteProductoPresenter == null)
             {
                 IProductoRepository repository = new ProductoRepository(connectionString);
-                reporteProductoPresenter = new ReporteProductoPresenter(backupView, repository);
+                
+                reporteProductoPresenter = new ReporteProductoPresenter(view, repository);
             }
         }
 
