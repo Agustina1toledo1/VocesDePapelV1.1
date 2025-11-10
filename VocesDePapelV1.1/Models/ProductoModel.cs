@@ -85,5 +85,7 @@ namespace VocesDePapelV1._1.Models
 
         [DisplayName("Nombre autor ")]
         public string Nombre_autor { get; set; }
+
+        public int TotalVendido { get; set; }
     }
 }

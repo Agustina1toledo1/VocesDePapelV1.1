@@ -31,7 +31,7 @@ namespace VocesDePapelV1._1.Views
             AddSearchItems(new string[] { "Titulo", "Categoria" });
 
             
-            btn_guardar_usuario.Click += delegate
+            btn_guardar_producto.Click += delegate
             {
                 SaveEvent?.Invoke(this, EventArgs.Empty);
                 //MessageBox.Show(Message);

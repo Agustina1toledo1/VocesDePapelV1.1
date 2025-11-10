@@ -159,17 +159,19 @@ namespace VocesDePapelV1._1.Presenters
             {
                 // Obtener y validar los datos
                 var cliente = GetClienteDataFromView();
-                new Common.ModelDataValidation().Validate(cliente);
+                
 
                 // Determinar la operación (Add o Edit)
                 if (view.IsEdit)
                 {
+                    new Common.ModelDataValidation().Validate(cliente);
                     repository.Modificar(cliente);
                     view.Message = "Cliente modificado exitosamente.";
                     view.IsSuccessful = true;
                 }
                 else
                 {
+                    new Common.ModelDataValidation().Validate(cliente);
                     repository.Add(cliente);
                     view.Message = "Cliente agregado exitosamente.";
                     view.IsSuccessful = true;

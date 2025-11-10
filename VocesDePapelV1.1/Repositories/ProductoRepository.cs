@@ -437,5 +437,122 @@ namespace VocesDePapelV1._1.Repositories
 
 
         }
+
+        public IEnumerable<ProductoModel> GetMasVendidos(DateTime fechaInicio, DateTime fechaFin, int cantidad)
+        {
+            var listaProductos = new List<ProductoModel>();
+
+            using (var connection = new Microsoft.Data.SqlClient.SqlConnection(connectionString))
+            using (var command = new Microsoft.Data.SqlClient.SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = @"SELECT TOP(@cantidad) 
+                                            l.id_libro,
+                                            l.titulo,
+                                            l.editorial,
+                                            l.precio,
+                                            l.stock,
+                                            l.eliminado,    
+                                            l.id_categoria, 
+                                            l.id_autor,
+                                            e.nombre_estado,
+                                            c.nombre_categoria, 
+                                            a.alias_autor ,     
+                                            SUM(vd.cantidad) AS TotalVendido
+                                        FROM detalle_venta vd
+                                        INNER JOIN libro l ON vd.id_libro = l.id_libro
+                                        INNER JOIN venta_cabecera vc ON vd.id_venta_cabecera = vc.id_venta_cabecera
+                                        INNER JOIN estado e ON l.eliminado = e.id_estado
+                                        INNER JOIN categoria c ON l.id_categoria = c.id_categoria
+                                        INNER JOIN autor a ON l.id_autor = a.id_autor       
+                                        WHERE vc.fecha_hora BETWEEN @fechaInicio AND @fechaFin
+                                        GROUP BY l.id_libro, l.titulo, l.editorial, l.precio, l.stock, 
+                                                    l.eliminado, l.id_categoria, l.id_autor, e.nombre_estado, 
+                                                    c.nombre_categoria, a.alias_autor
+                                        ORDER BY TotalVendido DESC;";
+                command.Parameters.Add("@cantidad", SqlDbType.Int).Value = cantidad;
+                command.Parameters.Add("@fechaInicio", SqlDbType.DateTime).Value = fechaInicio;
+                command.Parameters.Add("@fechaFin", SqlDbType.DateTime).Value = fechaFin;
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var producto = new ProductoModel
+                        {
+                            Id_libro = Convert.ToInt32(reader["id_libro"]),
+                            Titulo = reader["titulo"].ToString(),
+                            Editorial = reader["editorial"].ToString(),
+                            Precio = Convert.ToDecimal(reader["precio"]),
+                            Stock = Convert.ToInt32(reader["stock"]),
+                            Eliminado_id = Convert.ToInt32(reader["eliminado"]),
+                            Id_categoria = Convert.ToInt32(reader["id_categoria"]),
+                            Id_autor = Convert.ToInt32(reader["id_autor"]),
+                            Nombre_autor = reader["alias_autor"].ToString(),
+                            Nombre_categoria = reader["nombre_categoria"].ToString(),
+                            Nombre_estado = reader["nombre_estado"].ToString(),
+                            TotalVendido = Convert.ToInt32(reader["TotalVendido"])
+                        };
+                        listaProductos.Add(producto);
+                    }
+                }
+                
+            }
+            return listaProductos;
+
+        }
+        public (string Categoria, int TotalVendidos) GetCategoriaMasVendida(DateTime fechaInicio, DateTime fechaFin)
+        {
+            using (var connection = new Microsoft.Data.SqlClient.SqlConnection(connectionString))
+            using (var command = new Microsoft.Data.SqlClient.SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = @"
+            SELECT TOP 1 
+                c.nombre_categoria AS Categoria,
+                SUM(vd.cantidad) AS TotalVendidos
+            FROM detalle_venta vd
+            INNER JOIN libro l ON vd.id_libro = l.id_libro
+            INNER JOIN venta_cabecera vc ON vd.id_venta_cabecera = vc.id_venta_cabecera
+            INNER JOIN categoria c ON l.id_categoria = c.id_categoria
+            WHERE vc.fecha_hora BETWEEN @fechaInicio AND @fechaFin
+            GROUP BY c.nombre_categoria
+            ORDER BY TotalVendidos DESC;";
+
+                command.Parameters.Add("@fechaInicio", SqlDbType.DateTime).Value = fechaInicio;
+                command.Parameters.Add("@fechaFin", SqlDbType.DateTime).Value = fechaFin;
+
+                using (var reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        return (reader["Categoria"].ToString(), Convert.ToInt32(reader["TotalVendidos"]));
+                    }
+                }
+            }
+            return (string.Empty, 0);
+        }
+        public decimal GetTotalRecaudado(DateTime fechaInicio, DateTime fechaFin)
+        {
+            using (var connection = new Microsoft.Data.SqlClient.SqlConnection(connectionString))
+            using (var command = new Microsoft.Data.SqlClient.SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = @"
+            SELECT SUM(vd.cantidad * vd.precio_unitario) AS TotalRecaudado
+            FROM detalle_venta vd
+            INNER JOIN venta_cabecera vc ON vd.id_venta_cabecera = vc.id_venta_cabecera
+            WHERE vc.fecha_hora BETWEEN @fechaInicio AND @fechaFin;";
+
+                command.Parameters.Add("@fechaInicio", SqlDbType.DateTime).Value = fechaInicio;
+                command.Parameters.Add("@fechaFin", SqlDbType.DateTime).Value = fechaFin;
+
+                var result = command.ExecuteScalar();
+                return result != DBNull.Value ? Convert.ToDecimal(result) : 0m;
+            }
+        }
+
     }
 }

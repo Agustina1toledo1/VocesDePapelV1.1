@@ -30,28 +30,29 @@
         {
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            dataGridView1 = new DataGridView();
-            cantidad_vendida = new DataGridViewTextBoxColumn();
-            titulo = new DataGridViewTextBoxColumn();
-            editorial = new DataGridViewTextBoxColumn();
-            id_libro = new DataGridViewTextBoxColumn();
-            precio = new DataGridViewTextBoxColumn();
-            stock = new DataGridViewTextBoxColumn();
-            estado = new DataGridViewTextBoxColumn();
-            categoria = new DataGridViewTextBoxColumn();
+            dGVReporteLibroMV = new DataGridView();
             label2 = new Label();
-            label1 = new Label();
-            dateTimePicker2 = new DateTimePicker();
-            label4 = new Label();
-            label3 = new Label();
-            dateTimePicker1 = new DateTimePicker();
-            btn_modificar_usuario = new Button();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            lReporteLibroMV = new Label();
+            dTPFechaFinReporteLibroMV = new DateTimePicker();
+            lFechaFinRLMV = new Label();
+            lFechaInicioRLMV = new Label();
+            dTPFechaInicioReporteLibroMV = new DateTimePicker();
+            btn_generar_pdf_reporteLibroMV = new Button();
+            btnBuscarReporteLibroMV = new Button();
+            lCantidadReporteLibroMV = new Label();
+            txtBCatidadReporteLibroMV = new TextBox();
+            grpEstadisticas = new GroupBox();
+            lCategoriaMVTxt = new Label();
+            lCategoriaMV = new Label();
+            lblTotal = new Label();
+            lTotalVentasMV = new Label();
+            ((System.ComponentModel.ISupportInitialize)dGVReporteLibroMV).BeginInit();
+            grpEstadisticas.SuspendLayout();
             SuspendLayout();
             // 
-            // dataGridView1
+            // dGVReporteLibroMV
             // 
-            dataGridView1.AllowUserToAddRows = false;
+            dGVReporteLibroMV.AllowUserToAddRows = false;
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = SystemColors.Control;
             dataGridViewCellStyle1.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -60,84 +61,18 @@
             dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { cantidad_vendida, titulo, editorial, id_libro, precio, stock, estado, categoria });
-            dataGridView1.Location = new Point(219, 136);
-            dataGridView1.MultiSelect = false;
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.ReadOnly = true;
-            dataGridView1.RowHeadersWidth = 51;
+            dGVReporteLibroMV.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dGVReporteLibroMV.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dGVReporteLibroMV.Location = new Point(219, 214);
+            dGVReporteLibroMV.MultiSelect = false;
+            dGVReporteLibroMV.Name = "dGVReporteLibroMV";
+            dGVReporteLibroMV.ReadOnly = true;
+            dGVReporteLibroMV.RowHeadersWidth = 51;
             dataGridViewCellStyle2.SelectionBackColor = Color.White;
             dataGridViewCellStyle2.SelectionForeColor = Color.Black;
-            dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle2;
-            dataGridView1.Size = new Size(929, 564);
-            dataGridView1.TabIndex = 39;
-            // 
-            // cantidad_vendida
-            // 
-            cantidad_vendida.HeaderText = "Cantidad Vendida";
-            cantidad_vendida.MinimumWidth = 6;
-            cantidad_vendida.Name = "cantidad_vendida";
-            cantidad_vendida.ReadOnly = true;
-            cantidad_vendida.Width = 125;
-            // 
-            // titulo
-            // 
-            titulo.HeaderText = "Título";
-            titulo.MinimumWidth = 6;
-            titulo.Name = "titulo";
-            titulo.ReadOnly = true;
-            titulo.Width = 125;
-            // 
-            // editorial
-            // 
-            editorial.HeaderText = "Editorial";
-            editorial.MinimumWidth = 6;
-            editorial.Name = "editorial";
-            editorial.ReadOnly = true;
-            editorial.Width = 125;
-            // 
-            // id_libro
-            // 
-            id_libro.HeaderText = "id_libro";
-            id_libro.MinimumWidth = 6;
-            id_libro.Name = "id_libro";
-            id_libro.ReadOnly = true;
-            id_libro.Visible = false;
-            id_libro.Width = 125;
-            // 
-            // precio
-            // 
-            precio.HeaderText = "Precio";
-            precio.MinimumWidth = 6;
-            precio.Name = "precio";
-            precio.ReadOnly = true;
-            precio.Width = 125;
-            // 
-            // stock
-            // 
-            stock.HeaderText = "Stock";
-            stock.MinimumWidth = 6;
-            stock.Name = "stock";
-            stock.ReadOnly = true;
-            stock.Width = 125;
-            // 
-            // estado
-            // 
-            estado.HeaderText = "Estado";
-            estado.MinimumWidth = 6;
-            estado.Name = "estado";
-            estado.ReadOnly = true;
-            estado.Width = 125;
-            // 
-            // categoria
-            // 
-            categoria.HeaderText = "Categoria";
-            categoria.MinimumWidth = 6;
-            categoria.Name = "categoria";
-            categoria.ReadOnly = true;
-            categoria.Width = 125;
+            dGVReporteLibroMV.RowsDefaultCellStyle = dataGridViewCellStyle2;
+            dGVReporteLibroMV.Size = new Size(929, 329);
+            dGVReporteLibroMV.TabIndex = 39;
             // 
             // label2
             // 
@@ -150,63 +85,150 @@
             label2.TabIndex = 76;
             label2.Text = "Reporte de libros más vendidos";
             // 
-            // label1
+            // lReporteLibroMV
             // 
-            label1.BackColor = Color.White;
-            label1.Dock = DockStyle.Top;
-            label1.Location = new Point(0, 0);
-            label1.Name = "label1";
-            label1.Size = new Size(1340, 106);
-            label1.TabIndex = 75;
+            lReporteLibroMV.BackColor = Color.White;
+            lReporteLibroMV.Dock = DockStyle.Top;
+            lReporteLibroMV.Location = new Point(0, 0);
+            lReporteLibroMV.Name = "lReporteLibroMV";
+            lReporteLibroMV.Size = new Size(1340, 106);
+            lReporteLibroMV.TabIndex = 75;
             // 
-            // dateTimePicker2
+            // dTPFechaFinReporteLibroMV
             // 
-            dateTimePicker2.Format = DateTimePickerFormat.Short;
-            dateTimePicker2.Location = new Point(694, 63);
-            dateTimePicker2.Name = "dateTimePicker2";
-            dateTimePicker2.Size = new Size(155, 27);
-            dateTimePicker2.TabIndex = 80;
+            dTPFechaFinReporteLibroMV.Format = DateTimePickerFormat.Short;
+            dTPFechaFinReporteLibroMV.Location = new Point(922, 61);
+            dTPFechaFinReporteLibroMV.Name = "dTPFechaFinReporteLibroMV";
+            dTPFechaFinReporteLibroMV.Size = new Size(155, 27);
+            dTPFechaFinReporteLibroMV.TabIndex = 80;
             // 
-            // label4
+            // lFechaFinRLMV
             // 
-            label4.AutoSize = true;
-            label4.BackColor = Color.White;
-            label4.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label4.Location = new Point(554, 57);
-            label4.Name = "label4";
-            label4.Size = new Size(105, 31);
-            label4.TabIndex = 79;
-            label4.Text = "Fecha fin";
+            lFechaFinRLMV.AutoSize = true;
+            lFechaFinRLMV.BackColor = Color.White;
+            lFechaFinRLMV.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lFechaFinRLMV.Location = new Point(782, 55);
+            lFechaFinRLMV.Name = "lFechaFinRLMV";
+            lFechaFinRLMV.Size = new Size(105, 31);
+            lFechaFinRLMV.TabIndex = 79;
+            lFechaFinRLMV.Text = "Fecha fin";
             // 
-            // label3
+            // lFechaInicioRLMV
             // 
-            label3.AutoSize = true;
-            label3.BackColor = Color.White;
-            label3.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label3.Location = new Point(554, 26);
-            label3.Name = "label3";
-            label3.Size = new Size(134, 31);
-            label3.TabIndex = 78;
-            label3.Text = "Fecha inicio";
+            lFechaInicioRLMV.AutoSize = true;
+            lFechaInicioRLMV.BackColor = Color.White;
+            lFechaInicioRLMV.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lFechaInicioRLMV.Location = new Point(782, 24);
+            lFechaInicioRLMV.Name = "lFechaInicioRLMV";
+            lFechaInicioRLMV.Size = new Size(134, 31);
+            lFechaInicioRLMV.TabIndex = 78;
+            lFechaInicioRLMV.Text = "Fecha inicio";
             // 
-            // dateTimePicker1
+            // dTPFechaInicioReporteLibroMV
             // 
-            dateTimePicker1.Format = DateTimePickerFormat.Short;
-            dateTimePicker1.Location = new Point(694, 30);
-            dateTimePicker1.Name = "dateTimePicker1";
-            dateTimePicker1.Size = new Size(155, 27);
-            dateTimePicker1.TabIndex = 77;
+            dTPFechaInicioReporteLibroMV.Format = DateTimePickerFormat.Short;
+            dTPFechaInicioReporteLibroMV.Location = new Point(922, 28);
+            dTPFechaInicioReporteLibroMV.Name = "dTPFechaInicioReporteLibroMV";
+            dTPFechaInicioReporteLibroMV.Size = new Size(155, 27);
+            dTPFechaInicioReporteLibroMV.TabIndex = 77;
             // 
-            // btn_modificar_usuario
+            // btn_generar_pdf_reporteLibroMV
             // 
-            btn_modificar_usuario.BackColor = Color.FromArgb(255, 192, 128);
-            btn_modificar_usuario.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btn_modificar_usuario.Location = new Point(1154, 136);
-            btn_modificar_usuario.Name = "btn_modificar_usuario";
-            btn_modificar_usuario.Size = new Size(169, 43);
-            btn_modificar_usuario.TabIndex = 91;
-            btn_modificar_usuario.Text = "Generar excel";
-            btn_modificar_usuario.UseVisualStyleBackColor = false;
+            btn_generar_pdf_reporteLibroMV.BackColor = Color.FromArgb(255, 192, 128);
+            btn_generar_pdf_reporteLibroMV.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btn_generar_pdf_reporteLibroMV.Location = new Point(1154, 213);
+            btn_generar_pdf_reporteLibroMV.Name = "btn_generar_pdf_reporteLibroMV";
+            btn_generar_pdf_reporteLibroMV.Size = new Size(169, 43);
+            btn_generar_pdf_reporteLibroMV.TabIndex = 91;
+            btn_generar_pdf_reporteLibroMV.Text = "Generar PDF";
+            btn_generar_pdf_reporteLibroMV.UseVisualStyleBackColor = false;
+            // 
+            // btnBuscarReporteLibroMV
+            // 
+            btnBuscarReporteLibroMV.BackColor = SystemColors.GradientActiveCaption;
+            btnBuscarReporteLibroMV.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            btnBuscarReporteLibroMV.Location = new Point(1154, 30);
+            btnBuscarReporteLibroMV.Name = "btnBuscarReporteLibroMV";
+            btnBuscarReporteLibroMV.Size = new Size(110, 40);
+            btnBuscarReporteLibroMV.TabIndex = 92;
+            btnBuscarReporteLibroMV.Text = "Buscar";
+            btnBuscarReporteLibroMV.UseVisualStyleBackColor = false;
+            // 
+            // lCantidadReporteLibroMV
+            // 
+            lCantidadReporteLibroMV.AutoSize = true;
+            lCantidadReporteLibroMV.BackColor = Color.White;
+            lCantidadReporteLibroMV.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lCantidadReporteLibroMV.Location = new Point(591, 24);
+            lCantidadReporteLibroMV.Name = "lCantidadReporteLibroMV";
+            lCantidadReporteLibroMV.Size = new Size(107, 31);
+            lCantidadReporteLibroMV.TabIndex = 93;
+            lCantidadReporteLibroMV.Text = "Cantidad";
+            // 
+            // txtBCatidadReporteLibroMV
+            // 
+            txtBCatidadReporteLibroMV.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtBCatidadReporteLibroMV.Location = new Point(591, 57);
+            txtBCatidadReporteLibroMV.Name = "txtBCatidadReporteLibroMV";
+            txtBCatidadReporteLibroMV.Size = new Size(125, 34);
+            txtBCatidadReporteLibroMV.TabIndex = 94;
+            // 
+            // grpEstadisticas
+            // 
+            grpEstadisticas.Controls.Add(lCategoriaMVTxt);
+            grpEstadisticas.Controls.Add(lCategoriaMV);
+            grpEstadisticas.Controls.Add(lblTotal);
+            grpEstadisticas.Controls.Add(lTotalVentasMV);
+            grpEstadisticas.Dock = DockStyle.Top;
+            grpEstadisticas.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            grpEstadisticas.Location = new Point(0, 106);
+            grpEstadisticas.Name = "grpEstadisticas";
+            grpEstadisticas.Size = new Size(1340, 80);
+            grpEstadisticas.TabIndex = 95;
+            grpEstadisticas.TabStop = false;
+            grpEstadisticas.Text = "Estadísticas del Período";
+            // 
+            // lCategoriaMVTxt
+            // 
+            lCategoriaMVTxt.AutoSize = true;
+            lCategoriaMVTxt.BackColor = SystemColors.ActiveCaption;
+            lCategoriaMVTxt.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            lCategoriaMVTxt.ForeColor = Color.Red;
+            lCategoriaMVTxt.Location = new Point(725, 35);
+            lCategoriaMVTxt.Name = "lCategoriaMVTxt";
+            lCategoriaMVTxt.Size = new Size(235, 28);
+            lCategoriaMVTxt.TabIndex = 5;
+            lCategoriaMVTxt.Text = "Categoria Más Vendida:";
+            // 
+            // lCategoriaMV
+            // 
+            lCategoriaMV.BorderStyle = BorderStyle.Fixed3D;
+            lCategoriaMV.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lCategoriaMV.ForeColor = Color.Blue;
+            lCategoriaMV.Location = new Point(980, 35);
+            lCategoriaMV.Name = "lCategoriaMV";
+            lCategoriaMV.Size = new Size(343, 31);
+            lCategoriaMV.TabIndex = 4;
+            // 
+            // lblTotal
+            // 
+            lblTotal.AutoSize = true;
+            lblTotal.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            lblTotal.Location = new Point(218, 35);
+            lblTotal.Name = "lblTotal";
+            lblTotal.Size = new Size(133, 28);
+            lblTotal.TabIndex = 1;
+            lblTotal.Text = "Total Ventas:";
+            // 
+            // lTotalVentasMV
+            // 
+            lTotalVentasMV.BorderStyle = BorderStyle.Fixed3D;
+            lTotalVentasMV.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lTotalVentasMV.ForeColor = Color.Red;
+            lTotalVentasMV.Location = new Point(364, 35);
+            lTotalVentasMV.Name = "lTotalVentasMV";
+            lTotalVentasMV.Size = new Size(194, 31);
+            lTotalVentasMV.TabIndex = 0;
             // 
             // GerenteViewReporteLibroMasVendidos
             // 
@@ -214,38 +236,44 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveCaption;
             ClientSize = new Size(1340, 781);
-            Controls.Add(btn_modificar_usuario);
-            Controls.Add(dateTimePicker2);
-            Controls.Add(label4);
-            Controls.Add(label3);
-            Controls.Add(dateTimePicker1);
+            Controls.Add(grpEstadisticas);
+            Controls.Add(txtBCatidadReporteLibroMV);
+            Controls.Add(lCantidadReporteLibroMV);
+            Controls.Add(btnBuscarReporteLibroMV);
+            Controls.Add(btn_generar_pdf_reporteLibroMV);
+            Controls.Add(dTPFechaFinReporteLibroMV);
+            Controls.Add(lFechaFinRLMV);
+            Controls.Add(lFechaInicioRLMV);
+            Controls.Add(dTPFechaInicioReporteLibroMV);
             Controls.Add(label2);
-            Controls.Add(label1);
-            Controls.Add(dataGridView1);
+            Controls.Add(lReporteLibroMV);
+            Controls.Add(dGVReporteLibroMV);
             Name = "GerenteViewReporteLibroMasVendidos";
             Text = "GerenteViewReporteLibroMasVendidos";
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dGVReporteLibroMV).EndInit();
+            grpEstadisticas.ResumeLayout(false);
+            grpEstadisticas.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private DataGridView dataGridView1;
+        private DataGridView dGVReporteLibroMV;
         private Label label2;
-        private Label label1;
-        private DataGridViewTextBoxColumn cantidad_vendida;
-        private DataGridViewTextBoxColumn titulo;
-        private DataGridViewTextBoxColumn editorial;
-        private DataGridViewTextBoxColumn id_libro;
-        private DataGridViewTextBoxColumn precio;
-        private DataGridViewTextBoxColumn stock;
-        private DataGridViewTextBoxColumn estado;
-        private DataGridViewTextBoxColumn categoria;
-        private DateTimePicker dateTimePicker2;
-        private Label label4;
-        private Label label3;
-        private DateTimePicker dateTimePicker1;
-        private Button btn_modificar_usuario;
+        private Label lReporteLibroMV;
+        private DateTimePicker dTPFechaFinReporteLibroMV;
+        private Label lFechaFinRLMV;
+        private Label lFechaInicioRLMV;
+        private DateTimePicker dTPFechaInicioReporteLibroMV;
+        private Button btn_generar_pdf_reporteLibroMV;
+        private Button btnBuscarReporteLibroMV;
+        private Label lCantidadReporteLibroMV;
+        private TextBox txtBCatidadReporteLibroMV;
+        private GroupBox grpEstadisticas;
+        private Label lCategoriaMVTxt;
+        private Label lCategoriaMV;
+        private Label lblTotal;
+        private Label lTotalVentasMV;
     }
 }
