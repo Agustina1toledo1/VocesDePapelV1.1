@@ -21,6 +21,7 @@ namespace VocesDePapelV1._1.Presenters
         private CategoriaAmdinPresenter categoriaPresenter;
         private ReporteProductoPresenter reporteProductoPresenter;
         private ReporteLibroMasVendidosPresenter reporteLibroMasVendidosPresenter;
+        private ReporteVentasPresenter reportePresenter;
         public AdministradorPresenter(IAdministradorView view, string connectionString)
         {
             this.view = view;
@@ -95,10 +96,12 @@ namespace VocesDePapelV1._1.Presenters
         private void ShowReporteVentaView(object? sender, EventArgs e)
         {
             IGerenteViewReporteVentas reporteView = ReporteVentasView.GetInstance((AdministradorView)this.view);
-            IVentaReporteRepository repository = new VentaReporteRepository(connectionString);
-            new ReporteVentasPresenter(reporteView, repository, false, null);
-        
-          
+            if(reportePresenter == null)
+            {
+                IVentaReporteRepository repository = new VentaReporteRepository(connectionString);
+                reportePresenter =new ReporteVentasPresenter(reporteView, repository, false, null);
+            }
+            
         }
 
         private void ShowProductoView(object? sender, EventArgs e)
