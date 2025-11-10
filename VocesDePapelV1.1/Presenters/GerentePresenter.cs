@@ -21,6 +21,7 @@ namespace VocesDePapelV1._1.Presenters
         private BackupPresenter backupPresenter;
         private ReporteProductoPresenter reporteProductoPresenter;
         private ReporteLibroMasVendidosPresenter reporteLibroMasVendidosPresenter;
+        private ReporteVentasPresenter reportePresenter;
 
         //un campo de solo lectura para la cadena de conexion
         private readonly string connectionString;
@@ -73,10 +74,12 @@ namespace VocesDePapelV1._1.Presenters
 
         private void ShowReporteVentaView(object? sender, EventArgs e)
         {
-            
             IGerenteViewReporteVentas reporteView = ReporteVentasView.GetInstance2((GerenteView)this.view);
-            IVentaReporteRepository repository = new VentaReporteRepository(connectionString);
-            new ReporteVentasPresenter(reporteView, repository, false, null);
+            if (reportePresenter == null)
+            {
+                IVentaReporteRepository repository = new VentaReporteRepository(connectionString);
+                new ReporteVentasPresenter(reporteView, repository, false, null);
+            }
         }
 
         private void ShowUsuariosView(object? sender, EventArgs e)

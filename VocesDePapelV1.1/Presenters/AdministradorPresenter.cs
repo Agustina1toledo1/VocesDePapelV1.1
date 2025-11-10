@@ -95,7 +95,7 @@ namespace VocesDePapelV1._1.Presenters
 
         private void ShowReporteVentaView(object? sender, EventArgs e)
         {
-            IGerenteViewReporteVentas reporteView = ReporteVentasView.GetInstance((AdministradorView)this.view);
+            IGerenteViewReporteVentas reporteView = ReporteVentasView.GetInstance2((AdministradorView)this.view);
             if(reportePresenter == null)
             {
                 IVentaReporteRepository repository = new VentaReporteRepository(connectionString);
