@@ -73,7 +73,7 @@ namespace VocesDePapelV1._1.Presenters
                 }
 
                 // Consultar repositorio
-                productoFiltradoList = repository.GetMasVendidos(fechaInicio, fechaFinValorAjustado, cantTotal);
+                productoFiltradoList = repository.GetMasVendidos(fechaInicio, fechaFinValorAjustado, 10);
                 productoFiltradoBildindSource.DataSource = productoFiltradoList;
                 this.view.SetLibroMasVendidoListBindingSource(productoFiltradoBildindSource);
                 // categoría más vendida

@@ -39,7 +39,6 @@
             dTPFechaInicioReporteLibroMV = new DateTimePicker();
             btn_generar_pdf_reporteLibroMV = new Button();
             btnBuscarReporteLibroMV = new Button();
-            lCantidadReporteLibroMV = new Label();
             txtBCatidadReporteLibroMV = new TextBox();
             grpEstadisticas = new GroupBox();
             lCategoriaMVTxt = new Label();
@@ -81,9 +80,9 @@
             label2.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label2.Location = new Point(32, 26);
             label2.Name = "label2";
-            label2.Size = new Size(429, 38);
+            label2.Size = new Size(514, 38);
             label2.TabIndex = 76;
-            label2.Text = "Reporte de libros más vendidos";
+            label2.Text = "Reporte de los 10 libros más vendidos";
             // 
             // lReporteLibroMV
             // 
@@ -154,24 +153,16 @@
             btnBuscarReporteLibroMV.Text = "Buscar";
             btnBuscarReporteLibroMV.UseVisualStyleBackColor = false;
             // 
-            // lCantidadReporteLibroMV
-            // 
-            lCantidadReporteLibroMV.AutoSize = true;
-            lCantidadReporteLibroMV.BackColor = Color.White;
-            lCantidadReporteLibroMV.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lCantidadReporteLibroMV.Location = new Point(591, 24);
-            lCantidadReporteLibroMV.Name = "lCantidadReporteLibroMV";
-            lCantidadReporteLibroMV.Size = new Size(107, 31);
-            lCantidadReporteLibroMV.TabIndex = 93;
-            lCantidadReporteLibroMV.Text = "Cantidad";
-            // 
             // txtBCatidadReporteLibroMV
             // 
+            txtBCatidadReporteLibroMV.BorderStyle = BorderStyle.None;
             txtBCatidadReporteLibroMV.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtBCatidadReporteLibroMV.Location = new Point(591, 57);
+            txtBCatidadReporteLibroMV.ForeColor = SystemColors.Window;
+            txtBCatidadReporteLibroMV.Location = new Point(32, 72);
             txtBCatidadReporteLibroMV.Name = "txtBCatidadReporteLibroMV";
-            txtBCatidadReporteLibroMV.Size = new Size(125, 34);
+            txtBCatidadReporteLibroMV.Size = new Size(125, 27);
             txtBCatidadReporteLibroMV.TabIndex = 94;
+            txtBCatidadReporteLibroMV.Text = "10";
             // 
             // grpEstadisticas
             // 
@@ -238,7 +229,6 @@
             ClientSize = new Size(1340, 781);
             Controls.Add(grpEstadisticas);
             Controls.Add(txtBCatidadReporteLibroMV);
-            Controls.Add(lCantidadReporteLibroMV);
             Controls.Add(btnBuscarReporteLibroMV);
             Controls.Add(btn_generar_pdf_reporteLibroMV);
             Controls.Add(dTPFechaFinReporteLibroMV);
@@ -268,7 +258,6 @@
         private DateTimePicker dTPFechaInicioReporteLibroMV;
         private Button btn_generar_pdf_reporteLibroMV;
         private Button btnBuscarReporteLibroMV;
-        private Label lCantidadReporteLibroMV;
         private TextBox txtBCatidadReporteLibroMV;
         private GroupBox grpEstadisticas;
         private Label lCategoriaMVTxt;
